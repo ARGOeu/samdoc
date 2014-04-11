@@ -1,0 +1,7 @@
+[dag]
+name=DAG (http://dag.wieers.com) add-on packages, no formal support from CERN
+baseurl=http://linuxsoft.cern.ch/dag/redhat/el5/en/$basearch/dag
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dag
+gpgcheck=1
+enabled=0
+protect=0

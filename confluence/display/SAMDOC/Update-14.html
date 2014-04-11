@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-14</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-14
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Oct 11, 2011 by <font color="#0050B2">wlapka</font>.
+				    </div>
+
+				    <h1><a name="Update-14-Release%3A"></a>Release: Update-14</h1>
+
+<div>
+<ul>
+    <li><a href='#Update-14-Release%3A'>Release: Update-14</a></li>
+<ul>
+    <li><a href='#Update-14-Summary'>Summary</a></li>
+    <li><a href='#Update-14-ValidationStepsperformed'>Validation Steps performed</a></li>
+    <li><a href='#Update-14-Listofpackagesupdatedinthisrelease'>List of packages updated in this release</a></li>
+<ul>
+    <li><a href='#Update-14-Nodesamnagios%28previouslyegeeNAGIOS%29'>Node sam-nagios (previously egee-NAGIOS)</a></li>
+    <li><a href='#Update-14-Nodesamgridmon%28previouslyegeeNAGIOSWEB%29'>Node sam-gridmon (previously egee-NAGIOS-WEB)</a></li>
+</ul>
+    <li><a href='#Update-14-ReleaseNotes'>Release Notes</a></li>
+    <li><a href='#Update-14-KnownIssues'>Known Issues</a></li>
+    <li><a href='#Update-14-ListofIssuesfixedinthisrelease'>List of Issues fixed in this release</a></li>
+</ul>
+</ul></div>
+
+<h2><a name="Update-14-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 22 August 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 23 September 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="red">Released</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 23 September 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-14-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<p>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-1886">SAM-1886</a></p>
+<ul>
+	<li>Announced for Stage Rollout - 28 September 2011</li>
+	<li>Cleared staged rollout - 07 October 2011
+	<ul>
+		<li>Early Adopter Report - <a href="https://documents.egi.eu/public/ShowDocument?docid=823">Update-14 EA Report</a></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Update-14-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+<h3><a name="Update-14-Nodesamnagios%28previouslyegeeNAGIOS%29"></a>Node sam-nagios (previously egee-NAGIOS)</h3>
+
+<p>Obsoleted package:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>egee-NAGIOS
+</pre>
+</div></div>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.19.6-1.el5
+atp-web-1.19.6-1.el5
+glite-yaim-nagios-1.5.7-1.el5
+mywlcg-0.0.3-6.el5
+nagios2metricstore-1.2.3-1.el5
+grid-monitoring-config-gen-0.82.4-1.el5
+grid-monitoring-probes-ch.cern.sam-1.4.0-1.el5
+grid-monitoring-probes-org.sam-0.3.1-1.el5
+grid-monitoring-probes-org.sam.sec-0.3.6-1.el5
+sam-nagios-1.14.0-2.el5
+sam-release-1.14.0-1.el5
+mddb-1.0.13-1.el5
+mddb-parser-1.0.13-1.el5
+mddb-synchronizer-1.0.13-1.el5
+</pre>
+</div></div>
+
+<p>New dependency (from os base):</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>nmap
+</pre>
+</div></div>
+
+<h3><a name="Update-14-Nodesamgridmon%28previouslyegeeNAGIOSWEB%29"></a>Node sam-gridmon (previously egee-NAGIOS-WEB)</h3>
+
+<p>Obsoleted package:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>egee-NAGIOS-WEB
+</pre>
+</div></div>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ace-0.1.11-2.el5
+atp-1.19.6-1.el5
+atp-web-1.19.6-1.el5
+glite-yaim-nagios-1.5.7-1.el5
+mywlcg-0.0.3-6.el5
+nagios2metricstore-1.2.3-1.el5
+poem-0.6.1-1.el5
+sam-gridmon-1.14.0-1.el5
+sam-release-1.14.0-1.el5
+</pre>
+</div></div>
+
+<h2><a name="Update-14-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>New metapackages
+	<ul>
+		<li>sam-nagios (replaces egee-NAGIOS)</li>
+		<li>sam-gridmon (replaces egee-NAGIOS-WEB)</li>
+	</ul>
+	</li>
+	<li>Removed probe org.sam.WN-CAVer</li>
+	<li><a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring" title="Central Data Warehouse Monitoring">New probes</a> testing Central Metric Results Store</li>
+	<li>MyEGI/MyWLCG
+	<ul>
+		<li>GridMap: Display summary of Logical CPUs, Physical CPUs and HSPEC06 numbers</li>
+		<li>NGI Installations: Support for multiple regions</li>
+		<li>Bug fixes</li>
+		<li>New web services (internal)</li>
+	</ul>
+	</li>
+	<li>ATP
+	<ul>
+		<li>Improvements to VO feeds handling</li>
+		<li>Dismiss GridMap usage</li>
+		<li>Logging improvement</li>
+		<li>Internal cleanup</li>
+	</ul>
+	</li>
+	<li>ACE
+	<ul>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>MRS
+	<ul>
+		<li>Rejection of metric results older than 7 days</li>
+		<li>Purging mechanism in Oracle</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>Integration of UNICORE probes
+	<ul>
+		<li>Additional configuration steps are needed for monitoring UNICORE services: <a href="https://tomtools.cern.ch/confluence/display/SAM/SAM+setup+for+UNICORE+services" title="SAM setup for UNICORE services">SAM setup for UNICORE services</a>.</li>
+	</ul>
+	</li>
+	<li>New YAIM configuration variables (UNICORE support)
+	<ul>
+		<li>Generate configuration and Java truststore used by UNICORE probes (default false)
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ENABLE_UNICORE_PROBES=true</pre>
+</div></div></li>
+		<li>Password used for protecting user credential keystore
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">UNICORE_KEYSTORE_PASS=_UNICORE_KEYSTORE_PASS_</pre>
+</div></div></li>
+		<li>Password used for protecting truststore (if not defined UNICORE_KEYSTORE_PASS will be used)
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">UNICORE_TRUSTSTORE_PASS=_UNICORE_TRUSTSTORE_PASS_</pre>
+</div></div></li>
+		<li>Alias of user credential (default: mon-agent)
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">UNICORE_KEYSTORE_ALIAS=mon-agent</pre>
+</div></div></li>
+	</ul>
+	</li>
+	<li>Modification of YAIM configuration variables
+	<ul>
+		<li>The declaration of VO feeds for ATP is no longer done in "NCG_VO" variable but instead using:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ATP_VO_FEEDS=&quot;&amp;lt;list of VOs&amp;gt;&quot;
+ATP_VO_FEED_&amp;lt;vo1&amp;gt;=&quot;&amp;lt;vo feed url&amp;gt;&quot;
+ATP_VO_FEED_&amp;lt;vo2&amp;gt;=&quot;&amp;lt;vo feed url&amp;gt;&quot;</pre>
+</div></div></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Update-14-KnownIssues"></a>Known Issues</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>For machines running latest version of glite-UI (3.2.10-1):<br/>
+Please restart Nagios after yaim execution. Otherwise you may see problems similar to <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Due to a type in a ATP mysql procedure all VO SAM-Nagios installation with VO feeds enabled must run the <a href="attachments/18415850/19038209.sql">atp-1.19.6-1_patch.sql</a>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql -u root -D mrs -p &amp;lt; atp-1.19.6-1_patch.sql</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>NCG will print errors:<br/>
+"ERROR: Cannot create UNICORE_LOGS_DIR: /var/log/unicore/&lt;site_servrce_name"<br/>
+Solution: create manually the directory:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mkdir /var/log/unicore</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>It has been noticed that MRS is setting status to CRITICAL instead of MISSING<br/>
+The fix will be released in Update-15 (<a href="https://tomtools.cern.ch/jira/browse/SAM-2009">SAM-2009</a>).<br/>
+To apply the patch, please run <a href="attachments/18415850/19496961.sql">SAM_2009_patch.sql</a>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql -u root -D mrs -p &amp;lt; SAM_2009_patch.sql</pre>
+</div></div></td></tr></table></div>
+
+<h2><a name="Update-14-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/18415850/19038209.sql">atp-1.19.6-1_patch.sql</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/18415850/19496961.sql">SAM_2009_patch.sql</a> (application/octet-stream)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-22</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-22
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jan 14, 2014 by <font color="#0050B2">mbabik</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#Update-22-Summary'>Summary</a></li>
+    <li><a href='#Update-22-Description'>Description</a></li>
+    <li><a href='#Update-22-InstallationandConfiguration'>Installation and Configuration</a></li>
+<ul>
+    <li><a href='#Update-22-SAMNagios'>SAM-Nagios</a></li>
+    <li><a href='#Update-22-SAMGridmon'>SAM-Gridmon</a></li>
+</ul>
+    <li><a href='#Update-22-KnownIssues'>Known Issues</a></li>
+    <li><a href='#Update-22-PackageList'>Package List</a></li>
+<ul>
+    <li><a href='#Update-22-SAMNagioschanges'>SAM-Nagios changes</a></li>
+    <li><a href='#Update-22-SAMGridmonchanges'>SAM-Gridmon changes</a></li>
+</ul>
+    <li><a href='#Update-22-TicketsList'>Tickets List</a></li>
+</ul></div>
+
+<h2><a name="Update-22-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 8 December 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 28 October 2013 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="#008000">Released</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Validation Steps </td>
+<td class='confluenceTd'> <a href="https://tomtools.cern.ch/jira/browse/SAM-3251">SAM-3251</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Validation Status </td>
+<td class='confluenceTd'> <a href="https://rt.egi.eu/rt/Ticket/Display.html?id=6190">Validated</a><br class="atl-forced-newline" /> </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-22-Description"></a>Description</h2>
+
+<p>This release is mainly focused on the integration of EMI probes. In addition it contains several bug fixes identified during the deployment of SAM Update 20.</p>
+
+<p>The following probes were integrated:</p>
+<ul>
+	<li>ARC probes (nordugrid-arc-nagios-plugins-1.6.1-1.rc1.el5)</li>
+	<li>new ARGUS probes (nagios-plugins-argus-1.1.0-2.el5)</li>
+	<li>BDII probes (nagios-plugins-bdii-1.0.14-1.el5)</li>
+	<li>CREAMCE probes (emi-cream-nagios-1.0.1-4.el5.sam)</li>
+	<li>FTS probes (nagios-plugins-fts-1.0.1-1.el5)</li>
+	<li>GLEXEC probe (nagios-plugins-emi.glexec-0.3.0-1.sl5)</li>
+	<li>LFC probes (nagios-plugins-lfc-0.9.5-1.el5)</li>
+	<li>new MPI probes (egi-mpi-nagios-0.0.5-1.el5)</li>
+	<li>SRM probes (emi.dcache.srm-probes-1.0.0-1.el5)</li>
+	<li>UNICORE probes (unicore-nagios-plugins-2.2.1-1.sl5)</li>
+	<li>WMS probes (emi-wms-nagios-3.5.0-3.sl5)</li>
+	<li>WN replication probes (nagios-plugins-wn-rep-1.0.0-1.sl5)</li>
+</ul>
+
+
+<p>The full list of metric changes, is available at: <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/FAQs#FAQs-WhichmetricshavebeenchangedbetweenSAMUpdate20andSAMUpdate22%3F">SAM Doc FAQs </a></p>
+
+<h2><a name="Update-22-InstallationandConfiguration"></a>Installation and Configuration</h2>
+
+<h3><a name="Update-22-SAMNagios"></a>SAM-Nagios</h3>
+
+<p>The new installation guide is available at: <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/SAM-Nagios+Administrator+Guide">New SAM-Nagios install guide </a></p>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>An upgrade from previous SAM versions is not possible for this release. We strongly recommended to install SAM-Update 22 starting with a base operating system.</td></tr></table></div>
+
+<p>The database backup is no longer performed automatically as part of yaim. The following yaim function can be executed manually to create a backup of your database:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -r -d 6 -s /etc/yaim/site-info.def -n SAM_NAGIOS -f config_mysql_backup</pre>
+</div></div>
+
+<p>Added YAIM variables in this release:</p>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> DB </td>
+<td class='confluenceTd'> DB_TMP_DIR </td>
+<td class='confluenceTd'> tmp directory for MySQL </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> "/var/tmp" </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<p>Removed YAIM variables in this release:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ENABLE_ARC_PROBES</pre>
+</div></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>In order to support transparent migration of SAM to CNRS please add the following yaim variables to your site-info:<br/>
+ATP_ROOT_URL="http://mon.egi.eu/atp"<br/>
+POEM_SYNC_URLS="http://mon.egi.eu/poem/api/0.1/json/"</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>In order for ARC SRM and LFC tests to work the following needs to be done:<br/>
+1. Yaim variable JOBSUBMIT_WN_SE_REP_FILE must be set to file where hr.srce.GoodSEs will store list of working SRM endpoints, e.g.<br/>
+JOBSUBMIT_WN_SE_REP_FILE=GOOD_SES<br/>
+2. Global attribute LFC_HOST must be set to LFC in localdb, e.g.<br/>
+GLOBAL_ATTRIBUTE&#33;LFC_HOST&#33;prod-lfc-shared-central.cern.ch
+
+<p>ARC SRM tests require additional configuration in file /etc/nagios/plugins/arcnagios-local.ini. Since the directory is not consistent on all SEs, admins must manually define directory for each SE that might be used. Details can be found in Switch section of documentation: <a href="http://git.nbi.ku.dk/downloads/NorduGridARCNagiosPlugins/arcce.html#custom-substitutions-in-job-test-sections">http://git.nbi.ku.dk/downloads/NorduGridARCNagiosPlugins/arcce.html#custom-substitutions-in-job-test-sections</a>. Alternatively, se_host and se_test_dir can be used to define a single SE for ARC SRM tests.</p></td></tr></table></div>
+
+<h3><a name="Update-22-SAMGridmon"></a>SAM-Gridmon</h3>
+
+<p>The new installation guide is available at: <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/SAM-Gridmon+Administrator+Guide">New SAM-Gridmon install guide </a></p>
+
+<p>The database deployment is not performed automatically as part of yaim. The following yaim function should be executed manually:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -r -s /etc/lcg-quattor-site-info.def -n sam_gridmon -f config_database</pre>
+</div></div>
+
+<p>Added YAIM variables in this release:</p>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_VO_ALL_SITES_PROFILES </td>
+<td class='confluenceTd'> Profiles to be used on VO All sites report </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> "atlas_critical cms_critical" </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+<h2><a name="Update-22-KnownIssues"></a>Known Issues</h2>
+
+<ol>
+	<li>For NGIs monitoring ARC or using ARC probes, there is a missing dependency that needs to be installed manually:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ yum install nordugrid-arc-plugins-globus</pre>
+</div></div></li>
+	<li>If you use the latest CentOS 5.10 (or SL5.10) be aware that the base now contains mysql51 packages. Since the base has higher priority than sam repo please modify the exclude for base and updates accordingly:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[base]
+priority=2
+protect=1
+exclude = perl-DBI mysql51*
+
+[updates]
+priority=2
+protect=1
+exclude = perl-DBI mysql51*</pre>
+</div></div></li>
+	<li>Please apply the following patch <a href="attachments/45875216/47775753.patch">atp_service_type_update.patch</a>&#42; in case after restoring database from backup, yaim fails with :
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">INFO: Creating database schema
+        Existing DB schema and versions:
+
+                - atp is currently 1.19
+                - metricstore is currently 1.17
+                - mddb is currently 1.1
+                - poem_sync is currently 1.3
+        Upgrading atp DB to version 1.20
+ERROR: deploy_dbschema.pl failed, check /var/log/sam-db.log.
+   ERROR: Configuration error !</pre>
+</div></div>
+<p>(*credits to Jan Astalos for the fix)</p></li>
+	<li>eu.egi.mpi.complexjob.CREAMCE-JobState-/ops/Role=lcgadmin fails with error: SMPGranularity and HostNumber are mutually exclusive when WholeNodes allocation is not requested: wrong combination of values (more information at <a href="https://ggus.eu/ws/ticket_info.php?ticket=98851):">https://ggus.eu/ws/ticket_info.php?ticket=98851):</a>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">In /usr/libexec/grid-monitoring/probes/eu.egi.mpi/complexjob/jdl.template 
+
+replace:
+HostNumber = 2;
+with:
+CPUNumber = 4;</pre>
+</div></div></li>
+</ol>
+
+
+
+<h2><a name="Update-22-PackageList"></a>Package List</h2>
+
+<p>Full list of Update-22 packages and dependencies is available at <a href="https://koji.afroditi.hellasgrid.gr/koji/builds?order=nvr&amp;tagID=112&amp;inherited=1&amp;latest=1">SAM Update-22 repository </a></p>
+
+<h3><a name="Update-22-SAMNagioschanges"></a>SAM-Nagios changes</h3>
+
+<ul>
+	<li>atp-1.27.13-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Removed usage of service types
+- Solved flapping problem of MPI service flavour
+- Improved service flavour synchronisation
+- Improved the event which removes services and sites in the local instances (now compatible with multiple regions)
+- Allowed VOs with more than one “.” in the name
+- Improved atp-sync output
+- Improved the downtime_update procedure
+- Fixed update mechanism for vofeed services belonging to multiple groups for the same physical site
+- Tested GOCDBv5 changes
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>glite-yaim-nagios-1.10.31-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- glite-NAGIOS nodetype became sam_nagios
+- Improved services start/stop
+- Dependencies cleanup on msg-nagios-bridge
+- Removed backup of mrs-probes in ncg-localdb.d
+- Redesign of the database installations and upgrades
+- Consolidation of database backups
+- Database backup disabled by default
+- Added configurable tmp directory for MySQL
+- Improved database actions
+- Added grants in MySQL for DB_USER_W and DB_USER_R accounts
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>ncg-metric-config-1.3.13-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>Integration of EMI probes:
+- Integrated ARC probes
+- Integrated ARGUS probes
+- Integrated BDII probes
+- Integrated CREAMCE probes
+- Integrated FTS probes
+- Integrated GLEXEC probe
+- Integrated new JobMonit metrics
+- Mapping of org.sam.CE-JobSubmit
+- Integrated LFC probes
+- Integrated new MPI probes
+- Integrated emi.dcache SRM probes
+- Integrated UNICORE probes
+- Integrated WMS probes
+- Paths in ncg-metric-config replaced with emi-nagios ones
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>grid-monitoring-config-gen-0.93.6-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Integration of EMI probes
+- Enabled definition of passive metrics without parent
+- NCG dies when internal metric is not defined in ncg-metric-config
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>grid-monitoring-probes-hr.srce-0.37.0-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Added myproxy dependency
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>grid-monitoring-probes-ch.cern.sam-1.6.14-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- CheckSamRelease probe improved
+- Improved SAMCentralWebAPI probe
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>grid-monitoring-probes-eu.egi.sec-1.0.10-2.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Added dependency on emi-cream-nagios
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>grid-monitoring-probes-cadist-0.5.0-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Added dependency on emi.creamce
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>mrs-1.7.43-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Improved automatic status recomputations
+- Improved status computations (taking FQANs into account)
+- Changed MySQL date handling
+- Added translation mechanism for metrics
+- Removed usage of service types
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>mywlcg-1.5.5-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Changed default landing page
+- Changed default SSL landing page
+- Removed xml, json, csv links (were broken)
+- Fixed incorrect grouping of service in MyEGI Status
+- Deleted downtimes are not considered for graphics generation
+- Solved problem with service availability graphs for flavours with “.” in the name
+- Improved status filter in Firefox browser
+- Fixed problem where status view lost data range (when coming from availability view)
+- Improved Data View filter in the Treemap view
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>mywlcg-atp-web-1.26.2-3.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Updated mywlcg release info import
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>perl-GridMon-1.0.73-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Modified GridMon::sgutils default GLOBUS location
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>poem-0.9.84-1.el5 and poem-sync-0.9.84-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Improved POEM configuration
+- Improved poem_sync configuration
+- Improved POEM synchronizer
+- Removed auto-tagging
+- Added poem diff script
+- Added new version of metricinstances API
+- Patched synchronizer to support metric renaming
+- Included new metric mapping configuration
+- Integration of EMI probes
+- Added backward compatible handler for api / expressions
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>python-GridMon-1.1.13-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Added nagios-submit configuration file
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>sam-db-1.0.19-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Redesign of the database installations and upgrades
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>sam-nagios-1.22.0-7.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Imported packages and added EMI probes dependencies
+- Added 3rd party on various nagios-plugins, updated EMI package versions
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>sam-release-1.22.0-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Build for Update-22
+</pre>
+</div></div></li>
+</ul>
+
+
+<h3><a name="Update-22-SAMGridmonchanges"></a>SAM-Gridmon changes</h3>
+
+<ul>
+	<li>ace-1.2.6-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Decommission of service types
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>atp-1.27.13-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Removed usage of service types
+- Tested GOCDBv5 changes
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>glite-yaim-nagios-1.10.31-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Removed voms2httpasswd from sam-gridmon
+- glite-NAGIOS_WEB nodetype became sam_gridmon
+- Redesign of the database installations and upgrades
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>mrs-1.7.43-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Improved automatic status recomputations
+- Improved status computations (taking FQANs into account)
+- Added new dataloader algorithm
+- Added translation mechanism for metrics
+- Removed usage of service types
+- Decommissioned job METRICSTORE_PERFORMANCE_TUNING
+- Improved MRS view used by MyWLCG web service to get latest metric results in profile
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>msg-consume2db-1.0.23-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Fixed exception handling for messages containing multiple metrics
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>mywlcg-1.5.5-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Changed default landing page
+- Changed default SSL landing page
+- Removed xml, json, csv links (were broken)
+- Fixed incorrect grouping of service in MyEGI Status
+- Deleted downtimes are not considered for graphics generation
+- Solved problem with service availability graphs for flavours with “.” in the name
+- Improved status filter in Firefox browser
+- Fixed problem where status view lost data range (when coming from availability view)
+- Improved Data View filter in the Treemap view
+- Implemented new VO reports
+- Improved availability trends
+- Improved Availability and Reliability report
+- Improved Availability and Reliability reports generation
+- Improved Availability and Reliability reports Web Interface
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>mywlcg-atp-web-1.26.2-3.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Updated mywlcg release info import
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>poem-0.9.84-1.el5 and poem-sync-0.9.84-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Improved POEM configuration
+- Improved poem_sync configuration
+- Improved POEM synchronizer
+- Removed auto-tagging
+- Added poem diff script
+- Added new version of metricinstances API
+- Patched synchronizer to support metric renaming
+- Included new metric mapping configuration
+- Integration of EMI probes
+- Added backward compatible handler for api / expressions
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>sam-gridmon-1.22.0-2.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Added dependencies
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>sam-release-1.22.0-1.el5
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>- Build for Update-22
+</pre>
+</div></div></li>
+</ul>
+
+
+<h2><a name="Update-22-TicketsList"></a>Tickets List</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/45875216/47775753.patch">atp_service_type_update.patch</a> (text/plain)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

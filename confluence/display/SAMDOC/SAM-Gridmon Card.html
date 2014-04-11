@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : SAM-Gridmon Card</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : SAM-Gridmon Card
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jun 29, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#SAM-GridmonCard-Introduction'>Introduction</a></li>
+<ul>
+    <li><a href='#SAM-GridmonCard-Servicesrunning'>Services running</a></li>
+    <li><a href='#SAM-GridmonCard-Openports'>Open ports</a></li>
+    <li><a href='#SAM-GridmonCard-Cronjobs'>Cron jobs</a></li>
+</ul>
+</ul></div>
+
+<h2><a name="SAM-GridmonCard-Introduction"></a>Introduction</h2>
+
+<p>This page presents the reference card for node sam-gridmon.</p>
+
+<h3><a name="SAM-GridmonCard-Servicesrunning"></a>Services running</h3>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <b>Service</b> </th>
+<th class='confluenceTh'> Apache </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Service description</b> </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Daemons</b> </td>
+<td class='confluenceTd'> httpd: /usr/sbin/httpd </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Configuration</b> </td>
+<td class='confluenceTd'> /etc/httpd </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Logs</b> </td>
+<td class='confluenceTd'> /var/log/httpd </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <b>Service</b> </th>
+<th class='confluenceTh'> supervisord </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Service description</b> </td>
+<td class='confluenceTd'> Service managing execution of msg-consume2db services </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Daemons</b> </td>
+<td class='confluenceTd'> httpd: /usr/bin/supervisord </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Configuration</b> </td>
+<td class='confluenceTd'> /etc/supervisord.conf, /etc/supervisord.d </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Logs</b> </td>
+<td class='confluenceTd'> /var/log/supervisor </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h3><a name="SAM-GridmonCard-Openports"></a>Open ports</h3>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <b>Port/Protocol</b> </th>
+<th class='confluenceTh'> <b>Description</b> </th>
+</tr>
+<tr>
+<td class='confluenceTd'> 80/tcp </td>
+<td class='confluenceTd'> Used by httpd (Required for the MyWLCG/MyEGI interface) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 443/tcp </td>
+<td class='confluenceTd'> Used by httpd (Required for the MyWLCG/MyEGI interface which requires authentication) </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h3><a name="SAM-GridmonCard-Cronjobs"></a>Cron jobs</h3>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <b>Job</b> </th>
+<th class='confluenceTh'> <b>Description</b> </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>httpd-graceful</b> </td>
+<td class='confluenceTd'> Periodically sends a graceful event to httpd in order to update the ACLs </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>atp-sync</b> </td>
+<td class='confluenceTd'> Synchronization of <a href="https://tomtools.cern.ch/confluence/display/SAM/ATP" title="ATP">ATP</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>ace-status</b> </td>
+<td class='confluenceTd'> Status computation in <a href="https://tomtools.cern.ch/confluence/display/SAM/ACE" title="ACE">ACE</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>ace-availability</b> </td>
+<td class='confluenceTd'> Availability computation in <a href="https://tomtools.cern.ch/confluence/display/SAM/ACE" title="ACE">ACE</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>dax-fts-summarizer</b> </td>
+<td class='confluenceTd'> <a href="https://tomtools.cern.ch/confluence/display/SAM/DAX" title="DAX">Data Transfer Computation Engine</a> &#45; load FTS data to the Database </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>mrs-bootstrapper</b> </td>
+<td class='confluenceTd'> Re-populates the MRS configuration. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>msg-consume2db-supervisor.chk</b> </td>
+<td class='confluenceTd'> Periodically checks if all msg-consume2db tasks are running and restart them if needed </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>poem-sync</b> </td>
+<td class='confluenceTd'> Synchronization of <a href="https://tomtools.cern.ch/confluence/display/SAM/POEM" title="POEM">POEM</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>refresh-hosts</b> </td>
+<td class='confluenceTd'> Retrieve file nagios-roles.conf </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>refresh-roles</b> </td>
+<td class='confluenceTd'> Retrieve file hep-hosts.conf </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>voms-htpasswd</b> </td>
+<td class='confluenceTd'> Downloads the DN list from <a href="https://tomtools.cern.ch/confluence/display/SAM/ATP" title="ATP">ATP</a> for the configured VOs and creates an htpasswd file for apache. Runs periodically but only if the voms-htpasswd init script has run with "start" parameter. </td>
+</tr>
+</tbody></table>
+</div>
+
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

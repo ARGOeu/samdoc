@@ -1,0 +1,84 @@
+# Generic
+SITE_NAME=CERN-PROD
+BDII_HOST=lcg-bdii.cern.ch
+
+VOS="ops"
+
+VO_OPS_VOMS_SERVERS="vomss://voms.cern.ch:8443/voms/ops?/ops/"
+VO_OPS_VOMSES="'ops lcg-voms.cern.ch 15009 /DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch ops 24' 'ops voms.cern.ch 15004 /DC=ch/DC=cern/OU=computers/CN=voms.cern.ch ops 24'"
+VO_OPS_VOMS_CA_DN="'/DC=ch/DC=cern/CN=CERN Trusted Certification Authority' '/DC=ch/DC=cern/CN=CERN Trusted Certification Authority'"
+
+# Nagios
+NAGIOS_ADMIN_DNS=<COMMA_SEPARETED_LIST_OF_NAGIOS_DNs>
+NAGIOS_ROLE="central-web"
+NAGIOS_HTTPD_ENABLE_CONFIG=true
+
+# Component configuration
+MYEGI_ADMIN_NAME="Admin Name"
+MYEGI_ADMIN_EMAIL=<ADMIN_MAIL>
+MYEGI_DEFAULT_PROFILE="ROC"
+MYEGI_ACE="True"
+
+MYWLCG_DATA_TRANSFER="False"
+MYWLCG_REPORTS="True"
+MYWLCG_TOPOLOGY="True"
+MYWLCG_ACCESS_CONTROL_ALLOW_ORIGIN="*"
+MYWLCG_ACCESS_PERIOD="1"
+MYWLCG_DATA_TRANSFER="False"
+MYWLCG_DB_LIMIT="50000"
+MYWLCG_EGI_EMAILS=<EGI_REPORT_GROUP_EMAIL>
+MYWLCG_NUMBER_OF_ACCESSES="200"
+MYWLCG_REPORTS="True"
+MYWLCG_REPORT_AUTHENTIC_DNS=<SPACE_SEPARATED_LIST_OF_DNs> # list of DNs for people who can generate reports
+MYWLCG_REPORT_EGI_PROFILES="ROC_CRITICAL"
+MYWLCG_REPORT_VO_ALL_SITES_PROFILES="ALICE_CRITICAL ATLAS_CRITICAL CMS_CRITICAL LHCb_CRITICAL"
+MYWLCG_REPORT_WLCG_TIER1_HISTORY_PROFILES="WLCG_CREAM_LCGCE_CRITICAL"
+MYWLCG_REPORT_WLCG_TIER1_SUMMARY_PROFILES="WLCG_CREAM_LCGCE_CRITICAL ALICE_CRITICAL ATLAS_CRITICAL CMS_CRITICAL LHCb_CRITICAL"
+MYWLCG_REPORT_WLCG_TIER1_VO_PROFILES="WLCG_CREAM_LCGCE_CRITICAL ALICE_CRITICAL ATLAS_CRITICAL CMS_CRITICAL LHCb_CRITICAL"
+MYWLCG_REPORT_WLCG_TIER2_PROFILES="WLCG_CREAM_LCGCE_CRITICAL"
+MYWLCG_TRENDS="True"
+MYWLCG_WLCG_TIER1_EMAILS=<TIER1_GROUP_EMAIL_FOR_REPORTS>
+MYWLCG_WLCG_TIER2_EMAILS=<TIER2_GROUP_EMAIL_FOR_REPORTS>
+
+
+# POEM
+POEM_ADMIN_NAME="Admin Name"
+POEM_ADMIN_EMAIL=<POEM_ADMIN_EMAIL>
+POEM_NAMESPACE=<UNIQUE_NAMESPACE> # e.g. ch.cern.sam
+POEM_ATP_ROOT_URL="http://localhost"
+POEM_SYNC_URLS="http://localhost/poem/api/0.2/json/"
+
+DAEMON_USER=edguser # system account for daemon services
+DAEMON_GROUP=edguser # system group for deamon services
+
+# Enable "mywlcg" alias
+ENABLE_MYWLCG_ALIAS=1
+
+# Performance Limits
+# Limit number of rows that can be fetched at a time to avoid DB dumps.
+MYWLCG_DB_LIMIT=50000
+# Limit number of accesses per IP address in a given time(seconds).
+MYWLCG_ACCESS_PERIOD=5
+MYWLCG_NUMBER_OF_ACCESSES=100
+
+#ATP_VO_FEEDS="cms atlas lhcb superbvo_org alice"
+#ATP_VO_FEED_ALICE="http://dashb-alice-sum/dashboard/request.py/alicesitemap"
+#ATP_VO_FEED_ATLAS="http://atlas-agis-api.cern.ch/request/atp/xml"
+#ATP_VO_FEED_CMS="http://dashb-cms-vo-feed.cern.ch/dashboard/request.py/cmssitemapbdii"
+#ATP_VO_FEED_LHCB="http://lhcb-web-dirac.cern.ch/topology/lhcb_topology.xml"
+#ATP_VO_FEED_SUPERBVO_ORG="http://bbr-serv09.cr.cnaf.infn.it:8080/nagiosvo/superb-sites-for-nagios.xml"
+
+# These will be filled in by the NV scripts
+DB_TYPE="oracle"
+DB_NAME="LCG_SAM_INT11R"
+DB_USER="LCG_SAM_MRS_NIGHT_7_UP"
+DB_USER_R="LCG_SAM_MRS_NIGHT_7_UP_R"
+DB_USER_W="LCG_SAM_MRS_NIGHT_7_UP_W"
+# add respective PASS accounts DB_PASS, DB_PASS_R, DB_PASS_W
+
+# Messaging
+MSG_BROKER_CACHE_HOST=<BROKER_HOSTNAME>
+MS_CONSUMER_NAME=<UNIQUE_CONSUMER_CLIENT_ID # e.g. sam_nightly_val_7_up
+N2MS_ROLES_URL="http://localhost/nagios-roles.conf" # this file is from http://gridops.cern.ch/config/nagios-roles.conf should be downloaded to respective location on localhost
+N2MS_HOSTS_URL="http://localhost/hep-hosts.conf" # this file restricts from which VO Nagioses we can receive messages (can be empty) - related to msg-consume2db-3.conf
+

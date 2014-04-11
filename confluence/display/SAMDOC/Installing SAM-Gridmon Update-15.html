@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Installing SAM-Gridmon Update-15</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Installing SAM-Gridmon Update-15
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Nov 28, 2011 by <font color="#0050B2">wlapka</font>.
+				    </div>
+
+				    <p>This page describes the process to install and configure SAM-Gridmon node type from scratch.</p>
+
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>IMPORTANT</b><br />The SAM-Gridmon node type is not officially supported. These are the installation instructions for the latest SAM release (<a href="Update-15.html" title="Update-15">SAM-Update-15</a>). You can find information about previous releases in the <a href="Installing SAM-Gridmon.html" title="Installing SAM-Gridmon">Installing SAM-Gridmon</a> page of the SAM Administrator's Guide.</td></tr></table></div>
+
+<div>
+<ul>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-Environment'>Environment</a></li>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-Requirements'>Requirements</a></li>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-Repositories'>Repositories</a></li>
+<ul>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-RepositoriesList'>Repositories List</a></li>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-RepositoryPriorities'>Repository Priorities</a></li>
+</ul>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-Installation'>Installation</a></li>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-DatabaseDeployment'>Database Deployment</a></li>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-Configuration'>Configuration</a></li>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-AdditionalConfiguration'>Additional Configuration</a></li>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-Validation'>Validation</a></li>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-KnownIssues'>Known Issues</a></li>
+    <li><a href='#InstallingSAM-GridmonUpdate-15-Problems'>Problems</a></li>
+</ul></div>
+
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-Environment"></a>Environment</h3>
+
+<p>Disabled selinux in /etc/selinux/config</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">SELINUX=disabled</pre>
+</div></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>You must restart the box if you change this variable</td></tr></table></div>
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-Requirements"></a>Requirements</h3>
+
+<p>You need to install host certificate in order to secure the Nagios web portal. Certificate should be placed on the standard location:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ls -l /etc/grid-security/host*
+-rw-r--r-- 1 root root 2286 Oct 28 19:26 /etc/grid-security/hostcert.pem
+-r-------- 1 root root  887 Oct 28 19:25 /etc/grid-security/hostkey.pem</pre>
+</div></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>/etc/grid-security directory must have 755 permission and the certificate must have SSL client attribute</td></tr></table></div>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">openssl x509 -in /etc/grid-security/hostcert.pem -noout -purpose | grep &quot;SSL client&quot;
+SSL client : Yes</pre>
+</div></div>
+
+<p>If you plan to use the SAM DB (i.e. NCG_TOPOLOGY_USE_SAM or NCG_REMOTE_USE_SAM set to true) you need to request access to SAM PI from your Nagios host. Details on enabling access are maintained by the SAM team <a href="https://twiki.cern.ch/twiki/bin/view/LCG/SamProgInterfaceACL">here</a>. In the request you should provide the machine address(es) and simply specify that you require access under the "EGEE-SA1 Monitoring Profile".</p>
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-Repositories"></a>Repositories</h3>
+
+<p>Install YUM and rpmforge packages:</p>
+<ul>
+	<li>yum-conf-5X-6.slc5.cern.noarch</li>
+	<li><a href="http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el5.rf.x86_64.rpm">rpmforge-release-0.5.2-2.el5.rf.x86_64.rpm</a> (or later)</li>
+</ul>
+
+
+<p>Remove the old lcg-CA repository, if installed:</p>
+<ul>
+	<li>rm &#45;f /etc/yum.repos.d/lcg-CA.repo</li>
+</ul>
+
+
+<h4><a name="InstallingSAM-GridmonUpdate-15-RepositoriesList"></a>Repositories List</h4>
+
+<p>Configure the following repositories:</p>
+<ul>
+	<li>EGI CAs <a href="http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo">(egi-trustanchors.repo)</a></li>
+	<li>gLite BDII <a href="http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.X/glite-BDII.repo">(glite-BDII.repo)</a></li>
+	<li>gLite UI <a href="http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/glite-UI.repo">(glite-UI.repo)</a></li>
+	<li>EPEL (epel.repo)
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[epel]
+name=Extra Packages for Enterprise Linux add-ons, no formal support from CERN
+baseurl=http://linuxsoft.cern.ch/epel/5/$basearch
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+gpgcheck=1
+enabled=0
+protect=0</pre>
+</div></div></li>
+	<li>DAG (dag.repo)
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[dag]
+name=DAG (http://dag.wieers.com) add-on packages, no formal support from CERN
+baseurl=http://linuxsoft.cern.ch/dag/redhat/el5/en/$basearch/dag
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dag
+gpgcheck=1
+enabled=0
+protect=0</pre>
+</div></div></li>
+	<li>SAM (<a href="http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/centos5/x86_64/sa1-release-3-1.el5.noarch.rpm">rpm with repo files</a>)
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>EGI sites should use this repository instead</td></tr></table></div>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[egi-sam]
+name=EGI SAM repo
+baseurl=http://repository.egi.eu/sw/production/sam/1/$basearch
+enabled=1
+gpgcheck=0
+protect=1
+priority=10</pre>
+</div></div></li>
+</ul>
+
+
+
+<h4><a name="InstallingSAM-GridmonUpdate-15-RepositoryPriorities"></a>Repository Priorities</h4>
+
+<p>Install yum-priorities:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum install yum-priorities</pre>
+</div></div>
+
+<p>Modify repository files:</p>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>glite-UI repo can have higher priority than rpmforge</td></tr></table></div>
+<ul>
+	<li>rpmforge.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">### Name: RPMforge RPM Repository for RHEL 5 - dag
+### URL: http://rpmforge.net/
+[rpmforge]
+name = RHEL $releasever - RPMforge.net - dag
+baseurl = http://apt.sw.be/redhat/el5/en/$basearch/rpmforge
+mirrorlist = http://apt.sw.be/redhat/el5/en/mirrors-rpmforge
+#mirrorlist = file:///etc/yum.repos.d/mirrors-rpmforge
+enabled = 1
+protect = 0
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1
+priority=11
+exclude=libyaml,perl-Nagios-Plugin-0.35-1.el5.rf
+
+[rpmforge-extras]
+name = RHEL $releasever - RPMforge.net - extras
+baseurl = http://apt.sw.be/redhat/el5/en/$basearch/extras
+mirrorlist = http://apt.sw.be/redhat/el5/en/mirrors-rpmforge-extras
+#mirrorlist = file:///etc/yum.repos.d/mirrors-rpmforge-extras
+enabled = 1
+protect = 0
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1
+priority=11
+
+[rpmforge-testing]
+name = RHEL $releasever - RPMforge.net - testing
+baseurl = http://apt.sw.be/redhat/el5/en/$basearch/testing
+mirrorlist = http://apt.sw.be/redhat/el5/en/mirrors-rpmforge-testing
+#mirrorlist = file:///etc/yum.repos.d/mirrors-rpmforge-testing
+enabled = 0
+protect = 0
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">{note}
+EGI sites should use EGI SAM repository described above.
+{note}
+* sa1-centos5-release.repo
+{code:title=|borderStyle=solid}
+[egee-sa1]
+name=EGEE Packages from SA1 for CentOS5
+baseurl=http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/centos5/$basearch
+enabled=1
+priority=10
+gpgcheck=0</pre>
+</div></div></li>
+	<li>slc5-extras.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[slc5-extras]
+name=Scientific Linux CERN 5 (SLC5) add-on packages, no formal support
+baseurl=http://linuxsoft.cern.ch/cern/slc5X/$basearch/yum/extras/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-cern
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jpolok
+gpgcheck=1
+enabled=1
+protect=1
+priority=1</pre>
+</div></div></li>
+	<li>slc5-os.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[slc5-os]
+name=Scientific Linux CERN 5 (SLC5) base system packages
+baseurl=http://linuxsoft.cern.ch/cern/slc5X/$basearch/yum/os/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-cern
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jpolok
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-csieh
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dawson
+gpgcheck=1
+enabled=1
+protect=1
+priority=1
+exclude=php*,perl-DBI,MySQL-python,c-ares,perl-DBD-MySQL</pre>
+</div></div></li>
+	<li>slc5-updates.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[slc5-updates]
+name=Scientific Linux CERN 5 (SLC5) bugfix and security updates
+baseurl=http://linuxsoft.cern.ch/cern/slc5X/$basearch/yum/updates/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-cern
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jpolok
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-csieh
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dawson
+gpgcheck=1
+enabled=1
+protect=1
+priority=1
+exclude=php*,perl-DBI,MySQL-python,c-ares,perl-DBD-MySQL</pre>
+</div></div></li>
+</ul>
+
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-Installation"></a>Installation</h3>
+
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum install lcg-CA
+yum install httpd
+yum --enablerepo=slc5-cernonly -y install oracle-instantclient-basic oracle-instantclient-sqlplus oracle-instantclient-tnsnames.ora perl-DBD-Oracle
+yum install sam-gridmon</pre>
+</div></div>
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-DatabaseDeployment"></a>Database Deployment</h3>
+
+<p>SAM-Gridmon requires an oracle database. The deploy the required schema the following steps should be performed:</p>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please make sure the database account you are using has grant privileges to execute any job class and has explicit grant to create tables (not coming from role).</td></tr></table></div>
+
+<ol>
+	<li>Checkout oracle database tools
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">svn co https://svn.cern.ch/reps/sam/trunk/devel-scripts/databases/oracle
+cd oracle</pre>
+</div></div></li>
+	<li>Drop all database objects
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">sqlplus &amp;lt;db_account@db_service/db_pass&amp;gt; @drop_dbschema.sql</pre>
+</div></div></li>
+	<li>Create MDDB/ATP schema
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>This step will be removed as soon as mddb package is added to sam-gridmon metapackage or when we move to POEM.<br/>
+MBBD create script may failed to to a missing schema update sql file. This can be ignored for the time being.</td></tr></table></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">svn co https://svn.cern.ch/reps/atp/trunk atp
+svn co http://www.sysadmin.hep.ac.uk/svn/grid-monitoring/trunk/apps/metric-desc-db/scripts mddb
+cd atp/oracle_schema/ver_1_11/db_schema
+sqlplus &amp;lt;db_account@db_service/db_pass&amp;gt; @CREATE_ATP_SCHEMA.sql
+cd -
+cd mddb/create-db/Oracle/single_db
+sqlplus &amp;lt;db_account@db_service/db_pass&amp;gt; @CREATE_MDDB_SCHEMA.sql
+cd -</pre>
+</div></div></li>
+	<li>Create tablespace for MRS table
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Only execute in production instances. This step should be revised and introduce the tablespace creation inside MRS.</td></tr></table></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">sqlplus &amp;lt;db_account@db_service/db_pass&amp;gt; @create_tablespace.sql</pre>
+</div></div></li>
+	<li>Create database schema
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">perl deploy_dbschema.pl
+&amp;lt;db_account@db_service/db_pass&amp;gt;</pre>
+</div></div></li>
+	<li>Recreate synonyms (only for oracle account with writers and readers)
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">sqlplus &amp;lt;db_account@db_service/db_pass&amp;gt; @get_synonyms.sql
+sqlplus &amp;lt;db_account_R@db_service_read/db_pass&amp;gt; @recreate_synonyms.sql
+sqlplus &amp;lt;db_account_W@db_service_write/db_pass&amp;gt; @recreate_synonyms.sql</pre>
+</div></div></li>
+	<li>Grant Privileges (only for oracle account with writers and readers)
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">sqlplus &amp;lt;db_account/db_pass@db_service&amp;gt; @grant_privileges.sql</pre>
+</div></div></li>
+	<li>Run ATP Synchronizer
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/usr/bin/check_atp_sync -t 600</pre>
+</div></div></li>
+	<li>Run MDDB Synchronizer
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ssh root@mddb-central
+cd /opt/&amp;lt;node&amp;gt;
+vi etc/databases.yml (check that DB is ok)
+./sync_to_&amp;lt;node&amp;gt;</pre>
+</div></div></li>
+	<li>Bootstrapping MRS
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mkdir -p /tmp/oracle_bootstrap
+cd /tmp/oracle_bootstrap
+svn co https://svn.cern.ch/reps/sam/trunk/nagios2metricstore/DBScripts/oracle_bootstrap/
+sqlplus &amp;lt;db_account@db_service/db_pass&amp;gt; @OSG_Bootstrapper.sql
+sqlplus &amp;lt;db_account@db_service/db_pass&amp;gt; @supported_profiles.sql</pre>
+</div></div></li>
+	<li>Bootstrapping ACE
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mkdir -p /tmp/oracle_bootstrap
+cd /tmp/oracle_bootstrap
+svn co https://svnweb.cern.ch/trac/sam/browser/trunk/ace/schema/oracle/ver_?_?/add_algorithms.sql
+sqlplus &amp;lt;db_account@db_service/db_pass&amp;gt; @add_algorithms.sql</pre>
+</div></div></li>
+</ol>
+
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-Configuration"></a>Configuration</h3>
+
+<p>The configuration of all SAM-Gridmon boxes is based on https://twiki.cern.ch/twiki/bin/view/EGEE/YAIM.</p>
+
+<p>The following variables must be set.</p>
+
+<p>Edit YAIM configuration file:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># GENERIC
+SITE_NAME=CERN-PROD
+BDII_HOST=lcg-bdii.cern.ch
+
+VOS=&quot;dteam ops&quot;
+VO_DTEAM_VOMS_SERVERS=&#39;vomss://voms.hellasgrid.gr:8443/voms/dteam?/dteam/&#39;
+VO_DTEAM_VOMSES=&quot;&#39;dteam voms.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms.hellasgrid.gr dteam 24&#39; &#39;dteam voms2.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms2.hellasgrid.gr dteam 24&#39;&quot;
+VO_DTEAM_VOMS_CA_DN=&quot;&#39;/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006&#39; &#39;/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006&#39;&quot;
+VO_OPS_VOMS_SERVERS=&quot;vomss://voms.cern.ch:8443/voms/ops?/ops/&quot;
+VO_OPS_VOMSES=&quot;&#39;ops lcg-voms.cern.ch 15009 /DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch ops 24&#39; &#39;ops voms.cern.ch 15004 /DC=ch/DC=cern/OU=computers/CN=voms.cern.ch ops 24&#39;&quot;
+VO_OPS_VOMS_CA_DN=&quot;&#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39; &#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39;&quot;
+RB_HOST=skurut2.cesnet.cz # irelevant, RB is unsupported
+VO_DTEAM_WMS_HOSTS=&quot;wms204.cern.ch wms205.cern.ch&quot; # put to your NGI WMSes
+VO_OPS_WMS_HOSTS=&quot;wms204.cern.ch wms205.cern.ch&quot; # put to your NGI WMSes
+
+# DATABASE
+DB_TYPE=oracle
+DB_USER=LCG_SAM_MS_W
+DB_NAME=LCG_OPS
+
+# MESSAGING
+MSG_CONSUME2DB_TYPE=&quot;non-durable&quot;
+MS_CONSUMER_NAME=&quot;&amp;lt;client id&amp;gt;&quot; # hostname with dots replaced by underscores, e.g. grid_monitoring_test_cern_ch&quot;
+MSG_BROKER_CACHE_HOST=&quot;sam-validation.msg.cern.ch&quot;
+
+# NAGIOS
+NAGIOS_ADMIN_DNS=&quot;/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=wlapka/CN=623537/CN=Wojciech Lapka,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=straylen/CN=613539/CN=Steve Traylen,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=jshade/CN=468767/CN=John Shade,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=jamesc/CN=380618/CN=James Casey,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=kskaburs/CN=658461/CN=Konstantin Skaburskas,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcollado/CN=496848/CN=David Collados Polidura,/C=IT/O=INFN/OU=Personal Certificate/L=Roma 1/CN=Alessandro Di Girolamo,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=asciaba/CN=430796/CN=Andrea Sciaba,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=sciaba/CN=430796/CN=Andrea Sciaba,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=pmendez/CN=477458/CN=Patricia Mendez Lorenzo,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=mpaladin/CN=696692/CN=Massimo Paladin,/DC=org/DC=doegrids/OU=People/CN=Vikas Singhal 692459,/O=Grid/O=NorduGrid/OU=ndgf.org/CN=Anders Rhod Gregersen,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=magini/CN=577890/CN=Nicolo Magini,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=girolamo/CN=614260/CN=Alessandro Di Girolamo,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=santinel/CN=564059/CN=Roberto Santinelli,/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=mbabik/CN=555091/CN=Marian Babik&quot;
+NAGIOS_ROLE=&quot;central-web&quot;
+NAGIOS_HTTPD_ENABLE_CONFIG=true
+
+# ATP
+ATP_VO_FEEDS=&quot;&amp;lt;list of VOs&amp;gt;&quot;
+ATP_VO_FEED_&amp;lt;vo1&amp;gt;=&quot;&amp;lt;vo feed url&amp;gt;&quot;
+ATP_VO_FEED_&amp;lt;vo2&amp;gt;=&quot;&amp;lt;vo feed url&amp;gt;&quot;
+
+# MYWLCG
+ENABLE_MYWLCG_ALIAS=1
+MYWLCG_DB_LIMIT=50000
+MYWLCG_ACCESS_PERIOD=5
+MYWLCG_NUMBER_OF_ACCESSES=100
+MYEGI_ADMIN_NAME=Admin Name
+MYEGI_ADMIN_EMAIL=it-dep-gt-tom-services@cern.ch
+MYEGI_DEFAULT_PROFILE=ROC
+MYEGI_ACE=&quot;True&quot;
+
+# POEM
+POEM_ADMIN_NAME=&quot;Admin Name&quot;
+POEM_ADMIN_EMAIL=&quot;sam-nagios-val@cern.ch&quot;
+
+# MDDB
+NCG_MDDB_SUPPORTED_PROFILES=&quot;ROC,ROC_CRITICAL,ROC_OPERATORS,GLEXEC&quot;
+
+# OTHERS
+DAEMON_USER&quot;=&quot;edguser&quot;
+DAEMON_GROUP&quot;=&quot;edguser&quot;</pre>
+</div></div>
+
+
+<p>Run YAIM:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -s site-info.def -c -n glite-NAGIOS_WEB</pre>
+</div></div>
+
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-AdditionalConfiguration"></a>Additional Configuration</h3>
+
+<h5><a name="InstallingSAM-GridmonUpdate-15-ThrottlingofMyWLCGWEBAPI"></a>Throttling of MyWLCG WEB API</h5>
+
+<p>Performance limits in MyWLCG/MyEGI portal are set by YAIM variables.<br/>
+This variables have default values as listed below:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># Limit number of rows that can be fetched at a time to avoid DB dumps.
+MYWLCG_DB_LIMIT=50000
+# Limit number of accesses per IP address in a given time(seconds).
+MYWLCG_ACCESS_PERIOD=5
+MYWLCG_NUMBER_OF_ACCESSES=100</pre>
+</div></div>
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-Validation"></a>Validation</h3>
+
+<p>After successful running of YAIM you should be able to access SAM-Girdmon web interface at the address <a href="https://SAMGRIDMON_SERVER/mywlcg">https://SAMGRIDMON_SERVER/mywlcg</a> or <a href="https://SAMGRIDMON_SERVER/myegi">https://SAMGRIDMON_SERVER/myegi</a>.</p>
+
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-KnownIssues"></a>Known Issues</h3>
+
+<p>When using yum to upgrade a machine from Update-11 to Update-12 the following exclude option is required for the yum command:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum --exclude=egee-NAGIOS update</pre>
+</div></div>
+
+<h3><a name="InstallingSAM-GridmonUpdate-15-Problems"></a>Problems</h3>
+
+<p>A description of common problems when installing SAM can be found at the <a href="Troubleshooting.html#Troubleshooting-Installation">Troubleshooting</a> section.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

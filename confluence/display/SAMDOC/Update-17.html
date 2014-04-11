@@ -1,0 +1,348 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-17</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-17
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jun 18, 2013 by <font color="#0050B2">mbabik</font>.
+				    </div>
+
+				    <h1><a name="Update-17-Release%3A"></a>Release: Update-17</h1>
+
+<h2><a name="Update-17-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 13 February 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 02 May 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="red"> This is internal release, please don't install it</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 03 Jul 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Main Activities </td>
+<td class='confluenceTd'> Integration with POEM </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+<h2><a name="Update-17-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<p>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-2388">SAM-2388</a></p>
+
+<h2><a name="Update-17-Note"></a>Note</h2>
+
+<p>Please check also release notes and configuration changes of <a href="Update-16.html" title="Update-16">Update-16</a>,<br/>
+as it was an internal release.</p>
+
+<h2><a name="Update-17-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+
+<h3><a name="Update-17-Nodesamnagios"></a>Node sam-nagios</h3>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.23.9-1.el5
+atp-web-1.23.9-1.el5
+mywlcg-1.2.8-2.el5
+poem-0.9.5-1.el5
+poem-sync-0.9.5-1.el5
+mrs-1.7.6-4.el5
+grid-monitoring-config-gen-0.89.7-1.el5
+grid-monitoring-probes-ch.cern.sam-1.6.2-1.el5
+grid-monitoring-probes-eu.egi.sec-1.0.6-1.el5
+grid-monitoring-probes-org.ndgf-0.10-2.el5
+grid-monitoring-probes-org.sam-0.4.1-1.el5
+glite-yaim-nagios-1.7.40-7.el5
+sam-sync-1.0.6-1.el5
+sam-nagios-1.17.2-1.el5
+nagios-3.3.1-1.el5.rf.1oat
+nagios-plugins-dg-1.0.1-1.el5
+ncg-metric-config-1.0.5-1.el5
+sam-release-1.17.0-1.el5
+msg-nagios-bridge-1.0.63-1.el5
+unicore-nagios-plugins-2.1.0-1
+unicore-ucc6-5.0.0-1.sl5
+unicore-uvos-clc-1.6.0-0.sl5
+perl-TOM-2.3-1.el5
+perl-Directory-Queue-1.2-1.el5
+perl-Net-STOMP-Client-1.2-1.el5
+voms2htpasswd-1.12.2-1.el5
+
+New dependencies (not included in the sa1 repository)
+java-1.6.0-openjdk
+tzdata-java
+
+Dependencies removed
+unicore-monitoring-probes
+</pre>
+</div></div>
+
+<h3><a name="Update-17-Nodesamgridmon"></a>Node sam-gridmon</h3>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.23.9-1.el5
+atp-web-1.23.9-1.el5
+poem-0.9.5-1.el5
+poem-sync-0.9.5-1.el5
+ace-0.1.37-1.el5
+mywlcg-1.2.8-2.el5
+mrs-1.7.6-4.el5
+dax-1.0.5-1.el5
+glite-yaim-nagios-1.7.40-7.el5
+openreports-3.2.07-2
+rgf-1.0.4-1
+sam-gridmon-1.17.2-1.el5
+sam-release-1.17.0-1.el5
+ncg-metric-config-1.0.5-1.el5
+sqlalchemy-0.7.5-4.el5
+perl-TOM-2.3-1.el5
+perl-Directory-Queue-1.2-1.el5
+perl-Net-STOMP-Client-1.2-1.el5
+voms2htpasswd-1.12.2-1.el5
+
+New dependencies (not included in the sa1 repository)
+PyXML
+curl
+libidn
+python-curl
+</pre>
+</div></div>
+
+<h2><a name="Update-17-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>ACE
+	<ul>
+		<li>New Nagios probes (for ops-monitor) for monitoring of ACE behaviour.</li>
+		<li>Use associations between ATP groups (Tiers/Sites).</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>ATP
+	<ul>
+		<li>Keep associations between Tiers/PhysicalSites.</li>
+		<li>Bug fixes.</li>
+	</ul>
+	</li>
+	<li>DAX
+	<ul>
+		<li>New component: Data Transfer Computation Engine - generation of FTS graphs in MyWLCG portal</li>
+	</ul>
+	</li>
+	<li>glite-yaim-nagios
+	<ul>
+		<li>SAM concurrency improvements</li>
+		<li>Enable filtering of metrics from remote Nagioses</li>
+	</ul>
+	</li>
+	<li>grid-monitoring-probes-ch.cern.sam
+	<ul>
+		<li>Probe for checking of deployed SAM-Nagios version</li>
+	</ul>
+	</li>
+	<li>grid-monitoring-probes-eu.egi.sec
+	<ul>
+		<li>Ability to ignore expired CRLs on CRL check</li>
+	</ul>
+	</li>
+	<li>MRS
+	<ul>
+		<li>Decomissioning of Nagios metric 'org.egee.MrsCheckMissingProbes'</li>
+		<li>Integration with POEM - phase 2/2
+		<ul>
+			<li>Computation logic based on POEM</li>
+			<li>New bootstrapping mechanism</li>
+		</ul>
+		</li>
+		<li>Bug fixes.</li>
+	</ul>
+	</li>
+	<li>MyWLCG
+	<ul>
+		<li>Integration of Data Transfers (only sam-gridmon)</li>
+		<li>Hide site names in Gridmap view</li>
+	</ul>
+	</li>
+	<li>NCG
+	<ul>
+		<li>Integration with POEM</li>
+		<li>Service ncg is replaced with sam-sync (see <a href="https://tomtools.cern.ch/jira/browse/SAM-2518">SAM-2518</a>). Yaim variable NAGIOS_NCG_ENABLE_CRON is removed and Yaim will always switch on service sam-sync. In order to switch off automatic config generation one must switch off sam-sync after each Yaim run.</li>
+		<li>Script ncg.reload.sh does not execute external components anymore (i.e. atp, mddb and mrs sync). Script can now be used for simple changes in NCG config (e.g. localdb changes) without waiting for synchronizers to finish.</li>
+		<li>NCG::LocalMetrics::Hash is disabled and only NCG::LocalMetrics::POEM is used. Exception are site and security roles. Yaim variables NCG_HASH_CONFIG_PROFILES, NCG_PROFILE_FQAN_&#42; are removed. Profiles and FQAN mappings should be defined in POEM profile.</li>
+		<li>NCG::LocalMetrics::Hash_local module is obsoleted. Metric configuration files and POEM profiles should be used instead.</li>
+		<li>DesktopGrid probes are integrated into SAM(see <a href="https://tomtools.cern.ch/jira/browse/SAM-2421">SAM-2421</a>). In order for probes to be properly configured URL field in GOCDB must point to URL where XML reports are stored (e.g. <a href="http://edgi-bridge.ibercivis.es/3gbridge_report_dir">http://edgi-bridge.ibercivis.es/3gbridge_report_dir</a>). No additional steps on SAM box are needed for probes to work.</li>
+		<li>Starting from Update-17 packages unicore-ucc and unicore-uvos-clc needed for UNICORE probes are distributed as part of SAM and manual installation is NOT needed.</li>
+	</ul>
+	</li>
+	<li>POEM
+	<ul>
+		<li>Service poem-sync replaces mddb-sync to synchronizes profiles and metrics.</li>
+		<li>For NGI-Nagios migration is transparent and no changes need to be applied.</li>
+		<li>For VO-Nagioses namespace needs to be established with a profile that will determine how Nagios, MRS and MyEGI are configured. Please follow VO-Nagios section at <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/Installing+SAM+Update-17">Installing SAM/Nagios guide</a></li>
+		<li>POEM User's Guide is available at <a href="POEM User's Guide.html" title="POEM User's Guide">POEM User's Guide</a></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Update-17-Configurationchanges%28common%29"></a>Configuration changes (common)</h2>
+
+<ul>
+	<li>POEM configuration<br/>
+See <a href="POEM User's Guide.html" title="POEM User's Guide">POEM User's Guide</a>.</li>
+</ul>
+
+
+<p>New Yaim configuration variables:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>POEM_WEB_ENABLE - enable poem web instance (default on SAM-Gridmon)
+POEM_NAMESPACE - poem web instance namespace
+POEM_ATP_ROOT_URL - poem web instance ATP URL
+POEM_IMPORT_FROM_MDDB - if True bootstrap profiles from MDDB otherwise use a fixture file
+POEM_DEBUG - enable poem web instance debug
+POEM_ADMIN_NAME - poem web instance admin name
+POEM_ADMIN_EMAIL - poem web instance admin e-mail
+POEM_SYNC_URLS - URLs to synchronize from (pointing to poem web instances; SAM/Nagios defaults to grid-monitoring; SAM-Gridmon defaults to localhost)
+POEM_SYNC_NS_RESTRICT - restrict synchronization of profiles for given namespace (space separated namespace!profile values)
+MYEGI_DEFAULT_PROFILE - profile by default in MyEGI
+</pre>
+</div></div>
+
+
+<h2><a name="Update-17-Configurationchanges%28samgridmon%29"></a>Configuration changes (sam-gridmon)</h2>
+
+<p>New Yaim configuration variables:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>DAX_MSG_HOST - Substitutes the name of the Broker host in the consumer configuration of DAX component (Default: "dashb-mb")
+MYWLCG_DATA_TRANSFER Enables Data Transfer Module in MyWLCG (Default: False)
+MYWLCG_DT_VO_OTHERS_LIMIT Place VOs in category 'Others' when total aggregated data tranfer or avg. throughput less than MYWLCG_DT_VO_OTHERS_LIMIT (Default: 2)
+MYWLCG_DT_SRCSITE_OTHERS_LIMIT - Place Source Sites in category 'Others' when total aggregated data tranfer or avg. throughput less than MYWLCG_DT_SRCSITE_OTHERS_LIMIT (Default: 2)
+MYWLCG_DT_DSTSITE_OTHERS_LIMIT - Place Destination Sites in category 'Others' when total aggregated data tranfer or avg. throughput less than MYWLCG_DT_DSTSITE_OTHERS_LIMIT (Default: 5)
+OPENREPORTS_ADMIN - admin user for openreports.
+OPENREPORTS_ADMIN_PASS - admin password for openreports.
+</pre>
+</div></div>
+
+<h2><a name="Update-17-Configurationchanges%28samnagios%29"></a>Configuration changes (sam-nagios)</h2>
+
+<p>New Yaim configuration variables:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>NCG_POEM_ROOT_URL - URL of POEM sync that NCG will use (default: "http://localhost/poem_sync")
+NCG_REMOTE_NAGIOS_HOSTS - list of hosts from where results will be imported, used only on site instance if NCG_REMOTE_USE_NAGIOS is true
+</pre>
+</div></div>
+
+<p>Removed YAIM variables</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>NCG_MDDB_SUPPORTED_PROFILES
+NCG_HASH_CONFIG_PROFILES
+NCG_PROFILE_FQAN_*
+MDDB_SYNC_TIMEOUT
+NAGIOS_NCG_ENABLE_CRON
+NCG_TOPOLOGY_USE_SAM
+NCG_TOPOLOGY_USE_ENOC
+NCG_REMOTE_USE_ENOC
+</pre>
+</div></div>
+
+<p>Removed localdb configuration options (definition of metrics in localdb):</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ADD_PROFILE_SERVICE_METRIC!profile!service!metric
+METRIC_PROBE!metric!probe
+METRIC_METRICSET!metric!metricset
+METRIC_DOCURL!metric!url
+METRIC_NATIVE!metric!native
+METRIC_CONFIG!metric!config!value
+METRIC_DEPENDENCY!metric!metricParent!value
+METRIC_ATTRIBUTE!metric!attribute!value
+METRIC_FLAG!metric!flag
+METRIC_PARENT!metric!parent
+</pre>
+</div></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>New version of ARC probes provides new config file /etc/grid-monitoring/org.ndgf.conf. After upgrade make sure that new version is used:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mv /etc/grid-monitoring/org.ndgf.conf.rpmnew /etc/grid-monitoring/org.ndgf.conf</pre>
+</div></div>
+<p>New probes require creation of new testfile for LFC service. Create ops voms proxy and execute following commands as non privileged user:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">. /etc/grid-monitoring/org.ndgf.conf
+hostname -f &amp;gt; /tmp/testfile
+ngcp file:///tmp/testfile lfc://$LFC_PHYSICAL_URL/testfile@$LFC_HOST$LFC_LOGICAL_PATH/testfile</pre>
+</div></div></td></tr></table></div>
+
+<h2><a name="Update-17-Listofnewmetrics"></a>List of new metrics</h2>
+
+<p>dg.CREAM-CE:</p>
+<ul>
+	<li>dg.FinishedJobs - <a href="http://www.edgi-grid.eu/downloads/EGI-EDGI-Monitoring/egi-edgi-monitoring-documentation.txt">more info</a></li>
+</ul>
+
+
+<p>dg.ARC-CE:</p>
+<ul>
+	<li>dg.FinishedJobs - <a href="http://www.edgi-grid.eu/downloads/EGI-EDGI-Monitoring/egi-edgi-monitoring-documentation.txt">more info</a></li>
+</ul>
+
+
+<p>dg.TargetSystemFactory:</p>
+<ul>
+	<li>dg.FinishedJobs - <a href="http://www.edgi-grid.eu/downloads/EGI-EDGI-Monitoring/egi-edgi-monitoring-documentation.txt">more info</a></li>
+</ul>
+
+
+<h2><a name="Update-17-KnownIssues"></a>Known Issues</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>For machines running latest version of glite-UI (3.2.10-1 or higher):<br/>
+Please restart Nagios after yaim execution. Otherwise you may see problems similar to <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Machines running dax component (only sam-gridmon) need to get registered in the Msg Broker host for enabling the consumer to consume FTS messages.</td></tr></table></div>
+
+<h2><a name="Update-17-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

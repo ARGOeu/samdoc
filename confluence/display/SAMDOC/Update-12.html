@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-12</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-12
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Sep 07, 2011 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h1><a name="Update-12-Release%3A"></a>Release: Update-12</h1>
+
+<h2><a name="Update-12-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 23 May 2011 <br class="atl-forced-newline" /> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 07 July 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="#ff0000">Released</font><br class="atl-forced-newline" /> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 21 July 2011 <br class="atl-forced-newline" /> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka <br class="atl-forced-newline" /> </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-12-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<ul>
+	<li>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-1570">SAM-1570</a></li>
+	<li>Announced for Stage Rollout - 07 July 2011</li>
+	<li>Cleared staged rollout -
+	<ul>
+		<li>Early Adopter Report - <a href="https://documents.egi.eu/public/ShowDocument?docid=688">Update-12 EA Report</a></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Update-12-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+<h4><a name="Update-12-NodeegeeNAGIOS"></a>Node egee-NAGIOS</h4>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>egee-NAGIOS-1.0.0-66.el5
+atp-1.17.2-4.el5
+atp-web-1.17.2-4.el5
+grid-monitoring-config-gen-0.80.1-1.el5
+grid-monitoring-probes-org.ndgf-0.4-1.el5
+grid-monitoring-probes-org.sam-0.2.3-1.el5
+glite-yaim-nagios-1.4.9-1.el5
+info-provider-nagios-0.4.2-1.el5
+msg-nagios-bridge-1.0.61-1.el5
+mywlcg-0.0.1-9.el5
+perl-Directory-Queue-1.1-1.el5
+perl-GridMon-1.0.60-1.el5
+perl-MIG-0.8-1.el5
+perl-Net-STOMP-Client-1.0-1.el5
+perl-TOM-2.1-1.el5
+sam-release-1.12.0-1.el5
+voms2htpasswd-1.9.0-1.el5
+</pre>
+</div></div>
+
+<h4><a name="Update-12-NodeegeeNAGIOSWEB"></a>Node egee-NAGIOS-WEB</h4>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>egee-NAGIOS-WEB-0.9.1-1.el5
+atp-1.17.2-4.el5
+atp-web-1.17.2-4.el5
+glite-yaim-nagios-1.4.9-1.el5
+msg-nagios-bridge-1.0.61-1.el5
+mywlcg-0.0.1-9.el5
+perl-Directory-Queue-1.1-1.el5
+perl-GridMon-1.0.60-1.el5
+perl-MIG-0.8-1.el5
+perl-Net-STOMP-Client-1.0-1.el5
+perl-TOM-2.1-1.el5
+poem-0.4.3-1.el5
+sam-release-1.12.0-1.el5
+voms2htpasswd-1.9.0-1.el5
+</pre>
+</div></div>
+
+<h2><a name="Update-12-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>Introduction of MyWLCG package, which has functionality of MyEGI&nbsp;
+	<ul>
+		<li>The new package may be deployed with 2 skins:
+		<ul>
+			<li>MyEGI, e.g.: <a href="https://sam-cern-roc-preprod.cern.ch/myegi/">https://sam-cern-roc-preprod.cern.ch/myegi/</a></li>
+			<li>MyWLCG, e.g.: <a href="https://sam-cern-roc-preprod.cern.ch/mywlcg/">https://sam-cern-roc-preprod.cern.ch/mywlcg/</a></li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+	<li>MyWLCG/MyEGI
+	<ul>
+		<li>GridMap functionality</li>
+		<li>Improvement of web services</li>
+		<li>Improvement of unit tests</li>
+	</ul>
+	</li>
+	<li>Generation of monthly availability reports based on ACE</li>
+	<li>Changes in ACE official algorithm (for OSG services)</li>
+	<li>ATP
+	<ul>
+		<li>Country information for OSG sites</li>
+		<li>Compatible with latest REBUS topology feeds</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>Cleanup of metapackages</li>
+	<li>Probe: CE-sft-softver - support for EMI WN</li>
+	<li>Improvements in sending notifications for 'ops' portal</li>
+</ul>
+
+
+<ul>
+	<li>New YAIM configuration variables
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># Enable &quot;mywlcg&quot; alias
+#(Default on Nagios box: only &quot;myegi&quot; is enabled)
+ENABLE_MYWLCG_ALIAS=0
+#(Default on nagios_web box: &quot;myegi&quot; and &quot;mywlcg&quot; are enabled)
+ENABLE_MYWLCG_ALIAS=1</pre>
+</div></div></li>
+</ul>
+
+
+<h2><a name="Update-12-KnownIssues"></a>Known Issues</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>For machines running latest version of glite-UI (3.2.10-1):
+
+<p>Please restart Nagios after yaim execution. Otherwise you may see problems similar to <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>.</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>In new installations please add following line to file /etc/my.cnf and restart mysql:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[mysqld]
+event-scheduler=1</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>When using yum to upgrade a machine from Update-11 to Update-12 the following exclude option is required for the yum command:
+
+<p>For a Nagios (egee-NAGIOS) machine:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum --exclude=egee-NAGIOS-WEB update</pre>
+</div></div>
+<p>For a gridmon (egee-NAGIOS-WEB) machine:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum --exclude=egee-NAGIOS update</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>If the monitoring infrastructure contains <b>WMS</b> service and no <b>CE</b> services, metric <b>hr.srce.GoodCEs</b> associated to Nagios service will fail with the following error:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">HealthyNodes CRITICAL - No healthy hosts found.</pre>
+</div></div>
+<p>In order to fix it create file /etc/ncg/ncg-localdb.d/GoodCEs-fix with the following content:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">MODIFY_METRIC_PARAMETER!hr.srce.GoodCEs!--metric!org.sam.CREAMCE-JobSubmit</pre>
+</div></div>
+<p>and restart service ncg:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service ncg restart</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Package <b>grid-monitoring-probes-org.ndgf-0.4-1.el5</b> overwrites config file <b>/etc/grid-monitoring/org.ndgf.conf</b>. Prior to updating the package save the existing file and restore it after the update.</td></tr></table></div>
+
+
+<h2><a name="Update-12-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : LFC</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : LFC
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Nov 24, 2010 by <font color="#0050B2">kskaburs</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#LFC-LFCprobes'>LFC probes</a></li>
+    <li><a href='#LFC-ch.cern'>ch.cern</a></li>
+<ul>
+    <li><a href='#LFC-Metrics'>Metrics</a></li>
+</ul>
+    <li><a href='#LFC-org.sam'>org.sam</a></li>
+<ul>
+    <li><a href='#LFC-Metrics'>Metrics</a></li>
+<ul>
+    <li><a href='#LFC-org.sam.LFCCleanup'>org.sam.LFC-Cleanup</a></li>
+</ul>
+</ul>
+</ul></div> 
+
+<h2><a name="LFC-LFCprobes"></a>LFC probes</h2>
+
+<p>LFC probes are provided by <tt>ch.cern</tt> and <tt>org.sam</tt>.</p>
+
+<h2><a name="LFC-ch.cern"></a>ch.cern</h2>
+
+<p><tt>ch.cern/LFC-probe</tt> is part of <tt>grid-monitoring-probes-ch.cern</tt> RPM and contains metrics to check LFC service. The probe is written in Python and uses <a href="Probes.html#Probes-pythonGridMonlibrary">python-GridMon</a> library. </p>
+
+<ul>
+	<li>RPM: <a href="http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/">http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/</a></li>
+	<li>source code: <a href="http://www.sysadmin.hep.ac.uk/svn/grid-monitoring/trunk/probe/ch.cern/">http://www.sysadmin.hep.ac.uk/svn/grid-monitoring/trunk/probe/ch.cern/</a></li>
+</ul>
+
+
+<h3><a name="LFC-Metrics"></a>Metrics</h3>
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'><b>Name</b></td>
+<td class='confluenceTd'><b>Description</b></td>
+</tr>
+<tr>
+<td class='confluenceTd'>ch.cern.LFC-Read</td>
+<td class='confluenceTd'>Test if an entry in the catalog can be read.</td>
+</tr>
+<tr>
+<td class='confluenceTd'>ch.cern.LFC-Write</td>
+<td class='confluenceTd'> Test if the modification time of an entry in the catalog can be updated.</td>
+</tr>
+<tr>
+<td class='confluenceTd'>ch.cern.LFC-Readdir</td>
+<td class='confluenceTd'> Time how long it takes to read a directory (/grid).</td>
+</tr>
+<tr>
+<td class='confluenceTd'>ch.cern.LFC-ReadDli</td>
+<td class='confluenceTd'> Do a read from a DLI.</td>
+</tr>
+<tr>
+<td class='confluenceTd'>ch.cern.LFC-Ping</td>
+<td class='confluenceTd'> Ping LFC service (service level ping).</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="LFC-org.sam"></a>org.sam</h2>
+
+<p><tt>org.sam/LFC-probe</tt> is part of <tt>grid-monitoring-probes-org.sam</tt> RPM and contains a metric to do cleanup of LFC's test area mainly used by <a href="WN.html" title="WN">WN</a> metrics.</p>
+
+<h3><a name="LFC-Metrics"></a>Metrics</h3>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'><b>Name</b></td>
+<td class='confluenceTd'><b>Description</b></td>
+</tr>
+<tr>
+<td class='confluenceTd'>org.sam.LFC-Cleanup</td>
+<td class='confluenceTd'>Clean test area on LFC</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h4><a name="LFC-org.sam.LFCCleanup"></a>org.sam.LFC-Cleanup</h4>
+
+<p>Given a directory in LFC the metric tries to delete all replicas of the files found in the current directory and then un-register the files. It's multi-threaded, works asynchronously and builds local cache (<tt>/var/lib/gridprobes/&lt;VO or FQAN&gt;/&lt;namespace&gt;/&lt;hostname&gt;/lfns.db</tt> - Python pickle format) of the files to be cleaned up to minimize load on LFC and speed up the cleanup process on restarts (after a definable timeout kicks in if the metric wasn't able to process all the files). Metric parameters:</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>--cleanup-timeout   &lt;sec&gt;   Cleanup timeout. (Default: 300 sec)
+--cleanup-dir       &lt;dir&gt;   Directory to clean. (Default: /grid/&lt;VO&gt;/SAM)
+--cleanup-file-ttl  &lt;hrs&gt;   Time for a file to stay on LFC. (Default: 15 days)
+--cleanup-files-max &lt;num&gt;   Number of files to delete at most before timeout
+                            kicks in. (Default: maxint)
+--cleanup-threads   &lt;num&gt;   Number of cleanup threads. (Default: 5)
+</pre>
+</div></div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

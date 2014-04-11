@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Troubleshooting</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Troubleshooting
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jun 29, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h3><a name="Troubleshooting-Introduction"></a>Introduction</h3>
+
+<p>This pages lists relevant troubleshooting information related to SAM.</p>
+
+<p>The following troubleshooting items are already available under two categories:</p>
+
+<div>
+<ul>
+    <li><a href='#Troubleshooting-Installation'>Installation</a></li>
+<ul>
+    <li><a href='#Troubleshooting-Nagioswebinterfaceshows0hostsandservices'>Nagios web interface shows 0 hosts and services</a></li>
+    <li><a href='#Troubleshooting-Problemwithorg.sam.SRMAllandorg.sam.CEJobState'>Problem with org.sam.SRM-All and org.sam.CE-JobState</a></li>
+    <li><a href='#Troubleshooting-Problemwithorg.ggus.Tickets'>Problem with org.ggus.Tickets</a></li>
+    <li><a href='#Troubleshooting-Problemwithorg.egee.MDDBSync'>Problem with org.egee.MDDBSync</a></li>
+    <li><a href='#Troubleshooting-IncorrectversionofperlDBDSQLiteduringncgrun'>Incorrect version of perl-DBD-SQLite during ncg run</a></li>
+    <li><a href='#Troubleshooting-IncorrectversionofperlDBDMySQL'>Incorrect version of perl-DBD-MySQL</a></li>
+    <li><a href='#Troubleshooting-IncorrectversionofperlSOAPLitecausesvomshtpasswdfailure'>Incorrect version of perl-SOAP-Lite causes voms-htpasswd failure</a></li>
+</ul>
+    <li><a href='#Troubleshooting-Runtime'>Run-time</a></li>
+<ul>
+    <li><a href='#Troubleshooting-Errors%3A%22UNKNOWN%3AThismetricispartoftheorg.sam.XXXbundleandcannotbeexecutedindependently.%22'>Errors: "UNKNOWN: This metric is part of the org.sam.XXX bundle and cannot be executed independently."</a></li>
+    <li><a href='#Troubleshooting-AWNmetricaddedtomyHash.pmfileisinPendingstateandwith%27Serviceisnotscheduledtobechecked%27%26nbsp%3Bstatus.'>A WN metric added to my Hash.pm file is in Pending state and with 'Service is not scheduled to be checked'&nbsp; status.</a></li>
+    <li><a href='#Troubleshooting-MyNagiosdoesn%27treceiveWorkerNodemetrics.'>My Nagios doesn't receive Worker Node metrics.</a></li>
+    <li><a href='#Troubleshooting-JobSubmitworksbutsomeCEs%27WNchecksareinPENDINGstate'>JobSubmit works but some CEs' WN checks are in PENDING state</a></li>
+    <li><a href='#Troubleshooting-Mymetricresultsaren%27tsenttotheCentralMetricStore'>My metric results aren't sent to the Central Metric Store</a></li>
+    <li><a href='#Troubleshooting-Checksorg.nagios.MrsDirSizeandorg.nagios.MsgDirSizereturn%27WARNING%2Fvar%2Fspool%2Fnagios2metricstoresize%3A11484KB%27'>Checks org.nagios.MrsDirSize and org.nagios.MsgDirSize return 'WARNING - /var/spool/nagios2metricstore size: 11484 KB'</a></li>
+    <li><a href='#Troubleshooting-Nagiosverificationreportserror'>Nagios verification reports error</a></li>
+    <li><a href='#Troubleshooting-Testhr.srce.CADistGetFilesreportswarning%22Useofuninitializedvalueinsubstitution%22'>Test hr.srce.CADist-GetFiles reports warning "Use of uninitialized value in substitution"</a></li>
+    <li><a href='#Troubleshooting-Testorg.sam.SRMAllreportswarning%22Errorloadingmodules%3ANomodulenamedlcgutil%22'>Test org.sam.SRM-All reports warning "Error loading modules : No module named lcg_util"</a></li>
+</ul>
+</ul></div>
+
+<h3><a name="Troubleshooting-Installation"></a>Installation</h3>
+
+<h5><a name="Troubleshooting-Nagioswebinterfaceshows0hostsandservices"></a>Nagios web interface shows 0 hosts and services</h5>
+
+<p>Web interface shows 0 hosts and services. After couple of reloads you see your services but after more reloads they disappear again.<br/>
+Running validation of Nagios configuration returns ok:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">nagios -v /etc/nagios/nagios.cfg
+ ...
+ Things look okay - No serious problems were detected during the pre-flight check</pre>
+</div></div>
+<p>In the log file you can see entries such as:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">Warning: Check result queue contained results for host &#39;bdii.srce.hr&#39;, but the host could not be found!  Perhaps you forgot to define the host in your config files?
+ Warning: Check result queue contained results for service &#39;SSH&#39; on host &#39;localhost&#39;, but the service could not be found!  Perhaps you forgot to define the service in your config files?</pre>
+</div></div>
+<p>Solution: you are running two instances of nagios with two different configuration. Stop all nagios processes and start service all over again with:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios start</pre>
+</div></div>
+
+<h5><a name="Troubleshooting-Problemwithorg.sam.SRMAllandorg.sam.CEJobState"></a>Problem with org.sam.SRM-All and org.sam.CE-JobState</h5>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[1277737799] SERVICE ALERT: ce1-egee.srce.hr;org.sam.CE-JobState-dteam;UNKNOWN;HARD;2;UNKNOWN: CRITICAL: Problem with job submission to CE.
+[1277738429] SERVICE NOTIFICATION: msg-contact;egee2.irb.hr;org.sam.SRM-All-dteam;UNKNOWN;ncg-notify-by-msg;UNKNOWN: Error loading modules : No module named lcg_util</pre>
+</div></div>
+<p>Solution: most likely nagios service was restarted before glite-UI was configured, run yaim with glite-UI first or perform restart of nagios service.</p>
+
+<h5><a name="Troubleshooting-Problemwithorg.ggus.Tickets"></a>Problem with org.ggus.Tickets</h5>
+
+<p>(also described in <a href="https://tomtools.cern.ch/jira/browse/SAM-569">SAM-569</a>)</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">SERVICE ALERT: ce1-egee.srce.hr;org.ggus.Tickets;UNKNOWN;SOFT;2;GGUS UNKNOWN - Could not parse XML from GGUS, Unable to recognise encoding of this document at /usr/lib/perl5/vendor_perl/5.8.8/XML/SAX/PurePerl/EncodingDetect.pm line 96.</pre>
+</div></div>
+<p>Solution is to reinstall package perl-XML-SAX-Expat</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum reinstall perl-XML-SAX-Expat
+service nagios restart</pre>
+</div></div>
+
+<h5><a name="Troubleshooting-Problemwithorg.egee.MDDBSync"></a>Problem with org.egee.MDDBSync</h5>
+
+<p>(also described in <a href="https://tomtools.cern.ch/jira/browse/SAM-613">SAM-613</a>)</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[1277737669] SERVICE NOTIFICATION: nagiosadmin;nagiosdev001.cern.ch;org.egee.MDDBSync;CRITICAL;ncg-notify-by-email;MDDB_SYNC: Error running mddb-synchronizer, see logfile.</pre>
+</div></div>
+<p>Solution is to chown files in /var/log/mddb/</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">chown -R nagios:nagios /var/log/mddb</pre>
+</div></div>
+
+<h5><a name="Troubleshooting-IncorrectversionofperlDBDSQLiteduringncgrun"></a>Incorrect version of perl-DBD-SQLite during ncg run</h5>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">install_driver(SQLite) failed: DBI version 1.57 required--this is only version 1.52 at /usr/lib64/perl5/vendor_perl/5.8.8/x86_64-linux-thread-multi/DBD/SQLite.pm line 5.
+BEGIN failed--compilation aborted at /usr/lib64/perl5/vendor_perl/5.8.8/x86_64-linux-thread-multi/DBD/SQLite.pm line 5.
+Compilation failed in require at (eval 56) line 3.
+
+ at /usr/lib/perl5/vendor_perl/5.8.8/GridMon/ConfigCache.pm line 38</pre>
+</div></div>
+<p>Solved by excluding perl-DBI package from slc5-os and slc5-updates (see section 3). If the problem occurs, after excluding perl-DBI from base run:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum update perl-DBI</pre>
+</div></div>
+
+<h5><a name="Troubleshooting-IncorrectversionofperlDBDMySQL"></a>Incorrect version of perl-DBD-MySQL</h5>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">DBD::mysql::st execute failed: PROCEDURE mrs.getFreshMetrics can&#39;t return a result set in the given context
+ at /usr/libexec/grid-monitoring/plugins/nagios/check_missing_probes_mrs line 191</pre>
+</div></div>
+<p>Solved by using the perl-DBD-MySQL package from RPMforge extras repository. See configuration of Yum repositories.</p>
+
+<h5><a name="Troubleshooting-IncorrectversionofperlSOAPLitecausesvomshtpasswdfailure"></a>Incorrect version of perl-SOAP-Lite causes voms-htpasswd failure</h5>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">Can&#39;t call method &quot;header&quot; on an undefined value at /usr/bin/voms2htpasswd line 144, &amp;lt;CONFIG&amp;gt; line 3.</pre>
+</div></div>
+<p>Solved by using the perl-SOAP-Lite package from RPMforge repository. See configuration of Yum repositories.</p>
+
+
+<h3><a name="Troubleshooting-Runtime"></a>Run-time</h3>
+
+<h5><a name="Troubleshooting-Errors%3A%22UNKNOWN%3AThismetricispartoftheorg.sam.XXXbundleandcannotbeexecutedindependently.%22"></a>Errors: "UNKNOWN: This metric is part of the org.sam.XXX bundle and cannot be executed independently."</h5>
+
+<p>This kind of error on hosts:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">&quot;UNKNOWN: This metric is part of the org.sam.XXX bundle and cannot be executed independently.</pre>
+</div></div>
+<p>indicate on of these two situations:</p>
+<ul>
+	<li>Active checks on metrics which NCG configured as passive were enabled. You can recognize this situation if service doesn't have PASV icon on "Service Status Details" page or it has "Active Checks: ENABLED" on "Service Information" page. Solution in this case is to go on the "Service Information" page and click: "Disable active checks of this service".</li>
+	<li>Forced check execution was invoked on passive check. Solution in this case is to force schedule parent check or wait the next regular execution of parent check.</li>
+</ul>
+
+
+<div class='panelMacro'><table class='warningMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Warning</b><br />One should <b>never</b> enable active checks of checks which NCG configured as passive via web interface.<br/>
+One should <b>never</b> force execution of checks which NCG configured as passive via web interface.</td></tr></table></div>
+
+
+
+<h5><a name="Troubleshooting-AWNmetricaddedtomyHash.pmfileisinPendingstateandwith%27Serviceisnotscheduledtobechecked%27%26nbsp%3Bstatus."></a>A WN metric added to my Hash.pm file is in Pending state and with 'Service is not scheduled to be checked'&nbsp; status.</h5>
+
+<p>&nbsp;&nbsp; a) Adding a new metric in the Hash.p file is not enough. The documentation on how to integrate a new metric in Nagios is described here: <a href="https://twiki.cern.ch/twiki/bin/view/LCG/SAMProbesMetrics#Integration_of_WN_checks">https://twiki.cern.ch/twiki/bin/view/LCG/SAMProbesMetrics#Integration_of_WN_checks</a></p>
+
+
+<p>&nbsp;&nbsp; b) On the other hand, in the Hash.pm file the metric names should not have a trailing '-&lt;vo name&gt;' (see 'org.sam.WN-sft-vo-swdir-alice' in the example below) because the VO name will be added/removed when needed automatically by Nagios. In this example, 'org.sam.WN-sft-vo-swdir-alice' should be replaced by 'org.sam.WN-sft-vo-swdir'</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$WLCG_NODETYPE-&amp;gt;{VO_ALICE}-&amp;gt;{&#39;CE&#39;} = \[
+&#39;org.sam.CE-JobState&#39;,
+&#39;org.sam.CE-JobSubmit&#39;,
+&#39;org.sam.WN-SoftVer&#39;,
+&#39;org.sam.WN-sft-vo-swdir-alice&#39;
+\];</pre>
+</div></div>
+
+
+
+<h5><a name="Troubleshooting-MyNagiosdoesn%27treceiveWorkerNodemetrics."></a>My Nagios doesn't receive Worker Node metrics.</h5>
+
+<p>&nbsp;&nbsp;&nbsp; a) Check service 'msg-to-handler':</p>
+
+<p>&nbsp;&nbsp; &nbsp;&nbsp; - service msg-to-handler status</p>
+
+<p>&nbsp; &nbsp; &nbsp; - https://&lt;NAGIOS_HOST&gt;/nagios/cgi-bin/extinfo.cgi?type=2&amp;host=&lt;NAGIOS_HOST&gt;&amp;service=org.nagios.ProcessMsgToHandler</p>
+
+<p>&nbsp;&nbsp;&nbsp; b) Restart 'msg-to-handler' if no messages are received by 'https://&lt;NAGIOS_HOST&gt;/nagios/html/pnp4nagios/index.php?host=&lt;NAGIOS_HOST&gt;&amp;srv=org.egee.RecvFromQueue'</p>
+
+<p>&nbsp;&nbsp;&nbsp; c) Problem is fixed when check 'https://&lt;NAGIOS_HOST&gt;/nagios/html/pnp4nagios/index.php?host=&lt;NAGIOS_HOST&gt;&amp;srv=org.egee.RecvFromQueue' receives messages.</p>
+
+<p>&nbsp;&nbsp;&nbsp; d) Check your WMSes if you still see the problem (See details of test org.sam.CE-JobState of any of the computing elements).</p>
+
+<p>&nbsp;&nbsp;&nbsp; e) Report problem to 'Nagios' team.</p>
+
+<p>&nbsp;&nbsp;&nbsp; Note: WN tests use a discovery mechanism to check which messaging broker they should contact. If you want to specify a particular host, this must be specified in the command line during the execution of the checks. For this, you should update your /etc/ncg/ncg.localdb file including these lines:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">MODIFY_METRIC_PARAMETER!org.sam.CREAMCE-JobState!--mb-uri!stomp://gridmsgxxx.cern.ch:6163/
+MODIFY_METRIC_PARAMETER!org.sam.CE-JobState!--mb-uri!stomp://gridmsgxxx.cern.ch:6163/
+MODIFY_METRIC_PARAMETER!org.sam.glexec.CE-JobState!--mb-uri!stomp://gridmsgxxx.cern.ch:6163/
+MODIFY_METRIC_PARAMETER!org.sam.mpi.CE-JobState!--mb-uri!stomp://gridmsgxxx.cern.ch:6163/</pre>
+</div></div>
+
+<p>Then rerun 'ncg.pl' and restart your Nagios when finished:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[root@vtb-generic-30 ncg]# ncg.pl
+[root@vtb-generic-30 ncg]# service nagios reload</pre>
+</div></div>
+
+<p>You can see now that if you run</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">nagios-run-check -v -d -H ce02.tier2.hep.manchester.ac.uk -s org.sam.CE-JobState-ops</pre>
+</div></div>
+<p>Nagios will pass the &#45;-mb-uri parameter to the probe:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[root@vtb-generic-30 ncg]# nagios-run-check -v -d -H ce02.tier2.hep.manchester.ac.uk -s org.sam.CE-JobState-ops
+Executing command:
+su nagios -l -c &#39;/usr/libexec/grid-monitoring/probes/org.sam/CE-probe -H &quot;ce02.tier2.hep.manchester.ac.uk&quot; -t 600 --vo ops --mb-destination /queue/grid.probe.metricOutput.EGEE.vtb-generic-30_cern_ch -x /etc/nagios/globus/userproxy.pem-ops --mb-uri stomp://gridmsgxxx.cern.ch:6163/ --prev-status $LASTSERVICESTATEID$ -m org.sam.CE-JobState --err-topics ce_wms,default&#39;</pre>
+</div></div>
+
+
+<h5><a name="Troubleshooting-JobSubmitworksbutsomeCEs%27WNchecksareinPENDINGstate"></a>JobSubmit works but some CEs' WN checks are in PENDING state</h5>
+
+<p>Look into stdout/stderr of the framework from WN:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/var/lib/gridprobes/atlas.Role=lcgadmin/org.sam/CE/&amp;lt;hostname&amp;gt;/jobOutput*/jobOutput_&amp;lt;jobID&amp;gt;/gridjob.out</pre>
+</div></div>
+<p>This may give some hints on what is going on.</p>
+
+
+<h5><a name="Troubleshooting-Mymetricresultsaren%27tsenttotheCentralMetricStore"></a>My metric results aren't sent to the Central Metric Store</h5>
+
+<p>&nbsp;&nbsp;&nbsp; a) Check details of check 'org.egee.SendToMsg':</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 'https://&lt;NAGIOS_HOST&gt;/nagios/cgi-bin/extinfo.cgi?type=2&amp;host=&lt;NAGIOS_HOST&gt;&amp;service=org.egee.SendToMsg'</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 'https://&lt;NAGIOS_HOST&gt;/nagios/html/pnp4nagios/index.php?host=&lt;NAGIOS_HOST&gt;&amp;srv=org.egee.SendToMsg'</p>
+
+<p>&nbsp;&nbsp;&nbsp; b) Run the check manually from the command line.</p>
+
+<p>&nbsp;&nbsp;&nbsp; c) Check in /var/spool/msg-nagios-bridge/outgoing-messages/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if there are messages (files) in the directory and with the command:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">find /var/spool/msg-nagios-bridge/outgoing-messages/ \-name text \-exec ls \-l {} \;</pre>
+</div></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; check every few seconds the timestamps reported to see if there are outgoing messages from the box to the messaging (if the Nagios handler is producing messages)</p>
+
+<p>&nbsp;&nbsp;&nbsp; d) Check if the messages are being sent:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">find /var/spool/msg-nagios-bridge/outgoing-messages/ \-name header exec ls \-l {} \;</pre>
+</div></div>
+<p>then grab any of the header files to see if there are things inside. Header contains a topic/queue destination, so from the file I can check where they are sent.</p>
+
+<p>&nbsp;&nbsp;&nbsp; e) Go to the broker where messages are sent. You can know this checking the output of the org.egee.SendToMsg metric:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">https://&amp;lt;hostname&amp;gt;/nagios/cgi-bin/extinfo.cgi?type=2&amp;amp;host=&amp;lt;hostname&amp;gt;&amp;amp;service=org.egee.SendToMsg</pre>
+</div></div>
+<p>If for instance you are using the gridmsg002 and a topic, go to:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">https://gridmsg002.cern.ch/admin/topics.jsp;jsessionid=52ng60zlxn5w</pre>
+</div></div>
+<p>and grep for the corresponding topic used to see if there are messages sent but not being consumed (in our case we check the queue: Consumer.Old_SAM_NAGIOS_HEP_VO.grid.xxxx)</p>
+
+<p>&nbsp;&nbsp;&nbsp; f) On the other hand, you can take one of the header &amp; text messages and check if the content is OK.</p>
+
+<p>&nbsp;&nbsp;&nbsp; g) If I don't know where is my consumer running, I can connect to lxadm and execute:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">wassh root@samnag\[004-028\] &quot;ps axf | grep msg-consume2db | grep -v grep&quot;</pre>
+</div></div>
+
+<p>To know out of those which is the one we're interested in, we check all their config files:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/etc/msg-consume2db/msg-consume2db-&amp;lt;number&amp;gt;.conf</pre>
+</div></div>
+<p>running this command:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">wassh root@samnag\[004-028\] &#39;egrep \-H &quot;^destination&quot; /etc/msg-consume2db/msg-consume2db*.conf&#39;</pre>
+</div></div>
+<p>and we see that samnag016:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/etc/msg-consume2db/msg-consume2db.conf:destination=/topic/grid.probe.metricOutput.EGEE.vo.\*</pre>
+</div></div>
+<p>is what we were looking for, so we go into that box (samnag016) and we do:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">cat /etc/msg-consume2db/msg-consume2db.conf</pre>
+</div></div>
+<p>the config file should contain these lines:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">accept_unknown_region=true
+accepted_role_for_unknown=vo</pre>
+</div></div>
+
+<p>On the same box, we also check the log file of the consumer to see if there are errors inserting tuples:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">tail -f /var/log/msg-consume2db/msg-consume2db.log</pre>
+</div></div>
+
+
+<h5><a name="Troubleshooting-Checksorg.nagios.MrsDirSizeandorg.nagios.MsgDirSizereturn%27WARNING%2Fvar%2Fspool%2Fnagios2metricstoresize%3A11484KB%27"></a>Checks org.nagios.MrsDirSize and org.nagios.MsgDirSize return 'WARNING - /var/spool/nagios2metricstore size: 11484 KB'</h5>
+
+<p>&nbsp;&nbsp;&nbsp; a) In /etc/nagios/nagios.cfg check that the following variable is set to zero:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">obsess_over_services=0</pre>
+</div></div>
+
+<p>&nbsp;&nbsp;&nbsp; b) Check also if you have the following variable in section NCG::LocalMetricsAttrs/Active:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">INCLUDE_MSG_CHECKS_SEND = 0</pre>
+</div></div>
+
+<p>&nbsp;&nbsp;&nbsp; c) Check that in either NCG::LocalMetricsAttrs/Active or NCG::ConfigGen/Nagios, the following variable is NOT set to 1 :</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">LOCAL_METRIC_STORE</pre>
+</div></div>
+
+<h5><a name="Troubleshooting-Nagiosverificationreportserror"></a>Nagios verification reports error</h5>
+
+<p>Manual run of Nagios verification fails, e.g.:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># nagios -v /etc/nagios/nagios.cfg
+...
+One or more problems was encountered while processing the config files... Check your configuration file(s)
+...</pre>
+</div></div>
+
+<p>Check if there is a ncg.pl process running. Currently ncg.pl first moves existing configuration (/etc/nagios/wlcg.d) and then creates a new one. Running verification while ncg.pl is active will fail because configuration is not completely generated. Once the ncg.pl is finished verification will work fine.</p>
+
+<h5><a name="Troubleshooting-Testhr.srce.CADistGetFilesreportswarning%22Useofuninitializedvalueinsubstitution%22"></a>Test hr.srce.CADist-GetFiles reports warning "Use of uninitialized value in substitution"</h5>
+
+<p>Test reports:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">Download Files WARNING - Getting http://repository.egi.eu/sw/production/cas/1/current/meta/ca-policy-egi-core.release failed: 500 Use of uninitialized value in substitution (s///). Getting http://repository.egi.eu/sw/production/cas/1/current/meta/ca-policy-egi-core.list failed: 500 Use of uninitialized value in substitution (s///). Getting http://repository.egi.eu/sw/production/cas/1/current/meta/ca-policy-egi-core.obsoleted failed: 500 Use of uninitialized value in substitution (s///).</pre>
+</div></div>
+
+<p>Problem occurs with the perl-libwww-perl package from Cydia repository (version: 5.837). Set up the priorities according to documentation and install package perl-libwww-perl from OS base or updates repository.</p>
+
+<h5><a name="Troubleshooting-Testorg.sam.SRMAllreportswarning%22Errorloadingmodules%3ANomodulenamedlcgutil%22"></a>Test org.sam.SRM-All reports warning "Error loading modules : No module named lcg_util"</h5>
+
+<p>Starting from gLite-UI 3.2.10-1 there is a known issue with lack of environment variables. For details see: <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>. The solution is to restart nagios service:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

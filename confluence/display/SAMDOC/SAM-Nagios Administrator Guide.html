@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : SAM-Nagios Administrator Guide</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : SAM-Nagios Administrator Guide
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Feb 18, 2014 by <font color="#0050B2">mbabik</font>.
+				    </div>
+
+				    <p><br class="atl-forced-newline" /></p>
+
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Administrator guide for latest release: SAM-Update-22</b><br />You can find the release notes at: <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/Update-22">https://tomtools.cern.ch/confluence/display/SAMDOC/Update-22</a>.</td></tr></table></div>
+
+<div>
+<ul>
+    <li><a href='#SAM-NagiosAdministratorGuide-Initialsetup'>Initial setup</a></li>
+<ul>
+    <li><a href='#SAM-NagiosAdministratorGuide-Databasebackup'>Database backup</a></li>
+    <li><a href='#SAM-NagiosAdministratorGuide-NCGbackup'>NCG backup</a></li>
+    <li><a href='#SAM-NagiosAdministratorGuide-Hostcertificate'>Host certificate</a></li>
+    <li><a href='#SAM-NagiosAdministratorGuide-DisableSELinux'>Disable SELinux</a></li>
+    <li><a href='#SAM-NagiosAdministratorGuide-ConfigurationofYUMRepositories'>Configuration of YUM Repositories</a></li>
+</ul>
+    <li><a href='#SAM-NagiosAdministratorGuide-Installation'>Installation</a></li>
+    <li><a href='#SAM-NagiosAdministratorGuide-Configuration'>Configuration</a></li>
+    <li><a href='#SAM-NagiosAdministratorGuide-Validation'>Validation</a></li>
+</ul></div>
+
+<h1><a name="SAM-NagiosAdministratorGuide-Initialsetup"></a>Initial setup</h1>
+
+<h2><a name="SAM-NagiosAdministratorGuide-Databasebackup"></a>Database backup</h2>
+
+<p>In case you would like to keep your existing history of tests results, you can run the following command to backup your database:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysqldump -u root --routines --events --triggers --password=&amp;lt;MYSQL_ADMIN_PASS&amp;gt; &amp;lt;DB_NAME&amp;gt; | gzip -c &amp;gt; /var/tmp/mrs_`date +%d-%m-%Y_%H:%M:%S`.gz</pre>
+</div></div>
+
+<p>Starting from UP-22, you can also run a yaim function for the same purpose. Note that automatic backups are no longer performed.</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -r -s &amp;lt;SITE_INFO&amp;gt; -n sam_nagios -f config_mysql_backup</pre>
+</div></div>
+
+<h2><a name="SAM-NagiosAdministratorGuide-NCGbackup"></a>NCG backup</h2>
+
+<p>Please review and backup any local configurations of NCG:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ /etc/ncg/ncg-localdb.d/ # you can ignore files generated via yaim
+$ /etc/ncg/ncg.localdb
+
+In case you have manually created/overridden any metric configurations then please backup your files in this directory as well:
+$ /etc/ncg-metric-config.d/*</pre>
+</div></div>
+
+<h2><a name="SAM-NagiosAdministratorGuide-Hostcertificate"></a>Host certificate</h2>
+
+<p>Install your host certificate to secure the Nagios portal.</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ ls -l /etc/grid-security/host*
+-rw-r--r-- 1 root root 2286 Oct 28 19:26 /etc/grid-security/hostcert.pem
+-r-------- 1 root root  887 Oct 28 19:25 /etc/grid-security/hostkey.pem
+
+$ openssl x509 -in /etc/grid-security/hostcert.pem -noout -purpose | grep &quot;SSL client&quot;
+SSL client : Yes</pre>
+</div></div>
+
+
+<h2><a name="SAM-NagiosAdministratorGuide-DisableSELinux"></a>Disable SELinux</h2>
+
+<p>SELINUX needs to be disabled to proceed with the installation. If it is enabled, follow the instructions below and <b>reboot the machine</b>.</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ setenforce 0
+$ sed -i &#39;s/^SELINUX=.*/SELINUX=disabled/&#39; /etc/selinux/config</pre>
+</div></div>
+
+<h2><a name="SAM-NagiosAdministratorGuide-ConfigurationofYUMRepositories"></a>Configuration of YUM Repositories</h2>
+
+<p>Scientific Linux v5 (this release was tested with 5.9): <a href="http://ftp.scientificlinux.org/linux/scientific/5x/x86_64/SL/yum-conf-5x-2-1.sl5.noarch.rpm">SL5 (note: newer package might be available)</a></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[sl-base]
+priority=2
+exclude=perl-DBI mysql51*
+protect=1
+
+[sl-security]
+priority=2
+protect=1
+exclude=perl-DBI mysql51*
+
+[sl-fastbugs]
+priority=2
+protect=1
+exclude=perl-DBI mysql51*</pre>
+</div></div>
+
+<p>SAM/EGI repository: <a href="http://repository.egi.eu/sw/production/sam/1/repofiles/">SAM repository</a></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[egee-sa1]
+name=EGEE Packages from SA1 for CentOS5
+...
+gpgcheck=0
+protect=1
+priority=10
+metadata_expire=1</pre>
+</div></div>
+
+<p>Unified Middleware Distribution v2: <a href="http://repository.egi.eu/sw/production/umd/2/sl5/x86_64/updates/umd-release-2.0.0-2.el5.noarch.rpm">UMD version 2</a></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[UMD-2-base]
+protect=1
+priority=40
+
+[UMD-2-updates]
+protect=1
+priority=40</pre>
+</div></div>
+
+<p>EPEL: <a href="http://mirror.switch.ch/ftp/mirror/epel/5/i386/repoview/epel-release.html">EPEL repository 5.4</a></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[epel]
+enabled=1
+priority=50</pre>
+</div></div>
+
+<p>CA: <a href="https://wiki.egi.eu/wiki/EGI_IGTF_Release">EGI trust anchors repository</a></p>
+
+<h1><a name="SAM-NagiosAdministratorGuide-Installation"></a>Installation</h1>
+
+<ol>
+	<li>Install required packages
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ yum -y install yum-priorities yum-protectbase
+$ yum -y install ca-policy-egi-core httpd mysql51 yum-plugin-replace
+$ yum -y install nagios.x86_64</pre>
+</div></div></li>
+	<li>Install SAM Nagios package
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ yum install sam-nagios
+$ yum update --exclude sam-gridmon</pre>
+</div></div></li>
+	<li>For NGIs monitoring ARC or using ARC probes
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ yum install nordugrid-arc-plugins-globus</pre>
+</div></div></li>
+</ol>
+
+
+
+<h1><a name="SAM-NagiosAdministratorGuide-Configuration"></a>Configuration</h1>
+
+<p>A SAM-Nagios instance can be configured in different ways in order to monitor different sets of sites and services:</p>
+<ul>
+	<li>NGI SAM-Nagios: to monitor sites/services from a given region</li>
+	<li>VO SAM-Nagios: to monitor sites/services that support a given VO (optionally using a VO feed)</li>
+	<li>Site SAM-Nagios: to monitor all services from a specific site</li>
+</ul>
+
+
+<ol>
+	<li>Create a YAIM configuration file for your instance. For UP-22 a summary of configuration changes is in the release notes. In order to support transparent migration of SAM to CNRS please add the following yaim variables:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ATP_ROOT_URL=&quot;http://mon.egi.eu/atp&quot;
+POEM_SYNC_URLS=&quot;http://mon.egi.eu/poem/api/0.1/json/&quot;</pre>
+</div></div>
+<p>(no other changes are needed, you can keep your existing site-info.def from UP-20).<br/>
+A detailed specification of all SAM configuration parameters is available in the SAM documentation:</p>
+	<ol>
+		<li><a href="https://tomtools.cern.ch/confluence/display/SAMDOC/SAM+Configuration+via+YAIM#SAMConfigurationviaYAIM-Common">Common configuration options</a></li>
+		<li><a href="https://tomtools.cern.ch/confluence/display/SAMDOC/SAM+Configuration+via+YAIM#SAMConfigurationviaYAIM-SAMNagios">SAM-Nagios specific options</a></li>
+	</ol>
+	</li>
+	<li>Additional configuration<br/>
+SAM releases often provide additional configuration on each release.
+	<ol>
+		<li>Please check the <a href="Release Notes.html" title="Release Notes">Release Notes</a> of the latest production release.</li>
+		<li>Check the <a href="FAQs.html" title="FAQs">FAQs</a> for common configurations and problems.</li>
+	</ol>
+	</li>
+	<li>Restore database from backup (optional)</li>
+	<li>Run yaim
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ /opt/glite/yaim/bin/yaim -c -s /etc/yaim/site-info.def -n NAGIOS -n SAM_NAGIOS</pre>
+</div></div></li>
+	<li>Generate MyProxy certificate
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ ls -l .globus/
+total 16
+-rw-r--r-- 1 root root 4908 Sep 18 14:44 usercert.pem
+-rw------- 1 root root 4836 Sep 18 14:44 userkey.pem
+
+$ /opt/globus/bin/myproxy-init -c 4320 -k NagiosRetrieve-&amp;lt;hostname&amp;gt;-&amp;lt;VO name&amp;gt; -s MYPROXY -l nagios -x -Z &amp;lt;host DN&amp;gt;
+
+(e.g.)
+$ /opt/globus/bin/myproxy-init -l nagios -s myproxy.cern.ch -k NagiosRetrieve-dev-sam-nagios.cern.ch-ops -c 4320 -x -Z &quot;/DC=ch/DC=cern/OU=computers/CN=dev-sam-nagios.cern.ch&quot;</pre>
+</div></div></li>
+</ol>
+
+
+
+<h1><a name="SAM-NagiosAdministratorGuide-Validation"></a>Validation</h1>
+
+<ol>
+	<li>Check the Nagios web interface and SAM portal are up
+	<ol>
+		<li>https://&lt;hostname&gt;/nagios</li>
+		<li>https://&lt;hostname&gt;/myegi</li>
+	</ol>
+	</li>
+	<li>Check MyProxy credentials
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ nagios-run-check &amp;lt;hostname&amp;gt; hr.srce.GridProxy-Get-VO</pre>
+</div></div></li>
+</ol>
+
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718412/46497810.repo">egi-trustanchors.repo</a> (application/octet-stream)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

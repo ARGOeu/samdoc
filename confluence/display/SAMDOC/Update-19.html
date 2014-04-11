@@ -1,0 +1,586 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-19</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-19
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jan 14, 2013 by <font color="#0050B2">tarragon</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#Update-19-Summary'>Summary</a></li>
+    <li><a href='#Update-19-Description'>Description</a></li>
+    <li><a href='#Update-19-PackageList'>Package List</a></li>
+<ul>
+    <li><a href='#Update-19-SAMNagios'>SAM-Nagios</a></li>
+    <li><a href='#Update-19-SAMGridmon'>SAM-Gridmon</a></li>
+</ul>
+    <li><a href='#Update-19-ConfigurationChanges'>Configuration Changes</a></li>
+<ul>
+    <li><a href='#Update-19-Common'>Common</a></li>
+    <li><a href='#Update-19-SAMGridmon'>SAM-Gridmon</a></li>
+    <li><a href='#Update-19-SAMNagios'>SAM-Nagios</a></li>
+</ul>
+    <li><a href='#Update-19-KnownIssues'>Known Issues</a></li>
+    <li><a href='#Update-19-TicketsList'>Tickets List</a></li>
+<ul>
+    <li><a href='#Update-19-WithoutNightlyValidation'>Without Nightly Validation</a></li>
+    <li><a href='#Update-19-DuringNightlyValidation'>During Nightly Validation</a></li>
+</ul>
+</ul></div>
+
+<h2><a name="Update-19-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 25 June 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 23 November 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> Released </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Validation Steps </td>
+<td class='confluenceTd'> <a href="https://tomtools.cern.ch/jira/browse/SAM-2660">SAM-2660</a> and <a href="https://tomtools.cern.ch/jira/browse/SAM-2764">SAM-2764</a> </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-19-Description"></a>Description</h2>
+
+<p>This release is devoted to documentation and to the MyEGI component, improving many aspects of its visualization. Please note that it is highly recommended to first update to SAM Update-17 before upgrading to this release.</p>
+
+<p>Technical details:</p>
+<ul>
+	<li>287 tickets resolved</li>
+	<li>Status and Availability computation:
+	<ul>
+		<li>Improved availability re-computation algorithm and status computation bootstrapping</li>
+		<li>Log information about status of execution of MySQL events</li>
+		<li>Improvement of logging mechanism</li>
+	</ul>
+	</li>
+	<li>Topology aggregation:
+	<ul>
+		<li>New ATP API package integrated in MyWLCG</li>
+		<li>VOFeed validation logs added to ATP probe</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>Profile Management:
+	<ul>
+		<li>Added tagging capability and improving user interface</li>
+		<li>Changes to public Web API
+		<ul>
+			<li>Service types have been deprecated and are currently mapped to service flavors</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+	<li>MyEGI changes:
+	<ul>
+		<li>Major style and layout changes</li>
+		<li>Adding new view availability and reliability reporting</li>
+		<li>Trends dashboard: availability/reliability trends, Experiment usage</li>
+		<li>Public API documentation revised</li>
+		<li>Added MyEGI user and admin guides</li>
+		<li>Changed to Django-1.3 to improve security and functionality of several components (POEM, MyEGI, ATP)</li>
+	</ul>
+	</li>
+	<li>Updated MySQL to non-vulnerable version (5.1.63) and improved MySQL database dump</li>
+	<li>Developer documentation for all components</li>
+	<li>Nagios configuration
+	<ul>
+		<li>Removed resource BDII from SAM/Nagios</li>
+		<li>Consume VO Nagios results in a Site Nagios instance</li>
+		<li>Removed probe 'org.nagios.NCGPidFile'</li>
+		<li>Added probe 'org.nagiosexchange.NCGLogFiles'</li>
+	</ul>
+	</li>
+	<li>Probes integration and changes:
+	<ul>
+		<li>Added probe <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring" title="Central Data Warehouse Monitoring">ch.cern.sam.MrsCheckSpool</a></li>
+		<li>Repackaging of perl-gridmon probe development framework</li>
+		<li>Integration of QCG/MAPPER probes</li>
+		<li>Integration of UNICORE Job and unicore6.StorageFactory</li>
+		<li>Fixing compatibility with EMI WN probe.</li>
+		<li>Fixing EMI version detection in the WN probe.</li>
+	</ul>
+	</li>
+	<li>Fixing configuration issue with perl-Net-STOMP-Client-1.2.1</li>
+	<li>SAM configuration changes (glite-yaim-nagios):
+	<ul>
+		<li>Removed MDDB configuration</li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Update-19-PackageList"></a>Package List</h2>
+
+<h3><a name="Update-19-SAMNagios"></a>SAM-Nagios</h3>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.25.10-1.el5
+glite-yaim-nagios-1.8.46-1.el5
+grid-monitoring-config-gen-0.90.15-1.el5
+grid-monitoring-probes-hr.srce-0.35.3-1.el5
+grid-monitoring-probes-org.sam-0.5.7-1.el5
+mrs-1.7.30-1.el5
+mywlcg-1.4.17-6.el5
+mywlcg-atp-web-1.26.1-3.el5
+mywlcg-atp-api-1.25.20-1.el5
+nagios-plugins-qcg-broker-2.6.1-1
+nagios-plugins-qcg-ntf-2.6.0-3
+nagios-plugins-qcg-comp-2.6.0-1
+ncg-metric-config-1.1.6-1.el5
+poem-0.9.64-1.el5
+poem-sync-0.9.64-1.el5
+sam-nagios-1.19.3-1.el5
+sam-release-1.19.0-1.el5
+sam-sync-1.0.9-1.el5
+unicore-nagios-plugins-2.2.1-1.sl5
+
+#Dependencies:
+html5lib-0.10-1 #required by mywlcg.html5lib package is required for generating pdfs using python
+pisa-3.0.33.2-1 #required by mywlcg.pisa package is required for generating pdfs using python
+python-django-1.3.1-1.el5
+django-taggit-0.9.3-2.el5
+perl-Messaging-Message-1.3-1.el5
+python-reportlab-2.5-3.el5
+</pre>
+</div></div>
+
+<h3><a name="Update-19-SAMGridmon"></a>SAM-Gridmon</h3>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ace-0.2.3-2.el5
+atp-1.25.10-1.el5
+dax-1.0.11-1.el5
+glite-yaim-nagios-1.8.46-1.el5
+mrs-1.7.30-1.el5
+mywlcg-1.4.17-6.el5
+mywlcg-atp-web-1.26.1-3.el5
+mywlcg-atp-api-1.25.20-1.el5
+ncg-metric-config-1.1.6-1.el5
+poem-0.9.64-1.el5
+poem-sync-0.9.64-1.el5
+sam-release-1.19.0-1.el5
+sam-gridmon-1.19.1-2.el5
+
+#Dependencies:
+html5lib-0.10-1 #required by mywlcg.html5lib package is required for generating pdfs using python
+pisa-3.0.33.2-1 #required by mywlcg.pisa package is required for generating pdfs using python
+python-django-1.3.1-1.el5
+django-taggit-0.9.3-2.el5
+perl-Messaging-Message-1.3-1.el5
+python-reportlab-2.5-3.el5
+</pre>
+</div></div>
+
+
+<h2><a name="Update-19-ConfigurationChanges"></a>Configuration Changes</h2>
+
+<h3><a name="Update-19-Common"></a>Common</h3>
+
+<ul>
+	<li>New Yaim configuration variables:
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_PASS_R </td>
+<td class='confluenceTd'> Database password (reader) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> my_reader_password </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_PASS_W </td>
+<td class='confluenceTd'> Database password (writer) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> my_writer_password </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_USER_R </td>
+<td class='confluenceTd'> Database user (reader) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> mrs </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_USER_W </td>
+<td class='confluenceTd'> Database user (writer) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> mrs </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MRS </td>
+<td class='confluenceTd'> MRS_BOOTSTRAPPER_TIMEOUT </td>
+<td class='confluenceTd'> Timeout (in seconds) for MRS bootstrapper </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 1800 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MRS </td>
+<td class='confluenceTd'> MRS_LOG_LEVEL </td>
+<td class='confluenceTd'> Level of debug for MRS log (possible values: DEBUG WARNING or ERROR) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> ERROR </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_ACCESS_CONTROL_ALLOW_ORIGIN </td>
+<td class='confluenceTd'> Set Access-Control-Allow-Origin header </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> &#42; </td>
+</tr>
+</tbody></table>
+</div>
+</li>
+</ul>
+
+
+<ul>
+	<li>Removed YAIM variables
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>DB_USER
+DB_PASS
+MDDB_SYNC_TIMEOUT
+</pre>
+</div></div></li>
+</ul>
+
+
+<h3><a name="Update-19-SAMGridmon"></a>SAM-Gridmon</h3>
+
+<ul>
+	<li>New Yaim configuration variables
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORTS </td>
+<td class='confluenceTd'> To enable/disable Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_AUTHENTIC_DNS </td>
+<td class='confluenceTd'> List of authentic DNs that can generate official reports (Seperated by commas with no space) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_EGI_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for EGI Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> ROC_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_WLCG_TIER1_HISTORY_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for WLCG Tier1 History Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> WLCG_CREAM_LCGCE_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MywLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_WLCG_TIER1_SUMMARY_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for WLCG Tier1 Summary Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> WLCG_CREAM_LCGCE_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_WLCG_TIER1_VO_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for WLCG Tier1 VO Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> WLCG_CREAM_LCGCE_CRITICAL ALICE_CRITICAL ATLAS_CRITICAL CMS_CRITICAL LHCb_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_WLCG_TIER2_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for WLCG Tier2 Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> WLCG_CREAM_LCGCE_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_TOPOLOGY </td>
+<td class='confluenceTd'> To turn on/off Topology module in MyWLCG </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_EGI_EMAILS </td>
+<td class='confluenceTd'> List of emails to which EGI Reports will be send </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> egi-league-results@hellasgrid.gr </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_WLCG_TIER1_EMAILS </td>
+<td class='confluenceTd'> List of emails to which WLCG Tier1 Reports will be send </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> worldwide-lcg-management-board@cern.ch </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_WLCG_TIER2_EMAILS </td>
+<td class='confluenceTd'> List of emails to which WLCG Tier2 Reports will be send </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> project-wlcg-cb@cern.ch </td>
+</tr>
+</tbody></table>
+</div>
+</li>
+</ul>
+
+
+<h3><a name="Update-19-SAMNagios"></a>SAM-Nagios</h3>
+
+<ul>
+	<li>New Yaim configuration variables:
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_crit_recalc </td>
+<td class='confluenceTd'> critical_recalc parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 50000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_crit_spool </td>
+<td class='confluenceTd'> critical_spool parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 10000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_path_recalc </td>
+<td class='confluenceTd'> web_service_path_recalc parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> myegi/sam-pi/num_records_metricdataforrecalculation </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_path_spool </td>
+<td class='confluenceTd'> web_service_path_spool parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> myegi/sam-pi/num_records_metricdata_spool </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_warn_recalc </td>
+<td class='confluenceTd'> warn_recalc parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring" title="Central Data Warehouse Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 25000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_warn_spool </td>
+<td class='confluenceTd'> warn_spool parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring" title="Central Data Warehouse Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 5000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_INCLUDE_PROXY_CHECKS </td>
+<td class='confluenceTd'> Switch on/off internal tests for generating proxy credential </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 1 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_SEND_TO_DASHBOARD </td>
+<td class='confluenceTd'> Enables interaction with Dashboard on VO instances </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> HOST_KEYSTORE_PASS </td>
+<td class='confluenceTd'> Password used for encrypting host certificate keystore </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> password </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_EGI_EMAILS </td>
+<td class='confluenceTd'> List of emails to which EGI Reports will be send </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> egi-league-results@hellasgrid.gr </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_WLCG_TIER1_EMAILS </td>
+<td class='confluenceTd'> List of emails to which WLCG Tier1 Reports will be send </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> worldwide-lcg-management-board@cern.ch </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_WLCG_TIER2_EMAILS </td>
+<td class='confluenceTd'> List of emails to which WLCG Tier2 Reports will be send </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> project-wlcg-cb@cern.ch </td>
+</tr>
+</tbody></table>
+</div>
+</li>
+</ul>
+
+
+<h2><a name="Update-19-KnownIssues"></a>Known Issues</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please upgrade to SAM Update-17 first as the upgrade from SAM Update-15 directly to SAM Update-19 is not supported.</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>For machines running latest version of glite-UI (3.2.10-1 or higher):<br/>
+Please restart Nagios after yaim execution. Otherwise you may see problems similar to <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Upgrading a node with yum requires a package exclusion, e.g.:
+<ol>
+	<li>on sam-nagios<br/>
+yum update &#45;-exclude sam-gridmon</li>
+	<li>on sam-gridmon<br/>
+yum update &#45;-exclude sam-nagios</li>
+</ol>
+</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>New package grid-monitoring-probes-org.sam-0.5.7-1.el5 solves the problem of running org.sam.WN&#42; check on SL6 platform. More details can be found here: <a href="https://tomtools.cern.ch/jira/browse/SAM-2999">https://tomtools.cern.ch/jira/browse/SAM-2999</a>. This package contains nagios binary that cannot be executed on 32-bit architecture and fails on some older WN platforms behind CE service type. Deployment of this package will cause CE service type tests to become UNKNOWN.</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Because of a MRS bug <a href="https://tomtools.cern.ch/jira/browse/SAM-3098">SAM-3098</a>, metrics are not added to metricdata tables on MySQL.<br/>
+In order to fix it, please download the MRS-patch.sql attached (<a href="attachments/39157849/43483137.sql">MRS-patch.sql</a>) and deploy it (connected to your mysql db) with:<br/>
+source MRS-patch.sql;</td></tr></table></div>
+
+<div class='panelMacro'><table class='warningMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Perl module Directory::Queue is upgraded in Update-17. New dirqueue structure is not backward compatible with the previous version. After running Yaim please run:<br/>
+rm &#45;rf /var/spool/nagios2metricstore/*/&#42;<br/>
+rm &#45;rf /var/spool/msg-nagios-bridge/*/&#42;<br/>
+If one doesn't perform steps described above SAM will not publish result to the central SAM-GridMon and test org.egee.SendToMsg will fail with the following error:<br/>
+&#42;*ePN /usr/libexec/grid-monitoring/plugins/nagios/send_to_msg: "Directory::Queue::Simple: cannot link(/var/spool/msg-nagios-bridge/outgoing-messages/00000000/50b3452588432f, /var/spool/msg-nagios-bridge/outgoing-messages/00000000/50b3452588432f.lck): Operation not permitted".</td></tr></table></div>
+
+
+<h2><a name="Update-19-TicketsList"></a>Tickets List</h2>
+
+<h3><a name="Update-19-WithoutNightlyValidation"></a>Without Nightly Validation</h3>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+<h3><a name="Update-19-DuringNightlyValidation"></a>During Nightly Validation</h3>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/39157849/43483137.sql">MRS-patch.sql</a> (application/octet-stream)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

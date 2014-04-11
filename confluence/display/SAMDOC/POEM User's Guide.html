@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : POEM User&#39;s Guide</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : POEM User&#39;s Guide
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Sep 27, 2013 by <font color="#0050B2">mbabik</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#POEMUser%27sGuide-Introduction'>Introduction</a></li>
+    <li><a href='#POEMUser%27sGuide-Installation'>Installation</a></li>
+<ul>
+    <li><a href='#POEMUser%27sGuide-TransitionfromMDDBtoPOEM'>Transition from MDDB to POEM</a></li>
+    <li><a href='#POEMUser%27sGuide-Existingprofiles'>Existing profiles</a></li>
+</ul>
+    <li><a href='#POEMUser%27sGuide-Configuration'>Configuration</a></li>
+<ul>
+    <li><a href='#POEMUser%27sGuide-VONagios'>VO-Nagios</a></li>
+    <li><a href='#POEMUser%27sGuide-NGINagios'>NGI-Nagios</a></li>
+</ul>
+    <li><a href='#POEMUser%27sGuide-Basicusage'>Basic usage</a></li>
+<ul>
+    <li><a href='#POEMUser%27sGuide-Authentication'>Authentication</a></li>
+    <li><a href='#POEMUser%27sGuide-Authorization'>Authorization</a></li>
+    <li><a href='#POEMUser%27sGuide-Adding%2FEditingprofilesandmetrics'>Adding/Editing profiles and metrics</a></li>
+    <li><a href='#POEMUser%27sGuide-Removingprofileandmetrics'>Removing profile and metrics</a></li>
+</ul>
+    <li><a href='#POEMUser%27sGuide-Advancedconfigurations'>Advanced configurations</a></li>
+<ul>
+    <li><a href='#POEMUser%27sGuide-Profilecloning'>Profile cloning</a></li>
+    <li><a href='#POEMUser%27sGuide-Profilesynchronization'>Profile synchronization</a></li>
+</ul>
+</ul></div>
+
+<h3><a name="POEMUser%27sGuide-Introduction"></a>Introduction</h3>
+
+<p>Profile Management (POEM) system provides an interfaces and functionality necessary to group different metrics into profiles and based on those profiles configure NAGIOS and all other SAM components. POEM is distributed and various different instances are distinguished with the concept of namespaces. Namespace can be any string uniquely&nbsp;identifying&nbsp;the set of profiles, which you would like to introduce into the system&nbsp;(e.g. <b>ch.cern.sam</b> is used on the central SAM instance). POEM is hosted together with all the other SAM software in all existing nodetypes and their configurations (except for Site-Nagios).</p>
+
+<h3><a name="POEMUser%27sGuide-Installation"></a>Installation</h3>
+
+<p>POEM is part of the existing SAM installation and doesn't need any additional steps to be installed. Additional configuration steps might be necessary and are described in the Transition section below.</p>
+
+<h4><a name="POEMUser%27sGuide-TransitionfromMDDBtoPOEM"></a>Transition from MDDB to POEM</h4>
+
+<p><b>NGI-Nagios</b><br/>
+Transition from MDDB to POEM is performed automatically during the glite-yaim configuration. This includes backup of the databases, changes to schemas and migration of the existing data to the new system. In case you would like to setup your own namespace please follow custom configuration of <a href="#POEMUser%27sGuide-NGINagios">NGI&#45;Nagios</a>.</p>
+
+<p><b>VO-Nagios</b><br/>
+Additional steps are necessary to move VO-Nagios installation to POEM as current model of centralized profiles will no longer work. VO-Nagios is designed to be a completely independent from any central SAM instances and therefore needs to establish a namespace with a set of profiles supporting particular VO. Please follow <a href="#POEMUser%27sGuide-VONagios">VO&#45;Nagios</a>.</p>
+
+<p><b>Experiments</b><br/>
+Transition from MDDB to POEM is performed automatically and the central POEM namespace will contain all the profiles (<a href="http://grid-monitoring.cern.ch/poem/admin">http://grid-monitoring.cern.ch/poem/admin</a>). Please request authorization to add/modify profiles via SNOW (please note that full access to given profile can be only granted to one particular DN). For any newly created profile you need to request (via SNOW) registration of particular ACE algorithm for this profile before availability for it starts to be computed.</p>
+
+<p><b>Site-Nagios</b><br/>
+POEM is currently not supported on the Site-Nagios instances.</p>
+
+<h4><a name="POEMUser%27sGuide-Existingprofiles"></a>Existing profiles</h4>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>Profile </th>
+<th class='confluenceTh'> Description </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ch.cern.sam-WLCG_CREAM_LCGCE_CRITICAL </td>
+<td class='confluenceTd'> Contains critical OSG and EGI metrics, used to generate Tier1, Tier2 WLCG reports (OPS) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ch.cern.sam-ROC_CRITICAL </td>
+<td class='confluenceTd'> Contains critical EGI metrics, used to generate EGI league report </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ch.cern.sam-ROC </td>
+<td class='confluenceTd'> Contains all existing EGI metrics </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ch.cern.sam-ROC_OPERATORS </td>
+<td class='confluenceTd'> Contains all EGI metrics shown in the Operations dashboard (CIC) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ch.cern.sam-ATLAS_CRITICAL </td>
+<td class='confluenceTd'> Contains critical ATLAS metrics, used to generate WLCG_Tier1_VO_ATLAS report (ATLAS) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ch.cern.sam-ALICE_CRITICAL </td>
+<td class='confluenceTd'> Contains critical ALICE metrics, used to generate WLCG_Tier1_VO_ALICE report (ALICE) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ch.cern.sam-CMS_CRITICAL </td>
+<td class='confluenceTd'>  Contains critical CMS metrics, used to generate WLCG_Tier1_VO_CMS report (CMS) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ch.cern.sam-LHCb_CRITICAL </td>
+<td class='confluenceTd'> Contains critical LHCb metrics, used to generate WLCG_Tier1_VO_LHCb report (LHCb) </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h3><a name="POEMUser%27sGuide-Configuration"></a>Configuration</h3>
+
+<p>POEM is shipped with default configuration that should work for all NGI instances and therefore additional configuration steps are only necessary for VO-Nagioses. In case you would like to add additional profiles to your NGI instance you can follow this procedure.</p>
+
+<h4><a name="POEMUser%27sGuide-VONagios"></a>VO-Nagios</h4>
+
+<p>The following yaim variables need to be set:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">NCG_USE_ATP_VO_FEED=true
+ATP_ROOT_URL=&quot;https://localhost/atp&quot;
+POEM_WEB_ENABLE=True
+POEM_NAMESPACE=&quot;&amp;lt;namespace&amp;gt;&quot;
+POEM_SYNC_URLS=&quot;http://localhost/poem/api/0.2/json/&quot;
+POEM_SYNC_NS_RESTRICT=&quot;&quot;</pre>
+</div></div>
+
+<p>In case you're running VO-Nagios without VO feed please also add:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">POEM_USE_ATP_SERVICEMAP=&quot;True&quot;</pre>
+</div></div>
+
+<p>If this is the first time you will need to setup superuser access to the Web interface, this can be done via:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">export DJANGO_SETTINGS_MODULE=Poem.settings; django-admin createsuperuser</pre>
+</div></div>
+<p>The command will ask some basic questions and creates the superuser. The same command can be used if you forgot the password or would like to re-create the superuser. The superuser can add, change and delete any profiles on your local POEM instance. A more fine-grained authorization is also available and described in <a href="#POEMUser%27sGuide-Authorization">Authorization</a>.</p>
+
+<p>If this is the first time you will need to add a profile to your poem instance. You can either try to add one manually or clone one from the central instance (<a href="http://grid-monitoring.cern.ch/poem/admin):">http://grid-monitoring.cern.ch/poem/admin):</a></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/etc/rc.d/init.d/poem_sync stop  # disable poem sync
+export DJANGO_SETTINGS_MODULE=Poem.settings; django-admin import_profiles --url http://grid-monitoring.cern.ch/poem/api/0.2/json/profiles/ ROC</pre>
+</div></div>
+<p>This will clone ROC profile to your namespace and allow you to autocomplete all its metrics. Please access your POEM instance as a superuser at <a href="http://localhost/poem/admin">http://localhost/poem/admin</a> and change the name and <b>VO</b> of the profile (by following Adding/Editing profiles and metrics). If the initial yaim failed, please re-run it once again. If not just re-enable poem_sync again.</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/etc/rc.d/init.d/poem_sync start  # disable poem sync</pre>
+</div></div>
+
+<h4><a name="POEMUser%27sGuide-NGINagios"></a>NGI-Nagios</h4>
+<p>In order to setup local POEM namespace you need to introduce the following yaim variables:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">POEM_WEB_ENABLE=True
+POEM_NAMESPACE=&quot;&amp;lt;namespace&amp;gt;&quot;
+POEM_SYNC_URLS=&quot;http://grid-monitoring.cern.ch/poem/api/0.2/json/ http://localhost/poem/api/0.2/json/&quot;</pre>
+</div></div>
+
+<p>If this is the first time, you will need to setup superuser access to the Web interface, this can be done via:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">export DJANGO_SETTINGS_MODULE=Poem.settings; django-admin createsuperuser</pre>
+</div></div>
+<p>The command will ask some basic questions and creates the superuser. The same command can be used if you forgot the password or would like to re-create the superuser. The superuser can add, change and delete any profiles on your local POEM instance. A more fine-grained authorization is also available and described in <a href="#POEMUser%27sGuide-Authorization">Authorization</a>.</p>
+
+<p>If this is the first time and you would like to add a sample profile you can try to clone one from the central instance:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">export DJANGO_SETTINGS_MODULE=Poem.settings; django-admin import_profiles --url http://grid-monitoring.cern.ch/poem/api/0.2/json/profiles/ ROC</pre>
+</div></div>
+<p>This will clone ROC profile to your namespace and allow you to autocomplete all its metrics. You can then access you POEM instance at <a href="http://localhost/poem/admin">http://localhost/poem/admin</a> (see Adding/Editing profiles and metrics for further instructions).</p>
+
+<h3><a name="POEMUser%27sGuide-Basicusage"></a>Basic usage</h3>
+
+<h4><a name="POEMUser%27sGuide-Authentication"></a>Authentication</h4>
+<p>Each POEM instance is guarded by SSL and requires either valid login name and password or valid user certificate. By default the access is read only. </p>
+
+<p><span class="image-wrap" style=""><img src="attachments/27983898/28082185.png" style="border: 0px solid black"/></span></p>
+
+<h4><a name="POEMUser%27sGuide-Authorization"></a>Authorization</h4>
+<p>There are multiple levels of authorizations possible in POEM:</p>
+<ul>
+	<li>Add, remove and edit any profile
+	<ul>
+		<li>From the superuser dashboard navigate to Users and for a particular user select appropriate access in the permissions tab</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p><span class="image-wrap" style=""><img src="attachments/27983898/28082187.png" style="border: 0px solid black"/></span></p>
+
+<ul>
+	<li>Edit particular profile instance
+	<ul>
+		<li>This is done by adding the user DN in the profile's owner field (this particular user will be able to edit this particular profile).</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p><span class="image-wrap" style=""><img src="attachments/27983898/28082188.png" style="border: 0px solid black"/></span></p>
+
+<ul>
+	<li>Superuser
+	<ul>
+		<li>Each POEM instance can have one or multiple superusers that can in addition create, delete, modify users and assign them particular permissions.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<h4><a name="POEMUser%27sGuide-Adding%2FEditingprofilesandmetrics"></a>Adding/Editing profiles and metrics</h4>
+<p>POEM is the entry point for the metrics in SAM, i.e. any metrics not listed in some profile are ignored by the system. Since the list of all available metrics doesn't exist the interface will not present all the possible metrics, flavours or fqans as those are not known in general (we're working on establishing a system that would allow this). The initial POEM page show a list of available profiles (for local POEM instances this list might be initially empty):</p>
+
+<p><span class="image-wrap" style=""><img src="attachments/27983898/28082180.png" width="50%" style="border: 0px solid black"/></span></p>
+
+<p>Clicking on any profile (or clicking on add new profile) the profile form is shown:</p>
+
+<p><span class="image-wrap" style=""><img src="attachments/27983898/28082181.png" width="50%" style="border: 0px solid black"/></span></p>
+
+<p>Currently each profile is defined by its name, description, virtual organization and a set of metric instances. Metric instances are tuples of flavour, metric name and optionally FQAN. For most of the cases flavour and metric name is needed. </p>
+
+<p>Flavour is any service type as defined in GOCDB/OIM, the system will try to autocomplete the already known types once you type first two letters. The same behavior is there for the metric names. </p>
+
+<p><span class="image-wrap" style=""><img src="attachments/27983898/28082182.png" style="border: 0px solid black"/></span></p>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please note the following limitations of the current system:
+<ul class="alternate" type="square">
+	<li>On NGI Nagios please avoid creating profiles with custom FQANs (this can cause central results to be overwritten).</li>
+	<li>Autocomplete/suggestions for metrics and flavours only work against the local database, which means you won't get any hints if database is empty.</li>
+	<li>Any changes you have made require SAM synchronization to run (every 6 hours) to be become visible in both Nagios and MyEGI. In case you don't add any new metric just re-use the existing ones, the changes will become visible in MyEGI within an hour.</li>
+	<li>Please note that re-scheduling POEM Sync Nagios probe will not have any effect (as the probe only reads the log files).</li>
+</ul>
+</td></tr></table></div>
+
+
+<h4><a name="POEMUser%27sGuide-Removingprofileandmetrics"></a>Removing profile and metrics</h4>
+<p>Deleting entire profile is as simple as selecting it and in the action combo selecting delete selected profiles. In case this option is not visible, you might not have sufficient privileges to perform this operation (c.f. <a href="#POEMUser%27sGuide-Authorization">Authorization</a>).</p>
+
+<p><span class="image-wrap" style=""><img src="attachments/27983898/28082179.png" style="border: 0px solid black"/></span></p>
+
+<p>Deleting the metrics from a profile is as simple as selecting them and hitting save button.</p>
+
+<p><span class="image-wrap" style=""><img src="attachments/27983898/28082183.png" width="50%" style="border: 0px solid black"/></span></p>
+
+<h3><a name="POEMUser%27sGuide-Advancedconfigurations"></a>Advanced configurations</h3>
+<p>Before performing any advanced configuration make sure you know what you're doing as you can break your instance easily.</p>
+
+<h4><a name="POEMUser%27sGuide-Profilecloning"></a>Profile cloning</h4>
+<p>You can clone any profile from any POEM instance by running:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">export DJANGO_SETTINGS_MODULE=Poem.settings
+django-admin import_profiles --url http://&amp;lt;poem_instance&amp;gt;/poem/api/0.2/json/profiles/ PROFILE1 PROFILE2 ...</pre>
+</div></div>
+<p>Usually the central SAM instance would be a good place (<a href="http://grid-monitoring.cern.ch/poem/api/0.2/json/profiles/">http://grid-monitoring.cern.ch/poem/api/0.2/json/profiles/</a>), but you can point it to any other NGI or VO instance (given that it has local POEM enabled).</p>
+
+<h4><a name="POEMUser%27sGuide-Profilesynchronization"></a>Profile synchronization</h4>
+<p>You can direct poem to synchronize profiles from any number of places, i.e. any number of local POEM instances including central SAM services. The yaim variable that is used for this purpose is:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">POEM_SYNC_NS_URLS - space separated list of URLs to synchronize from, e.g. http://grid-monitoring.cern.ch/poem/api/0.2/json/ http://localhost/poem/api/0.2/json etc.</pre>
+</div></div>
+
+<p>If you don't wish to synchronize all the profiles from particular URL you can limit this list via variable:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">POEM_SYNC_NS_RESTRICT=&quot;ch.cern.sam!ROC ch.cern.sam!ROC_CRITICAL ch.cern.sam!ROC_OPERATORS&quot;</pre>
+</div></div>
+<p>POEM_SYNC_NS_RESTRICT is space separated list of namespace!profile pairs, which should be synchronized for particular namespace (all profiles will be synchronized for any additional namespace that is not listed). Please note that removing central SAM URLs or removing some of its profiles (ROC, ROC_CRITICAL) would mean your Nagios can stop publishing certain (or all) results to central instance.</p>
+
+<p><a href="https://tomtools.cern.ch/confluence/display/SAM/User%27s+guide" title="User's guide">User's guide</a></p>
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082177.png">flavour_autocomplete.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082178.png">change_profile_head.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082179.png">delete_profile.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082180.png">profiles.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082181.png">profile_form.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082182.png">metric_auto.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082183.png">delete_metric.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082184.png">metrics.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082185.png">login.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082186.png">admin.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082187.png">perm.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/27983898/28082188.png">owner.png</a> (image/png)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

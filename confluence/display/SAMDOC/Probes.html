@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Probes</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Probes
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jul 02, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <p><br class="atl-forced-newline" />
+This page provides information about the status of probes released by the SAM team. These probes are provided by different software teams.</p>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>The responsibility of some probes is being transfered to EGI/EMI projects.&nbsp;More information on this transition can be found in <a href="https://wiki.egi.eu/wiki/EMI_Nagios_probes">EGI</a> and <a href="https://savannah.cern.ch/task/?21823">EMI</a> pages.</td></tr></table></div>
+
+<p>Due to this transition period, the table below reports the plans for each existing probe:</p>
+<ul>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> probe to be maintained</li>
+	<li><img class="emoticon" src="images/icons/emoticons/error.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> probe to be discontinued</li>
+</ul>
+
+
+
+<h4><a name="Probes-SAMProbes"></a>SAM Probes</h4>
+
+<ul>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> <a href="grid-monitoring-probes-ch.cern.sam.html" title="grid-monitoring-probes-ch.cern.sam">grid-monitoring-probes-ch.cern.sam</a>
+	<ul>
+		<li>Metrics: MrsCheckDBInserts, MrsCheckDBInsertsDetailed, MrsCheckSpool</li>
+		<li>NodeType: sam-opsnagios</li>
+		<li>Description: monitors if MRS is receiving metric results.</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> nagios-gocdb-downtime
+	<ul>
+		<li>Metrics: org.egee.ImportGocdbDowntimes</li>
+		<li>NodeType: sam-nagios, sam-gridmon</li>
+		<li>Description:</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> mrs
+	<ul>
+		<li>Metrics: org.egee.MrsCheckMissingProbes, org.egee.CentralMrsCheckMissingProbes, org.egee.SendToMetricStore</li>
+		<li>NodeType: sam-nagios, sam-gridmon</li>
+		<li>Description:</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/error.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> mddb-synchronizer
+	<ul>
+		<li>Metrics: org.egee.MDDBSync</li>
+		<li>NodeType: sam-nagios, sam-gridmon</li>
+		<li>Description:</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> atp
+	<ul>
+		<li>Metrics: org.egee.ATPSync</li>
+		<li>NodeType: sam-nagios, sam-gridmon</li>
+		<li>Description: executes atp_synchronizer and verifies if execution was completed without errors &#124;</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> msg-nagios-bridge
+	<ul>
+		<li>Metrics: org.egee.SendToMsg, org.egee.RecvFromQueue, org.egee.CheckConfig</li>
+		<li>NodeType: sam-nagios, sam-gridmon</li>
+		<li>Description:</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p>The SAM Team is also responsible for the provision of the following probe-related libraries:</p>
+<ul>
+	<li>python-Gridmon (for the old Konstantin's probes)</li>
+	<li>perl-TOM (logging stuff)</li>
+	<li>perl-GridMon (common libs used by perl probes, like checking proxy or running commands)</li>
+</ul>
+
+
+
+<h4><a name="Probes-EGIProbes"></a>EGI Probes</h4>
+
+<ul>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> <a href="grid-monitoring-org.ggus-probes.html" title="grid-monitoring-org.ggus-probes">grid-monitoring-org.ggus-probes</a>
+	<ul>
+		<li>NodeType: sam-nagios, ops-monitor</li>
+		<li>Description: queries GGUS to check for open tickets for a SU or by site name that has been notified</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> <a href="grid-monitoring-org.nagiosexchange-probes.html" title="grid-monitoring-org.nagiosexchange-probes">grid-monitoring-org.nagiosexchange-probes</a>
+	<ul>
+		<li>NodeType: sam-nagios, ops-monitor</li>
+		<li>Description: checks from Nagios Exchange</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/error.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> <a href="grid-monitoring-org.nrpe-probes.html" title="grid-monitoring-org.nrpe-probes">grid-monitoring-org.nrpe-probes</a>
+	<ul>
+		<li>NodeType: none</li>
+		<li>Description: pushes NRPE configuration from a web server when the push is initation by NAGIOS over NRPE</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/error.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> <a href="grid-monitoring-probes-cadist.html" title="grid-monitoring-probes-cadist">grid-monitoring-probes-cadist</a>
+	<ul>
+		<li>NodeType: sam-nagios</li>
+		<li>Description: checks IGTF CA certificates distribution version and consistency</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-hr.srce
+	<ul>
+		<li>NodeType: sam-nagios</li>
+		<li>Description: CAdist, CertLifetime, DPM, DPNS, GRAM, GridFTP, GridProxy, MyProxy and VOMS probes &#124;</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/error.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-org.scas
+	<ul>
+		<li>NodeType: none</li>
+		<li>Description: checks SCAS configuration, certificate, processes, log file and connection &#124;</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-org.sam.sec
+	<ul>
+		<li>NodeType: sam-nagios</li>
+		<li>Description: several security probes executed from the WNs &#124;</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<h4><a name="Probes-EMIProbes"></a>EMI Probes</h4>
+
+<ul>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-org.activemq-probes
+	<ul>
+		<li>NodeType: ops-monitor</li>
+		<li>Description: checks for ActiveMQ Messaging Brokers</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-ch.cern
+	<ul>
+		<li>NodeType: sam-nagios</li>
+		<li>Description: FTS, LFC and RGMA probes</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-org.bdii
+	<ul>
+		<li>NodeType: sam-nagios</li>
+		<li>Description: Nagios checks for a WLCG Information System instance (BDII)</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-org.ndgf
+	<ul>
+		<li>NodeType: sam-nagios</li>
+		<li>Description: ARC-CE, ARC-LFC, ARC-SRM and ARC-RLS probes</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> <a href="grid-monitoring-probes-org.sam.html" title="grid-monitoring-probes-org.sam">grid-monitoring-probes-org.sam</a>
+	<ul>
+		<li>NodeType: sam-nagios</li>
+		<li>Description: CE, CREAMCE, LFC, SRM, WMS and WN probes</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> gstat-validation
+	<ul>
+		<li>NodeType: sam-nagios</li>
+		<li>Description: Gstats checks</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<h4><a name="Probes-HEPVOsProbes"></a>HEP VOs Probes</h4>
+
+<ul>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-org.alice
+	<ul>
+		<li>NodeType: vo sam-nagios</li>
+		<li>Description: alice VO's probe</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-org.atlas
+	<ul>
+		<li>NodeType: vo sam-nagios</li>
+		<li>Description: atlas VO's probe</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-org.cms
+	<ul>
+		<li>NodeType: vo sam-nagios</li>
+		<li>Description: cms VO's probe</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/check.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-org.lhcb
+	<ul>
+		<li>NodeType: vo sam-nagios</li>
+		<li>Description: lhcb VO's probe</li>
+	</ul>
+	</li>
+	<li><img class="emoticon" src="images/icons/emoticons/error.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> grid-monitoring-probes-org.wlcg.gssd
+	<ul>
+		<li>NodeType: none</li>
+		<li>Description: SRM v2 tests, defined by the WLCG GSSD</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<p><br class="atl-forced-newline" />
+<br class="atl-forced-newline" /></p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

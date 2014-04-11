@@ -1,0 +1,9 @@
+[slc5-extras]
+name=Scientific Linux CERN 5 (SLC5) add-on packages, no formal support
+baseurl=http://linuxsoft.cern.ch/cern/slc5X/$basearch/yum/extras/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-cern
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jpolok
+gpgcheck=1
+enabled=1
+protect=1
+priority=1

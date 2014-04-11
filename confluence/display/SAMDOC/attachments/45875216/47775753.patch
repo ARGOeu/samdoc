@@ -1,0 +1,22 @@
+--- /usr/share/doc/atp-1.27.16/mysql_schema/db_migrate_schema/from_1_19_to_1_20.sql.orig	2013-07-23 17:52:51.000000000 +0200
++++ /usr/share/doc/atp-1.27.16/mysql_schema/db_migrate_schema/from_1_19_to_1_20.sql	2013-11-12 12:29:56.000000000 +0100
+@@ -522,14 +522,14 @@
+ --  DROP SERVICE_TYPE_UPDATE PROCEDURE
+ -- -----------------------------------
+ 
++ALTER TABLE service_type_flavour DROP FOREIGN KEY serv_type_flavour_serv_type_fk;
+ ALTER TABLE service_type_flavour DROP COLUMN service_type_id;
+-DROP TABLE SERVICE_TYPE;
+-DROP TABLE CE_METADATA_MPI;
+-DROP TABLE CE_METADATA;
+-DROP TABLE MPI_FLAVOUR;
++DROP TABLE service_type;
++DROP TABLE ce_metadata_mpi;
++DROP TABLE ce_metadata;
++DROP TABLE mpi_flavour;
+ DROP PROCEDURE IF EXISTS `SERVICE_TYPE_UPDATE`;
+ DROP FUNCTION IF EXISTS `GET_SERVICE_TYPE_ID`;
+-/
+ 
+ 
+ -- -----------------------------

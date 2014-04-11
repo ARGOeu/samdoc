@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Architecture</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Architecture
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jul 02, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <p><br class="atl-forced-newline" />
+SAM is a system made up of several components, some commodity and some specifically designed and developed for SAM. These include Nagios to execute tests, Messaging to transport test results between components, databases to store both configuration information: the Aggregate Topology Provider (ATP) and the Profile Management Database (POEM), databases to store the test results produced by Nagios: the Metric Result Store (MRS). Other components such as the Availability Calculation Engine (ACE) processes the raw test results to calculation metrics such as site and service availability and reliability. A portal, MyWLCG or MyEGI is provided to visualize both test results and availability calculations.</p>
+
+<p><span class="image-wrap" style="display: block; text-align: center"><img src="attachments/2261007/18579462.png" width="60%" style="border: 0px solid black"/></span></p>
+
+<p>In a production deployment these components are distributed over a set of machines. For instance, in the EGI.eu project each National Operations Team deploy their own Nagios instance to launch tests for the sites they are responsible for. These results are sent over messaging to central database components in order to calculate metrics at the project level.</p>
+
+
+<h4><a name="Architecture-"></a>Architecture</h4>
+
+<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%"><tbody><tr>
+<td class="confluenceTd" valign="top" width="50%">
+
+<p><b>ACE</b> is the calculation engine used for availability and reliability calculations. Starting from metric results stored in the central database ACE computes statuses, availabilities, and reliabilities for services, service flavours, and sites.</p>
+
+<p><b>ATP</b> provides topology information by aggregating grid topology information and downtimes from different external sources (GOCDB, OIM, CIC, BDII, GSTAT, feeds)</p>
+
+<p><b>POEM</b> describes existing metrics and groups them in profiles in order to run tests. Ir replaces the former MDDB component.</p>
+
+<p><b>MRS</b> stores metric output and computes service statuses/ It provides views of data such as site and service status, availability and reliability</p></td>
+<td class="confluenceTd" valign="top" width="50%">
+<p><b>MyWLCG/MyEGI</b> is the main visualization tool to present a grid-aware view of the data collected by the Service Availability Monitoring framework.</p>
+
+<p><b>Nagios</b> is the heart of SAM. It schedules tests and forwards via messaging the test results to various components which require them, such as the central metric Store and the MyEGI portal.</p>
+
+<p><b>Probes</b> are contributed by many developer and system managers and are used to test the specific grid services.</p>
+
+<p><b>Messaging</b> Apache ActiveMQ is used as an integration framework, adding flexibility, reliability and scalability to the distributed SAM monitoring system.</p></td></tr></tbody></table>
+
+<p><br class="atl-forced-newline" />
+<br class="atl-forced-newline" /></p>
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2261007/2490379.png">Site Map.png</a> (image/png)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/2261007/18579462.png">architecture.png</a> (image/png)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

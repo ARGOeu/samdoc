@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-04</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-04
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Sep 09, 2010 by <font color="#0050B2">dcollado</font>.
+				    </div>
+
+				    <h1><a name="Update-04-Release%3A"></a>Release: Update-04</h1>
+
+<h2><a name="Update-04-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 21st July 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 27th August 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="blue">Released</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 8 September 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> James </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Main Activities </td>
+<td class='confluenceTd'><ul>
+	<li>MRS Schema updates</li>
+	<li>First version of MyEGI and ACE bundled, but not activated, in the release</li>
+	<li>Improvements in debug and signal handling in probes</li>
+	<li>APEL test integration (<a href="http://goc.grid.sinica.edu.tw/gocwiki/ApelTests">ApelTests</a>)</li>
+	<li>Robustness improvements in msg-to-handler</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td class='confluenceTd'> Notes </td>
+<td class='confluenceTd'> This also contains issues fixed in update-03, but which required DB changes only in update-04.  these have been tracked as update-03-01 </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-04-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<ul>
+	<li>Development validation outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-745">SAM-745</a></li>
+	<li>EGI Staged Rollout performed (IT NGI) in EGI#293
+<h2><a name="Update-04-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2></li>
+</ul>
+
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>glite-yaim-nagios-1.0.105-1.el5
+grid-monitoring-config-gen-0.72.7-1.el5
+grid-monitoring-fm-nagios-remote-0.17.1-1.el5
+grid-monitoring-org.ggus-probes-0.5-1.el5
+grid-monitoring-org.nrpe-probes-0.3-1.el5
+grid-monitoring-probes-ch.cern-0.19.1-1.el5
+grid-monitoring-probes-hr.srce-0.29.1-1.el5
+grid-monitoring-probes-org.sam-0.1.15-4.el5
+grid-monitoring-probes-org.sam.sec-0.1.7-1.el5
+myegi-0.1.5-1.el5
+nagios-gocdb-downtime-0.20-1.el5
+perl-GridMon-1.0.55-1.el5
+
+msg-nagios-bridge-1.0.53-1.el5
+perl-MIG-0.3-3.el5
+perl-TOM-0.7-1.el5
+python-gd-0.56-1.el5
+myegee-0.4.4-1.el5
+msg-utils-1.0.10-1.el5
+
+python-django-db-schema-1.0.1-1.el5
+atp-1.12-1.el5
+atp-web-1.12-1.el5
+
+nagios2metricstore-1.0.25-1.el5
+</pre>
+</div></div>
+
+<h2><a name="Update-04-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li><b>MyEGEE</b> If you are upgrading, then the config file will be kept and the new removed color will appear as black in your history bars. This is specified in <em>/etc/myegee/config.php</em> which is a %config(noreplace) file.  You can copy the .rpmnew file into place and re-run YAIM.</li>
+</ul>
+
+
+<p>If you wish to make the change manually, you will need to edit the file <em>/etc/myegee/config.php</em> and add the following line to the color array, just after the 5:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>                6 =&gt;'#b8f', // removed
+</pre>
+</div></div>
+
+<ul>
+	<li><b>Metric Store</b>&nbsp;There is a schema upgrade for this component.  It will be automatically carried out by YAIM.  For the Metric Store it can take a few minutes (addition of a column).</li>
+</ul>
+
+
+<h2><a name="Update-04-ConfigurationChanges"></a>Configuration Changes</h2>
+
+<p>YAIM should be rerun after installing the packages</p>
+
+<h2><a name="Update-04-KnownIssues"></a>Known Issues</h2>
+
+<ul>
+	<li><font color="red">ONLY for the Nagios that were upgraded between the 1st and the 8th of September, we recommend them to drop the databases and remove the atp rpm before doing the upgrade so a new version is installed correctly:</font>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>                mysql&gt; drop database metricstore;
+		mysql&gt; drop database mddb;
+		mysql&gt; drop database atp;
+
+
+		rpm -e egee-NAGIOS
+		rpm -e atp
+		rpm -e atp-web
+		yum clean all
+		yum install egee-NAGIOS
+		yum upgrade
+
+
+		and then run yaim
+</pre>
+</div></div></li>
+</ul>
+
+
+<h2><a name="Update-04-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

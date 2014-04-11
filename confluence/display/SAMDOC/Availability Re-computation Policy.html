@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Availability Re-computation Policy</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Availability Re-computation Policy
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on May 31, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h3><a name="AvailabilityRe-computationPolicy-Overview"></a>Overview</h3>
+
+<p>This page documents the policy to request re-computation of SAM availabilities results for WLCG and EGI. Current policy was approved on 14/02/2012.</p>
+
+<div>
+<ul>
+    <li><a href='#AvailabilityRe-computationPolicy-Overview'>Overview</a></li>
+    <li><a href='#AvailabilityRe-computationPolicy-Conditionstorequestarecomputation'>Conditions to request a re-computation</a></li>
+    <li><a href='#AvailabilityRe-computationPolicy-Howtorequestarecomputation'>How to request a re-computation</a></li>
+    <li><a href='#AvailabilityRe-computationPolicy-Howtofollowarecomputation'>How to follow a re-computation</a></li>
+</ul></div>
+
+<p>Problems affecting the monitoring infrastructure may incorrectly impact the availability results for a given site during a period of time. When these issues are confirmed the test results must be verified or sometimes updated. The availability results are then re-computed so that availability numbers are not affected by the monitoring infrastructure fault.</p>
+
+
+<h3><a name="AvailabilityRe-computationPolicy-Conditionstorequestarecomputation"></a>Conditions to request a re-computation</h3>
+
+<p>Requests for re-computation are only accepted:</p>
+<ul>
+	<li>When failures are due to problems in the monitoring infrastructure (invalid proxy certificate, problems in SE used for replica tests, etc);</li>
+	<li>When reported up to 10 calendar days after the announcement of the reports of a given month, which normally occurs on 1st of the following month.</li>
+</ul>
+
+
+<p>Below are some examples to better explain the conditions above:</p>
+<ul>
+	<li>Example 1
+	<ul>
+		<li>On 25-Jan-2012 region A requests the re-computation of the region availability due to a hardware problem on SAM-Nagios which happend on 15-Jan-2012.</li>
+		<li>The request is approved. The justification of the problem is valid and the request was reported on time (before the announcement of the report).</li>
+	</ul>
+	</li>
+	<li>Example 2
+	<ul>
+		<li>On 05-Feb-2012 site B requests the re-computation of the site availability due to a problem with the host certificate of SAM-Nagios which happend on 15-Jan-2012.</li>
+		<li>The request is approved. The justification of the problem is valid and the problem was reported on time (5 days after the announcement of the first report).</li>
+	</ul>
+	</li>
+	<li>Example 3
+	<ul>
+		<li>On 20-Feb-2012 region C requests the re-computation of the region availability due to a network problem on SAM-Nagios which happend on 15-Jan-2012.</li>
+		<li>The request is rejected. The problem was reported too late (more then 10 days after the announcement of the first report).</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<h3><a name="AvailabilityRe-computationPolicy-Howtorequestarecomputation"></a>How to request a re-computation</h3>
+
+<p>Confirm that the availability of your site/region is affected by browsing the <a href="http://grid-monitoring.cern.ch/mywlcg/sa/">MyWLCG</a>/<a href="http://grid-monitoring.cern.ch/myegi/sa/">MyEGI</a> service availability interface and open a new <a href="http://www.ggus.org">GGUS</a> ticket:</p>
+<ul>
+	<li>OPS VO: For EGI sites and regions, please assign the ticket as described in <a href="https://wiki.egi.eu/wiki/PROC10?">EGI PROC10</a>;</li>
+	<li>OPS VO: For OSG sites, please assign the ticket to&nbsp;SAM/Nagios Support Unit (3rd level experts).</li>
+	<li>HEP VOS: For WLCG sites, please assign the ticket to&nbsp;SAM/Nagios Support Unit (3rd level experts).</li>
+</ul>
+
+
+<p>The GGUS ticket must include the following information:</p>
+<ul>
+	<li>A description of the problem;</li>
+	<li>The site or ROC/NGI affected by the problem;</li>
+	<li>The start and end time of the problem (yyyy-mm-ddThh:mm in UTC);</li>
+	<li>The VO affected by the problem;</li>
+	<li>A link to <a href="http://grid-monitoring.cern.ch/mywlcg/sa/">MyWLCG</a>/<a href="http://grid-monitoring.cern.ch/myegi/sa/">MyEGI</a> pointing to the problem.</li>
+</ul>
+
+
+<h3><a name="AvailabilityRe-computationPolicy-Howtofollowarecomputation"></a>How to follow a re-computation</h3>
+
+<p>The deadline for requesting re-computations is 10 calendar days after the announcement of the reports for a given month. Assuming the reports are announced on the 1st of the following month, the deadline for requesting re-computations will be the 11th of that month. As soon as the re-computation is complete the GGUS ticket is closed and the submitter notified. The <a href="http://grid-monitoring.cern.ch/mywlcg/sa/">MyWLCG</a>/<a href="http://grid-monitoring.cern.ch/myegi/sa/">MyEGI</a> service availability interface can be used to confirm the new availability numbers. The final report will be published shortly after the deadline.</p>
+
+<p>If there are no requests for re-computation the first reports published at the beginning of the month are considered final reports. In any case, after the deadline, no further requests will be considered.</p>
+
+<p><br class="atl-forced-newline" />
+<br class="atl-forced-newline" />
+<br class="atl-forced-newline" /></p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

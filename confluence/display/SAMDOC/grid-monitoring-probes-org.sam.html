@@ -1,0 +1,662 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : grid-monitoring-probes-org.sam</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : grid-monitoring-probes-org.sam
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jul 02, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h2><a name="grid-monitoring-probes-org.sam-Contents"></a>Contents</h2>
+
+<div>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-Contents'>Contents</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-Gridservicesmonitoringprobesandmetricsbyorg.sam'>Grid services monitoring probes and metrics by org.sam</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-RPM'>RPM</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-Structureanddependencies'>Structure and dependencies</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-ContentofRPM'>Content of RPM</a></li>
+</ul>
+    <li><a href='#grid-monitoring-probes-org.sam-Sourcecode'>Source code</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-Probesandmetrics'>Probes and metrics</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-CLIparameterstoprobesandmetrics'>CLI parameters to probes and metrics</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-CollectionofgLiteCLI%2FAPIerrormessages'>Collection of gLite CLI/API error messages</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-Probesandmetricsperservice'>Probes and metrics per service</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-CE'>CE</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-CREAMCE'>CREAM-CE</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-JobsubmissionviaWMS'>Job submission via WMS</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-Directjobsubmission'>Direct job submission</a></li>
+</ul>
+    <li><a href='#grid-monitoring-probes-org.sam-WN'>WN</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-SRM'>SRM</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-WMS'>WMS</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-LFC'>LFC</a></li>
+</ul>
+</ul>
+</ul>
+    <li><a href='#grid-monitoring-probes-org.sam-pythonGridMonlibrary'>python-GridMon library</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-RPM'>RPM</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-Structureanddependencies'>Structure and dependencies</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-ContentofRPM'>Content of RPM</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-Sources'>Sources</a></li>
+</ul>
+    <li><a href='#grid-monitoring-probes-org.sam-WritingNagioscheckswithGridMon'>Writing Nagios checks with GridMon</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-Nagioschecksreturncodesandoutput'>Nagios checks - return codes and output</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-PythonprobesusinggridmonpackagefrompythonGridMonRPM'>Python probes using gridmon package from python-GridMon RPM</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-Referenceexampleorg.samandch.cern'>Reference example - org.sam and ch.cern</a></li>
+</ul>
+    <li><a href='#grid-monitoring-probes-org.sam-Naming'>Naming</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-Writingprobeandmetrics'>Writing probe and metrics</a></li>
+</ul>
+</ul>
+    <li><a href='#grid-monitoring-probes-org.sam-GeneralTroubleshooting'>General Troubleshooting</a></li>
+<ul>
+    <li><a href='#grid-monitoring-probes-org.sam-%22Returncodeof139isoutofbounds%22andmetricsinCRITICAL'>"Return code of 139 is out of bounds" and metrics in CRITICAL</a></li>
+    <li><a href='#grid-monitoring-probes-org.sam-Manuallyrunningchecksvianagiosruncheckand%24%3CNAGIOSMACRO%3E%24parameters'>Manually running checks via nagios-run-check and $&lt;NAGIOS_MACRO&gt;$ parameters</a></li>
+</ul>
+    <li><a href='#grid-monitoring-probes-org.sam-ProbestestingNagiosinstance'>Probes testing Nagios instance</a></li>
+</ul></div>
+
+<h2><a name="grid-monitoring-probes-org.sam-Gridservicesmonitoringprobesandmetricsbyorg.sam"></a>Grid services monitoring probes and metrics by org.sam</h2>
+
+<p>Following describes gLite middleware grid services monitoring probes and metrics developed by SAM team and available via <tt>grid-monitoring-probes-org.sam</tt> RPM.</p>
+
+<h3><a name="grid-monitoring-probes-org.sam-RPM"></a>RPM</h3>
+
+<p><tt>grid-monitoring-probes-org.sam</tt> RPM is available via this repository <a href="http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/">http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/</a> (and <tt>egee-NAGIOS</tt> meta RPM). It provides the following Nagios probes: SRM-probe, CE-probe, CREAMCE-probe, CREAMCEDJS-probe, WN-probe, WMS-probe, LFC-probe, samtest-run, nagtest-run. The probes can run in active and/or passives modes (in Nagios sense). Publication of passive test results from inside of probes can be done via Nagios command file or NSCA. On worker nodes Nagios is used as probes scheduler and executor. Metrics results from WNs are sent to Message Broker.</p>
+
+<h4><a name="grid-monitoring-probes-org.sam-Structureanddependencies"></a>Structure and dependencies</h4>
+
+<ul>
+	<li>Structure
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/etc/gridmon/
+/usr/lib/python2.4/site-packages/gridmetrics/
+/usr/libexec/grid-monitoring/probes/org.sam/
+/usr/libexec/grid-monitoring/probes/org.sam/wnjob
+/usr/libexec/grid-monitoring/probes/org.sam/wnjob/nagios.d/{bin/,etc/,lib/,plugins/,probes/,tmp/,var/}
+/usr/libexec/grid-monitoring/probes/org.sam/wnjob/org.sam/{etc/wn.d/org.sam/,probes/org.sam/}
+</pre>
+</div></div></li>
+	<li>Dependencies
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>python &gt;= 2.4
+python-GridMon &gt;= 1.1.3
+python-ldap
+python-suds &gt;= 0.3.5
+grid-monitoring-probes-hr.srce &gt;= 0.20.1
+</pre>
+</div></div></li>
+</ul>
+
+
+<p><a href="#grid-monitoring-probes-org.sam-GridMonlibrary">SAM:python-GridMon</a> is a Python helper library for grid monitoring tools. It contains helper routines for Nagios and Grid Security, and was used at the development of the Python probes and metrics.</p>
+
+<h4><a name="grid-monitoring-probes-org.sam-ContentofRPM"></a>Content of RPM</h4>
+
+<ul>
+	<li>SAM Nagios probes (in /usr/libexec/grid-monitoring/probes/org.sam/):
+	<ul>
+		<li><tt>CE-probe</tt> &#45; CE probe containing a number of CE tests (metrics) for jobs submission via WMS</li>
+		<li><tt>CREAMCE-probe</tt> &#45; as above, but for CREAM CEs</li>
+		<li><tt>CREAMCEDJS-probe</tt> &#45; direct job submission to CREAM CEs (asynchronous)</li>
+		<li><tt>SRM-probe</tt> &#45; SRM probe containing a number of metrics for SRM service</li>
+		<li><tt>T-probe</tt> &#45; template probe, which serves as an example for writing your own probes based on the Python framework currently provided by the package (see Writing a probe under "Python based probes using org.sam's 'gridmetrics' module" section on the same page)</li>
+		<li><tt>WN-probe</tt> &#45; WN probe containing a number of metrics to be run on WNs</li>
+		<li><tt>WMS-probe</tt> &#45; metrics to test if jobs submission through WMS works (asynchronous)</li>
+	</ul>
+	</li>
+	<li>wrapper checks (in /usr/libexec/grid-monitoring/probes/org.sam/):
+	<ul>
+		<li><tt>samtest-run</tt> &#45; to run "native" SAM tests (see <a href="https://twiki.cern.ch/twiki/bin/view/LCG/SAMToNagios#Running_existing_SAM_tests_under">link</a>)</li>
+		<li><tt>nagtest-run</tt> &#45; to run "semi"-Nagios checks (see <a href="https://twiki.cern.ch/twiki/bin/view/LCG/SAMToNagios#Semi_Nagios_check_Running_with_n">link</a>)</li>
+	</ul>
+	</li>
+	<li><tt>/usr/libexec/grid-monitoring/probes/org.sam/wnjob</tt> &#45; directory containing
+	<ul>
+		<li><tt>nagios.d/</tt> &#45; directory with Nagios used as checks' scheduler on WNs</li>
+		<li><tt>nagrun.sh</tt> &#45; wrapper script to be launched on WNs (sets up required environment, launches and monitors Nagios, periodically sends WN metrics results to Message Bus)</li>
+		<li><tt>org.sam/</tt> &#45;
+		<ul>
+			<li><tt>probes/</tt> &#45; directory with SAM WN probes/tests ("new and old" ones), samtest-run and nagtest-run wrappers</li>
+			<li><tt>etc/</tt> &#45; WN Nagios configuration for the above checks</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+	<li><tt>gridmetics</tt> Python package (in <tt>/usr/lib/python2.4/site-packages/</tt>):
+	<ul>
+		<li>used by the above SAM probes.</li>
+	</ul>
+	</li>
+	<li><tt>/etc/gridmon/</tt> &#45; configuration directory:
+	<ul>
+		<li><tt>org.sam.conf</tt> &#45; main configuration file</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<h3><a name="grid-monitoring-probes-org.sam-Sourcecode"></a>Source code</h3>
+
+<p>Source code can be browsed here: <a href="https://svnweb.cern.ch/trac/sam/browser/trunk/probes">https://svnweb.cern.ch/trac/sam/browser/trunk/probes</a>, <a href="http://svn.cern.ch/guest/sam/trunk/probes">http://svn.cern.ch/guest/sam/trunk/probes</a></p>
+
+<p>To checkout</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>svn co http://svn.cern.ch/guest/sam/trunk/probes
+</pre>
+</div></div>
+
+<h3><a name="grid-monitoring-probes-org.sam-Probesandmetrics"></a>Probes and metrics</h3>
+
+<h4><a name="grid-monitoring-probes-org.sam-CLIparameterstoprobesandmetrics"></a>CLI parameters to probes and metrics</h4>
+
+<p>Parameters to probes and metrics are sub-divided into three parts.</p>
+
+<ul>
+	<li>probes' common parameters. This is the standard set of parameters defined for any Nagios compliant check. Predefined by the metrics development framework.
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># /usr/libexec/grid-monitoring/probes/org.sam/*-probe -h
+Usage: /usr/libexec/grid-monitoring/probes/org.sam/CREAMCEDJS-probe
+[-H|--hostname &lt;FQDN&gt;]|[-u|--uri &lt;URI&gt;] [-m|--metric &lt;name&gt;] [-t|--timeout sec]
+[-V] [-h|--help] [--wlcg] [-v|--verbose 0-3] [-l|--list] [-x proxy] [&lt;metric
+specific parameters&gt;]
+
+-V                 Displays version
+-h|--help          Displays help
+-t|--timeout sec   Sets metric's global timeout. (Default: 600)
+-m|--metric &lt;name&gt; Name of a metric to be collected. Eg. org.sam.SRMv2-Put.
+                   If not given, a default wrapper metric will be executed.
+-H|--hostname FQDN Hostname where a service to be tested is running on
+-u|--uri &lt;URI&gt;     Service URI to be tested
+-v|--verbose 0-3   Verbosity. (Default: 0)
+                   0 Single line, minimal output. Summary
+                   1 Single line, additional information
+                   2 Multi line, configuration debug output
+                   3 Lots of details for plugin problem diagnosis
+-l|--list          Metrics list in WLCG format
+-x                 VOMS proxy (Order: -x, X509_USER_PROXY, /tmp/x509up_u&lt;UID&gt;)
+--nosanity         Don't sanitize metrics output.
+
+  Mandatory paramters: hostname (-H) or URI (-u).
+
+  If specified with -m|--metric &lt;name&gt;, the given metric will be executed.
+  Otherwise, a wrapper metric (acting as an active check) will be run. The
+  latter is equivalent to "-m|--metric &lt;nameSpace&gt;.&lt;Service&gt;-All"
+...
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>all metrics common parameters. Predefined by the metrics development framework.
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>    Metrics common parameters:
+
+Reporting passive checks (when used with wrapper checks)
+
+--pass-check-dest &lt;config|nsca|nagcmd|active&gt; (Default: config)
+
+--pass-check-conf &lt;path&gt; Configuration file for reporting passive checks.
+                         Used with '--pass-check-dest config'. Overrides
+                         passive checks submission library default one.
+
+--nsca-server &lt;fqdn|ip&gt; NSCA server FQDN or IP. Required if --pass-check-dest
+                        is set to 'nsca'.
+--nsca-port &lt;port&gt;      Port NSCA is listening on (Default: 5667)
+--send-nsca &lt;path&gt;      NSCA client binary.  (Default: /usr/sbin/send_nsca)
+--send-nsca-conf &lt;path&gt; NSCA configuration file. (Default: /etc/nagios/send_nsca.cfg)
+
+--nagcmdfile &lt;path&gt;   Nagios command file.
+                      Order: $NAGIOS_COMMANDFILE, --nagcmdfile
+                      (Default: /var/nagios/rw/nagios.cmd)
+
+--vo &lt;name&gt;           Virtual Organization. (Default: ops)
+--vo-fqan &lt;name&gt;      VOMS primary attribute as FQAN. If given, will be used
+                      along with --vo.
+--err-db &lt;file&gt;       Full path. Database file containing gLite CLI/API errors
+                      for categorizing runtime errors. (Default: /etc/gridmon/gridmon.errdb)
+--err-topics &lt;top1,&gt;  Comma separated list of topics (Default: default)
+
+--work-dir &lt;dir&gt;      Working directory for metrics.
+                      (Default: /var/lib/gridprobes)
+
+--stdout              Detailed output of metrics will be printed to stdout as
+                      it is being produced by metrics. The default is to store
+                      the output in a container and, then, produce Nagios
+                      compiant output.
+
+--no-details-header   Don't include header in details data.
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>parameters per metric. Defined by metrics developer. They should be long parameters (ie. starting with <tt>&#45;&#45;</tt>).
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>    Metrics specific parameters:
+
+org.sam.WN-{Rep*}
+...
+org.sam.WN-ISEnv
+...
+</pre>
+</div></div></li>
+</ul>
+
+
+<h4><a name="grid-monitoring-probes-org.sam-CollectionofgLiteCLI%2FAPIerrormessages"></a>Collection of gLite CLI/API error messages</h4>
+
+<p>To distinguish between errors and their severity on particular testing cases a mechanism of "consulting" a custom collection (database) of gLite CLI/API error messages was implemented. It's driven by the following parameters</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>--err-db &lt;file&gt;       Full path. Database file containing gLite CLI/API errors
+                      for categorizing runtime errors. (Default: /etc/gridmon/gridmon.errdb)
+--err-topics &lt;top1,&gt;  Comma separated list of topics (Default: default)
+</pre>
+</div></div>
+
+<p><tt>/etc/gridmon/gridmon.errdb</tt> comes with <tt>python-GridMon</tt> RPM (a library implementing the functionality). The file is marked as configuration file in the RPM, so it can be modified/adjusted by local administrator w/o being re-written. This is .INI type configuration file with sections.</p>
+
+<p>Structure of the file is the following. Sections define logical "topics" that they cover with their errors and their respective classifications into client/server side problems and their severity. Eg.:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>[lcg_util]
+client_status = UNKNOWN
+client:
+ Could NOT load client credentials|
+ Bad credentials|
+ Host not known
+
+clientw_status = WARNING
+clientw:
+ Segmentation fault
+
+server_status = CRITICAL
+server:
+ User timeout over|
+ Error reading token data header: Connection closed|
+...
+</pre>
+</div></div>
+
+<p>When a topic is provided with <tt>&#45;-err-topics</tt> a corresponding regular expressions are built to later match them in the error messages returned by the used CLI or API. <tt>&#42;_status</tt> should be Nagios compliant exit code (UNKNOWN, WARNING, CRITICAL, OK). The status will be returned by a metric on an error if one of the error strings was found in the error message of the CLI or API. The implementation stops on the first match. So, it's better to be consistent and unambiguous in topics definition.</p>
+
+<h4><a name="grid-monitoring-probes-org.sam-Probesandmetricsperservice"></a>Probes and metrics per service</h4>
+
+<h5><a name="grid-monitoring-probes-org.sam-CE"></a>CE</h5>
+
+<p>Testing of Computing Elements (CE) is done twofold</p>
+<ul>
+	<li>job submission testing via <a href="CE.html" title="CE">CE probe/metrics</a>: full job submission chain is exercised - job submission, states monitoring, output sand-box retreival</li>
+	<li>WN testing via <a href="WN.html" title="WN">WN probe/metrics</a>: mainly a set of replica management tests (i.e., WN&lt;-&gt;SE communication)</li>
+</ul>
+
+
+
+<h5><a name="grid-monitoring-probes-org.sam-CREAMCE"></a>CREAM-CE</h5>
+
+<p>CREAMCE-probe</p>
+
+<h6><a name="grid-monitoring-probes-org.sam-JobsubmissionviaWMS"></a>Job submission via WMS</h6>
+
+<p>There are no differences between <tt>LCG-CE</tt> and <tt>CREAM-CE</tt> w.r.t. this way of jobs submission (and thus monitoring). Please refer to <a href="#grid-monitoring-probes-org.sam-CE">CE</a> section.</p>
+
+<p>Probe and metrics names differ only in the name of the service (<tt>CREAM</tt> vs <tt>CE</tt>): probe <tt>org.sam/CREAMCE-probe</tt>, metrics <tt>org.sam.CREAMCE-&#42;</tt>.</p>
+
+<p>h7. CREAM-CE Metrics</p>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> <b>Name</b> </td>
+<td class='confluenceTd'> <b>Description</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CREAMCE-JobState </td>
+<td class='confluenceTd'> Submits grid job to CE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CREAMCE-JobMonit </td>
+<td class='confluenceTd'> Monitors grid jobs submitted to CEs. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CREAMCE-JobSubmit </td>
+<td class='confluenceTd'> Passive check. </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h6><a name="grid-monitoring-probes-org.sam-Directjobsubmission"></a>Direct job submission</h6>
+
+<p>See <a href="CREAMCE DJS.html" title="CREAMCE DJS">CREAM-CE probe and metrics for direct job submission</a> &#45; CREAMCE DJS.</p>
+
+<h5><a name="grid-monitoring-probes-org.sam-WN"></a>WN</h5>
+
+<p>See <a href="WN.html" title="WN">WN probe and metrics</a>.</p>
+
+
+<h5><a name="grid-monitoring-probes-org.sam-SRM"></a>SRM</h5>
+
+<p>See <a href="SRM.html" title="SRM">SRM probe and metrics</a>.</p>
+
+<h5><a name="grid-monitoring-probes-org.sam-WMS"></a>WMS</h5>
+
+<p>See <a href="WMS.html" title="WMS">WMS probe and metrics</a>.</p>
+
+<h5><a name="grid-monitoring-probes-org.sam-LFC"></a>LFC</h5>
+
+<p>See <a href="LFC.html" title="LFC">LFC probes and metrics</a></p>
+
+<h2><a name="grid-monitoring-probes-org.sam-pythonGridMonlibrary"></a>python-GridMon library</h2>
+
+<p><tt>python-GridMon</tt> is a Python library for development and running of Nagios grid probes and metrics.</p>
+
+<h3><a name="grid-monitoring-probes-org.sam-RPM"></a>RPM</h3>
+
+<p><tt>python-GridMon</tt> RPM is available via this repository <a href="http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/">http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/</a> (and <tt>egee-NAGIOS</tt> meta RPM).</p>
+
+<h4><a name="grid-monitoring-probes-org.sam-Structureanddependencies"></a>Structure and dependencies</h4>
+
+<ul>
+	<li>Structure
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>{{/etc/gridmon/}} - configuration directory
+{{/usr/lib/python&lt;Version&gt;/site-packages/gridmon/}} - Python {{'gridmon'}} package
+</pre>
+</div></div></li>
+	<li>Dependencies<br/>
+none</li>
+</ul>
+
+
+<h4><a name="grid-monitoring-probes-org.sam-ContentofRPM"></a>Content of RPM</h4>
+
+<ul>
+	<li><tt>/etc/gridmon/</tt> &#45; configuration directory:
+	<ul>
+		<li><tt>gridmon.errdb</tt> &#45; collection of gLite m/w CLI and API error messages and their mapping to Nagios statuses</li>
+		<li><tt>gridmon.conf</tt> &#45; configuration file</li>
+	</ul>
+	</li>
+	<li><tt>/usr/lib/python&lt;Version&gt;/site-packages/gridmon/</tt> &#45; <tt>'gridmon'</tt> package
+	<ul>
+		<li>contents of the package
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>$ tree -P "*.py" -I "*__.py" /usr/lib/python2.4/site-packages/gridmon
+/usr/lib/python2.4/site-packages/gridmon
+|-- config.py
+|-- errmatch.py
+|-- gridutils.py
+|-- metricoutput.py
+|-- nagios
+|   |-- nagios.py
+|   `-- perfdata.py
+|-- probe.py
+|-- process
+|   |-- pexpect.py
+|   |-- pexpectpgrp.py
+|   |-- popenpgrp.py
+|   `-- signaling.py
+|-- security
+|-- singleton.py
+|-- template.py
+`-- utils.py
+</pre>
+</div></div></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h4><a name="grid-monitoring-probes-org.sam-Sources"></a>Sources</h4>
+
+<p>For anonymous read-only access</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>svn co http://www.sysadmin.hep.ac.uk/svn/grid-monitoring/trunk/GridMon/python
+</pre>
+</div></div>
+
+<h3><a name="grid-monitoring-probes-org.sam-WritingNagioscheckswithGridMon"></a>Writing Nagios checks with GridMon</h3>
+
+<h4><a name="grid-monitoring-probes-org.sam-Nagioschecksreturncodesandoutput"></a>Nagios checks - return codes and output</h4>
+
+<p>Nagios (from version 3.x) assumes that checks can produce multi-line output. First line is considered as the check's summary and all the rest is the check's details data. Return codes: <tt>0 - OK, 1 - WARNING, 2 - CRITICAL, 3 - UNKNOWN</tt> (for more details see <a href="http://nagios.sourceforge.net/docs/3_0/pluginapi.html">Plugin Return Codes</a>).</p>
+
+<p>Example of running a dummy Nagios check:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>$ ./check_dummy
+check_dummy: Could not parse arguments
+Usage: check_dummy &lt;integer state&gt; [optional text]
+$
+$ ./check_dummy 2 "my summary
+&gt; my details data line 1
+&gt; my details data line 2"
+CRITICAL: my summary
+my details data line 1
+my details data line 2
+$
+$ echo $?
+2
+
+$ ./check_dummy 2 "my summary
+&gt; my details data line 1
+&gt; my details data line 2" | nl
+     1  CRITICAL: my summary
+     2  my details data line 1
+     3  my details data line 2
+$
+</pre>
+</div></div>
+
+<p>When the check is run under Nagios and the output of the check is collected by Nagios, lines 1 and "2 ..." of the check's output (from the example above) will be stored in two different containers - summary and details data (<tt>SERVICEOUTPUT</tt> and <tt>LONGSERVICEOUTPUT</tt> in Nagios words respectively). By default, Nagios reads only 4 KB of data returned by checks (can be overridden by recompilation on Nagios - see). Nagios version distributed by OAT has 16 KB limit on metric output (as of [SAM:November 24 2010]).</p>
+
+<h4><a name="grid-monitoring-probes-org.sam-PythonprobesusinggridmonpackagefrompythonGridMonRPM"></a>Python probes using gridmon package from python-GridMon RPM</h4>
+
+<p>Python <tt>'gridmon'</tt> package provides metric base class <tt>probe.MetricGatherer</tt> and a library for writing Python based Nagios compliant probes and metrics.</p>
+
+<h5><a name="grid-monitoring-probes-org.sam-Referenceexampleorg.samandch.cern"></a>Reference example - org.sam and ch.cern</h5>
+
+<p>As an example of probes and metrics developed using <tt>'gridmon'</tt> see <a href="#grid-monitoring-probes-org.sam-Gridservicesmonitoringprobesandmetricsbyorg.sam">org.sam</a> and <a href="LFC.html#LFC-ch.cern">ch.cern LFC probe</a>.</p>
+
+<p><tt>org.sam</tt> probes and metrics</p>
+<ul>
+	<li>anonymous read-only access
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>svn co http://svn.cern.ch/guest/sam/trunk/probes
+</pre>
+</div></div></li>
+	<li>code can be browsed from here: <a href="https://svnweb.cern.ch/trac/sam/browser/trunk/probes">https://svnweb.cern.ch/trac/sam/browser/trunk/probes</a>, <a href="http://svn.cern.ch/guest/sam/trunk/probes">http://svn.cern.ch/guest/sam/trunk/probes</a></li>
+</ul>
+
+
+<h4><a name="grid-monitoring-probes-org.sam-Naming"></a>Naming</h4>
+
+<p>Proposed naming conventions:</p>
+
+<ul>
+	<li><tt>/path/&lt;nameSpace&gt;/&lt;serviceAbbreviation&gt;-probe</tt> &#45; probe is an executable script containing a set of metrics to test a particular service. <tt>&lt;nameSpace&gt;</tt> can eg. be <tt>org.&lt;VOname&gt;</tt>. Eg., in case of SAM: <tt>/usr/libexec/grid-monitoring/probes/org.sam/SRM-probe</tt>.</li>
+	<li>metric - a test examining a particular functionality of a service. Metrics can follow the following naming "convention" - <tt>&lt;nameSpace&gt;.&lt;serviceAbbreviation&gt;-&lt;testName&gt;</tt>. Eg.: <tt>org.sam/SRM-probe</tt> contains a number of metrics: <tt>org.sam.SRM-LsDir</tt>, <tt>org.sam.SRM-Put</tt>, <tt>org.sam.SRM-Del</tt> etc.</li>
+</ul>
+
+
+<p>Probes/metrics naming (in short):</p>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> <b>Probe</b> </td>
+<td class='confluenceTd'> <b>Metric</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <tt>&lt;nameSpace&gt;.&lt;serviceAbbreviation&gt;-probe</tt> </td>
+<td class='confluenceTd'> <tt>&lt;nameSpace&gt;.&lt;serviceAbbreviation&gt;-&lt;testName&gt;</tt> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <tt>org.sam.SRM-probe</tt> </td>
+<td class='confluenceTd'> <tt>org.sam.SRM-LsDir</tt> </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+<h4><a name="grid-monitoring-probes-org.sam-Writingprobeandmetrics"></a>Writing probe and metrics</h4>
+
+<p>Please check <a href="http://svn.cern.ch/guest/sam/trunk/probes/src/T-probe">org.sam/T-probe</a> (template probe).</p>
+
+<p>Skeleton of your probe:</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># my imports
+from gridmon import probe
+
+class MYMetrics(probe.MetricGatherer):
+   # my class attributes
+   def __init__():
+      probe.MetricGatherer.__init__()
+      # mandatory initialization code
+      # my custom initialization code
+   def metricMyMet1():
+      # metric body
+   def metricMyMet2():
+      # metric body
+
+runner = probe.Runner(MYMetrics, probe.ProbeFormatRenderer())
+sys.exit(runner.run(sys.argv))</pre>
+</div></div>
+
+<p><font color="red">NB&#33;</font> class methods starting with <b>metric</b> are considered by metrics launch class <tt>Runner</tt> as metrics.</p>
+
+<p>Simple step-by-step example:</p>
+
+<ul>
+	<li>import probe module from gridmon package.</li>
+</ul>
+
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">try:
+    from gridmon import probe
+except ImportError,e:
+    print &quot;UNKNOWN: Error loading modules : %s&quot; % (e)
+    sys.exit(3)</pre>
+</div></div>
+
+<ul>
+	<li>subclass your metrics class from <tt>probe.MetricGatherer</tt>; set some class attributes
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">class LFCMetrics(probe.MetricGatherer):
+   # dictionary describing metrics implemented in the class
+   __metrics = { &#39;MyMet1&#39;:{&#39;metricDescription&#39;:&#39;My metric one&#39;, &#39;&#39;:},
+                 &#39;MyMet2&#39;:{&#39;metricDescription&#39;:&#39;My metric two&#39;} }</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>provide metrics description in a dictionary. Eg:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">class LFCMetrics(probe.MetricGatherer):
+   __metrics = {
+                &#39;Cleanup&#39; : {
+                        # required keys
+                        &#39;metricDescription&#39; : &quot;Clean test area on LFC&quot;,
+                        &#39;metricLocality&#39;    : &#39;remote&#39;,
+                        &#39;metricType&#39;        : &#39;status&#39;,
+                        &#39;metricVersion&#39;     : &#39;0.1&#39;,
+                        # optional keys
+                        &#39;cmdLineOptions&#39;    : [&#39;cleanup-timeout=&#39;,
+                                               &#39;cleanup-dir=&#39;,
+                                               &#39;cleanup-threads=&#39;],
+                        &#39;metricChildren&#39;    : []
+                        }
+   }</pre>
+</div></div></li>
+</ul>
+
+
+<h2><a name="grid-monitoring-probes-org.sam-GeneralTroubleshooting"></a>General Troubleshooting</h2>
+
+<h3><a name="grid-monitoring-probes-org.sam-%22Returncodeof139isoutofbounds%22andmetricsinCRITICAL"></a>"Return code of 139 is out of bounds" and metrics in CRITICAL</h3>
+
+<p>This is most probably a check segfaulting and Nagios marks testing host/service as CRITICAL. Check /var/log/messages</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>$ egrep "kernel.*segfault" /var/log/messages
+...
+Nov  5 08:33:19 samnag016 kernel: python[28524]: segfault at 0000000000000071 rip 00002b9960e16390 rsp 00007fffee35cd20 error 4
+...
+</pre>
+</div></div>
+
+<p>NB&#33; a Nagios check for parsing logs was planned to detect such errors in logs and notify Nagios instance admins. Not there yet as of [SAM:Friday, November 05 2010].</p>
+
+<ul>
+	<li>Example and the problem resolution. The above case was due to a segfault in lcg_util API <a href="http://savannah.cern.ch/bugs/?74459">http://savannah.cern.ch/bugs/?74459</a></li>
+</ul>
+
+
+<p>To re-solve the problem on the side of the probe, org.sam.SRM-GetTURLs was modified to use CLI instead of Python API. This allows to "shift" segfault to CLI ("wrap" it into a forked sub-shell) and catch it. So, this doesn't crash CPython, thus, Nagios doesn't erroneously mark the tested service as CRITICAL (the default behavior of Nagios on a check segfault).</p>
+
+<h3><a name="grid-monitoring-probes-org.sam-Manuallyrunningchecksvianagiosruncheckand%24%3CNAGIOSMACRO%3E%24parameters"></a>Manually running checks via nagios-run-check and $&lt;NAGIOS_MACRO&gt;$ parameters</h3>
+
+<p>Some metrics may use Nagios macros as arguments to CLI parameters. Eg: after running</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>nagios-run-check -d -v -s org.sam.CE-JobState-/ops/Role=lcgadmin -H glite02-kvm.hpc2n.umu.se
+</pre>
+</div></div>
+
+<p>you may get</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>su nagios -l -c '... --prev-status $LASTSERVICESTATEID$ ...'
+</pre>
+</div></div>
+
+<p>where $LASTSERVICESTATEID$ is intended to be expanded by Nagios when it internally prepares to run the command. To be able to run the command manually you'll have to delete the parameter or substitute the macro with a meaningful value.</p>
+
+<p>For manual submission and monitoring of CE jobs <a href="CE.html#CE-Manualjobsubmissionandmonitoring">see</a>.</p>
+
+<h2><a name="grid-monitoring-probes-org.sam-ProbestestingNagiosinstance"></a>Probes testing Nagios instance</h2>
+
+<p><a href="Probes testing Nagios instance.html" title="Probes testing Nagios instance">Probes testing Nagios instance</a></p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+# Generic
+SITE_NAME=egee.srce.hr
+SITE_BDII_HOST=ce1-egee.srce.hr
+PX_HOST=se1-egee.srce.hr
+BDII_HOST=bdii-egee.srce.hr
+RB_HOST=skurut2.cesnet.cz # irelevant, RB is unsupported
+ 
+VOS="dteam ops cms"
+VO_OPS_VOMS_SERVERS="vomss://voms.cern.ch:8443/voms/ops?/ops/"
+VO_CMS_VOMS_SERVERS="'vomss://voms.cern.ch:8443/voms/cms?/cms/'"
+VO_OPS_VOMSES="'ops lcg-voms.cern.ch 15009 /DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch ops 24' 'ops voms.cern.ch 15004 /DC=ch/DC=cern/OU=computers/CN=voms.cern.ch ops 24'"
+VO_CMS_VOMSES="'cms lcg-voms.cern.ch 15002 /DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch cms 24' 'cms voms.cern.ch 15002 /DC=ch/DC=cern/OU=computers/CN=voms.cern.ch cms 24'"
+VO_OPS_VOMS_CA_DN="'/DC=ch/DC=cern/CN=CERN Trusted Certification Authority' '/DC=ch/DC=cern/CN=CERN Trusted Certification Authority'"
+VO_CMS_VOMS_CA_DN="'/DC=ch/DC=cern/CN=CERN Trusted Certification Authority' '/DC=ch/DC=cern/CN=CERN Trusted Certification Authority'"
+ 
+VO_DTEAM_VOMS_SERVERS='vomss://voms.hellasgrid.gr:8443/voms/dteam?/dteam/'
+VO_DTEAM_VOMSES="'dteam voms.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms.hellasgrid.gr dteam 24' 'dteam voms2.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms2.hellasgrid.gr dteam 24'"
+VO_DTEAM_VOMS_CA_DN="'/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006' '/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006'"
+ 
+VO_DTEAM_WMS_HOSTS="wms204.cern.ch wms205.cern.ch" # put to your NGI WMSes
+VO_OPS_WMS_HOSTS="wms204.cern.ch wms205.cern.ch" # put to your NGI WMSes
+VO_CMS_WMS_HOSTS="wms204.cern.ch wms205.cern.ch" # put to your NGI WMSes
+ 
+# Nagios
+NAGIOS_HOST=nagiosdev001.cern.ch
+NAGIOS_ADMIN_DNS="/C=HR/O=edu/OU=srce/CN=Emir Imamagic"
+NCG_NAGIOS_ADMIN=eimamagi@srce.hr
+NAGIOS_ROLE=vo
+NCG_PROBES_TYPE=local
+NCG_VO=cms
+NAGIOS_HTTPD_ENABLE_CONFIG=true
+NAGIOS_NCG_ENABLE_CONFIG=true
+NAGIOS_SUDO_ENABLE_CONFIG=true
+NAGIOS_NAGIOS_ENABLE_CONFIG=true
+NAGIOS_CGI_ENABLE_CONFIG=true
+NAGIOS_NSCA_PASS=MY_PASS
+ 
+# VO Nagios
+NCG_TOPOLOGY_USE_GOCDB=false
+NCG_TOPOLOGY_USE_LDAP=false
+NCG_REMOTE_USE_NAGIOS=false
+ 
+NCG_USE_ATP_VO_FEED=true
+ 
+# ATP
+ATP_VO_FEEDS="<list of VOs>"
+ATP_VO_FEED_<vo1>="<vo feed url>"
+ATP_VO_FEED_<vo2>="<vo feed url>"
+ 
+# POEM
+POEM_WEB_ENABLE=True
+POEM_NAMESPACE="<namespace>"
+POEM_SYNC_URLS="http://localhost/poem/api/0.1/json/"
+POEM_SYNC_NS_RESTRICT=""
+ 
+# DB data
+MYSQL_ADMIN="MY_MYSQL_PASS"
+DB_PASS="MY_MRS_PASS"
+ 
+#MYEGI
+ENABLE_MYWLCG_ALIAS=0
+MYEGI_ADMIN_NAME=Admin Name
+MYEGI_ADMIN_EMAIL=it-dep-gt-tom-services@cern.ch
+MYEGI_DEFAULT_PROFILE=ROC
+MYEGI_REGION="NGI_HR"
+MYEGI_ACE="False"
+MYWLCG_TOPOLOGY="False"
+MYWLCG_REPORTS="False"
+MYWLCG_DATA_TRANSFER="False"
+MYWLCG_THROTTLE=False
+MYWLCG_DB_LIMIT=50000
+MYWLCG_ACCESS_PERIOD=5
+MYWLCG_NUMBER_OF_ACCESSES=100
+MYWLCG_ACCESS_CONTROL_ALLOW_ORIGIN=*

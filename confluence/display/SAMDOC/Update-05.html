@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-05</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-05
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on May 11, 2011 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h1><a name="Update-05-Release%3A"></a>Release: Update-05</h1>
+
+<h2><a name="Update-05-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 20 Aug 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 24 Sep 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="red">Released</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 27 Sep 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> David H/James C </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Main Activities </td>
+<td class='confluenceTd'><ul>
+	<li>Merge databases to single DB</li>
+	<li>Use ATP for Topology</li>
+	<li>First release of MyEGI</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td class='confluenceTd'> Notes </td>
+<td class='confluenceTd'> None </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-05-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<ul>
+	<li>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-801">SAM-801</a></li>
+	<li>Internal release only - not released into release repository</li>
+</ul>
+
+
+<h2><a name="Update-05-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>perl-TOM-0.9-1.el5
+msg-nagios-bridge-1.0.54-1.el5
+grid-monitoring-config-gen-0.73.2-1.el5
+grid-monitoring-org.nagiosexchange-probes-0.9-1.el5
+glite-yaim-nagios-1.0.111-1.el5
+myegi-0.1.10-2.el5
+mddb-1.0.10-1.noarch
+mddb-synchronizer-1.0.10-1.noarch
+nagios2metricstore-1.0.28-2.el5
+nagios-oat-cgi-0.4-1.el5
+perl-GridMon-1.0.57-1.el5
+atp-1.15.1-4.el5
+atp-web-1.15.1-4.el5
+voms-htpasswd-0.7-1.el5
+</pre>
+</div></div>
+
+<p>The following package is upgraded in EPEL</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>perl-Directory-Queue-1.0-1.el5
+</pre>
+</div></div>
+
+<h2><a name="Update-05-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>This release has a major change in that the databases at the regional level are combined into a single database.  Note the old databases are left, but are no longer modified.  After 90 days these can be deleted.  Some changes are required in site-info.def to configure the new database:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>Following things need to be set in site-info.def:
+
+# MyEGI
+  MYEGI_ADMIN_NAME="..."
+  MYEGI_ADMIN_EMAIL="..."
+  MYEGI_DATABASE_ENGINE="mysql"
+  MYEGI_DATABASE_USER="mrs"
+  MYEGI_DATABASE_NAME="mrs"
+  MYEGI_DATABASE_HOST="localhost" #or other host
+  MYEGI_DEFAULT_PROFILE="ROC_CRITICAL"
+  MYEGI_DEBUG="False"
+
+# ATP
+  ATP_DB_USER="mrs"
+  ATP_DB_NAME="mrs"
+
+# MyEGEE
+  MYEGEE_DB_TYPE="Pdo_Mysql"
+  MYEGEE_DB_USER="mrs"
+  MYEGEE_DB_SCHEMA="mrs"
+  MYEGEE_DB_ATP="mrs"
+  MYEGEE_DB_MS="mrs"
+  MYEGEE_DB_MDDB="mrs"
+  MYEGEE_DB_HOST="localhost" #or other host
+
+
+# MDDB+MS
+  MDDB_DB_NAME="mrs"
+  MDDB_DB_USER="mrs"
+  MS_DB_NAME="mrs"
+  MS_DB_USER="mrs"
+
+  MYEGI_DATABASE_PASSWORD=... #The same as MYEGEE_DB_PASS if MYEGEE_DB_USER=MYEGI_DATABASE_USER
+</pre>
+</div></div></li>
+</ul>
+
+
+
+<h2><a name="Update-05-KnownIssues"></a>Known Issues</h2>
+
+<p><font color="red">None</font></p>
+
+<h2><a name="Update-05-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-15</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-15
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Feb 21, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h1><a name="Update-15-Release%3A"></a>Release: Update-15</h1>
+
+<div>
+<ul>
+    <li><a href='#Update-15-Release%3A'>Release: Update-15</a></li>
+<ul>
+    <li><a href='#Update-15-Summary'>Summary</a></li>
+    <li><a href='#Update-15-ValidationStepsperformed'>Validation Steps performed</a></li>
+    <li><a href='#Update-15-Listofpackagesupdatedinthisrelease'>List of packages updated in this release</a></li>
+<ul>
+    <li><a href='#Update-15-Nodesamnagios'>Node sam-nagios</a></li>
+    <li><a href='#Update-15-Nodesamgridmon'>Node sam-gridmon</a></li>
+</ul>
+    <li><a href='#Update-15-ReleaseNotes'>Release Notes</a></li>
+    <li><a href='#Update-15-Configurationchanges'>Configuration changes</a></li>
+    <li><a href='#Update-15-Configurationchanges%28onlynodesamnagios%29'>Configuration changes (only node sam-nagios)</a></li>
+    <li><a href='#Update-15-Configurationchanges%28onlynodesamgridmon%29'>Configuration changes (only node sam-gridmon)</a></li>
+    <li><a href='#Update-15-KnownIssues'>Known Issues</a></li>
+    <li><a href='#Update-15-ListofIssuesfixedinthisrelease'>List of Issues fixed in this release</a></li>
+</ul>
+</ul></div>
+
+<h2><a name="Update-15-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 26 September 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 28 October 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="red">Released</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 28 October 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-15-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<p>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-1886">SAM-2042</a></p>
+<ul>
+	<li>Announced for Stage Rollout - 03 November 2011</li>
+	<li>Cleared staged rollout -  18 November 2011
+	<ul>
+		<li>Early Adopter Report - <a href="https://documents.egi.eu/public/ShowDocument?docid=886">Update-15 EA Report</a></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Update-15-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+<h3><a name="Update-15-Nodesamnagios"></a>Node sam-nagios</h3>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.20.9-1.el5
+atp-web-1.20.9-1.el5
+glite-yaim-nagios-1.5.30-1.el5
+grid-monitoring-config-gen-0.86.2-1.el5
+grid-monitoring-probes-ch.cern.sam-1.5.0-1.el5
+grid-monitoring-probes-eu.egi.sec-1.0.0-1.el5
+grid-monitoring-probes-hr.srce-0.34.1-1.el5
+grid-monitoring-org.nagiosexchange-probes-0.19-1.el5
+mddb-1.0.14-1.el5
+mddb-synchronizer-1.0.14-1.el5
+mrs-1.3.10-1.el5
+mywlcg-0.0.4-8.el5
+poem-0.7.7-1.el5
+poem-sync-0.7.7-1.el5
+sam-nagios-1.15.3-1.el5
+sam-release-1.15.0-1.el5
+voms2htpasswd-1.11.0-1.el5
+unicore-monitoring-probes-2.0.1-1
+Django-1.1.4-1.el5
+
+Removed:
+grid-monitoring-probes-org.sam.sec
+nagios2metricstore
+</pre>
+</div></div>
+
+<h3><a name="Update-15-Nodesamgridmon"></a>Node sam-gridmon</h3>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ace-0.1.15-2.el5
+atp-1.20.9-1.el5
+atp-web-1.20.9-1.el5
+glite-yaim-nagios-1.5.30-1.el5
+mddb-1.0.14-1.el5
+mrs-1.3.10-1.el5
+msg-consume2db-1.0.22-1.el5
+mywlcg-0.0.4-8.el5
+poem-0.7.7-1.el5
+poem-sync-0.7.7-1.el5
+sam-gridmon-1.15.9-1.el5
+sam-release-1.15.0-1.el5
+voms2htpasswd-1.11.0-1.el5
+Django-1.1.4-1.el5
+
+Removed:
+nagios2metricstore
+msg-nagios-bridge
+
+Other packages to add (from rpmforge):
+awstats
+geoip
+perl-Geo-IP
+</pre>
+</div></div>
+
+<h2><a name="Update-15-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>ACE
+	<ul>
+		<li>Decreased delay in availability computations (now between 15 and 75 minutes)</li>
+		<li>Tuning of Oracle queries</li>
+		<li>Improved scheduling and logging mechanism</li>
+		<li>Capture snapshots of topology view</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>ATP
+	<ul>
+		<li>Support for EGI operational tools</li>
+		<li>Support for OSG preproduction services</li>
+		<li>Improved validation of synchronizers' input data</li>
+		<li>Automatic retrieval of service flavours from GOCDB</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>glite-yaim-nagios
+	<ul>
+		<li>Improve setup for uncertified sites in metric org.sam.CREAMCE-DirectJobState</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>grid-monitoring-probes-eu.egi.sec
+	<ul>
+		<li>grid-monitoring-probes-org.sam.sec renamed to grid-monitoring-probes-eu.egi.sec</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>grid-monitoring-probes-ch.cern.sam
+	<ul>
+		<li>New probe for monitoring entries in MRS tables metricdata_spool and metricdataforrecalculation (only node sam-gridmon)</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>info-provider-nagios
+	<ul>
+		<li>GLUE 2 publication in Nagios GlueService</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>MyWLCG
+	<ul>
+		<li>Reduced browser cache time to 10 minutes</li>
+		<li>Filters visible by default</li>
+		<li>Improvement of error messages in web services</li>
+		<li>Service Availability bar graphs in png format for reporting</li>
+		<li>Bug fixes
+		<ul>
+			<li>Wrong status displayed in some cases</li>
+			<li>Labels for metric names truncated in metrics status view</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>MRS
+	<ul>
+		<li>Package renamed from 'nagios2metricstore' to 'mrs'</li>
+		<li>Delete metrics older than 7 days from the latest view</li>
+		<li>Only sam-gridmon:
+		<ul>
+			<li>Oracle Tuning - created procedure for computation of statistics, rebuilding indexes and space shrinking on some of the objects</li>
+			<li>Script for dumping latest statuses from the DB</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>NCG
+	<ul>
+		<li>UNICORE metrics VO-independant</li>
+		<li>Control send-to-dashboard on backup instance</li>
+		<li>Improved workflow:
+		<ul>
+			<li>Check for running instances</li>
+			<li>Better handling of new configuration folder</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>POEM
+	<ul>
+		<li>The first testing version of Profile management system (Poem) is<br/>
+distributed in this release (poem-0.7.4-1.el5, poem-sync-0.7.4-1.el5).</li>
+		<li>Complete user guide and transition guide will be published as soon<br/>
+as Poem is fully tested and integrated with all other SAM components.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>voms2htpasswd
+	<ul>
+		<li>Keep existing htpasswd if no entries are found</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>sam-gridmon
+	<ul>
+		<li>Added awstats</li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Update-15-Configurationchanges"></a>Configuration changes</h2>
+
+<ul>
+	<li>YAIM variable for defining time zone for web interfaces
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">TIME_ZONE</pre>
+</div></div></li>
+</ul>
+
+
+<h2><a name="Update-15-Configurationchanges%28onlynodesamnagios%29"></a>Configuration changes (only node sam-nagios)</h2>
+
+<ul>
+	<li>ARC probes are part of the default NGI/ROC profile and have to be switched on with ENABLE_ARC_PROBES Yaim variable. For details see <a href="https://tomtools.cern.ch/confluence/display/SAM/SAM+setup+for+ARC+services">https://tomtools.cern.ch/confluence/display/SAM/SAM+setup+for+ARC+services</a>. New configuration is:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># switch on ARC probes
+ENABLE_ARC_PROBES=true
+# Configuring ARC profile is not needed
+# comment out the following line:
+# NCG_HASH_CONFIG_PROFILES=NGI,ARC
+</pre>
+</div></div></li>
+	<li>New YAIM variable for setting timeout for NCG
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">NCG_TIMEOUT=1234</pre>
+</div></div></li>
+	<li>When configuring active/backup instance without Yaim manual switch off/on of service <b>send-to-dashboard</b> is needed.</li>
+</ul>
+
+
+<h2><a name="Update-15-Configurationchanges%28onlynodesamgridmon%29"></a>Configuration changes (only node sam-gridmon)</h2>
+
+<ul>
+	<li>Ask for explicit grant to create tables (not coming from role) for main Oracle account.</li>
+	<li>New YAIM configuration variables
+	<ul>
+		<li>Setting message destinations (default values as below):
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">MSG_DEST_NGI=/topic/grid.probe.metricAggregation.EGEE.ALL-SITES
+MSG_DEST_VO=/topic/grid.probe.metricAggregation.VO.ALL-SITES
+MSG_DEST_OSG=/topic/grid.probe.metricOutput
+MSG_DEST_OSG_CATCHUP=/topic/grid.probe.catchup.metricOutput</pre>
+</div></div></li>
+	</ul>
+	</li>
+	<li>RPM msg-nagios-bridge needs to be manually uninstalled after yum execution.</li>
+</ul>
+
+
+<h2><a name="Update-15-KnownIssues"></a>Known Issues</h2>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please have also a look at the <a href="Installing SAM Update-15.html" title="Installing SAM Update-15">Installing SAM Update-15</a> guide, since the python-django exclusion is needed in the rpmforge.repo file.</td></tr></table></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>We noticed that SRM-probe is reporting status information '(Return code of 139 is out of bounds)' for machines running latest glite-UI release (3.2.11-1).<br/>
+The issue is being followed by the gLite Team: <a href="https://savannah.cern.ch/bugs/index.php?89293">&#35;89293</a></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>For machines running latest version of glite-UI (3.2.10-1 or higher):<br/>
+Please restart Nagios after yaim execution. Otherwise you may see problems similar to <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please note that Poem is currently deployed only for testing purposes.<br/>
+It introduces new Nagios probe ch.cern.sam.POEMSync, which status is<br/>
+not critical to the overall functionality of SAM-Nagios.</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>This applies only for machines running at CERN:<br/>
+Due to <a href="https://tomtools.cern.ch/jira/browse/TINF-734">TINF-734</a> all SAM-Nagios nodes configured to manage OSG services must apply the following 3 patches: <a href="attachments/19988506/22315050">patch_SAM-2204</a>, <a href="attachments/19988506/22315051">patch_SAM-2215</a>, <a href="attachments/19988506/22315052">patch_SAM-2215b</a>.<br/>
+patch /usr/bin/atp_synchro patch_SAM-2204<br/>
+patch /usr/bin/atp_synchro patch_SAM-2215<br/>
+patch /usr/bin/atp_synchro patch_SAM-2215b</td></tr></table></div>
+
+<h2><a name="Update-15-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/19988506/22315050">patch_SAM-2204</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/19988506/22315051">patch_SAM-2215</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/19988506/22315052">patch_SAM-2215b</a> (application/octet-stream)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

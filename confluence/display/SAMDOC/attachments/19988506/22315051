@@ -1,0 +1,63 @@
+Index: trunk/bin/atp_synchro
+===================================================================
+diff -u -N -r955 -r956
+--- trunk/bin/atp_synchro	(.../atp_synchro)	(revision 955)
++++ trunk/bin/atp_synchro	(.../atp_synchro)	(revision 956)
+@@ -504,6 +504,7 @@
+ # -------------------------
+ 
+ def osgXmlExtraction(XML_Element_Feed):
++    ports = {'CE':2119, 'SRMv1':8443, 'SRMv2':8443, 'GridFtp':2811}
+     ResourceGroup_list = None
+     try:
+         Myroot = ET.XML(XML_Element_Feed)
+@@ -518,17 +519,28 @@
+             Resource_list = []
+             for resource_ele in resourcegroup_ele.findall("*/Resource"):
+                 Resource_dict = {}
++
+                 for element in resource_ele.getchildren():
+                     if string.lower(element.tag)=='name':
+                         Resource_dict['resourcename']=element.text
++                    if string.lower(element.tag)=='fqdn':
++                        Resource_dict['hostname']=element.text
++
+                 Services_list = []
+                 for service_ele in resource_ele.findall("*/Service"):
+                     Service= {}
+                     for element in service_ele.getchildren():
++                        Service['name']=''
+                         if string.lower(element.tag) in ('name', 'description', 'serviceuri'):
+                             Service[string.lower(element.tag)] = element.text
++                        if string.lower(element.tag) in ('details') and element.findall("uri_override"):
++                            Service['serviceendpoint']=element.findall("uri_override")[0].text
++                        else:
++                            if Service['name'] in ports.keys():
++                                Service['serviceendpoint']="%s:%s" % (Resource_dict['hostname'], ports[Service['name']])
+                     Services_list.append(Service)
+                 Resource_dict["services"] = Services_list
++
+                 for wlcginfo_ele in resource_ele.findall("WLCGInformation"):
+                     for element in wlcginfo_ele.getchildren():
+                         if string.lower(element.tag) in ('interopmonitoring', 'ksi2kmin', 'ksi2kmax', 'interopbdii', 'ldapurl'):
+@@ -537,6 +549,7 @@
+                             else:
+                                 Resource_dict[string.lower(element.tag)] = '0'
+                 Resource_list.append(Resource_dict)
++            
+             ResourceGroup_dict["resources"] = Resource_list
+             ResourceGroup_list.append(ResourceGroup_dict)
+     except Exception ,e:
+@@ -606,12 +619,6 @@
+ 
+         config.setAction("OSG Topology - Execution - Inserting topology")
+         mapped_osg_xml = mapDbFields(OSG_sites_info, config.db_mapping_osg)
+-        # derive hostnames from serviceuri instead of FQDN 
+-        for item in mapped_osg_xml:
+-            if item['serviceendpoint'].find(':')>0:
+-                item['hostname']=item['serviceendpoint'].split(':')[0]
+-            else:
+-                item['hostname']=item['serviceendpoint']
+         # do service type flavour mapping for OSG services
+         for item in mapped_osg_xml:
+             if 'serviceflavour' in item:

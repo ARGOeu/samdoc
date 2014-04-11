@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : CREAMCE DJS</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : CREAMCE DJS
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Nov 23, 2010 by <font color="#0050B2">kskaburs</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#CREAMCEDJS-CREAMCEDJSprobe'>CREAMCEDJS-probe</a></li>
+    <li><a href='#CREAMCEDJS-Metricsfordirectjobsubmission'>Metrics for direct job submission</a></li>
+<ul>
+    <li><a href='#CREAMCEDJS-org.sam.CREAMCEDJSDirectJobState'>org.sam.CREAMCEDJS-DirectJobState</a></li>
+<ul>
+    <li><a href='#CREAMCEDJS-NoWNpayload'>No WN payload</a></li>
+</ul>
+    <li><a href='#CREAMCEDJS-org.sam.CREAMCEDJSDirectJobMonit'>org.sam.CREAMCEDJS-DirectJobMonit</a></li>
+</ul>
+</ul></div>
+
+
+<h3><a name="CREAMCEDJS-CREAMCEDJSprobe"></a>CREAMCEDJS-probe</h3>
+
+<p><tt>CREAMCEDJS-probe</tt> probe for direct CREAM-CE jobs submission and monitoring.</p>
+
+<h3><a name="CREAMCEDJS-Metricsfordirectjobsubmission"></a>Metrics for direct job submission</h3>
+
+<p>The following metrics are available</p>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> <b>Name</b> </td>
+<td class='confluenceTd'> <b>Description</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <tt>org.sam.CREAMCEDJS-DirectJobState</tt> </td>
+<td class='confluenceTd'> [SAM:Active+Passive] Direct job submission to CREAM CE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <tt>org.sam.CREAMCEDJS-DirectJobSubmit</tt> </td>
+<td class='confluenceTd'> [SAM:Passive] Final status of direct job submission to CREAM CE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <tt>org.sam.CREAMCEDJS-DirectJobMonit</tt> </td>
+<td class='confluenceTd'> [SAM:Active] Babysit submitted grid jobs </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <tt>org.sam.CREAMCEDJS-ServiceInfo</tt> </td>
+<td class='confluenceTd'> Get CREAM CE service info </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <tt>org.sam.CREAMCEDJS-SubmitAllowed</tt> </td>
+<td class='confluenceTd'> Check if submission to the CREAM CE is allowed </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <tt>org.sam.CREAMCEDJS-DelegateProxy</tt> </td>
+<td class='confluenceTd'> Delegate proxy to CREAM CE </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h4><a name="CREAMCEDJS-org.sam.CREAMCEDJSDirectJobState"></a>org.sam.CREAMCEDJS-DirectJobState</h4>
+
+<p>To target a specific endpoint on a CREAMCE one has to provide the following parameter</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>--resource &lt;URI&gt;       CREAM CE to send job to. Format :
+                       &lt;host&gt;[:&lt;port&gt;]/cream-&lt;lrms-system-name&gt;-&lt;queue-name&gt;
+                       If not given - resource discovery will be performed.
+</pre>
+</div></div>
+
+<h5><a name="CREAMCEDJS-NoWNpayload"></a>No WN payload</h5>
+
+<p>This is the template JDL for direct job submission to CREAMCE</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># cat /usr/libexec/grid-monitoring/probes/org.sam/wnjob/org.sam.gridJob.CREAMCE-djs.jdl.template
+[
+Type="Job";
+JobType="Normal";
+Executable = "&lt;jdlExecutable&gt;";
+Arguments = "&lt;jdlArguments&gt;";
+StdOutput = "cream.out";
+StdError = "cream.out";
+]
+</pre>
+</div></div>
+
+<p>Right now [SAM:Tuesday, November 23 2010] the metric doesn't send any payload to WN, with <tt>&lt;jdlExecutable&gt;</tt> being simply <tt>/bin/hostname</tt> command. This wasn't implemented because CREAMCE didn't provide an explicit mechanism for getting WN logs as OutputSandbox, which, in turn, didn't allow any debugging of problems of running WN payloads (aka tests). The ticket was created <a href="https://tomtools.cern.ch/jira/browse/SAM-950">SAM-950</a> "PROB: add WN payload creation for CREAMCE direct submission" to add the WN payload.</p>
+
+<h4><a name="CREAMCEDJS-org.sam.CREAMCEDJSDirectJobMonit"></a>org.sam.CREAMCEDJS-DirectJobMonit</h4>
+
+<p>Monitors submitted grid jobs. By default invoked by Nagios each 5 min. Threaded implementation with one thread per monitored resource with max 10 threads. Passively updates <tt>org.sam.CREAMCEDJS-DirectJobState</tt> with the latest state of the job according to WMS when job is not in a terminal state. When job enters terminal state or was canceled the metric updates both <tt>org.sam.CREAMCEDJS-DirectJobState</tt> and <tt>org.sam.CREAMCEDJS-DirectJobSubmit</tt> with the final job status. The latter metrics are updated (as passive checks) either via Naigos command file or NSCA. <tt>org.sam.CREAMCEDJS-DirectJobSubmit</tt> is the metric which goes to Metric Store Database.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

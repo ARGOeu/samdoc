@@ -1,0 +1,1538 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : SAM Configuration via YAIM</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : SAM Configuration via YAIM
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Nov 14, 2013 by <font color="#0050B2">tarragon</font>.
+				    </div>
+
+				    <p><br class="atl-forced-newline" /></p>
+
+<p>This page provides all information about the YAIM variable required to configure SAM-Nagios and SAM-Gridmon.</p>
+
+<div>
+<ul>
+    <li><a href='#SAMConfigurationviaYAIM-Examples'>Examples</a></li>
+    <li><a href='#SAMConfigurationviaYAIM-ProductionVariables'>Production Variables</a></li>
+<ul>
+    <li><a href='#SAMConfigurationviaYAIM-Common'>Common</a></li>
+    <li><a href='#SAMConfigurationviaYAIM-SAMGridmon'>SAM-Gridmon</a></li>
+    <li><a href='#SAMConfigurationviaYAIM-SAMNagios'>SAM-Nagios</a></li>
+</ul>
+    <li><a href='#SAMConfigurationviaYAIM-ObsoleteVariables'>Obsolete Variables</a></li>
+<ul>
+    <li><a href='#SAMConfigurationviaYAIM-Common'>Common</a></li>
+    <li><a href='#SAMConfigurationviaYAIM-SAMGridmon'>SAM-Gridmon</a></li>
+    <li><a href='#SAMConfigurationviaYAIM-SAMNagios'>SAM-Nagios</a></li>
+</ul>
+</ul></div>
+
+<h4><a name="SAMConfigurationviaYAIM-Examples"></a>Examples</h4>
+
+<p>A SAM-Nagios nodetype can be configured in two different ways:</p>
+<ul>
+	<li>NGI SAM-Nagios
+	<ul>
+		<li><a href="attachments/39157911/42237978.def">This configuration file</a> can be used as an example, but it's just an example, please refer to tables above.</li>
+	</ul>
+	</li>
+	<li>VO SAM-Nagios
+	<ul>
+		<li>In order to configure a VO Nagios properly, please read carefully <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/POEM+User%27s+guide">POEM User's guide </a></li>
+		<li><a href="attachments/39157911/42237979.def">This configuration file</a> can be used as an example, but it's just an example, please refer to tables above.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<h4><a name="SAMConfigurationviaYAIM-ProductionVariables"></a>Production Variables</h4>
+
+<h5><a name="SAMConfigurationviaYAIM-Common"></a>Common</h5>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DAEMON_GROUP </td>
+<td class='confluenceTd'> Daemon group </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> nagios </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DAEMON_USER </td>
+<td class='confluenceTd'> Daemon user </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> nagios </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_NAME </td>
+<td class='confluenceTd'> Database name </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> mrs </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_PASS </td>
+<td class='confluenceTd'> Database password (main account) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> my_password </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_PASS_R </td>
+<td class='confluenceTd'> Database password (reader) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> my_reader_password </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_PASS_W </td>
+<td class='confluenceTd'> Database password (writer) &nbsp;<font color="#ff0000">Note:</font><font color="#000000">&nbsp;DB_PASS_W and DB_PASS_R must be equal (SAM-3334)</font> </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> my_writer_password </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_TYPE </td>
+<td class='confluenceTd'> Type of database </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> mysql </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_USER </td>
+<td class='confluenceTd'> Database user (main account) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> mrs </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_USER_R </td>
+<td class='confluenceTd'> Database user (reader) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> mrs </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_USER_W </td>
+<td class='confluenceTd'> Database user (writer) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> mrs </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> GOCDB_ROOT_URL </td>
+<td class='confluenceTd'> GOCDB url </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> <a href="https://goc.egi.eu/gocdbpi">https://goc.egi.eu/gocdbpi</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> MSG_BROKER_CACHE_HOST </td>
+<td class='confluenceTd'> Instruct SAM to use one specific broker instead of the broker network </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> gridmsg106.cern.ch </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> MSG_BROKER_CACHE_NETWORK </td>
+<td class='confluenceTd'> Set the Broker service to look for in the information system </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> PROD </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> NAGIOS_HTTPD_ENABLE_CONFIG </td>
+<td class='confluenceTd'> Set true to update apache configuration for X509 auth. Will overwrite =/etc/httpd/conf.d/nagios.conf= and =ssl.conf=. If you don't do this you will have to configure apache by hand for X509 certificate authentication </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> TIME_ZONE </td>
+<td class='confluenceTd'> Time zone for web interfaces </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> `cat /etc/sysconfig/clock&#124;grep 'ZONE='&#124;cut &#45;d '"' &#45;f2` </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> VOS </td>
+<td class='confluenceTd'> List of VOs who can view the nagios information </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "ops dteam alice atlas cmd lhcb" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> VO_&lt;VONAME&gt;_VOMS_SERVERS </td>
+<td class='confluenceTd'> URI for the VOMS service </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "'vomss://voms.cern.ch:8443/voms/ops?/alice/'" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_VO_FEEDS </td>
+<td class='confluenceTd'> Lists of VOs providing VO feed </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes/No </td>
+<td class='confluenceTd'> "alice atlas cms lhcb" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_VO_FEED_&lt;VO&gt; </td>
+<td class='confluenceTd'> URL of the VO feed (one for each VO listed in ATP_VO_FEEDS) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes/No </td>
+<td class='confluenceTd'> <a href="http://myVOfeed.com">http://myVOfeed.com</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_WEB_DEBUG </td>
+<td class='confluenceTd'> Debug flag for ATP web front-end </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_WEB_EMAIL_HOST </td>
+<td class='confluenceTd'> Email host for ATP web front-end </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> localhost </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_WEB_INTERNAL_IPS </td>
+<td class='confluenceTd'> Internal IP setting for ATP web front-end </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 127.0.0.1 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_WEB_PREFIX </td>
+<td class='confluenceTd'> Server prefix for ATP web front-end </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> /atp </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_WEB_SERVER_EMAIL </td>
+<td class='confluenceTd'> Server email for ATP web </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> root </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_WEB_TEMPLATE_DEBUG </td>
+<td class='confluenceTd'> Template debug flag for ATP web front-end </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_WEB_VIEW_TEST </td>
+<td class='confluenceTd'> Functional-test flag for ATP web front-end </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> USER_CERT_FILE </td>
+<td class='confluenceTd'> Path of user certificate file </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> /etc/nagios/globus/hostcert.pem </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> USER_KEY_FILE </td>
+<td class='confluenceTd'> Path of user key file </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> /etc/nagios/globus/hostkey.pem </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MRS </td>
+<td class='confluenceTd'> MRS_BOOTSTRAPPER_TIMEOUT </td>
+<td class='confluenceTd'> Timeout (in seconds) for MRS bootstrapper </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 1800 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MRS </td>
+<td class='confluenceTd'> MRS_LOG_LEVEL </td>
+<td class='confluenceTd'> Level of debug for MRS log (possible values: DEBUG WARNING or ERROR) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> ERROR </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MRS </td>
+<td class='confluenceTd'> N2MS_ROLES_URL </td>
+<td class='confluenceTd'> URL of Nagios roles file </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> <a href="http://gridops.cern.ch/config/nagios-roles.conf">http://gridops.cern.ch/config/nagios-roles.conf</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MRS </td>
+<td class='confluenceTd'> N2MS_HOSTS_URL </td>
+<td class='confluenceTd'> URL of Nagios hosts file </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> <a href="http://gridops.cern.ch/config/hep-hosts.conf">http://gridops.cern.ch/config/hep-hosts.conf</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> ENABLE_MYWLCG_ALIAS </td>
+<td class='confluenceTd'> Enable MyWLCG alias </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 1 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYEGI_ACE </td>
+<td class='confluenceTd'> Turn on ACE support in MyWLCG portal (can be set only on central instance, do not set it on your Nagios instance) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYEGI_ADMIN_EMAIL </td>
+<td class='confluenceTd'> System administrator email </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> admin.name@mail.com </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYEGI_ADMIN_NAME </td>
+<td class='confluenceTd'> System administrator name </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> FirstName LastName </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYEGI_DEBUG </td>
+<td class='confluenceTd'> Turn on/off debug mode for MyEGI </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYEGI_DEFAULT_PROFILE </td>
+<td class='confluenceTd'> Profile by default in MyEGI </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> ROC_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_ACCESS_CONTROL_ALLOW_ORIGIN </td>
+<td class='confluenceTd'> Set Access-Control-Allow-Origin header </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> &#42; </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_ACCESS_PERIOD </td>
+<td class='confluenceTd'> Limit number of accesses (defined by MYWLCG_NUMBER_OF_ACCESSES) per IP address in a given time(seconds) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_DATA_TRANSFER </td>
+<td class='confluenceTd'> Enables Data Transfer Module in MyWLCG </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_DB_LIMIT </td>
+<td class='confluenceTd'> Limit number of rows that can be fetched at a time to avoid DB dump </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 50000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_DT_DSTSITE_OTHERS_LIMIT </td>
+<td class='confluenceTd'> Place Destination Sites in category 'Others' when total aggregated data tranfer or avg. throughput less than MYWLCG_DT_DSTSITE_OTHERS_LIMIT </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_DT_SRCSITE_OTHERS_LIMIT </td>
+<td class='confluenceTd'> Place Source Sites in category 'Others' when total aggregated data tranfer or avg. throughput less than MYWLCG_DT_SRCSITE_OTHERS_LIMIT </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 2 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_DT_VO_OTHERS_LIMIT </td>
+<td class='confluenceTd'> Place VOs in category 'Others' when total aggregated data tranfer or avg. throughput less than MYWLCG_DT_VO_OTHERS_LIMIT </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 2 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_EGI_EMAILS </td>
+<td class='confluenceTd'> List of emails to which EGI Reports will be send </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> egi-league-results@hellasgrid.gr </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_NUMBER_OF_ACCESSES </td>
+<td class='confluenceTd'> Limit number of accesses per IP address in a given time (defined by MYWLCG_ACCESS_PERIOD) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 200 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_AUTHENTIC_DNS </td>
+<td class='confluenceTd'> List of authentic DNs that can generate official reports (Seperated by commas with no space) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORTS </td>
+<td class='confluenceTd'> To enable/disable Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_EGI_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for EGI Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> ROC_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_WLCG_TIER1_HISTORY_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for WLCG Tier1 History Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> WLCG_CREAM_LCGCE_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MywLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_WLCG_TIER1_SUMMARY_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for WLCG Tier1 Summary Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> WLCG_CREAM_LCGCE_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_WLCG_TIER1_VO_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for WLCG Tier1 VO Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> WLCG_CREAM_LCGCE_CRITICAL ALICE_CRITICAL ATLAS_CRITICAL CMS_CRITICAL LHCb_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_REPORT_WLCG_TIER2_PROFILES </td>
+<td class='confluenceTd'> List of allowed profiles for WLCG Tier2 Reports </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> WLCG_CREAM_LCGCE_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_TOPOLOGY </td>
+<td class='confluenceTd'> To turn on/off Topology module in MyWLCG </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_WLCG_TIER1_EMAILS </td>
+<td class='confluenceTd'> List of emails to which WLCG Tier1 Reports will be send </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> worldwide-lcg-management-board@cern.ch </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_WLCG_TIER2_EMAILS </td>
+<td class='confluenceTd'> List of emails to which WLCG Tier2 Reports will be send </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> project-wlcg-cb@cern.ch </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MyWLCG </td>
+<td class='confluenceTd'> MYWLCG_THROTTLE </td>
+<td class='confluenceTd'> Limit the number of accesses per IP address in a given time (see MYWLCG_ACCESS_PERIOD, MYWLCG_NUMBER_OF_ACCESSES) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_ADMIN_EMAIL </td>
+<td class='confluenceTd'> POEM web instance admin e-mail </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> admin.name@mail.com </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_ADMIN_NAME </td>
+<td class='confluenceTd'> POEM web instance admin name </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Admin Name </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_ATP_ROOT_URL </td>
+<td class='confluenceTd'> POEM web instance ATP URL </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> <a href="http://localhost">http://localhost</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_DEBUG </td>
+<td class='confluenceTd'> Enable POEM web instance debug </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_IMPORT_FROM_MDDB </td>
+<td class='confluenceTd'> If True bootstrap profiles from MDDB otherwise use a fixture file </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_NAGIOS_PROFILES </td>
+<td class='confluenceTd'> Profiles to be tagged to Nagios </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> "MY_PROFILE" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_NAMESPACE </td>
+<td class='confluenceTd'> POEM web instance namespace </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> ch.cern.sam </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_SYNC_NS_RESTRICT </td>
+<td class='confluenceTd'> Restrict synchronization of profiles for given namespace </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> ch.cern.sam&#33;ROC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_SYNC_URLS </td>
+<td class='confluenceTd'> URLs to synchronize from (pointing to poem web instances) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> <a href="http://localhost/poem/api/0.1/json/">http://localhost/poem/api/0.1/json/</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_USE_ATP_SERVICEMAP </td>
+<td class='confluenceTd'> To be enabled if running VO-Nagios without VO feed </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> False </td>
+</tr>
+<tr>
+<td class='confluenceTd'> POEM </td>
+<td class='confluenceTd'> POEM_WEB_ENABLE </td>
+<td class='confluenceTd'> Enable poem web instance </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> True </td>
+</tr>
+<tr>
+<td class='confluenceTd'> voms2htpasswd </td>
+<td class='confluenceTd'> OPS_MONITOR_DN </td>
+<td class='confluenceTd'> opsmonitor DN which will be added to voms2htpasswd static configuration </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> /DC=ch/DC=cern/OU=computers/CN=ops-monitor.cern.ch </td>
+</tr>
+<tr>
+<td class='confluenceTd'> voms2htpasswd </td>
+<td class='confluenceTd'> SITE_NAME </td>
+<td class='confluenceTd'> (if NAGIOS_ROLE is site) Name of the site </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> MY_SITE </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+<p><br class="atl-forced-newline" /></p>
+
+<h5><a name="SAMConfigurationviaYAIM-SAMGridmon"></a>SAM-Gridmon</h5>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> DAX </td>
+<td class='confluenceTd'> DAX_MSG_HOST </td>
+<td class='confluenceTd'> Substitutes the name of the Broker host in the consumer configuration of DAX component </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> dashb-mb </td>
+</tr>
+<tr>
+<td class='confluenceTd'> msg-consume2db </td>
+<td class='confluenceTd'> MSG_CONSUME2DB_TYPE </td>
+<td class='confluenceTd'> Client type </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> virtual </td>
+</tr>
+<tr>
+<td class='confluenceTd'> msg-consume2db </td>
+<td class='confluenceTd'> MSG_DEST_NGI </td>
+<td class='confluenceTd'> Message destination for NGI metric results </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /topic/grid.probe.metricOutput.EGEE.ngi.&#42; </td>
+</tr>
+<tr>
+<td class='confluenceTd'> msg-consume2db </td>
+<td class='confluenceTd'> MSG_DEST_OSG </td>
+<td class='confluenceTd'> Message destination for OSG metric results </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /topic/grid.probe.metricOutput </td>
+</tr>
+<tr>
+<td class='confluenceTd'> msg-consume2db </td>
+<td class='confluenceTd'> MSG_DEST_OSG_CATCHUP </td>
+<td class='confluenceTd'> Message destination for OSG catchup metric results </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /topic/grid.probe.catchup.metricOutput </td>
+</tr>
+<tr>
+<td class='confluenceTd'> msg-consume2db </td>
+<td class='confluenceTd'> MSG_DEST_PROJECT </td>
+<td class='confluenceTd'> Message destination for PROJECT metric results </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /topic/grid.probe.metricOutput.EGEE.project.&#42; </td>
+</tr>
+<tr>
+<td class='confluenceTd'> msg-consume2db </td>
+<td class='confluenceTd'> MSG_DEST_ROC </td>
+<td class='confluenceTd'> Message destination for ROC metric results </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /topic/grid.probe.metricOutput.EGEE.roc.&#42; </td>
+</tr>
+<tr>
+<td class='confluenceTd'> msg-consume2db </td>
+<td class='confluenceTd'> MSG_DEST_VO </td>
+<td class='confluenceTd'> Message destination for VO metric results </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /topic/grid.probe.metricOutput.EGEE.vo.&#42; </td>
+</tr>
+<tr>
+<td class='confluenceTd'> msg-consume2db </td>
+<td class='confluenceTd'> MS_CONSUMER_NAME </td>
+<td class='confluenceTd'> Consumer name </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> my_consumer_cern_ch </td>
+</tr>
+<tr>
+<td class='confluenceTd'> RGF </td>
+<td class='confluenceTd'> OPENREPORTS_ADMIN </td>
+<td class='confluenceTd'> Admin user for OpenReports </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> admin </td>
+</tr>
+<tr>
+<td class='confluenceTd'> RGF </td>
+<td class='confluenceTd'> OPENREPORTS_ADMIN_PASS </td>
+<td class='confluenceTd'> Admin password for OpenReports </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> adminPASSWD </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+<p><br class="atl-forced-newline" /></p>
+
+<h5><a name="SAMConfigurationviaYAIM-SAMNagios"></a>SAM-Nagios</h5>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> BDII_HOST </td>
+<td class='confluenceTd'> Top level BDII to be used </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "sam-bdii.cern.ch" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> MYSQL_ADMIN </td>
+<td class='confluenceTd'> Root password for MySQL </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "myRootPassword" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> NAGIOS_HOST </td>
+<td class='confluenceTd'> Nagios hostname </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "myNagios.cern.ch" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> NAGIOS_ROLE </td>
+<td class='confluenceTd'> Level monitoring role (accepted values are: security, ngi, central-web, opsmonitor, site, project and vo) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> site </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> NCG_GOCDB_ROC_NAME </td>
+<td class='confluenceTd'> Use the list of sites (provided by GOCDB) in this region </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> ALL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBID_critical </td>
+<td class='confluenceTd'> critical parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInsertsDetailed probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBID_hours </td>
+<td class='confluenceTd'> hours parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInsertsDetailed probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 2 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBID_ngi </td>
+<td class='confluenceTd'> ngi parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInsertsDetailed probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> all </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBID_path </td>
+<td class='confluenceTd'> web_service_path parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInsertsDetailed probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> myegi/sam-pi/metricstore_current_load_per_hour_detailed?profile_name= </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBID_profile </td>
+<td class='confluenceTd'> profile parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInsertsDetailed probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> WLCG_CREAM_LCGCE_CRITICAL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBID_service_flavour </td>
+<td class='confluenceTd'> service_flavour parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInsertsDetailed probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> all </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBID_warning </td>
+<td class='confluenceTd'> warning parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInsertsDetailed probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBI_hourly_critical </td>
+<td class='confluenceTd'> hourly_critical parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInserts probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 5000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBI_hourly_warning </td>
+<td class='confluenceTd'> hourly_warning parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInserts probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 20000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_DBI_path </td>
+<td class='confluenceTd'> web_service_path parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckDBInserts probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> myegi/sam-pi/metricstore_current_load_per_hour? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_crit_recalc </td>
+<td class='confluenceTd'> critical_recalc parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 50000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_crit_spool </td>
+<td class='confluenceTd'> critical_spool parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 10000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_path_recalc </td>
+<td class='confluenceTd'> web_service_path_recalc parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> myegi/sam-pi/num_records_metricdataforrecalculation </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_path_spool </td>
+<td class='confluenceTd'> web_service_path_spool parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> myegi/sam-pi/num_records_metricdata_spool </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_warn_recalc </td>
+<td class='confluenceTd'> warn_recalc parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 25000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> grid-monitoring-probes-ch.cern.sam </td>
+<td class='confluenceTd'> MRS_S_warn_spool </td>
+<td class='confluenceTd'> warn_spool parameter of <a href="https://tomtools.cern.ch/confluence/display/SAM/Central+Data+Warehouse+Monitoring">MrsCheckSpool probe</a> </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 5000 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_ADMIN_DNS </td>
+<td class='confluenceTd'> List of local admin DNs (comma separated) that can perform actions via the nagios web interface </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "/DC=ch/OU=Users/CN=DN1,/DC=ch/OU=Users/CN=DN2" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_CGI_ENABLE_CONFIG </td>
+<td class='confluenceTd'> Switch on automatic configuration of /etc/nagios/cgi.cfg file </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_ESCAPE_HTML </td>
+<td class='confluenceTd'> If enabled, the metric output will not contain clickable hyperlinks </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 1 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_HTPASSWD_FILE </td>
+<td class='confluenceTd'> Location of allowed users for nagios web portal </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /etc/nagios/htpasswd.users </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_MYPROXY_USER </td>
+<td class='confluenceTd'> Change the myproxy username </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> nagios </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_MYPROXY_NAME </td>
+<td class='confluenceTd'> Change the myproxy name </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "NagiosRetrieve-myHost.cern.ch" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_NAGIOS_ENABLE_CONFIG </td>
+<td class='confluenceTd'> Switch on automatic configuration of /etc/nagios/nagios.cfg file (if true, nagios will be reload automatically) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_NSCA_PASS </td>
+<td class='confluenceTd'> The shared secret used by NSCA (Nagios Service Check Acceptor) for sending results back to the nagios server </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "NSCApass" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_SUDO_ENABLE_CONFIG </td>
+<td class='confluenceTd'> If true, modifies /etc/sudoers to allow nagios to call certain probes as root </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> nagios </td>
+<td class='confluenceTd'> NAGIOS_TIMEOUT </td>
+<td class='confluenceTd'> Enable this variable for service check timeout (in seconds) in nagios.cfg </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> 900 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> ATP_ROOT_URL </td>
+<td class='confluenceTd'> URL of ATP PI used by NCG (needs to be https) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <a href="https://grid-monitoring.cern.ch/atp">https://grid-monitoring.cern.ch/atp</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> ENABLE_ARC_PROBES </td>
+<td class='confluenceTd'> Switch on ARC probes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> ENABLE_UNICORE_PROBES </td>
+<td class='confluenceTd'> Generate configuration and Java truststore used by UNICORE probes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> GGUS_SERVER_FQDN </td>
+<td class='confluenceTd'> GGUS endpoint (setting this variable also opens GGUS tickets for service notifications) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> INSTALL_ROOT </td>
+<td class='confluenceTd'> Location of grid middleware </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /opt </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NAGIOS_NCG_ENABLE_CONFIG </td>
+<td class='confluenceTd'> Switch on automatic configuration of /etc/ncg/ncg.conf file (if true, ncg.pl will be executed automatically) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_BACKUP_INSTANCE </td>
+<td class='confluenceTd'> Install backup SAM/Nagios instance </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> true </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_CHECK_HOSTS </td>
+<td class='confluenceTd'> Defines if Nagios will use ping to check server availability, if the host is unavailable service alarms won't be sent </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_CONTACTS_USE_ATP </td>
+<td class='confluenceTd'> Use ATP to generate contact lists (requires NCG_TOPOLOGY_USE_ATP to be set) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> true </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_CONTACTS_USE_GOCDB </td>
+<td class='confluenceTd'> Use GOCDB to generate contact lists (requires NCG_TOPOLOGY_USE_GOCDB to be set) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> true </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_ENABLE_NOTIFICATIONS </td>
+<td class='confluenceTd'> If 1, nagios will be configured to send notifications </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_GOCDB_COUNTRY_NAME </td>
+<td class='confluenceTd'> Use the lists of sites (provided by GOCDB) in this country </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> CH </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_INCLUDE_EMPTY_HOSTS </td>
+<td class='confluenceTd'> Show hosts without services associated </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 1 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_INCLUDE_PROXY_CHECKS </td>
+<td class='confluenceTd'> Switch on/off internal tests for generating proxy credential </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 1 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> HOST_KEYSTORE_PASS </td>
+<td class='confluenceTd'> Password used for encrypting host certificate keystore </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> password </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_LDAP_ADD_HOSTS </td>
+<td class='confluenceTd'> Control ADD_HOSTS variable of module NCG::SiteInfo::LDAP (this variable controls if hosts found in BDII are added to configuration) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_LDAP_FILTER </td>
+<td class='confluenceTd'> If set, NAGIOS will not  monitor the SITE_NAME specified above but will instead query the top bdii for &#33;GlueSite objects that match this </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> =GlueSiteOtherInfo=EGEE_ROC=ITALY= </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_MAIN_DB_DIR </td>
+<td class='confluenceTd'> Location of local configurations for NCG </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> /etc/ncg/ncg.localdb.d </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_MAIN_DB_FILE </td>
+<td class='confluenceTd'> Local Rules file to modify NCG configuration </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> /etc/ncg/ncg.localdb </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_NAGIOS_ADMIN </td>
+<td class='confluenceTd'> Email address which will receive notifications for Nagios internal checks </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> root@localhost </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_NOTIFICATION_HEADER </td>
+<td class='confluenceTd'> Change of notification header </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> "CERN Nagios" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_NRPE_OUTPUT_DIR </td>
+<td class='confluenceTd'> Path where NRPE configuration files will be generated </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> /etc/nagios/nrpe/ </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_NRPE_UI </td>
+<td class='confluenceTd'> UI hostname for running NRPE (should only be set to use a remote UI) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> ui.example.org </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_OUTPUT_DIR </td>
+<td class='confluenceTd'> Path where the nagios configuration files for the server will be generated </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /etc/nagios/wlcg.d </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_POEM_ROOT_URL </td>
+<td class='confluenceTd'> URL of POEM sync that NCG will use </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "http://localhost/poem_sync" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_PROBES_TYPE </td>
+<td class='confluenceTd'> Defines which type of probes should be configured </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> remote,local </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_REMOTE_NAGIOS_HOSTS </td>
+<td class='confluenceTd'> List of hosts from where results will be imported (used only on site instance if NCG_REMOTE_USE_NAGIOS is True) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_REMOTE_USE_NAGIOS </td>
+<td class='confluenceTd'> If true, shows project or ROC remote results in Nagios </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_SEND_TO_DASHBOARD </td>
+<td class='confluenceTd'> Enables interaction with Dashboard on VO instances </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_TEMPLATES_DIR </td>
+<td class='confluenceTd'> Location of NCG configuration templates </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /usr/share/grid-monitoring/config-gen/nagios </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_TIMEOUT </td>
+<td class='confluenceTd'> Timeout period (in seconds) after which ncg.pl will exit </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 9600 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_TOPOLOGY_USE_ATP </td>
+<td class='confluenceTd'> Use ATP as topology provider, switches on both NCG::SiteSet and NCG::SiteInfo, also required for NCG::SiteContacts </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> true </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_TOPOLOGY_USE_GOCDB </td>
+<td class='confluenceTd'> Use GOCDB as topology provider, switches on both NCG::SiteSet and NCG::SiteInfo, also required for NCG::SiteContacts </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_TOPOLOGY_USE_LDAP </td>
+<td class='confluenceTd'> Use BDII as topology provider, switches on both NCG::SiteInfo and NCG::LocalMetricsAttrs </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> false </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_USE_ROBOT_CERT </td>
+<td class='confluenceTd'> If true, enables configuration of robot certificates </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> true </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_VO </td>
+<td class='confluenceTd'> Space separated list of VOs the tests should run as (you must have a member of each VO willing to store a proxy for your retrieval) </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> dteam </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> PX_HOST </td>
+<td class='confluenceTd'> MyProxy Server to retrieve a certificate to run local tests under </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "myproxy.cern.ch" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> SITE_BDII_HOST </td>
+<td class='confluenceTd'> Site BDII for the monitored site, SITE_NAME </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> "prod-bdii.cern.ch" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> UNCERTIFIED_BDII </td>
+<td class='confluenceTd'> BDII which support uncertified sites </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No (Yes if UNCERTIFIED_SITES is set) </td>
+<td class='confluenceTd'> bdii.uncert.org </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> UNCERTIFIED_SITES </td>
+<td class='confluenceTd'> List of space separated names of uncertified sites </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> "SiteA SiteB SiteC" </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> UNCERTIFIED_WMS </td>
+<td class='confluenceTd'> WMS which support uncertified sites </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No (Yes if UNCERTIFIED_SITES is set) </td>
+<td class='confluenceTd'> wms.uncert.org </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> UNICORE_KEYSTORE_ALIAS </td>
+<td class='confluenceTd'> Alias of user credential </td>
+<td class='confluenceTd'> Yes </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> mon-agent </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> UNICORE_KEYSTORE_PASS </td>
+<td class='confluenceTd'> Password used to protect user credential keystore </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No (Yes if ENABLE_UNICORE_PROBES=true ) </td>
+<td class='confluenceTd'> mon-agent-pass </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> VO_&lt;VO&gt;_ROBOT_CERT </td>
+<td class='confluenceTd'> Location of robot certificates (per VO) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /etc/nagios/globus/robot-cert.pem </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> VO_&lt;VO&gt;_ROBOT_KEY </td>
+<td class='confluenceTd'> Location of robot keys (per VO) </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> /etc/nagios/globus/robot-key.pem </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<p><br class="atl-forced-newline" />
+<br class="atl-forced-newline" /></p>
+
+<p><!-- 
+
+<h4><a name="SAMConfigurationviaYAIM-DevelopmentVariables"></a>Development Variables</h4>
+
+<h5><a name="SAMConfigurationviaYAIM-Common"></a>Common</h5>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+<th class='confluenceTh'> Releaase </th>
+</tr>
+</tbody></table>
+</div>
+
+
+<p><br class="atl-forced-newline" /></p>
+
+<h5><a name="SAMConfigurationviaYAIM-SAMGridmon"></a>SAM-Gridmon</h5>
+
+<p><br class="atl-forced-newline" /></p>
+
+<h5><a name="SAMConfigurationviaYAIM-SAMNagios"></a>SAM-Nagios</h5>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Mandatory </th>
+<th class='confluenceTh'> Example </th>
+<th class='confluenceTh'> Releaase </th>
+</tr>
+</tbody></table>
+</div>
+ --></p>
+
+<h4><a name="SAMConfigurationviaYAIM-ObsoleteVariables"></a>Obsolete Variables</h4>
+
+<h5><a name="SAMConfigurationviaYAIM-Common"></a>Common</h5>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_PASS </td>
+</tr>
+<tr>
+<td class='confluenceTd'> all </td>
+<td class='confluenceTd'> DB_USER </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ATP </td>
+<td class='confluenceTd'> ATP_SYNC_TIMEOUT </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<p><br class="atl-forced-newline" /></p>
+
+<h5><a name="SAMConfigurationviaYAIM-SAMGridmon"></a>SAM-Gridmon</h5>
+
+<p><br class="atl-forced-newline" /></p>
+
+<h5><a name="SAMConfigurationviaYAIM-SAMNagios"></a>SAM-Nagios</h5>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Component </th>
+<th class='confluenceTh'> Name </th>
+</tr>
+<tr>
+<td class='confluenceTd'> MDDB </td>
+<td class='confluenceTd'> MDDB_SYNC_TIMEOUT </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NAGIOS_NCG_ENABLE_CRON </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_MDDB_SUPPORTED_PROFILES </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_HASH_CONFIG_PROFILES </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_PROFILE_FQAN_&#42; </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_REMOTE_USE_ENOC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_TOPOLOGY_USE_ENOC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NCG </td>
+<td class='confluenceTd'> NCG_TOPOLOGY_USE_SAM </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+
+
+<p><br class="atl-forced-newline" />
+<br class="atl-forced-newline" /></p>
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/39157911/42237978.def">NGI_site-info.def</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/39157911/42237979.def">VO_site-info.def</a> (application/octet-stream)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

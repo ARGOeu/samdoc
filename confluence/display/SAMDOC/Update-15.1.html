@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-15.1</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-15.1
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Aug 07, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h1><a name="Update-15.1-Release%3A"></a>Release: Update-15.1</h1>
+
+<div>
+<ul>
+    <li><a href='#Update-15.1-Release%3A'>Release: Update-15.1</a></li>
+<ul>
+    <li><a href='#Update-15.1-Summary'>Summary</a></li>
+    <li><a href='#Update-15.1-Listofpackagesupdatedinthisrelease'>List of packages updated in this release</a></li>
+<ul>
+    <li><a href='#Update-15.1-Nodesamgridmon'>Node sam-gridmon</a></li>
+</ul>
+    <li><a href='#Update-15.1-KnownIssues'>Known Issues</a></li>
+    <li><a href='#Update-15.1-ListofIssuesfixedinthisrelease'>List of Issues fixed in this release</a></li>
+<ul>
+    <li><a href='#Update-15.1-MyWLCG'>MyWLCG</a></li>
+    <li><a href='#Update-15.1-ATP'>ATP</a></li>
+</ul>
+</ul>
+</ul></div>
+
+<h2><a name="Update-15.1-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 31 October 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 14 December 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="red">This is internal release, only for sam-gridmon machines</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 14 December 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-15.1-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+<p>Note that this is internal release, which will be deployed on sam-gridmon machines.</p>
+
+<h3><a name="Update-15.1-Nodesamgridmon"></a>Node sam-gridmon</h3>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.21.2-1.el5
+atp-web-1.21.3-1.el5
+glite-yaim-nagios-1.6.6-1.el5
+mywlcg-0.0.6-1.el5
+</pre>
+</div></div>
+
+<h2><a name="Update-15.1-KnownIssues"></a>Known Issues</h2>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please have also a look at the <a href="Installing SAM Update-15.html" title="Installing SAM Update-15">Installing SAM Update-15</a> guide, since the python-django exclusion is needed in the rpmforge.repo file.</td></tr></table></div>
+
+<h2><a name="Update-15.1-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+
+<h3><a name="Update-15.1-MyWLCG"></a>MyWLCG</h3>
+
+<ul>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2151">SAM-2151</a> Update sls_latest_site_availability web service</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2178">SAM-2178</a> Add parameter 'metric_name' to web service 'metrics_history_in_profile'</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2221">SAM-2221</a> Switch off throttling</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2222">SAM-2222</a> Output=JSON</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2223">SAM-2223</a> web service group_availability_in_profile giving error "AttributeError: 'ValuesQuerySet' object has no attribute 'objects'")</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2177">SAM-2177</a> MyWLCG web interface should host logos of WLCG and EGI</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2134">SAM-2134</a> MyEGI site filtering is not working</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2203">SAM-2203</a> MetricDetails window is displayed 4 times and never gets any data</li>
+</ul>
+
+
+<h3><a name="Update-15.1-ATP"></a>ATP</h3>
+
+<ul>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2249">SAM-2249</a> Problem with ATP API 'vofeeds'</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2236">SAM-2236</a> Problem parsing voms servers list and contacting invalid servers</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2118">SAM-2118</a> Add Users information required by NCG and voms2htpasswd</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2215">SAM-2215</a> OSG availabilities are not computed</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2204">SAM-2204</a> atp_synchro sometimes exits with python trace in validateVOFeeds</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2117">SAM-2117</a> Add Service URL information required by NCG</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2130">SAM-2130</a> ATP returning service not defined in VO feed</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2132">SAM-2132</a> ATP returning service with flags: ismonitored=N and isinproduction=N</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2187">SAM-2187</a> atp_sync: Change probe implementation</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2156">SAM-2156</a> atp 1.20.9 gives wrong error message text</li>
+	<li><a href="https://tomtools.cern.ch/jira/browse/SAM-2111">SAM-2111</a> Remove default groups for VOs not providing vo feeds</li>
+</ul>
+
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

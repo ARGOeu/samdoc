@@ -1,0 +1,12 @@
+[slc5-updates]
+name=Scientific Linux CERN 5 (SLC5) bugfix and security updates
+baseurl=http://linuxsoft.cern.ch/cern/slc5X/$basearch/yum/updates/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-cern
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jpolok
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-csieh
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dawson
+gpgcheck=1
+enabled=1
+protect=1
+priority=1
+exclude=php*,perl-DBI,MySQL-python,c-ares,perl-DBD-MySQL

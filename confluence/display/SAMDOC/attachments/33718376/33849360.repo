@@ -1,0 +1,9 @@
+[egee-sa1]
+name=EGEE Packages from SA1 for CentOS5
+baseurl=http://rpm.hellasgrid.gr/mash/centos5-egee/$basearch
+        http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/centos5/$basearch
+enabled=1
+gpgcheck=0
+protect=1
+priority=10
+metadata_expire=1

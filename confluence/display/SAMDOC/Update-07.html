@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-07</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-07
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Sep 15, 2011 by <font color="#0050B2">imamagic</font>.
+				    </div>
+
+				    <h1><a name="Update-07-Release%3A"></a>Release: Update-07</h1>
+
+<h2><a name="Update-07-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 25 Oct 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 26 Nov 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="red">Released</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 30 Nov 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> James C </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Main Activities </td>
+<td class='confluenceTd'><ul>
+	<li>ATP for NCG Topology</li>
+	<li>Test ACE</li>
+	<li>CA Distribution probe update</li>
+	<li>ARC probes integration</li>
+	<li>Misc NCG + Probe patches</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td class='confluenceTd'> Notes </td>
+<td class='confluenceTd'> Update-07 is the first release which fully supports using the ATP as a topology provider instead of SAM. This is a major step forward since it makes the configuration via NCG and the display via MyEGI to be syncronized. </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-07-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<ul>
+	<li>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-930">SAM-930</a></li>
+	<li>Passed to EGI.eu Staged Rollout - 30 Nov 2010</li>
+	<li>Completed Staged Rollout - 6 Dec 2010 : <a href="https://documents.egi.eu/secure/ShowDocument?docid=270&amp;version=">SAM-Update7-EA-Report</a></li>
+</ul>
+
+
+<h2><a name="Update-07-Listofnewmetrics"></a>List of new metrics</h2>
+
+<p>CE &amp; CREAM-CE:</p>
+<ul>
+	<li>hr.srce.CADist-Check - <a href="http://wiki.cro-ngi.hr/en/index.php/Hr.srce.CADist-Check">more info</a></li>
+</ul>
+
+
+<p>Nagios:</p>
+<ul>
+	<li>hr.srce.CADist-GetFiles - <a href="http://wiki.cro-ngi.hr/en/index.php/Hr.srce.CADist-GetFiles">more info</a></li>
+	<li>hr.srce.CADist-Check - <a href="http://wiki.cro-ngi.hr/en/index.php/Hr.srce.CADist-Check">more info</a></li>
+	<li>org.nagiosexchange.LogFiles - metric checks /var/log/messages for messages coming from SAM components</li>
+	<li>hr.srce.GoodSEs - see JOBSUBMIT_WN_SE_REP_FILE related release note below</li>
+	<li>org.egee.MrsCheckMissingProbes - <a href="Probes testing Nagios instance.html" title="Probes testing Nagios instance">more info</a></li>
+</ul>
+
+
+<p>ARC-CE (profile arc):</p>
+<ul>
+	<li>org.arc.GRIDFTP</li>
+	<li>org.arc.LFC</li>
+	<li>org.arc.RLS</li>
+	<li>org.arc.SRM</li>
+	<li>org.arc.Jobsubmit</li>
+	<li>org.arc.python</li>
+	<li>org.arc.perl</li>
+	<li>org.arc.gcc</li>
+	<li>org.arc.csh</li>
+	<li>org.arc.AUTH</li>
+	<li>org.arc.CA-VERSION</li>
+	<li>org.arc.SW-VERSION</li>
+	<li>org.arc.ARC-STATUS</li>
+</ul>
+
+
+<h2><a name="Update-07-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.15.6-3.el5
+atp-web-1.15.6-3.el5
+egee-NAGIOS-1.0.0-56.el5
+egee-NRPE-1.0.0-18.el5
+glite-yaim-nagios-1.0.121-1.el5
+grid-monitoring-config-gen-0.75.2-3.el5
+grid-monitoring-fm-nagios-remote-0.19.1-1.el5
+grid-monitoring-org.activemq-probes-0.8-3.el5
+grid-monitoring-org.ggus-probes-0.6-1.el5
+grid-monitoring-org.nagiosexchange-probes-0.11-1.el5
+grid-monitoring-probes-cadist-0.1.1-1.el5
+grid-monitoring-probes-ch.cern-0.20.1-1.el5
+grid-monitoring-probes-hr.srce-0.30.2-1.el5
+grid-monitoring-probes-org.ndgf-0.3-1.el5
+grid-monitoring-probes-org.sam-0.1.18-1.el5
+gstat-validation-2.0.41-1.el5
+jmx4perl-0.73-1.el5
+myegi-0.2.8-2.el5
+nagios-gocdb-downtime-0.21-1.el5
+nagios2metricstore-1.0.29-3.el5
+poem-0.1-1.el5
+poem-sync-0.1-1.el5
+python-GridMon-1.1.12-1.el5
+voms2htpasswd-1.7-1.el5
+</pre>
+</div></div>
+
+<h2><a name="Update-07-ConfigurationChanges"></a>Configuration Changes</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Update-07 is the first release which fully supports using the ATP as a topology provider instead of SAM.  This is a major step forward since it makes the configuration via NCG and the display via MyEGI to be syncronized.  We recommend all ROC/NGIs to enable ATP configuration.  To enable, set the following variables for YAIM in <tt>site-info.def</tt>
+
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>NCG_TOPOLOGY_USE_SAM=false
+NCG_TOPOLOGY_USE_ATP=true
+NCG_TOPOLOGY_ATP_ROOT_URL="http://grid-monitoring.cern.ch/atp"
+</pre>
+</div></div></td></tr></table></div>
+
+<p>There is now support for monitoring nagios and probe errors on the nagios host (<a href="https://tomtools.cern.ch/jira/browse/SAM-896">SAM-896@jira</a>).  This is carried out by looking at the <tt>/var/log/messages</tt> file.  In order for metric to work properly the following Yaim variable has to be set:</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>NAGIOS_SUDO_ENABLE_CONFIG=true
+
+</pre>
+</div></div>
+
+<h2><a name="Update-07-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>Starting from this release, it is possible to specify more than one replication SE for WN replica test <tt>org.sam.WN-RepRep</tt>. Static and/or dynamic mechanisms are possible. <tt>JOBSUBMIT_WN_SE_REP</tt> can now be defined with a list of comma-separated hostnames; this provides a static mechanism for defining replication SEs. New <tt>JOBSUBMIT_WN_SE_REP_FILE</tt> variable, if specified, should be a file name (w/o path, which is dynamically generated by respective metrics based on VO and/or FQAN for which the metrics are defined) that will be filled in with a list of SEs defined on the Nagios instance that recently successfully passed <tt>org.sam.SRM-All</tt> set of tests. This triggers execution of local <tt>hr.srce.GoodSEs</tt> check to generate the list of "good" SEs, as well as provides the file as input parameter to <tt>org.sam.{CREAM}CE-JobState</tt> metric(s). The latter takes up to max 3 hosts from the file and, if <tt>JOBSUBMIT_WN_SE_REP</tt> was defined, appends them to the static list. On WN, <tt>org.sam.WN-RepRep</tt> tries to replicate to all the SEs in the provided order until the replication succeeds. The metric returns CRITICAL, if file couldn't be replicated to any for the SEs. This fixes <a href="https://tomtools.cern.ch/jira/browse/SAM-442">https://tomtools.cern.ch/jira/browse/SAM-442</a></li>
+</ul>
+
+
+<ul>
+	<li>ARC probes are integrated with SAM. Additional actions required for ARC probes configuration are described <a href="https://tomtools.cern.ch/confluence/display/SAM/SAM+Setup+for+ARC+services" title="SAM Setup for ARC services">here</a>.</li>
+</ul>
+
+
+
+<h2><a name="Update-07-KnownIssues"></a>Known Issues</h2>
+
+<p>We have detected two issues using ATP as a topology provider instead of SAM.</p>
+
+<div class='panelMacro'><table class='warningMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>All Central-LFC services are also being mapped to OPS VO. This bug is being tracked under JIRA ticket <a href="https://tomtools.cern.ch/jira/browse/SAM-1003">SAM-1003</a></td></tr></table></div>
+
+<div class='panelMacro'><table class='warningMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>The second issue is that ATP does not contain yet metadata information for CEs and in particular, discovery of MPI flavours. This means that you cannot currently configure Nagios to test MPI if you are using ATP as topology provider for NCG. For this, we recommend you to keep on using SAM, through the variables for YAIM in site-info.def
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>NCG_TOPOLOGY_USE_SAM=true
+NCG_TOPOLOGY_USE_ATP=false
+</pre>
+</div></div></td></tr></table></div>
+
+<p>To configure Nagios, NCG needs to contact GOCDB. If GOCDB is down, you will see these error logs:</p>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>opt/glite/yaim/bin/yaim &#45;s /root/yaim/site-info.def &#45;c &#45;n glite-UI &#45;n glite-NAGIOS
+
+<p>results in this error:<br/>
+...<br/>
+INFO: Configuring for Profiles : ROC<br/>
+INFO: Configuring ncg cronjob<br/>
+INFO: Generating nagios configation from NCG (This might take a few minutes)...<br/>
+Running ncg: FAILED<br/>
+Enabling ncg cron: [ OK ]<br/>
+ERROR: ncg service failed<br/>
+ERROR: Configuration error &#33;</p>
+
+<p>/var/log/ncg.log contains:</p>
+
+<p>Mon Dec 13 10:21:07 MSK 2010 : ERROR: Could not get results from GOCDB: 500 SSL negotiation failed:<br/>
+Mon Dec 13 10:21:07 MSK 2010 : mv: cannot stat `/etc/nagios/wlcg.d.ncg.backup': No such file or directory</p></td></tr></table></div>
+
+
+<h2><a name="Update-07-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+<h2><a name="Update-07-Metricsforthisrelease"></a>Metrics for this release</h2>
+<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%"><tbody><tr>
+<td class="confluenceTd" valign="top" width="50%">
+<div class="error"><span class="error">gadget: Error rendering gadget [ https://tomtools.cern.ch/jira/rest/gadgets/1.0/g/com.atlassian.jira.gadgets:pie-chart-gadget/gadgets/piechart-gadget.xml ] </span> <p>projectOrFilterId=filter-10062&amp;statType=issuetype&amp;isConfigured=true&amp;refresh=false</p></div>
+<div class="error"><span class="error">gadget: Error rendering gadget [ https://tomtools.cern.ch/jira/rest/gadgets/1.0/g/com.atlassian.jira.gadgets:average-age-chart-gadget/gadgets/average-age-gadget.xml ] </span> <p>projectOrFilterId=filter-10062&amp;periodName=daily&amp;daysprevious=90&amp;isConfigured=true&amp;refresh=false</p></div></td>
+<td class="confluenceTd" valign="top">
+<div class="error"><span class="error">gadget: Error rendering gadget [ https://tomtools.cern.ch/jira/rest/gadgets/1.0/g/com.atlassian.jira.gadgets:pie-chart-gadget/gadgets/piechart-gadget.xml ] </span> <p>projectOrFilterId=filter-10062&amp;statType=components&amp;isConfigured=true&amp;refresh=false</p></div>
+<div class="error"><span class="error">gadget: Error rendering gadget [ https://tomtools.cern.ch/jira/rest/gadgets/1.0/g/com.atlassian.jira.gadgets:created-vs-resolved-issues-chart-gadget/gadgets/createdvsresolved-gadget.xml ] </span> <p>projectOrFilterId=filter-10062&amp;periodName=daily&amp;daysprevious=30&amp;isCumulative=true&amp;showUnresolvedTrend=false&amp;versionLabel=major&amp;isConfigured=true&amp;refresh=false</p></div></td></tr></tbody></table>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

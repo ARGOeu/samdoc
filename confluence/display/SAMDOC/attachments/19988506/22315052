@@ -1,0 +1,28 @@
+Index: trunk/bin/atp_synchro
+===================================================================
+diff -u -N -r956 -r957
+--- trunk/bin/atp_synchro	(.../atp_synchro)	(revision 956)
++++ trunk/bin/atp_synchro	(.../atp_synchro)	(revision 957)
+@@ -529,15 +529,20 @@
+                 Services_list = []
+                 for service_ele in resource_ele.findall("*/Service"):
+                     Service= {}
++                    Service['name'] = ''
+                     for element in service_ele.getchildren():
+-                        Service['name']=''
+                         if string.lower(element.tag) in ('name', 'description', 'serviceuri'):
+                             Service[string.lower(element.tag)] = element.text
+                         if string.lower(element.tag) in ('details') and element.findall("uri_override"):
+-                            Service['serviceendpoint']=element.findall("uri_override")[0].text
++                            if element.findall("uri_override")[0].text == None:
++                                Service['serviceendpoint']="%s:%s" % (Resource_dict['hostname'], ports[Service['name']])
++                            else:
++                                Service['serviceendpoint']=element.findall("uri_override")[0].text
+                         else:
+                             if Service['name'] in ports.keys():
+                                 Service['serviceendpoint']="%s:%s" % (Resource_dict['hostname'], ports[Service['name']])
++                            else:
++                                Service['serviceendpoint']=Resource_dict['hostname']
+                     Services_list.append(Service)
+                 Resource_dict["services"] = Services_list
+ 

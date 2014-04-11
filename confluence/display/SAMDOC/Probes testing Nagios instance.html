@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Probes testing Nagios instance</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Probes testing Nagios instance
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Apr 29, 2011 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h2><a name="ProbestestingNagiosinstance-Contents"></a>Contents</h2>
+
+<div>
+<ul>
+    <li><a href='#ProbestestingNagiosinstance-Contents'>Contents</a></li>
+    <li><a href='#ProbestestingNagiosinstance-org.egee.MrsCheckMissingProbes'>org.egee.MrsCheckMissingProbes</a></li>
+<ul>
+    <li><a href='#ProbestestingNagiosinstance-Description'>Description</a></li>
+    <li><a href='#ProbestestingNagiosinstance-Troubleshooting'>Troubleshooting</a></li>
+<ul>
+    <li><a href='#ProbestestingNagiosinstance-MissingresultsfromWorkerNodes%28org.sam.WN.%29.'>Missing results from Worker Nodes (org.sam.WN.*).</a></li>
+    <li><a href='#ProbestestingNagiosinstance-Missingallofthemetricresults'>Missing all of the metric results</a></li>
+</ul>
+    <li><a href='#ProbestestingNagiosinstance-Tuningoftheprobe'>Tuning of the probe</a></li>
+    <li><a href='#ProbestestingNagiosinstance-Switchingofftheprobe'>Switching off the probe</a></li>
+</ul>
+</ul></div>
+
+<h2><a name="ProbestestingNagiosinstance-org.egee.MrsCheckMissingProbes"></a>org.egee.MrsCheckMissingProbes</h2>
+
+<h4><a name="ProbestestingNagiosinstance-Description"></a>Description</h4>
+
+<p>The probe is checking if expected rate of metric results is loaded to the MRS (Local Metric Store).</p>
+
+<p>It will raise:</p>
+
+<p>&#45; WARNING when number of received metrics of given flavour per NGI is lower than 50% of total number of services of given flavour per NGI.</p>
+
+<p>&#45; CRITICAL when number of received metrics of given flavour per NGI is lower than 20%.</p>
+
+<p>Note that probe will be failing when new services will be configured in your Nagios (e.g. new Nagios installation, new metrics, ...) till the time the metric results for new services are loaded into MRS.</p>
+
+<h4><a name="ProbestestingNagiosinstance-Troubleshooting"></a>Troubleshooting</h4>
+
+<h5><a name="ProbestestingNagiosinstance-MissingresultsfromWorkerNodes%28org.sam.WN.%29."></a>Missing results from Worker Nodes (org.sam.WN.*).</h5>
+
+<p>&nbsp;&nbsp;&#42; Check the Nagios test 'org.egee.RecvFromQueue'. If no results are received:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&#42; check if WN results are sent to the same broker as msg-to-handler is consuming from<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&#42; restart msg-to-handler<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&#42; check your WMSes</p>
+
+<h5><a name="ProbestestingNagiosinstance-Missingallofthemetricresults"></a>Missing all of the metric results</h5>
+
+<p>&#42; check the Nagios test 'org.egee.SendToMetricStore'<br/>
+&#42; check if Nagios is submitting tests<br/>
+&#42; is it new Nagios installation? If yes, just wait some time.</p>
+
+<h4><a name="ProbestestingNagiosinstance-Tuningoftheprobe"></a>Tuning of the probe</h4>
+
+<p>One can tune the probe (increase or lower thresholds) by modification of file /etc/nagios/plugins/check_missing_probes.cfg, e.g.:</p>
+
+<p>&lt;ngi NGI_NL&gt;<br/>
+&nbsp;&nbsp;&lt;flavour .*&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;metric .*&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;warning 40<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;critical 10<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/metric&gt;<br/>
+&nbsp;&nbsp;&lt;/flavour&gt;<br/>
+&lt;/ngi NGI_NL&gt;</p>
+
+<p>The values next to tags may be any valid Perl regex.<br/>
+If a metric has multiple matches within a config file - tha last valid match is used&#33;</p>
+
+<p>For example, if you put this:</p>
+
+<p>&lt;ngi .*&gt;<br/>
+&nbsp;&nbsp;&lt;flavour .*&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;metric .*&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;warning 20<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;critical 10<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/metric&gt;<br/>
+&nbsp;&nbsp;&lt;/flavour&gt;<br/>
+&lt;/ngi&gt;</p>
+
+<p>at the end of the file it will override any config above it because it matches everything.</p>
+
+<h4><a name="ProbestestingNagiosinstance-Switchingofftheprobe"></a>Switching off the probe</h4>
+
+<p>You may switch off the probe by:</p>
+
+<p>1. Disabling it in ncg.localdb</p>
+
+<p>2. Adding following paragraph at the end of /etc/nagios/plugins/check_missing_probes.cfg:</p>
+
+<p>&lt;ngi .*&gt;<br/>
+&nbsp;&nbsp;&lt;flavour .*&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;metric .*&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;warning 0<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;critical 0<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/metric&gt;<br/>
+&nbsp;&nbsp;&lt;/flavour&gt;<br/>
+&lt;/ngi&gt;</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

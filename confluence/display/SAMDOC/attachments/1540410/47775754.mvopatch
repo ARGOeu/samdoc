@@ -1,0 +1,46 @@
+--- /usr/lib/perl5/vendor_perl/5.8.5/NCG/ConfigGen/Nagios.pm	2012-12-06 09:20:10.000000000 +0100
++++ /home/eimamagi/Nagios.pm.new	2013-06-11 08:20:36.000000000 +0200
+@@ -1767,6 +1767,7 @@
+             my $obsess = $self->{SITEDB}->metricFlag($host, $metric, "OBSESS") || 0;
+             my $contactgroupLocal = $contactgroup;
+             my $roc = $self->{SITEDB}->siteROC || $self->{ROC};
++            my $metricVo = $self->{SITEDB}->metricFlag($host, $metric, "VO");
+ 
+             my $custom = {};
+             $custom->{"_site_name"} = $sitename;
+@@ -1801,13 +1802,11 @@
+             }
+ 
+             foreach my $vo (keys %{$self->{VOS}}) {
+-                my $metricVo;
+                 foreach my $voFqan (keys %{$self->{VOS}->{$vo}->{FQAN}}) {
+ 
+                     next if (exists $voRemovedMetrics->{VO}->{$vo}->{$metric} ||
+                              exists $voRemovedMetrics->{VO_FQAN}->{$voFqan}->{$metric});
+     
+-                    $metricVo = $self->{SITEDB}->metricFlag($host, $metric, "VO");
+                     my $options = $self->_getMetricOptionString($host, $metric, $vo, $voFqan, $self->{NRPE_UI});
+                     my $metricSgroupLocal = $metricSgroup;
+                     if ($metricVo) {
+@@ -1964,6 +1963,7 @@
+             my $parent;
+             my $probe;
+             my $passive = $self->{SITEDB}->metricFlag($host, $metric, "PASSIVE");
++            my $metricVo = $self->{SITEDB}->metricFlag($host, $metric, "VO");
+ 
+             # let's first check if we need to do anything with this metric on LB node
+             if ($passive) {
+@@ -1988,13 +1988,11 @@
+             $metricSgroup = $self->_getLocalServiceGroups($host, $metric, $servicegroups, $lbnode);
+ 
+             foreach my $vo (keys %{$self->{VOS}}) {
+-                my $metricVo;
+                 foreach my $voFqan (keys %{$self->{VOS}->{$vo}->{FQAN}}) {
+ 
+                     next if (exists $voRemovedMetrics->{VO}->{$vo}->{$metric} ||
+                          exists $voRemovedMetrics->{VO_FQAN}->{$voFqan}->{$metric});
+ 
+-                    $metricVo = $self->{SITEDB}->metricFlag($host, $metric, "VO");
+                     my $options = $self->_getMetricOptionString($host, $metric, $vo, $voFqan, $self->{NRPE_UI});
+                     my $metricSgroupLocal = $metricSgroup;
+                     if ($metricVo) {

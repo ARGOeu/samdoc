@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Probes Development</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Probes Development
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Oct 25, 2013 by <font color="#0050B2">mbabik</font>.
+				    </div>
+
+				    <h2><a name="ProbesDevelopment-Overview"></a>Overview</h2>
+
+<p>This document describes the policy to accept and integrate new probes into the SAM infrastructure.</p>
+
+<div>
+<ul>
+    <li><a href='#ProbesDevelopment-Development'>Development</a></li>
+    <li><a href='#ProbesDevelopment-Packaging'>Packaging</a></li>
+    <li><a href='#ProbesDevelopment-IntegrationandTesting'>Integration and Testing</a></li>
+</ul></div>
+
+
+<h3><a name="ProbesDevelopment-Development"></a>Development</h3>
+
+<p>Please refer to the official Nagios documentation for probe development</p>
+<ul>
+	<li><a href="http://nagiosplug.sourceforge.net/developer-guidelines.html">Nagios Development Guidelines</a></li>
+	<li><a href="http://nagios.sourceforge.net/docs/nagioscore/3/en/pluginapi.html">Nagios Plugin API</a></li>
+</ul>
+
+
+<p>Probes can be developed in any of these languages:</p>
+<ul>
+	<li>Python (2.4)</li>
+	<li>Perl (5.8) - in case of Perl usage of module Nagios::Plugin is highly recommended.</li>
+	<li>C</li>
+	<li>shell scripting (Bash, Bourne)</li>
+</ul>
+
+
+<p>Some other Nagios conditions:</p>
+<ul>
+	<li>Each probe must provide the following arguments:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>-h help (--help)
+-t timeout (--timeout)
+</pre>
+</div></div>
+<p>The following arguments should be used if applicable:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>-H hostname (--hostname)
+-p port (--port)
+-u url (--url)
+-v verbose (--verbose)
+-w warning threshold (--warning)
+-c critical threshold (--critical)
+</pre>
+</div></div></li>
+	<li>Maximum output size for test/plugin output is 16KB. Above that limit the output will be truncated.</li>
+</ul>
+
+
+
+<h3><a name="ProbesDevelopment-Packaging"></a>Packaging</h3>
+
+<p>Please refer to the official EPEL documentation for packaging:</p>
+<ul>
+	<li><a href="http://fedoraproject.org/wiki/EPEL/GuidelinesAndPolicies">EPEL Guidelines And Policies</a></li>
+</ul>
+
+
+<p>Some considerations about naming:</p>
+<ul>
+	<li>Each probe package should have a unique namespace. Currently there is no strict definition of the namespace and the existing packages loosely follow revers DNS scheme (e.g. org.sam, hr.srce).</li>
+	<li>Each probe package name should use "nagios-plugins-emi.xxx" where 'xxx' is the name of the service to test (e.g. nagios-plugins-emi.bdii). This makes the name consistent with other nagios plugins.</li>
+	<li>Each metric that the probe implements must have a unique name, we suggest to use the package namespace and a short description of the test (e.g. nagios-plugins-emi.bdii.freshness)</li>
+</ul>
+
+
+<p>Some considerations about structure:</p>
+<ul>
+	<li>Probes should be stored in directory:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/usr/libexec/grid-monitoring/probes/&lt;probe_namespace&gt;
+</pre>
+</div></div></li>
+	<li>If probes creates temporary files, package should create directory:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/var/lib/grid-monitoring/&lt;probe_namespace&gt;
+</pre>
+</div></div>
+<p>With ownership nagios:nagios and permissions 750.</p></li>
+	<li>If probes package contains configuration files, they should be stored in directory:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/etc/nagios/plugins/&lt;probe_namespace&gt;/
+</pre>
+</div></div></li>
+</ul>
+
+
+<p>Some considerations about dependencies management:</p>
+<ul>
+	<li>Each probe is responsible for handling its dependencies.</li>
+	<li>The environment needed to execute each probe must be defined by the probe. This will replace the need to configure middleware user interface (UI) from the SAM framework side.</li>
+	<li>The libraries used by the current probes (python-gridmon, perl TOM::Nagios, perl GridMon::sgutils) will be provided by the SAM team and released either in EPEL or in the EMI external repository.</li>
+</ul>
+
+
+
+<h3><a name="ProbesDevelopment-IntegrationandTesting"></a>Integration and Testing</h3>
+
+<p>The integration and testing of probes foresees the following phases (for probes provided by EMI):</p>
+<ol>
+	<li>Each PT develops and tests its own probes in their development environments.</li>
+	<li>EMI builds a common meta-package including all available probes.</li>
+	<li>EMI tests the execution of probes using a dedicated SAM-nagios instances (with the support of the SAM team).</li>
+	<li>SAM validates and distributes a new SAM-Nagios release updating the dependency on EMI probes meta-package to the latest version.</li>
+</ol>
+
+
+<p>For custom probes developed by third parties or regions:</p>
+<ol>
+	<li>Add the mapping between service flavour and new test in your local <a href="POEM User's Guide.html" title="POEM User's Guide">POEM instance</a></li>
+	<li>Create a JSON metric config file (in /etc/ncg-metric-config.d/something.conf; example <a href="https://tomtools.cern.ch/confluence/display/SAM/NCG#NCG-Metricconfigurationfile">https://tomtools.cern.ch/confluence/display/SAM/NCG#NCG-Metricconfigurationfile</a>)</li>
+	<li>Install/upload your probe to the SAM/Nagios box</li>
+</ol>
+
+
+
+
+
+<p><br class="atl-forced-newline" />
+<br class="atl-forced-newline" />
+<br class="atl-forced-newline" /></p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

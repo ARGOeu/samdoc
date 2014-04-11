@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : SAM-Gridmon Administrator Guide</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : SAM-Gridmon Administrator Guide
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jan 21, 2014 by <font color="#0050B2">mbabik</font>.
+				    </div>
+
+				    <p><br class="atl-forced-newline" /></p>
+
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Administrator guide for latest release: SAM-Update-22</b><br />You can find the release notes at: <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/Update-22">https://tomtools.cern.ch/confluence/display/SAMDOC/Update-22</a>.</td></tr></table></div>
+
+<div>
+<ul>
+    <li><a href='#SAM-GridmonAdministratorGuide-Initialsetup'>Initial setup</a></li>
+<ul>
+    <li><a href='#SAM-GridmonAdministratorGuide-Hostcertificate'>Host certificate</a></li>
+    <li><a href='#SAM-GridmonAdministratorGuide-DisableSELinux'>Disable SELinux</a></li>
+    <li><a href='#SAM-GridmonAdministratorGuide-ConfigurationofYUMRepositories'>Configuration of YUM Repositories</a></li>
+</ul>
+    <li><a href='#SAM-GridmonAdministratorGuide-Installation'>Installation</a></li>
+    <li><a href='#SAM-GridmonAdministratorGuide-Configuration'>Configuration</a></li>
+<ul>
+    <li><a href='#SAM-GridmonAdministratorGuide-Optional%3AlatestmetricperVOalarm'>Optional: latest metric per VO alarm</a></li>
+</ul>
+    <li><a href='#SAM-GridmonAdministratorGuide-Bootstrapping'>Bootstrapping</a></li>
+    <li><a href='#SAM-GridmonAdministratorGuide-Validation'>Validation</a></li>
+</ul></div>
+
+<h1><a name="SAM-GridmonAdministratorGuide-Initialsetup"></a>Initial setup</h1>
+
+<h2><a name="SAM-GridmonAdministratorGuide-Hostcertificate"></a>Host certificate</h2>
+
+<p>Install your host certificate to secure the web portal.</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ ls -l /etc/grid-security/host*
+-rw-r--r-- 1 root root 2286 Oct 28 19:26 /etc/grid-security/hostcert.pem
+-r-------- 1 root root  887 Oct 28 19:25 /etc/grid-security/hostkey.pem
+
+$ openssl x509 -in /etc/grid-security/hostcert.pem -noout -purpose | grep &quot;SSL client&quot;
+SSL client : Yes</pre>
+</div></div>
+
+
+<h2><a name="SAM-GridmonAdministratorGuide-DisableSELinux"></a>Disable SELinux</h2>
+
+<p>SELINUX needs to be disabled to proceed with the installation. If it is enabled, follow the instructions below and <b>reboot the machine</b>.</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ setenforce 0
+$ sed -i &#39;s/^SELINUX=.*/SELINUX=disabled/&#39; /etc/selinux/config</pre>
+</div></div>
+
+<h2><a name="SAM-GridmonAdministratorGuide-ConfigurationofYUMRepositories"></a>Configuration of YUM Repositories</h2>
+
+<p>Scientific Linux v5: <a href="http://linuxsoft.cern.ch/scientific/58/x86_64/SL/yum-conf-5x-1-10.SL.noarch.rpm">SL5</a></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[sl-base]
+priority=2
+protect=1
+
+[sl-security]
+priority=2
+protect=1
+
+[sl-fastbugs]
+priority=2
+protect=1</pre>
+</div></div>
+
+<p>SAM/EGI repository: <a href="http://repository.egi.eu/sw/production/sam/1/x86_64/sa1-release-3-1.el5.noarch.rpm">SAM repository</a></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[egee-sa1-relx]
+name=EGEE Packages from SA1 for CentOS5 corresponding to release 22
+baseurl=http://rpm.hellasgrid.gr/mash/centos5-TOM-22/$basearch
+enabled=1
+gpgcheck=0
+protect=1
+priority=10
+metadata_expire=1</pre>
+</div></div>
+
+<p>Unified Middleware Distribution v2: <a href="http://repository.egi.eu/sw/production/umd/2/sl5/x86_64/updates/umd-release-2.0.0-2.el5.noarch.rpm">UMD version 2</a></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[UMD-2-base]
+protect=1
+priority=40
+
+[UMD-2-updates]
+protect=1
+priority=40</pre>
+</div></div>
+
+<p>EPEL: <a href="http://mirror.switch.ch/ftp/mirror/epel/5/i386/repoview/epel-release.html">EPEL repository 5.4</a></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[epel]
+enabled=1
+priority=50</pre>
+</div></div>
+
+<p>CA: <a href="http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo">EGI trust anchors repository</a></p>
+
+<p>SLC5-cernonly (needed for oracle clients, libraries and tnsnames)</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[slc5-cernonly]
+name=Scientific Linux CERN 5 (SLC5) CERN-only packages
+baseurl=http://linuxsoft.cern.ch/onlycern/slc5X/$basearch/yum/cernonly/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-cern
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jpolok
+gpgcheck=1
+enabled=0
+protect=1</pre>
+</div></div>
+
+<h1><a name="SAM-GridmonAdministratorGuide-Installation"></a>Installation</h1>
+
+<ol>
+	<li>Install required packages
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ yum -y install yum-priorities yum-protectbase python-setuptools
+
+# Oracle libraries and clients - might be available from other sources; note this installation assumes Oracle connections via tnsnames
+$ yum --enablerepo=slc5-cernonly -y install oracle-instantclient-basic oracle-instantclient-sqlplus perl-DBD-Oracle cx_Oracle
+
+# python-meld3
+$ wget http://koji.afroditi.hellasgrid.gr/packages/python-meld3/0.6.7/1.el5/x86_64/python-meld3-0.6.7-1.el5.x86_64.rpm
+$ yum localinstall python-meld3-0.6.7-1.el5.x86_64.rpm
+
+$ yum install lcg-CA # ca-policy-egi-core might work as well</pre>
+</div></div></li>
+	<li>Install SAM-Gridmon
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum install sam-gridmon --exclude sam-nagios
+yum -y update --exclude sam-nagios</pre>
+</div></div></li>
+	<li>Make sure sqlplus works. You may need to add the Oracle home to your library path.
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">echo /usr/lib64/oracle/10.x.x.x/client/lib64 &amp;gt;&amp;gt; /etc/ld.so.conf.d/oracle-instantclient.conf
+ldconfig</pre>
+</div></div></li>
+	<li>Check the <a href="Release Notes.html" title="Release Notes">Release Notes</a> for any additional instructions</li>
+</ol>
+
+
+<h1><a name="SAM-GridmonAdministratorGuide-Configuration"></a>Configuration</h1>
+
+<ol>
+	<li>Default configuration<br/>
+The configuration specification is available in the SAM documentation. To properly configure your instance, please go through:
+	<ol>
+		<li><a href="https://tomtools.cern.ch/confluence/display/SAMDOC/SAM+Configuration+via+YAIM#SAMConfigurationviaYAIM-Common">Common configuration options</a></li>
+		<li><a href="https://tomtools.cern.ch/confluence/display/SAMDOC/SAM+Configuration+via+YAIM#SAMConfigurationviaYAIM-SAMGridmon">SAM-Gridmon specific options</a></li>
+	</ol>
+	</li>
+	<li>Additional configuration<br/>
+SAM releases often provide additional configuration on each release.
+	<ol>
+		<li>Please check the <a href="Release Notes.html" title="Release Notes">Release Notes</a> of the latest production release.</li>
+		<li>Check the <a href="FAQs.html" title="FAQs">FAQs</a> for common configurations and problems.</li>
+	</ol>
+	</li>
+	<li>Consult bootstrapping steps if this is an installation from scratch</li>
+	<li>Database deployment
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>In order to perform the database deployment, the following variables are needed:<br/>
+DB_USER, DB_USER_R, DB_USER_W, DB_PASS, DB_PASS_W, DB_PASS_R and DB_NAME<br/>
+DB_USER is the main account; synonyms are created during the DB deployment to DB_USER_W and DB_USER_R.<br/>
+Setup of corresponding read/write permissions needs to be done by DBA in advance.</td></tr></table></div>
+<p>The database deployment is not performed automatically as part of yaim. The following yaim function should be executed manually:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -r -s /etc/lcg-quattor-site-info.def -n sam_gridmon -f config_database</pre>
+</div></div></li>
+	<li>Run yaim
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ /opt/glite/yaim/bin/yaim -s /etc/yaim/site-info.def -n SAM_GRIDMON</pre>
+</div></div></li>
+	<li>Consult bootstrapping steps if this is an installation from scratch</li>
+</ol>
+
+
+<h2><a name="SAM-GridmonAdministratorGuide-Optional%3AlatestmetricperVOalarm"></a>Optional: latest metric per VO alarm</h2>
+
+<p>If you want to enable alarm for checking the arrival of metrics per VO, download the <a href="http://svnweb.cern.ch/world/wsvn/sam/trunk/devel-scripts/databases/oracle/create_vo_alarm.sql">create_vo_alarm.sql</a> script and run it on the master Oracle account.</p>
+
+<h1><a name="SAM-GridmonAdministratorGuide-Bootstrapping"></a>Bootstrapping</h1>
+
+<ol>
+	<li>Consult a sample <a href="attachments/33718376/47775751.def">site-info.def</a> used at CERN.</li>
+	<li>Download <a href="attachments/33718376/47775750.bz2">SAM Oracle DB administration scripts</a></li>
+	<li>3 Oracle accounts are needed, owner, reader and writer - grant_priviledges.sql script needs to be run on the owner account</li>
+	<li>Download&nbsp;<a href="http://gridops.cern.ch/config/nagios-roles.conf">http://gridops.cern.ch/config/nagios-roles.conf</a> and store it on the box, so it can be downloaded via&nbsp;N2MS_ROLES_URL link define in site-info.def</li>
+	<li>OSG MRS bootstrapping is needed in case you'd like to import monitoring results from RSV2SAM bridge (to be executed after config_database):
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ sqlplus /usr/share/doc/mrs-1.7.43/DBScripts/oracle_bootstrap/OSG_Bootstrapper.sql</pre>
+</div></div></li>
+	<li>Initial yaim will fail during configuration of POEM since no profiles are defined by default, but it needs to be executed to do initial setup of ATP and POEM. In order to continue with the configuration you can run the following script to import profiles from other SAM instances (or create initial profiles from scratch manually at http://&lt;sam_gridmon/poem/admin):
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ export DJANGO_SETTINGS_MODULE=Poem.settings
+$ django-admin createsuperuser (this will setup root access to http://&amp;lt;sam_gridmon/poem/admin needed to manage roles and profiles)
+$ django-admin import_profiles --url http://grid-monitoring.cern.ch/poem/api/0.2/json/profiles/ ROC ROC_CRITICAL ROC_OPERATORS GLEXEC CLOUD-MON
+$ /opt/glite/yaim/bin/yaim -s /etc/yaim/site-info.def -n SAM_GRIDMON</pre>
+</div></div></li>
+	<li>After successful yaim consider removing the following consumers:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">$ rm -f /etc/msg-consume2db/msg-consume2db-1.conf /etc/msg-consume2db/msg-consume2db-2.conf # OSG consumers
+$ rm -f /etc/msg-consume2db/msg-consume2db-3.conf # consumers from VO Nagioses
+$ service supervisor reload # make sure you have only msg-consume2db processes that you configured</pre>
+</div></div></li>
+	<li>After successful yaim enable MRS job
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">Using SAM Oracle DB administration scripts
+$ sqlplus &amp;lt;db_account/db_pass@db_service&amp;gt; @enable_jobs.sql</pre>
+</div></div></li>
+</ol>
+
+
+<h1><a name="SAM-GridmonAdministratorGuide-Validation"></a>Validation</h1>
+
+<ol>
+	<li>Check the messages are consumed (succesfull inserts should be reported at):
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">less +F /var/log/supervisor/msg-consume2db-0.log</pre>
+</div></div></li>
+	<li>Check that Oracle job is running (either via Oracle web interface or indirectly via query):
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># should be decreasing if messages are consumed (job runs every 3 minutes)
+select count from metricdata_spool</pre>
+</div></div></li>
+	<li>Check the web interface is up (note it will take at least 30 minutes before something can be seen in the web interface)
+	<ol>
+		<li>https://&lt;hostname&gt;/mywlcg or</li>
+		<li>https://&lt;hostname&gt;/myegi</li>
+	</ol>
+	</li>
+	<li>Manually check status and availability is computed
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># there should be entries with status other than missing
+select * from statuschange_metric_service
+# availability
+$ less +F /var/log/ace/ace_status.log (ace_availability.log)</pre>
+</div></div></li>
+</ol>
+
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/33849355.repo">egi-sam.repo</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/33849356.repo">dag.repo</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/33849357.repo">slc5-updates.repo</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/33849358.repo">slc5-os.repo</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/33849359.repo">rpmforge.repo</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/33849360.repo">egee-sa1.repo</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/33849362.repo">slc5-extras.repo</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/47775750.bz2">sam-oracle-admin.tar.bz2</a> (application/x-bzip2)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/47775751.def">site-info.def</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/47775759.pdf">SAMmigrationtimeplan.pdf</a> (application/pdf)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/33718376/47775761.pdf">SAMmigrationtimeplanWLCGversion.pdf</a> (application/pdf)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

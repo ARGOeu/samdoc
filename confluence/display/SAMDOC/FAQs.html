@@ -1,0 +1,731 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : FAQs</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : FAQs
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Feb 25, 2014 by <font color="#0050B2">mbabik</font>.
+				    </div>
+
+				    <h3><a name="FAQs-Introduction"></a>Introduction</h3>
+
+<p>This pages lists relevant Frequently Asked Questions related to SAM.</p>
+
+<p>The following troubleshooting items are already available under two categories:</p>
+
+
+<div>
+<ul>
+    <li><a href='#FAQs-Installation'>Installation</a></li>
+    <li><a href='#FAQs-Configuration'>Configuration</a></li>
+<ul>
+    <li><a href='#FAQs-Monitoringofthelocalservices'>Monitoring of the local services</a></li>
+    <li><a href='#FAQs-Nagiosaccessconfiguration'>Nagios access configuration</a></li>
+    <li><a href='#FAQs-FailoverNagios'>Failover Nagios</a></li>
+    <li><a href='#FAQs-Robotcertificates'>Robot certificates</a></li>
+    <li><a href='#FAQs-EnablingACEinMyWLCG'>Enabling ACE in MyWLCG</a></li>
+    <li><a href='#FAQs-MultiVOconfigurationsetup'>Multi-VO configuration setup</a></li>
+    <li><a href='#FAQs-SettingalternativeSEformetricorg.sam.WNRepRep'>Setting alternative SE for metric org.sam.WN-RepRep</a></li>
+    <li><a href='#FAQs-SettingalternativeBDIIformetricorg.sam.SRMAll'>Setting alternative BDII for metric org.sam.SRM-All</a></li>
+    <li><a href='#FAQs-SettingalternativeLFCformetricsorg.sam.WNRep%5C'>Setting alternative LFC for metrics org.sam.WN-Rep*</a></li>
+    <li><a href='#FAQs-SettingalternativeBDIIformetricorg.sam.CREAMCEDirectJobState'>Setting alternative BDII for metric org.sam.CREAMCE-DirectJobState</a></li>
+    <li><a href='#FAQs-SettingalternativelistofCEsformetricorg.sam.WMSJobState'>Setting alternative list of CEs for metric org.sam.WMS-JobState</a></li>
+    <li><a href='#FAQs-MonitoringGlobusservices'>Monitoring Globus services</a></li>
+    <li><a href='#FAQs-Removingmetricsfromaliasonly'>Removing metrics from alias only</a></li>
+    <li><a href='#FAQs-Enablinghostandsitecontactswhenglobalnotifications%28ENABLENOTIFICATIONS%29aredisabled'>Enabling host and site contacts when global notifications (ENABLE_NOTIFICATIONS) are disabled</a></li>
+    <li><a href='#FAQs-ThrottlingofMyWLCGWEBAPI'>Throttling of MyWLCG WEB API</a></li>
+</ul>
+    <li><a href='#FAQs-Runtime'>Runtime</a></li>
+<ul>
+    <li><a href='#FAQs-HowtoknowwhichMessagingBrokerisconfiguredinNagios%3F'>How to know which Messaging Broker is configured in Nagios?</a></li>
+    <li><a href='#FAQs-HowtoremovehostsfromNagiossotheyarenotmonitored%3F'>How to remove hosts from Nagios so they are not monitored?</a></li>
+    <li><a href='#FAQs-HowtoreplacethedefaultSEusedforreplicamanagementtests'>How to replace the default SE used for replica management tests</a></li>
+    <li><a href='#FAQs-Howtocreate%2FrenewtheMyProxyproxyforNagiosuse%3F'>How to create/renew the MyProxy proxy for Nagios use?</a></li>
+    <li><a href='#FAQs-HowtomanuallyaddservicesonNGI%2FROCNagioses'>How to manually add services on NGI/ROC Nagioses</a></li>
+    <li><a href='#FAQs-WhatisthecommandexecutedbyNagiostorunthecheck%27org.sam.SRMAll%27%3F'>What is the command executed by Nagios to run the check 'org.sam.SRM-All'?</a></li>
+    <li><a href='#FAQs-HowtomonitorglexecservicesonROC%2FNGINagios%3F'>How to monitor glexec services on ROC/NGI Nagios?</a></li>
+    <li><a href='#FAQs-HowtoexecuteNagioscheckfromcommandlineinterface.'>How to execute Nagios check from command line interface.</a></li>
+    <li><a href='#FAQs-HowtomanagemultipleproxiesontheNagiosserver'>How to manage multiple proxies on the Nagios server</a></li>
+    <li><a href='#FAQs-MyEGIportaldoesn%27tshowanyresults.'>MyEGI portal doesn't show any results.</a></li>
+    <li><a href='#FAQs-Nagiosdoesn%27ttestservicesfromsite%3CSITENAME%3E'>Nagios doesn't test services from site &lt;SITENAME&gt;</a></li>
+    <li><a href='#FAQs-Idon%27tseemetricresultsformyserviceforHEPVO%28s%29'>I don't see metric results for my service for HEP VO(s)</a></li>
+    <li><a href='#FAQs-MyEGI%2FMyWLCGwebservicesgiveoutput%3A%22404%3AFileNotFound%22'>MyEGI/MyWLCG web services give output: "404: File Not Found"</a></li>
+    <li><a href='#FAQs-MyEGI%2FMyWLCG%3ATheservicesaremissinginNGINagiosinstancebutvisibleoncentralgridmonitoringinstance'>MyEGI/MyWLCG: The services are missing in NGI Nagios instance but visible on central grid-monitoring instance</a></li>
+    <li><a href='#FAQs-Alarmsfor%27NGIA%27inOperationsPortal%28https%3A%2F%2Foperationsportal.in2p3.fr%2Fdashboard%29arepointingtowrongregionalnagiosinstance.'>Alarms for 'NGI_A' in Operations Portal ( <span class="nobr">https://operations-portal.in2p3.fr/dashboard <sup><img border="0" alt="" align="absmiddle" width="7" height="7" src="images/icons/linkext7.gif" class="rendericon"/></sup></span> ) are pointing to wrong regional nagios instance.</a></li>
+    <li><a href='#FAQs-WhichmetricshavebeenchangedbetweenSAMUpdate20andSAMUpdate22%3F'>Which metrics have been changed between SAM Update-20 and SAM Update-22?</a></li>
+<ul>
+    <li><a href='#FAQs-Removals'>Removals</a></li>
+    <li><a href='#FAQs-Renames%2Freplacements'>Renames/replacements</a></li>
+    <li><a href='#FAQs-Additions'>Additions</a></li>
+</ul>
+</ul>
+</ul></div>
+
+<h3><a name="FAQs-Installation"></a>Installation</h3>
+
+<h3><a name="FAQs-Configuration"></a>Configuration</h3>
+
+<h5><a name="FAQs-Monitoringofthelocalservices"></a>Monitoring of the local services</h5>
+
+<p>Manual re-configuration is needed to change URL that ATP is using to connect to GOCDB (please note this will be overwritten by yaim). In /etc/atp/atp_synchro.conf, please change the following URLs</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[gocdb]
+site_url            = https://goc.egi.eu/gocdbpi/private/?method=get_site
+serviceendpoint_url = https://goc.egi.eu/gocdbpi/private/?method=get_service_endpoint
+
+to
+site_url            = https://goc.egi.eu/gocdbpi/private/?method=get_site&amp;amp;scope=EGI,Local&amp;amp;scope_match=any
+serviceendpoint_url = https://goc.egi.eu/gocdbpi/private/?method=get_service_endpoint&amp;amp;scope=EGI,Local&amp;amp;scope_match=any</pre>
+</div></div>
+
+<h5><a name="FAQs-Nagiosaccessconfiguration"></a>Nagios access configuration</h5>
+
+<p>This is done via voms2htpasswd, which has dynamic and static config that generates /etc/httpd/htpasswd. Dynamic part is generated from VOMS and GOCDB site contacts, e.g.</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># cat /etc/voms2htpasswd.conf
+vomss://voms1.somewhere:8443/voms/dteam?/dteam
+vomss://voms2.somewhereelse:8443/voms/ops?/ops
+gocdb://gocdb/api/private/?method=getcontacts&amp;amp;roc=ROC
+gocdb://gocdb/api/private/?method=getcontacts&amp;amp;roc=ROC
+
+The is based on site-info.def VO_&amp;lt;VO&amp;gt;_VOMS_SERVERS and NCG_GOCDB_ROC_NAME</pre>
+</div></div>
+
+<p>There is also a possibility to add list of static DNs in .conf file under /etc/voms2htpasswd-static.d/</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># cat /etc/voms2htpasswd-static.d/YAIM-ops-monitor.conf 
+/DC=dc/DC=dc2/OU=ou1s/CN=SomeCN</pre>
+</div></div>
+
+<h5><a name="FAQs-FailoverNagios"></a>Failover Nagios</h5>
+
+<p>Starting from Update-13 SAM supports deployment of hot-standby (active/active) instances. The systems works in the following way:</p>
+<ul>
+	<li>Backup instance is deployed by using the same Yaim configuration with added BACKUP_INSTANCE variable described below.</li>
+	<li>SAM administrator opens GGUS ticket to SAM/Nagios Support Unit requesting addition of the backup host to message consumer filter (file nagios-roles.conf).</li>
+	<li>Backup instance constantly monitors resources, but it has the following features:
+	<ul>
+		<li>alarms are not sent to Operations portal</li>
+		<li>email notifications are disabled</li>
+		<li>results are not sent to the central MRS database.</li>
+		<li>note: results are stored to local MRS so the MyEGI shows correct history on both instances.</li>
+	</ul>
+	</li>
+	<li>In case of failure of the main instance SAM administrator has to manually switch off BACKUP_INSTANCE variable on the backup instance.</li>
+</ul>
+
+
+<p>Backup instance can be defined in several ways:</p>
+<ul>
+	<li>Via Yaim variable which sets variable BACKUP_INSTANCE in /etc/sysconfig/ncg (recommended mechanism)
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">NCG_BACKUP_INSTANCE=true</pre>
+</div></div></li>
+	<li>Fast backup configuration without YAIM execution:
+	<ul>
+		<li>Setting variable BACKUP_INSTANCE in /etc/sysconfig/ncg (this approach can be used for fast failover):
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">BACKUP_INSTANCE=true</pre>
+</div></div></li>
+		<li>Setting global variable in ncg.conf file:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">BACKUP_INSTANCE=1</pre>
+</div></div></li>
+		<li>Using ncg.pl argument:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ncg.pl --backup-instance</pre>
+</div></div></li>
+	</ul>
+	</li>
+</ul>
+
+
+<p>In case of backup configuration without Yaim the following additional step is needed:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sbin/chkconfig send-to-dashboard off
+/sbin/service send-to-dashboard stop</pre>
+</div></div>
+
+<p>In order to turn backup instance into the active one, SAM administrator has to remove BACKUP_INSTANCE variable. If the Yaim is not used the following additional step is needed:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sbin/chkconfig send-to-dashboard on
+/sbin/service send-to-dashboard start</pre>
+</div></div>
+
+
+<h5><a name="FAQs-Robotcertificates"></a>Robot certificates</h5>
+
+<p>Starting from Update-09 SAM supports usage of robot certificates, instead of MyProxy credentials. If your CA supports robot certificates, we suggest switching to robot certificates, as they are easier to maintain. Also robots provide better availability as SAM doesn't depend on availability of MyProxy servier.</p>
+
+<p>In order to use robot certificates set the following YAIM variables:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">NCG_USE_ROBOT_CERT=true
+# Robot cert and key can be different for each VO
+# and standard Yaim VO notation is used
+VO_OPS_ROBOT_CERT=/etc/nagios/globus/robot-cert.pem
+VO_OPS_ROBOT_KEY=/etc/nagios/globus/robot-key.pem
+VO_DTEAM_ROBOT_CERT=/etc/nagios/globus/robot-cert.pem-dteam
+VO_DTEAM_ROBOT_KEY=/etc/nagios/globus/robot-key.pem-dteam</pre>
+</div></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Variables ROBOT_CERT and ROBOT_KEY use standard Yaim VO notation. If VO directories (vo.d/<em>voname</em>) are used, variables should put in appropriate VO files.</td></tr></table></div>
+
+<h5><a name="FAQs-EnablingACEinMyWLCG"></a>Enabling ACE in MyWLCG</h5>
+
+<p>Currently it's only for the central MyWLCG instance. YAIM configuration:</p>
+
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">MYEGI_ACE=true</pre>
+</div></div>
+
+<h5><a name="FAQs-MultiVOconfigurationsetup"></a>Multi-VO configuration setup</h5>
+
+<p>Starting from Update-17.1 you can setup VO-Nagios and defined multiple profiles in your local POEM Web interface <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/POEM+User%27s+guide">https://tomtools.cern.ch/confluence/display/SAMDOC/POEM+User%27s+guide</a>. In order to support multiple VOs you will need to define a VO feed for each given VO as described in <a href="https://tomtools.cern.ch/confluence/display/SAM/ATP+VO+Feeds">https://tomtools.cern.ch/confluence/display/SAM/ATP+VO+Feeds</a> and afterwards define a POEM profile for each given VO. The rest of the configuration should follow standard VO-Nagios setup. Please note that the following <a href="attachments/1540410/47775754.mvopatch">Nagios.pm.mvopatch</a> is needed for NCG to make this work.</p>
+
+<h5><a name="FAQs-SettingalternativeSEformetricorg.sam.WNRepRep"></a>Setting alternative SE for metric org.sam.WN-RepRep</h5>
+
+<p>Starting from the release Update-07, it is possible to specify more than one replication SE for WN replica test org.sam.WN-RepRep. Static and/or dynamic mechanisms are possible.</p>
+
+<p>In order to define static list of comma-separated hostnames set the following Yaim variable:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">JOBSUBMIT_WN_SE_REP=se1[,se2,se3...]</pre>
+</div></div>
+
+<p>Dynamic list is filled with a list of SEs defined on the Nagios instance that recently successfully passed org.sam.SRM-All set of tests. In order to use dynamic list set the following Yaim variable:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">JOBSUBMIT_WN_SE_REP_FILE=filename</pre>
+</div></div>
+<p>Filename must be defined without path.<br/>
+If the dynamic list is used metric hr.srce.GoodSEs will be associated to Nagios host. The hr.srce.GoodSEs metric generates the list of "good" SEs, as well as provides the file as input parameter to org.sam.(CREAM)CE-JobState metric(s).</p>
+
+<p>The org.sam.(CREAM)CE-JobState metric(s) takes up to max 3 hosts from the file and, if JOBSUBMIT_WN_SE_REP was defined, appends them to the static list. On WN, org.sam.WN-RepRep tries to replicate to all the SEs in the provided order until the replication succeeds. The metric returns CRITICAL, if file couldn't be replicated to any for the SEs. This fixes <a href="https://tomtools.cern.ch/jira/browse/SAM-442">https://tomtools.cern.ch/jira/browse/SAM-442</a>.</p>
+
+<h5><a name="FAQs-SettingalternativeBDIIformetricorg.sam.SRMAll"></a>Setting alternative BDII for metric org.sam.SRM-All</h5>
+
+<p>Metric org.sam.SRM-All uses sam-bdii.cern.ch top BDII by default. In order to make tests less dependent on CERN top BDII it is suggested to set alternative BDII.</p>
+
+<p>In order to set alternative BDII create localdb file (e.g. /etc/ncg/ncg-localdb.d/srm.conf). There are two options:<br/>
+1. switch to your own top BDII:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_PARAMETER!org.sam.SRM-All!--ldap-uri!your.top.bdii</pre>
+</div></div>
+<p>2. use site BDII:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_ATTRIBUTE!org.sam.SRM-All!SITE_BDII!--ldap-uri</pre>
+</div></div>
+
+<h5><a name="FAQs-SettingalternativeLFCformetricsorg.sam.WNRep%5C"></a>Setting alternative LFC for metrics org.sam.WN-Rep&#42;</h5>
+
+<p>Metrics org.sam.WN-Rep&#42; use prod-lfc-shared-central.cern.ch LFC by default.</p>
+
+<p>In order to set alternative lfc create localdb file (e.g. /etc/ncg/ncg-localdb.d/LFC.conf):</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_PARAMETER!org.sam.CREAMCE-JobState!--wn-lfc!lfc.my.domain
+MODIFY_METRIC_PARAMETER!org.sam.CE-JobState!--wn-lfc!lfc.my.domain</pre>
+</div></div>
+
+<h5><a name="FAQs-SettingalternativeBDIIformetricorg.sam.CREAMCEDirectJobState"></a>Setting alternative BDII for metric org.sam.CREAMCE-DirectJobState</h5>
+
+<p>Metric org.sam.CREAMCE-DirectJobState uses sam-bdii.cern.ch top BDII by default. In order to make tests less dependent on CERN top BDII it is suggested to set alternative BDII.</p>
+
+<p>In order to set alternative BDII create localdb file (e.g. /etc/ncg/ncg-localdb.d/creamcedjs.conf). There are two options:<br/>
+1. switch to your own top BDII:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_PARAMETER!org.sam.CREAMCE-DirectJobState!--ldap-uri!your.top.bdii</pre>
+</div></div>
+<p>2. use site BDII:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_ATTRIBUTE!org.sam.CREAMCE-DirectJobState!SITE_BDII!--ldap-uri</pre>
+</div></div>
+
+<h5><a name="FAQs-SettingalternativelistofCEsformetricorg.sam.WMSJobState"></a>Setting alternative list of CEs for metric org.sam.WMS-JobState</h5>
+
+<p>If the monitored infrastructure contains <b>WMS</b> service and no <b>CE</b> services, metric <b>hr.srce.GoodCEs</b> associated to Nagios service will fail with the following error:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">HealthyNodes CRITICAL - No healthy hosts found.</pre>
+</div></div>
+<p>There are two options to solve this issue.</p>
+
+<p>1. If the infrastructure contains <b>CREAM-CE</b> services create file /etc/ncg/ncg-localdb.d/GoodCEs-fix with the following content:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">MODIFY_METRIC_PARAMETER!hr.srce.GoodCEs!--metric!org.sam.CREAMCE-JobSubmit</pre>
+</div></div>
+
+<p>2. In order to use static list of CEs or CREAM-CEs create file /etc/ncg/ncg-localdb.d/GoodCEs-fix with the following content:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">REMOVE_METRIC!hr.srce.GoodCEs</pre>
+</div></div>
+<p>For each VO supported on SAM instance create file /var/lib/gridprobes/&lt;VO_NAME&gt;/GoodCEs and list CE/CREAM-CE names in it. Example is:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ce1.reliable.my
+ce2.reliable.my
+cream-ce3.reliable.my</pre>
+</div></div>
+<p>In case VO_FQAN is used (e.g. <b>/ops/Role=lcgadmin</b>) &lt;VO_NAME&gt; should be set to VO_FQAN with "/" replaced with "." (e.g. <b>/var/lib/gridprobes/ops.Role=lcgadmin/GoodCEs</b>).</p>
+
+<h5><a name="FAQs-MonitoringGlobusservices"></a>Monitoring Globus services</h5>
+
+<p>Globus services currently do not support VOs. In order to monitor Globus services SAM administrator has to contact <b>all sites</b> and request to add the certificate DN to the grid-mapfile.</p>
+
+<h5><a name="FAQs-Removingmetricsfromaliasonly"></a>Removing metrics from alias only</h5>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">REMOVE_ALIAS_METRIC!alias!metric</pre>
+</div></div>
+
+<h5><a name="FAQs-Enablinghostandsitecontactswhenglobalnotifications%28ENABLENOTIFICATIONS%29aredisabled"></a>Enabling host and site contacts when global notifications (ENABLE_NOTIFICATIONS) are disabled</h5>
+
+<p>It's done in localdb:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ADD_SITE_CONTACT!sitename!emailAddress
+ENABLE_SITE_CONTACT!sitename!emailAddress
+ENABLE_HOSTCONTACT!hostname!emailAddress</pre>
+</div></div>
+
+<h5><a name="FAQs-ThrottlingofMyWLCGWEBAPI"></a>Throttling of MyWLCG WEB API</h5>
+
+<p>Performance limits in MyWLCG/MyEGI portal are set by YAIM variables.<br/>
+This variables have default values as listed below:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># Limit number of rows that can be fetched at a time to avoid DB dumps.
+MYWLCG_DB_LIMIT=50000
+# Limit number of accesses per IP address in a given time(seconds).
+MYWLCG_ACCESS_PERIOD=5
+MYWLCG_NUMBER_OF_ACCESSES=100</pre>
+</div></div>
+
+<h3><a name="FAQs-Runtime"></a>Runtime</h3>
+
+<h5><a name="FAQs-HowtoknowwhichMessagingBrokerisconfiguredinNagios%3F"></a>How to know which Messaging Broker is configured in Nagios?</h5>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">cat /var/cache/msg/broker-cache-file/broker-list</pre>
+</div></div>
+
+<h5><a name="FAQs-HowtoremovehostsfromNagiossotheyarenotmonitored%3F"></a>How to remove hosts from Nagios so they are not monitored?</h5>
+
+<p>In /etc/ncg/ncg.conf, set:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">&amp;lt;NCG::SiteSet&amp;gt;
+  &amp;lt;File&amp;gt;
+      DB_FILE=/etc/ncg/ncg.localdb.d/sites.conf
+      DB_DIRECTORY=/etc/ncg/ncg-localdb.d
+  &amp;lt;/File&amp;gt;
+&amp;lt;/NCG::SiteSet&amp;gt;</pre>
+</div></div>
+<p>and in the &lt;NCG::ConfigGen&gt; section, set</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">INCLUDE_EMPTY_HOSTS=0</pre>
+</div></div>
+
+<p>In /etc/ncg/ncg.localdb.d directory, create a file ending by '.conf', like for instance sites.conf with the list of sites to monitor and the list of services to remove. Lines like these:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ADD_SITE!CERN-PROD
+REMOVE_HOST!samdpm001.cern.ch</pre>
+</div></div>
+
+<h5><a name="FAQs-HowtoreplacethedefaultSEusedforreplicamanagementtests"></a>How to replace the default SE used for replica management tests</h5>
+
+<p>There are two possibilities:</p>
+
+<p>In /etc/gridmon/org.sam.conf configuration file, uncomment this line:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">#wn_se_rep = samdpm002.cern.ch</pre>
+</div></div>
+<p>and set it to your preferable SE. You don't need to rerun NCG after this change.</p>
+
+<p>Create a file in NCG localdb directory (/etc/ncg/ncg.localdb.d/anyfilename) with the following line in it:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">MODIFY_METRIC_PARAMETER!org.sam.CE-JobState!--wn-se-rep!your.srm</pre>
+</div></div>
+<p>and then rerun NCG:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[root@vtb-generic-30 ncg]# ncg.pl
+[root@vtb-generic-30 ncg]# service nagios reload</pre>
+</div></div>
+<p>Note: after the change of configuration check the output of metric 'org.sam.WN-Rep' to see which was the SE node used, e.g.:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">File was copied to SE my-cro-se.srce.hr and registered in LFC prod-lfc-shared-central.cern.ch.</pre>
+</div></div>
+<p>The "Last Check Time" should be posterior to the change of configuration.</p>
+
+
+<h5><a name="FAQs-Howtocreate%2FrenewtheMyProxyproxyforNagiosuse%3F"></a>How to create/renew the MyProxy proxy for Nagios use?</h5>
+
+<p>In order to execute probes that interact with Grid services, Nagios needs a proxy certificate. This proxy certificate is automatically renewed based on a MyProxy certificate stored by the Nagios Admins for its operation.</p>
+
+<p>In order to store a MyProxy certificate one needs to execute the following command at the UI where the certificate is available:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">myproxy-init -l nagios -s &amp;lt;MyProxy Server&amp;gt; -k NagiosRetrieve-&amp;lt;Nagios Server&amp;gt;-&amp;lt;VO&amp;gt; -c 336 -x -Z &quot;&amp;lt;Nagios Server certificate&#39;s subject DN&amp;gt;&quot;</pre>
+</div></div>
+
+<p>For example:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">myproxy-init -l nagios -s myproxy.example.com -k NagiosRetrieve-nagios.example.com-dteam -c 336 -x -Z &quot;/C=XX/O=The Grid/OU=Monitoring Service/CN=nagios.example.com&quot;</pre>
+</div></div>
+
+
+<h5><a name="FAQs-HowtomanuallyaddservicesonNGI%2FROCNagioses"></a>How to manually add services on NGI/ROC Nagioses</h5>
+
+<p>1. Create additional config file for the site (e.g. /etc/ncg/ncg.conf.d/sitename.conf) with the following content:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">&amp;lt;NCG::SiteInfo sitename&amp;gt;
+  # NCG::SiteInfo content from /etc/ncg/ncg.conf
+  &amp;lt;ATP&amp;gt;
+    ATP_ROOT_URL=https://grid-monitoring.cern.ch/atp
+  &amp;lt;/ATP&amp;gt;
+  &amp;lt;File&amp;gt;
+    DB_FILE=/etc/ncg/ncg.localdb
+    DB_DIRECTORY=/etc/ncg/ncg-localdb.d
+  &amp;lt;/File&amp;gt;
+
+  # additional config line
+  &amp;lt;File&amp;gt;
+    DB_FILE=/etc/ncg/ncg.sitename
+  &amp;lt;/File&amp;gt;
+&amp;lt;/NCG::SiteInfo&amp;gt;</pre>
+</div></div>
+<div class='panelMacro'><table class='warningMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Warning</b><br />DB_FILE must not be into default directory /etc/ncg/ncg-localdb.d.</td></tr></table></div>
+<div class='panelMacro'><table class='warningMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Warning</b><br />If the NCG::SiteInfo block in /etc/ncg/ncg.conf is different from the example above, copy its content to /etc/ncg/ncg.conf.d/sitename.conf and add File block with /etc/ncg/ncg.sitename (see comments above).</td></tr></table></div>
+
+<p>2. In the local db file /etc/ncg/ncg.sitename add the following content:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false"># adding VO specific service
+ADD_HOST_SERVICE_VO!hostname!MPICH!ops
+# adding generic service
+ADD_HOST_SERVICE!hostname!BDII</pre>
+</div></div>
+
+
+<h5><a name="FAQs-WhatisthecommandexecutedbyNagiostorunthecheck%27org.sam.SRMAll%27%3F"></a>What is the command executed by Nagios to run the check 'org.sam.SRM-All'?</h5>
+
+<p>On the Nagios box run:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">nagios-run-check your_hostname org.sam.SRM-All-/ops/Role=lcgadmin</pre>
+</div></div>
+
+<p>To see the detailed log run:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">nagios-run-check gridvm02.roma2.infn.it org.sam.SRM-All-/ops/Role=lcgadmin --verbose --dryrun</pre>
+</div></div>
+
+
+<h5><a name="FAQs-HowtomonitorglexecservicesonROC%2FNGINagios%3F"></a>How to monitor glexec services on ROC/NGI Nagios?</h5>
+
+<p>In the Yaim configuration set the following variable:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">NCG_HASH_CONFIG_PROFILES=&amp;lt;role_name&amp;gt;,glexec</pre>
+</div></div>
+<p>where &lt;role_name&gt; is name of your role.</p>
+
+<p>In case you want to run glexec metrics with different VO FQAN (e.g. /ops/Role=pilot) set the following variable:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">NCG_PROFILE_FQAN_glexec=/ops/Role=pilot</pre>
+</div></div>
+
+
+<h5><a name="FAQs-HowtoexecuteNagioscheckfromcommandlineinterface."></a>How to execute Nagios check from command line interface.</h5>
+
+<p>You can run only active checks. Running this command:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">nagios-run-check \-v \-d \-H &amp;lt;hostname&amp;gt; \-s org.sam.CE-JobState-ops</pre>
+</div></div>
+
+<p>You will see which is the command executed, e.g.:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[root@vtb-generic-30 ~]# nagios-run-check -v -d -H ce02.tier2.hep.manchester.ac.uk -s org.sam.CE-JobState-ops
+Executing command:
+su nagios -l -c &#39;/usr/libexec/grid-monitoring/probes/org.sam/CE-probe -H &quot;ce02.tier2.hep.manchester.ac.uk&quot; -t 600 --vo ops --mb-destination /queue/grid.probe.metricOutput.EGEE.vtb-generic-30_cern_ch -x /etc/nagios/globus/userproxy.pem-ops --prev-status $LASTSERVICESTATEID$ -m org.sam.CE-JobState --err-topics ce_wms,default&#39;</pre>
+</div></div>
+
+<h5><a name="FAQs-HowtomanagemultipleproxiesontheNagiosserver"></a>How to manage multiple proxies on the Nagios server</h5>
+
+<p>Add profile &lt;PROFILE_NAME&gt; in your site-info.def file and rerun yaim:</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">NCG_HASH_CONFIG_PROFILES=&quot;(...),&amp;lt;PROFILE_NAME&amp;gt;&quot;
+NCG_PROFILE_FQAN_&amp;lt;PROFILE_NAME&amp;gt;=/ops/Role=pilot</pre>
+</div></div>
+
+<h5><a name="FAQs-MyEGIportaldoesn%27tshowanyresults."></a>MyEGI portal doesn't show any results.</h5>
+
+<p>Do you have MDDB profile defined for your VO?</p>
+
+<h5><a name="FAQs-Nagiosdoesn%27ttestservicesfromsite%3CSITENAME%3E"></a>Nagios doesn't test services from site &lt;SITENAME&gt;</h5>
+
+<p>Check if these services support VO configured in your Nagios.</p>
+
+<ul>
+	<li>Nagios bootstrapped by ATP
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/atp/api/search/servicemap/json?site=&amp;lt;SITENAME&amp;gt;&amp;amp;ismonitored=on</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>Nagios bootstrapped by old SAM
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://lcg-sam.cern.ch:8080/same-pi/services_per_vo_monitored.jsp?Site_name=&amp;lt;SITENAME&amp;gt;
+http://lcg-sam.cern.ch:8080/same-pi/service_types_per_service_endpoint_monitored.jsp</pre>
+</div></div></li>
+</ul>
+
+
+<h5><a name="FAQs-Idon%27tseemetricresultsformyserviceforHEPVO%28s%29"></a>I don't see metric results for my service for HEP VO(s)</h5>
+
+<ul>
+	<li>Example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/myegi/sam-pi/status_of_service_in_profile?vo_name=atlas&amp;amp;profile_name=ATLAS_CRITICAL</pre>
+</div></div></li>
+	<li>Solution:
+	<ul>
+		<li>Check if the service is being tested by HEP VO's Nagios:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">https://sam-alice.cern.ch/nagios/
+https://sam-atlas.cern.ch/nagios/
+https://sam-cms.cern.ch/nagios/
+https://sam-lhcb.cern.ch/nagios/</pre>
+</div></div></li>
+		<li>If not, then assign ticket to 'VOSupport'<br/>
+Don't forget to choose in GGUS the affected VO.</li>
+		<li>If yes, then
+		<ul>
+			<li>Check if the service is defined in VO feed with correct flavour.<br/>
+URLs to VO feeds are defined in <a href="https://tomtools.cern.ch/confluence/display/SAM/ATP+VO+Feeds">https://tomtools.cern.ch/confluence/display/SAM/ATP+VO+Feeds</a>&#42;**&#42; If not, then assign ticket to 'VOSupport'<br/>
+Don't forget to choose in GGUS the affected VO.
+			<ul>
+				<li>If yes, then assign ticket to 'SAM/Nagios 3rd Level Support'</li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<h5><a name="FAQs-MyEGI%2FMyWLCGwebservicesgiveoutput%3A%22404%3AFileNotFound%22"></a>MyEGI/MyWLCG web services give output: "404: File Not Found"</h5>
+
+<ul>
+	<li>Check if you are calling the web service correctly, e.g.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/myegi/sam-pi/latest_metric_results_in_profile?vo_name=ops&amp;amp;profile_name=ROC_CRITICAL&amp;amp;service_flavour=CREAM-CE</pre>
+</div></div></li>
+</ul>
+
+
+<h5><a name="FAQs-MyEGI%2FMyWLCG%3ATheservicesaremissinginNGINagiosinstancebutvisibleoncentralgridmonitoringinstance"></a>MyEGI/MyWLCG: The services are missing in NGI Nagios instance but visible on central grid-monitoring instance</h5>
+
+<ul>
+	<li>Example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://rnagios.ibergrid.cesga.es/myegi/sam-pi/latest_metric_results_in_profile?vo_name=ops&amp;amp;profile_name=ROC&amp;amp;service_flavour=CREAM-CE&amp;amp;service_hostname=ce09.pic.es</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/myegi/sam-pi/latest_metric_results_in_profile?vo_name=ops&amp;amp;profile_name=ROC&amp;amp;service_flavour=CREAM-CE&amp;amp;service_hostname=ce09.pic.es</pre>
+</div></div></li>
+	<li>Solution
+	<ul>
+		<li>Check in your database if ATP synchronizer is running correctly and if service is present.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql&amp;gt; use mrs;
+mysql&amp;gt; select * from service where hostname = &#39;ce09.pic.es&#39;;
+mysql&amp;gt; select * from synchronizer_lastrun;
+mysql&amp;gt; select * from synchronizer;</pre>
+</div></div></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h5><a name="FAQs-Alarmsfor%27NGIA%27inOperationsPortal%28https%3A%2F%2Foperationsportal.in2p3.fr%2Fdashboard%29arepointingtowrongregionalnagiosinstance."></a>Alarms for 'NGI_A' in Operations Portal (<a href="https://operations-portal.in2p3.fr/dashboard">https://operations-portal.in2p3.fr/dashboard</a>) are pointing to wrong regional nagios instance.</h5>
+
+<p>Operations portal is filtering alarms based on NGI_NAME and NAGIOS_ROLE (See: <a href="http://gridops.cern.ch/config/nagios-roles.conf">http://gridops.cern.ch/config/nagios-roles.conf</a>). Probably someone misconfigured his Nagios instance and started sending alarms for 'NGI_A'.<br/>
+Solution: Contact the admin of this Nagios instance.</p>
+
+<h5><a name="FAQs-WhichmetricshavebeenchangedbetweenSAMUpdate20andSAMUpdate22%3F"></a>Which metrics have been changed between SAM Update-20 and SAM Update-22?</h5>
+
+<p>As part of the Integration of EMI probes, several profiles changes are needed.</p>
+
+<h6><a name="FAQs-Removals"></a>Removals</h6>
+
+<p>Several metrics need to be removed from profiles, as they have been deprecated by their developers.<br/>
+With these removals, the following metrics will disappear from all APIs and interfaces (by 1st of June 2013).</p>
+
+<ul>
+	<li>org.sam.LFC-CertLifetime (there is no replacement)</li>
+	<li>org.arc.AUTH (not needed, as this is tested indirectly at any job submission)</li>
+	<li>org.arc.SW-VERSION (checked the ARC version publishing, this functionality is provided by new test org.nordugrid.ARC-CE-ARIS)</li>
+	<li>org.sam.mpi.CE-JobSubmit (replaced by new MPI tests)</li>
+	<li>org.sam.WN-MPI (replaced by new MPI tests)</li>
+</ul>
+
+
+<h6><a name="FAQs-Renames%2Freplacements"></a>Renames/replacements</h6>
+
+<p>Some metrics have been renamed by their developers.<br/>
+The idea is to keep both names till all instances are upgraded:</p>
+<ul class="alternate" type="square">
+	<li>The central instance and upgraded NGIs with the new names</li>
+	<li>Non-upgraded NGIs with the old names</li>
+</ul>
+
+
+<p>SAM Update-22 includes a metric-renaming mechanism, to ensure correct functionality during transition period.</p>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>The metric history will be preserved, this change will not affect Availability and Reliability calculation</td></tr></table></div>
+
+<p>The full list of replacements is the following:</p>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Old name </th>
+<th class='confluenceTh'> New name </th>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CE-JobSubmit </td>
+<td class='confluenceTd'> emi.ce.CREAMCE-JobSubmit </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CREAMCE-DirectJobSubmit </td>
+<td class='confluenceTd'> emi.cream.CREAMCE-DirectJobSubmit </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CREAMCE-JobSubmit </td>
+<td class='confluenceTd'> emi.cream.CREAMCE-JobSubmit </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-Bi </td>
+<td class='confluenceTd'> emi.wn.WN-Bi </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-Csh </td>
+<td class='confluenceTd'> emi.wn.WN-Csh </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-SoftVer </td>
+<td class='confluenceTd'> emi.wn.WN-SoftVer </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.glexec.CE-JobSubmit </td>
+<td class='confluenceTd'> emi.cream.glexec.CREAMCE-JobSubmit </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.glexec.WN-gLExec </td>
+<td class='confluenceTd'> emi.cream.glexec.WN-gLExec </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.arc.ARC-STATUS </td>
+<td class='confluenceTd'> org.nordugrid.ARC-CE-ARIS </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.arc.CA-VERSION </td>
+<td class='confluenceTd'> org.nordugrid.ARC-CE-IGTF </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.arc.csh </td>
+<td class='confluenceTd'> org.nordugrid.ARC-CE-sw-csh </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.arc.gcc </td>
+<td class='confluenceTd'> org.nordugrid.ARC-CE-sw-gcc </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.arc.perl </td>
+<td class='confluenceTd'> org.nordugrid.ARC-CE-sw-perl </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.arc.python </td>
+<td class='confluenceTd'> org.nordugrid.ARC-CE-sw-python </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.arc.Jobsubmit </td>
+<td class='confluenceTd'> org.nordugrid.ARC-CE-result </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.arc.LFC </td>
+<td class='confluenceTd'> org.nordugrid.ARC-CE-lfc </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.arc.SRM </td>
+<td class='confluenceTd'> org.nordugrid.ARC-CE-srm </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h6><a name="FAQs-Additions"></a>Additions</h6>
+
+<p>These are the new metrics added:</p>
+
+<ul>
+	<li>emi.ARGUS
+	<ul>
+		<li>emi.ARGUS.PDP-memory</li>
+		<li>emi.ARGUS.PDP-status</li>
+		<li>emi.ARGUS.PDP-traffic</li>
+		<li>emi.ARGUS.PEP-memory</li>
+		<li>emi.ARGUS.PEP-status</li>
+		<li>emi.ARGUS.PEP-traffic</li>
+	</ul>
+	</li>
+	<li>eu.egi.MPI
+	<ul>
+		<li>eu.egi.mpi.complexjob.CREAMCE-JobSubmit</li>
+		<li>eu.egi.mpi.complexjob.WN</li>
+		<li>eu.egi.mpi.simplejob.CREAMCE-JobSubmit</li>
+		<li>eu.egi.mpi.simplejob.WN</li>
+		<li>eu.egi.mpi.EnvSanityCheck</li>
+	</ul>
+	</li>
+	<li>ARC-CE
+	<ul>
+		<li>org.nordugrid.ARC-CE-submit</li>
+		<li>org.nordugrid.ARC-CE-LFC-submit</li>
+		<li>org.nordugrid.ARC-CE-SRM-submit</li>
+		<li>org.nordugrid.ARC-CE-LFC-result</li>
+		<li>org.nordugrid.ARC-CE-SRM-result</li>
+	</ul>
+	</li>
+</ul>
+
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/1540410/47775754.mvopatch">Nagios.pm.mvopatch</a> (application/octet-stream)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

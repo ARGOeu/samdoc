@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : SRM</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : SRM
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Nov 23, 2010 by <font color="#0050B2">kskaburs</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#SRM-SRMprobe'>SRM-probe</a></li>
+    <li><a href='#SRM-SRMMetrics'>SRM Metrics</a></li>
+    <li><a href='#SRM-Execution'>Execution</a></li>
+<ul>
+    <li><a href='#SRM-Lockingofworkingdirectory'>Locking of working directory</a></li>
+</ul>
+    <li><a href='#SRM-Troubleshooting'>Troubleshooting</a></li>
+</ul></div>
+
+<h3><a name="SRM-SRMprobe"></a>SRM-probe</h3>
+
+<p>SRM-probe</p>
+
+<h3><a name="SRM-SRMMetrics"></a>SRM Metrics</h3>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> <b>Metrics</b> </td>
+<td class='confluenceTd'> <b>Description</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.SRM-All </td>
+<td class='confluenceTd'> Wrapper metric to launch the other metrics and publish passive checks results to Nagios. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.SRM-GetSURLs </td>
+<td class='confluenceTd'> Get full SRM endpoint(s) and storage areas from BDII. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.SRM-LsDir </td>
+<td class='confluenceTd'> List content of VO's top level space area(s) in SRM. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.SRM-Put </td>
+<td class='confluenceTd'> Copy a local file to the SRM into default space area(s). </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.SRM-Ls </td>
+<td class='confluenceTd'> List (previously copied) file(s) on the SRM. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.SRM-GetTURLs </td>
+<td class='confluenceTd'> Get Transport URLs for the file copied to storage. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.SRM-Get </td>
+<td class='confluenceTd'> Copy given remote file(s) from SRM to a local file. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.SRM-Del </td>
+<td class='confluenceTd'> Delete given file(s) from SRM. </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<ul>
+	<li>Dependency tree for the metrics in <tt>org.sam.SRM-probe</tt> (launched by <tt>org.sam.SRM-All</tt> metric):
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>        1:GetSURLs
+         ^     ^
+        /       \
+   2:LsDir  ____3:Put________
+            ^   ^     ^     ^
+           /   /       \     \
+       4:Ls 5:GetTURLs 6:Get 7:Del
+
+   eg.:
+   2:LsDir - "sequence number":"metrics abbreviation"
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>metrics use file-based IPC to communicate endpoints and other required info between each other. The files are located under metric's working directory: <tt>/var/lib/gridprobes/&lt;VO or FQAN&gt;/&lt;namespace&gt;/SRM/&lt;hostname&gt;/</tt></li>
+</ul>
+
+
+<ul>
+	<li>for all metrics except <tt>org.sam.SRM-GetTURLs</tt> Python lcg_util/gfal API is used. Due to a severe bug (<a href="https://gus.fzk.de/ws/ticket_info.php?ticket=63399">https://gus.fzk.de/ws/ticket_info.php?ticket=63399</a>) in lcg_gt3() C API crashing CPython <tt>org.sam.SRM-GetTURLs</tt> had to be re-implemented to use lcg-gt CLI.</li>
+</ul>
+
+
+<h3><a name="SRM-Execution"></a>Execution</h3>
+
+<h4><a name="SRM-Lockingofworkingdirectory"></a>Locking of working directory</h4>
+
+<p>Time limited metric working directory locking was implemented to eliminate race conditions when metrics are executed too close in time (clashes in scheduling or manual invocations). The file name is <tt>lock</tt>. Time limit is 5 min. The lock is created by <tt>org.sam.SRM-GetSURLs</tt> and removed by <tt>org.sam.SRM-Del</tt>. If by any reason the file was not removed, the directory is considered to be locked until 5 min has passed since the file creation.</p>
+
+<h3><a name="SRM-Troubleshooting"></a>Troubleshooting</h3>
+
+<p>TODO</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

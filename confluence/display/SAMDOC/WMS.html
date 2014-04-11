@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : WMS</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : WMS
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Nov 23, 2010 by <font color="#0050B2">kskaburs</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#WMS-WMSProbe'>WMS Probe</a></li>
+    <li><a href='#WMS-WMSMetrics'>WMS Metrics</a></li>
+<ul>
+    <li><a href='#WMS-org.sam.WMSJobMonit'>org.sam.WMS-JobMonit</a></li>
+</ul>
+    <li><a href='#WMS-JobSubmission'>Job Submission</a></li>
+<ul>
+    <li><a href='#WMS-GoodCEs'>GoodCEs</a></li>
+</ul>
+    <li><a href='#WMS-Troubleshooting'>Troubleshooting</a></li>
+</ul></div>
+
+<h3><a name="WMS-WMSProbe"></a>WMS Probe</h3>
+
+<p>WMS-probe.</p>
+
+<p>Test WMS service with job submission to predefined CEs.</p>
+
+<h3><a name="WMS-WMSMetrics"></a>WMS Metrics</h3>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> <b>Name</b> </td>
+<td class='confluenceTd'> <b>Description</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WMS-JobState </td>
+<td class='confluenceTd'> Submits grid job to CE(s) via WMS under test. Accepts passive check updates from org.sam.WMS-JobMonit. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WMS-JobMonit </td>
+<td class='confluenceTd'> Monitors submitted grid jobs. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WMS-JobSubmit </td>
+<td class='confluenceTd'> Passive check. Holds terminal status of job submission. </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h4><a name="WMS-org.sam.WMSJobMonit"></a>org.sam.WMS-JobMonit</h4>
+
+<p>Monitors submitted grid jobs. By default invoked by Nagios each 5 min. Threaded implementation with one thread per monitored resource with max 10 threads. Passively updates <tt>org.sam.WMS-JobState</tt> with the latest state of the job according to WMS when job is not in a terminal state. When job enters terminal state or was canceled the metric updates both <tt>org.sam.WMS-JobState</tt> and <tt>org.sam.WMS-JobSubmit</tt> with the final job status. The latter metrics are updated (as passive checks) either via Naigos command file or NSCA. <tt>org.sam.WMS-JobSubmit</tt> is the metric which goes to Metric Store Database.</p>
+
+<h3><a name="WMS-JobSubmission"></a>Job Submission</h3>
+
+<p>JDL template for job submission <tt>/usr/libexec/grid-monitoring/probes/org.sam/wnjob/org.sam.gridJob.WMS.jdl.template</tt>:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>Type="Job";
+JobType="Normal";
+Executable = "&lt;jdlExecutable&gt;";
+StdError = "gridjob.out";
+StdOutput = "gridjob.out";
+OutputSandbox = {"gridjob.out"};
+RetryCount = &lt;jdlRetryCount&gt;;
+ShallowRetryCount = &lt;jdlShallowRetryCount&gt;;
+Requirements = &lt;jdlReqCEInfoHostName&gt;;
+</pre>
+</div></div>
+
+<h4><a name="WMS-GoodCEs"></a>GoodCEs</h4>
+
+<ul>
+	<li><tt>jdlReqCEInfoHostName</tt> &#45; is substituted in JDL with CEs given to <tt>org.sam.WMS-JobState</tt> by
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>--ces-file &lt;file&gt;     File with list of CEs. Two schemes [file:] or http:
+</pre>
+</div></div></li>
+</ul>
+
+
+<p>Default being <tt>/var/lib/gridprobes/&lt;VO or FQAN&gt;/GoodCEs</tt>. All CEs from the file are OR'ed in the resulting <tt>Requirements</tt> <tt>ClassAdd</tt>. Eg:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>Requirements = (other.GlueCEInfoHostName == "ce106.cern.ch") || (other.GlueCEInfoHostName == "creamce.gina.sara.nl")
+</pre>
+</div></div>
+
+<p>By default, if org.sam.WMS-JobState metric is defined in a profile, NCG will create a corresponding <tt>hr.srce.GoodCEs</tt> metric for populating <tt>/var/lib/gridprobes/&lt;VO or FQAN&gt;/GoodCEs</tt> file.</p>
+
+
+<h3><a name="WMS-Troubleshooting"></a>Troubleshooting</h3>
+
+<p>Check <a href="CE.html#CE-Troubleshooting">CE troubleshooting</a>.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

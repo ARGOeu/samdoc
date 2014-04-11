@@ -1,0 +1,2066 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Web Services Specification</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Web Services Specification
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Mar 20, 2013 by <font color="#0050B2">tarragon</font>.
+				    </div>
+
+				    <p><br class="atl-forced-newline" /></p>
+
+
+<div>
+<ul>
+    <li><a href='#WebServicesSpecification-APIentrypoint'>API entry point</a></li>
+    <li><a href='#WebServicesSpecification-Topology%28mywlcgatp%29'>Topology (mywlcg-atp)</a></li>
+<ul>
+    <li><a href='#WebServicesSpecification-Contacts'>Contacts</a></li>
+    <li><a href='#WebServicesSpecification-GroupContacts'>Group Contacts</a></li>
+    <li><a href='#WebServicesSpecification-SiteContacts'>Site Contacts</a></li>
+    <li><a href='#WebServicesSpecification-VOContacts'>VO Contacts</a></li>
+    <li><a href='#WebServicesSpecification-Services'>Services</a></li>
+    <li><a href='#WebServicesSpecification-Sites'>Sites</a></li>
+    <li><a href='#WebServicesSpecification-SitesinRegion'>Sites in Region</a></li>
+    <li><a href='#WebServicesSpecification-VOFeeds'>VO Feeds</a></li>
+</ul>
+    <li><a href='#WebServicesSpecification-Topology%28mywlcgold%29'>Topology (mywlcg-old)</a></li>
+<ul>
+    <li><a href='#WebServicesSpecification-SitesinTopology'>Sites in Topology</a></li>
+    <li><a href='#WebServicesSpecification-ServiceTypesandFlavours'>Service Types and Flavours</a></li>
+    <li><a href='#WebServicesSpecification-ServicesinMaintenance'>Services in Maintenance</a></li>
+    <li><a href='#WebServicesSpecification-ServiceTypesandFlavoursrunninginServicesorSites'>Service Types and Flavours running in Services or Sites</a></li>
+    <li><a href='#WebServicesSpecification-VONames'>VO Names</a></li>
+    <li><a href='#WebServicesSpecification-VOssupportedbyeachServiceorSite'>VOs supported by each Service or Site</a></li>
+    <li><a href='#WebServicesSpecification-GroupsdefinedbyVOs'>Groups defined by VOs</a></li>
+    <li><a href='#WebServicesSpecification-Servicesdefinedingroups'>Services defined in groups</a></li>
+    <li><a href='#WebServicesSpecification-Servicetypes%26flavoursdefinedingroups'>Service types &amp; flavours defined in groups</a></li>
+    <li><a href='#WebServicesSpecification-Downtimes'>Downtimes</a></li>
+</ul>
+    <li><a href='#WebServicesSpecification-Metrics'>Metrics</a></li>
+<ul>
+    <li><a href='#WebServicesSpecification-Status'>Status</a></li>
+    <li><a href='#WebServicesSpecification-Historyofmetricsinaprofile'>History of metrics in a profile</a></li>
+    <li><a href='#WebServicesSpecification-Detailedoutputofaservicemetric'>Detailed output of a service metric</a></li>
+    <li><a href='#WebServicesSpecification-Latestmetricresultsinaprofile'>Latest metric results in a profile</a></li>
+</ul>
+    <li><a href='#WebServicesSpecification-Profiles'>Profiles</a></li>
+<ul>
+    <li><a href='#WebServicesSpecification-Metricsdefinedinprofiles'>Metrics defined in profiles</a></li>
+</ul>
+    <li><a href='#WebServicesSpecification-StatusandAvailability'>Status and Availability</a></li>
+<ul>
+    <li><a href='#WebServicesSpecification-StatusofServicesinaProfile'>Status of Services in a Profile</a></li>
+    <li><a href='#WebServicesSpecification-StatusofSitesinaProfile'>Status of Sites in a Profile</a></li>
+    <li><a href='#WebServicesSpecification-ServiceAvailabilityinProfile'>Service Availability in Profile</a></li>
+    <li><a href='#WebServicesSpecification-GroupAvailabilityinProfile'>Group Availability in Profile</a></li>
+</ul>
+</ul></div>
+
+<h2><a name="WebServicesSpecification-APIentrypoint"></a>API entry point</h2>
+
+<p>A SAM API is provided by every MyWLCG/MyEGI instance, accessible at</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://&amp;lt;host&amp;gt;/[mywlcg|myegi]/sam-pi/</pre>
+</div></div>
+<p>SAM's central instance API can be queried at</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/mywlcg/sam-pi/</pre>
+</div></div>
+
+<h2><a name="WebServicesSpecification-Topology%28mywlcgatp%29"></a>Topology (mywlcg-atp)</h2>
+
+<h3><a name="WebServicesSpecification-Contacts"></a>Contacts</h3>
+
+<ul>
+	<li>Input
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sam-pi/contacts?[name]&amp;amp;[dn]&amp;amp;[email]&amp;amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Optional
+		<ul>
+			<li><b>name:</b> contact name</li>
+			<li><b>dn:</b> contact certifcate dn</li>
+			<li><b>email:</b> contact email address</li>
+			<li><b>output:</b> output format; possible values are: xml, json; default: json</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[
+    {
+        &quot;contact&quot;:{
+            &quot;name&quot;: &quot;abc&quot;,
+            &quot;dn&quot;: &quot;abc&quot;,
+            &quot;telephone&quot;: &quot;123&quot;,
+            &quot;email&quot;: &quot;abc&quot;
+         },
+         ...
+    },
+    ...
+]</pre>
+</div></div></li>
+</ul>
+
+
+<h3><a name="WebServicesSpecification-GroupContacts"></a>Group Contacts</h3>
+
+<ul>
+	<li>Input
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sam-pi/groupcontacts?[name]&amp;amp;[dn]&amp;amp;[email]&amp;amp;[groupname]&amp;amp;[role]&amp;amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Optional
+		<ul>
+			<li><b>name:</b> contact name</li>
+			<li><b>dn:</b> contact certifcate dn</li>
+			<li><b>email:</b> contact email address</li>
+			<li><b>groupname:</b> region to which the contact belongs (e.g. NGI_IT)</li>
+			<li><b>role:</b> contact role</li>
+			<li><b>output:</b> output format; possible values are: xml, json; default: json</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[
+    {
+        &quot;contact&quot;:{
+            &quot;name&quot;: &quot;abc&quot;,
+            &quot;dn&quot;: &quot;abc&quot;,
+            &quot;telephone&quot;: &quot;123&quot;,
+            &quot;email&quot;: &quot;abc&quot;
+        },
+        &quot;role&quot;: &quot;Regional Staff (ROD)&quot;,
+        &quot;group&quot;: {
+            &quot;groupname&quot;: &quot;NGI_IT&quot;
+        }
+    },
+    ...
+]</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-SiteContacts"></a>Site Contacts</h3>
+
+<ul>
+	<li>Input
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sam-pi/sitecontacts?[name]&amp;amp;[dn]&amp;amp;[email]&amp;amp;[sitename]&amp;amp;[role]&amp;amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Optional
+		<ul>
+			<li><b>name:</b> contact name</li>
+			<li><b>dn:</b> contact certifcate dn</li>
+			<li><b>email:</b> contact email address</li>
+			<li><b>sitename:</b> site to which the contact belongs (e.g. CERN-PROD)</li>
+			<li><b>role:</b> contact role</li>
+			<li><b>output:</b> output format; possible values are: xml, json; default: json</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[
+    {
+        &quot;contact&quot;:{
+            &quot;name&quot;: &quot;abc&quot;,
+            &quot;dn&quot;: &quot;abc&quot;,
+            &quot;telephone&quot;: &quot;123&quot;,
+            &quot;email&quot;: &quot;abc&quot;
+        },
+        &quot;role&quot;: &quot;Site Operations Manager&quot;,
+        &quot;site&quot;: {
+            &quot;sitename&quot;: &quot;CERN-PROD&quot;
+        }
+    },
+    ...
+]</pre>
+</div></div></li>
+</ul>
+
+
+<h3><a name="WebServicesSpecification-VOContacts"></a>VO Contacts</h3>
+
+<ul>
+	<li>Input
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sam-pi/vocontacts?[name]&amp;amp;[dn]&amp;amp;[email]&amp;amp;[voname]&amp;amp;[role]&amp;amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Optional
+		<ul>
+			<li><b>name:</b> contact name</li>
+			<li><b>dn:</b> contact certifcate dn</li>
+			<li><b>email:</b> contact email address</li>
+			<li><b>voname:</b> vo to which the contact belongs (e.g. atlas)</li>
+			<li><b>role:</b> contact role</li>
+			<li><b>output:</b> output format; possible values are: xml, json; default: json</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[
+    {
+        &quot;contact&quot;:{
+            &quot;name&quot;: &quot;abc&quot;,
+            &quot;dn&quot;: &quot;abc&quot;,
+            &quot;telephone&quot;: &quot;123&quot;,
+            &quot;email&quot;: &quot;abc&quot;
+        },
+        &quot;role&quot;: &quot;&quot;,
+        &quot;vo&quot;: {
+            &quot;voname&quot;: &quot;lhcb&quot;
+        }
+    },
+    ...
+]</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-Services"></a>Services</h3>
+
+<ul>
+	<li>Input
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sam-pi/servicemap?[site]&amp;amp;[flavourname]&amp;amp;[voname]&amp;amp;[hostname]&amp;amp;[serviceendpoint]&amp;amp;[ismonitored]&amp;amp;[isinproduction]&amp;amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Optional
+		<ul>
+			<li><b>site:</b> name of the site (e.g. CERN-PROD)</li>
+			<li><b>flavourname:</b> service flavour name (e.g. CREAM-CE)</li>
+			<li><b>voname:</b> vo name (e.g. ops)</li>
+			<li><b>hostname:</b> hostname</li>
+			<li><b>serviceendpoint:</b> service endpoint</li>
+			<li><b>ismonitored:</b> if the service is monitored; possible values are: 'Y' or 'N'</li>
+			<li><b>isinproduction:</b> if the service is in production; possible values are: 'Y' or 'N'</li>
+			<li><b>output:</b> output format; possible values are: xml, json; default: json</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[
+    {
+        &quot;flavour&quot;:{
+            &quot;flavourname&quot;: &quot;CREAM-CE&quot;,
+            &quot;id&quot;: &quot;3&quot;
+        },
+        &quot;hostname&quot;: &quot;ce203.cern.ch&quot;,
+        &quot;site&quot;: [
+            {
+                &quot;sitename&quot;: &quot;CERN-PROD&quot;
+            }
+        ],
+        &quot;vo&quot;: [
+            {
+                &quot;voname&quot;: &quot;alice&quot;
+            }
+        ],
+        &quot;ismonitored&quot;: &quot;Y&quot;,
+        &quot;isinproduction&quot;: &quot;Y&quot;,
+        &quot;id&quot;: &quot;2751&quot;,
+        &quot;serviceendpoint&quot;: &quot;ce203.cern.ch:8443&quot;,
+    },
+    ...
+]</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-Sites"></a>Sites</h3>
+
+<ul>
+	<li>Input
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sam-pi/site?[sitename]&amp;amp;[siteoffname]&amp;amp;[countryname]&amp;amp;[infrastructure]&amp;amp;[infrasttype]&amp;amp;[ismonitored]&amp;amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Optional
+		<ul>
+			<li><b>sitename:</b> name of the site (e.g. CERN-PROD)</li>
+			<li><b>siteoffname:</b> official name of the site</li>
+			<li><b>countryname:</b> name of the country (e.g SWITZERLAND)</li>
+			<li><b>infrastructure:</b> name of the infrastructure (e.g. EGI)</li>
+			<li><b>infrasttype:</b></li>
+			<li><b>ismonitored:</b> if the service is monitored; possible values are: 'Y' or 'N'</li>
+			<li><b>output:</b> output format; possible values are: xml, json; default: json</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[
+    {
+        &quot;giisurl&quot;: &quot;ldap://prod-bdii.cern.ch:2170/mds-vo-name=CERN-PROD,o=grid&quot;,
+        &quot;contactemail&quot;: &quot;grid-cern-prod-admins@cern.ch&quot;,
+        &quot;sitename&quot;: &quot;CERN-PROD&quot;,
+        &quot;certifstatus&quot;: &quot;Y&quot;,
+        &quot;longitude&quot;: 6.04,
+        &quot;infrasttype&quot;: &quot;Production&quot;,
+        &quot;contacttel&quot;: &quot;+41(0)76487 0839&quot;,
+        &quot;infrast&quot;: {
+            &quot;infrastname&quot;: &quot;EGI&quot;
+        },
+        &quot;ismonitored&quot;: &quot;Y&quot;,
+        &quot;country&quot;: {
+            &quot;countryname&quot;: &quot;Switzerland&quot;
+        },
+        &quot;latitude&quot;: 46.23,
+        &quot;sitedesc&quot;: &quot;&quot;,
+    }
+    ...
+]</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-SitesinRegion"></a>Sites in Region</h3>
+
+<ul>
+	<li>Input
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sam-pi/siteregionvo/?[site]&amp;amp;[region]&amp;amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Optional
+		<ul>
+			<li><b>site:</b> name of the site (e.g. CERN-PROD)</li>
+			<li><b>region:</b> name of the region (e.g NGI_IT)</li>
+			<li><b>output:</b> output format; possible values are: xml, json; default: json</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[
+    {
+        &quot;site&quot;: &quot;BEIJING-LCG2&quot;,
+        &quot;atp_site&quot;: &quot;BEIJING-LCG2&quot;,
+        &quot;region&quot;: &quot;ROC_Canada&quot;,
+        &quot;infrast&quot;: &quot;EGI&quot;,
+        &quot;vo&quot;: [
+            &quot;atlas&quot;,
+            &quot;biomed&quot;,
+            &quot;cms&quot;,
+            &quot;dteam&quot;,
+            &quot;esr&quot;,
+            &quot;euchina&quot;,
+            &quot;ops&quot;,
+            &quot;vo.france-asia.org&quot;
+        ]
+    },
+    ...
+]</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-VOFeeds"></a>VO Feeds</h3>
+
+<ul>
+	<li>Input
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sam-pi/vofeeds?[atp_site]&amp;amp;[hostname]&amp;amp;[flavourname]&amp;amp;[vo]&amp;amp;[vogroups]&amp;amp;[vogrouptype]&amp;amp;[ismonitored]&amp;amp;[isinproduction]&amp;amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Optional
+		<ul>
+			<li><b>atp_site:</b> name of the site (e.g. CERN-PROD)</li>
+			<li><b>hostname:</b> hostname</li>
+			<li><b>flavourname:</b> service flavour name (e.g. CREAM-CE)</li>
+			<li><b>vo:</b> vo name (e.g. ops)</li>
+			<li><b>vogroups:</b> group name for given vo (e.g. T0-CERN)</li>
+			<li><b>vogrouptype:</b> group type for given vo (e.g. Tier-1)</li>
+			<li><b>ismonitored:</b> if the service is monitored; possible values are: 'Y' or 'N'</li>
+			<li><b>isinproduction:</b> if the service is in production; possible values are: 'Y' or 'N'</li>
+			<li><b>output:</b> output format; possible values are: xml, json; default: json</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[
+    {
+        &quot;grouptype&quot;: &quot;LHCb_Site&quot;,
+        &quot;atp_site&quot;: &quot;ARAGRID-CIENCIAS&quot;,
+        &quot;infrastructure&quot;: &quot;EGI&quot;,
+        &quot;spacetoken_name&quot;: &quot;&quot;,
+        &quot;hostname&quot;: &quot;creamc-iber.bifi.unizar.es&quot;,
+        &quot;service_id&quot;: &quot;2556&quot;,
+        &quot;service_flavour&quot;: &quot;CREAM-CE&quot;,
+        &quot;service_flavour_id&quot;: &quot;3&quot;,
+        &quot;vo&quot;: [
+                &quot;lhcb&quot;
+        ],
+        &quot;roc&quot;: &quot;NGI_IBERGRID&quot;,
+        &quot;groupname&quot;: &quot;LCG.ARAGRID-CIENCIAS.es&quot;,
+        &quot;service_type&quot;: &quot;CE&quot;,
+        &quot;serviceendpoint&quot;: &quot;creamc-iber.bifi.unizar.es:8443&quot;,
+        &quot;spacetoken_path&quot;: &quot;&quot;,
+        &quot;ismonitored&quot;: &quot;Y&quot;,
+        &quot;isinproduction&quot;: &quot;Y&quot;
+    },
+    ...
+]</pre>
+</div></div></li>
+</ul>
+
+
+
+
+<h2><a name="WebServicesSpecification-Topology%28mywlcgold%29"></a>Topology (mywlcg-old)</h2>
+
+<h3><a name="WebServicesSpecification-SitesinTopology"></a>Sites in Topology</h3>
+
+<ul>
+	<li>Name: Site Names</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/site_names?[infrast_type]&amp;[is_certified]&amp;[infrast_name]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>infrast_name: Optional but may appear more than once. Possible values are: EGI, NDGF, OSG.</li>
+		<li>infrast_type: Optional. Possible values are: PPS, Production, SC, Test. Default: Production.</li>
+		<li>is_certified: Optional. Possible values are: Y, N. Default: Y.</li>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: The list of sites defined in the topology database.
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>infrastructure: To extract the IDs of the infrastructure names passed by parameters.</li>
+			<li>site: To extract the list of sites.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;Site name="BEgrid-UniversiteitAntwerpen" infrast_name="EGI"/&gt;
+   &lt;Site name="FI-LCG2" infrast_name="EGI"/&gt;
+   &lt;Site name="GR-07-UOI-HEPLAB" infrast_name="EGI"/&gt;
+   &lt;Site name="GUP-CERTIF-TB" infrast_name="EGI"/&gt;
+   &lt;Site name="IFJ-PAN-BG" infrast_name="EGI"/&gt;
+   &lt;Site name="INFN-BOLOGNA-CMS" infrast_name="EGI"/&gt;
+   &lt;Site name="KMU-PRI-LCG2" infrast_name="EGI"/&gt;
+   &lt;Site name="MCGILL-LCG2" infrast_name="EGI"/&gt;
+   &lt;Site name="NGS-LEEDS" infrast_name="EGI"/&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-ServiceTypesandFlavours"></a>Service Types and Flavours</h3>
+
+<ul>
+	<li>Name: Service Types and Flavours</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/service_types_and_flavours?[output]</pre>
+</div></div>
+	<ul>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: The different service types and flavours defined in the topology database.
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>service_type: To extract the service types' abbreviations. <b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+			<li>service_type_flavour: To extract the service type flavours and the IDs to the corresponding service types.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;Service type="APEL" flavour="APEL"/&gt;
+   &lt;Service type="APEL" flavour="gLite-APEL"/&gt;
+   &lt;Service type="BDII" flavour="Site-BDII"/&gt;
+   &lt;Service type="BDII" flavour="Top-BDII"/&gt;
+   &lt;Service type="CE" flavour="ARC-CE"/&gt;
+   &lt;Service type="CE" flavour="CREAM-CE"/&gt;
+   &lt;Service type="CE" flavour="gLite-CE"/&gt;
+   &lt;Service type="SRM" flavour="SRMv2"/&gt;
+   &lt;Service type="LFC" flavour="Central-LFC"/&gt;
+   &lt;Service type="LFC" flavour="Local-LFC"/&gt;
+   &lt;Service type="MyProxy" flavour="MyProxy"/&gt;
+   &lt;Service type="RB" flavour="RB"/&gt;
+   &lt;Service type="RGMA" flavour="RGMA-IC"/&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+<h3><a name="WebServicesSpecification-ServicesinMaintenance"></a>Services in Maintenance</h3>
+
+<ul>
+	<li>Name: Services in maintenance</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/service_maintenance?[host_name]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>host_name: Mandatory and may appear more than once. Eg: srm.cern.ch</li>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: Returns 'Y' or 'N' if the host_names passed by parameters are currently under a scheduled maintenance.
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>service: To extract the IDs of the services passed by parameters.</li>
+			<li>downtime: To extract the current downtime IDs considering the request execution time and the columns starttimestamp, endtimestamp, inserttimestamp, isdeleted (='N') and classification (='SCHEDULED').</li>
+			<li>service_downtime: To map services with possible downtimes.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;Service hostname="cmsboce.bo.infn.it"&gt;
+      &lt;inMaintenance&gt;N&lt;/inMaintenance&gt;
+   &lt;/Service&gt;
+   &lt;Service hostname="srm.cern.ch"&gt;
+      &lt;inMaintenance&gt;N&lt;/inMaintenance&gt;
+   &lt;/Service&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-ServiceTypesandFlavoursrunninginServicesorSites"></a>Service Types and Flavours running in Services or Sites</h3>
+
+<ul>
+	<li>Name: Service Types and Flavours running in Services or Sites</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/service_types_and_flavours_per_service?[host_name]&amp;[site_name]&amp;[infrast_name]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>host_name: Optional but may appear more than once. Eg: srm.cern.ch</li>
+		<li>site_name: Optional but may appear more than once. Eg: CERN-PROD</li>
+		<li>infrast_name: Optional but may appear more than once. Possible values are: EGI, NDGF, OSG</li>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: returns the Service Types and Service Flavours defined in each hostname or site passed by parameters.
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>infrastructure: To extract the IDs that map to the infrastructure names passed by parameters.</li>
+			<li>site: To extract the IDs of the sites passed by parameters (taking into account the infrast_id if infrast_name was specified).</li>
+			<li>site_service: To extract the IDs of the services defined in those sites.</li>
+			<li>service: To extract the IDs of the hostnames passed by parameters together with the ID of the service type flavours.</li>
+			<li>service_type_flavour: To extract the service type flavour names together with the IDs of the corresponding service types.</li>
+			<li>service_type: To extract the service type abbreviation name.&nbsp; <b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;Site name="CERN-PROD" infrast_name="EGI"&gt;
+      &lt;Service hostname="lxdpm101.cern.ch" type="SRM" flavour="SRMv2"/&gt;
+      &lt;Service hostname="lxdpm101.cern.ch" type="SRM" flavour="SRM"/&gt;
+   &lt;/Site&gt;
+   &lt;Site name="INFN-BOLOGNA-CMS" infrast_name="EGI"&gt;
+      &lt;Service hostname="cmsboce.bo.infn.it" type="CE" flavour="gLite-CE"/&gt;
+      &lt;Service hostname="cmsboce.bo.infn.it" type="BDII" flavour="Site-BDII"/&gt;
+   &lt;/Site&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-VONames"></a>VO Names</h3>
+
+<ul>
+	<li>Name: VO Names</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/vo_names?[output]</pre>
+</div></div>
+	<ul>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: returns the list of VOs defined in the topology database.
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>vo: To extract the vo names.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;VO name="Alice"/&gt;
+   &lt;VO name="Atlas"/&gt;
+   &lt;VO name="BaBar"/&gt;
+   &lt;VO name="Biomed"/&gt;
+   &lt;VO name="CMS"/&gt;
+   &lt;VO name="DTeam"/&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-VOssupportedbyeachServiceorSite"></a>VOs supported by each Service or Site</h3>
+
+<ul>
+	<li>Name: VOs supported by each Service or Site</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/vos_per_service?[vo_name]&amp;[site_name]&amp;[infrast_name]&amp;[service_type]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>vo_name: Optional but may appear more than once. Eg: Alice</li>
+		<li>site_name: Optional but may appear more than once. Eg: CERN-PROD</li>
+		<li>infrast_name: Optional but may appear more than once. Possible values are: EGI, NDGF, OSG</li>
+		<li>service_type: Optional but may appear more than once. Eg: LFC <b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: returns a list of VOs supported by each Service or Service type, in each Site.
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>vo: To extract the vo names.</li>
+			<li>service: To extract the hostname and flavour.</li>
+			<li>service_vo: To map service IDs with VO IDs.</li>
+			<li>service_type_flavour: To map service_types with services.</li>
+			<li>service_type: To extract the service abbreviation. <b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+			<li>infrastructure: To extract the IDs that map to the infrastructure names passed by parameters.</li>
+			<li>site: To extract the IDs of the sites passed by parameters (taking into account the infrast_id if infrast_name was specified).</li>
+			<li>service_site: To map service IDs with site IDs.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;Site name="CERN-PROD" infrast_name="EGI"&gt;
+      &lt;Service hostname="prod-lfc-alice-local.cern.ch" type="LFC"&gt;
+         &lt;supportsVO&gt;Alice&lt;/supportsVO&gt;
+      &lt;/Service&gt;
+      &lt;Service hostname="prod-lfc-atlas-central.cern.ch" type="LFC"&gt;
+         &lt;supportsVO&gt;Atlas&lt;/supportsVO&gt;
+      &lt;/Service&gt;
+      &lt;Service hostname="prod-lfc-atlas-local.cern.ch" type="LFC"&gt;
+         &lt;supportsVO&gt;Atlas&lt;/supportsVO&gt;
+      &lt;/Service&gt;
+      &lt;Service hostname="prod-lfc-cms-central.cern.ch" type="LFC"&gt;
+         &lt;supportsVO&gt;CMS&lt;/supportsVO&gt;
+      &lt;/Service&gt;
+      &lt;Service hostname="prod-lfc-lhcb-central.cern.ch" type="LFC"&gt;
+         &lt;supportsVO&gt;LHCb&lt;/supportsVO&gt;
+      &lt;/Service&gt;
+      &lt;Service hostname="prod-lfc-lhcb-ro.cern.ch" type="LFC"&gt;
+         &lt;supportsVO&gt;LHCb&lt;/supportsVO&gt;
+      &lt;/Service&gt;
+      &lt;Service hostname="prod-lfc-shared-central.cern.ch" type="LFC"&gt;
+         &lt;supportsVO&gt;DTeam&lt;/supportsVO&gt;
+         &lt;supportsVO&gt;OPS&lt;/supportsVO&gt;
+      &lt;/Service&gt;
+   &lt;/Site&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-GroupsdefinedbyVOs"></a>Groups defined by VOs</h3>
+
+<ul>
+	<li>Name: Groups defined by VOs</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/groups_defined_by_vos?[vo_name]&amp;[group_type]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>vo_name: Optional but may appear more than once. Eg: Alice</li>
+		<li>group_type: Optional but may appear more than once. Eg: LHCb_Site, LHCb_Tier1</li>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: returns a list of group types (all if no group_type is specified) and group names defined by each VO (all if no vo_name is specified).
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>vo: To extract the vo names.</li>
+			<li>vo_group: To map VOs to groups.</li>
+			<li>groups: To extract the groupname and description, and map it to group_type.</li>
+			<li>group_type: To extract the group type name and description.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;VO name="lhcb"&gt;
+      &lt;Group_type name="LHCb_Site" description="Group of sites for LHCb VO"&gt;
+        &lt;Group name="LCG.ACAD.bg" description="lhcb:LCG.ACAD.bg"/&gt;
+        &lt;Group name="LCG.APC.fr" description="lhcb:LCG.APC.fr"/&gt;
+        &lt;Group name="LCG.AUVER.fr" description="lhcb:LCG.AUVER.fr"/&gt;
+        &lt;Group name="LCG.Barcelona.es" description="lhcb:LCG.Barcelona.es"/&gt;
+        &lt;Group name="LCG.BHAM-HEP.uk" description="lhcb:LCG.BHAM-HEP.uk"/&gt;
+      &lt;/Group_type&gt;
+    &lt;/VO&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>DB query:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>select b.typename, b.description group_type_desc, a.groupname, a.description group_desc
+from groups a, group_type b
+where a.id IN (select groups_id from vo_group where vo_id IN (select id from vo where voname='lhcb')) and a.group_type_id=b.id
+order by lower(typename), lower(groupname);
+</pre>
+</div></div></li>
+</ul>
+
+
+
+
+<h3><a name="WebServicesSpecification-Servicesdefinedingroups"></a>Services defined in groups</h3>
+
+<ul>
+	<li>Name: Services defined in groups</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/services_defined_in_groups?[vo_name]&amp;[group_name]&amp;[group_type]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>vo_name: Mandatory and may appear more than once. Eg: lhcb</li>
+		<li>group_name: Optional and may appear more than once. Eg: LCG.BHAM-HEP.uk</li>
+		<li>group_type: Optional and may appear more than once. Eg: LHCb_Site</li>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: returns the list of services defined in one or more VO' groups.
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>vo: To extract the id of the vo.</li>
+			<li>vo_service_group: To map VOs to groups and services.</li>
+			<li>groups: To extract the groupname and description, and map it to group_type (if not group_type name specified) &amp; to the vo_service_group table.</li>
+			<li>group_type: To extract the group type name and description (if no group_type name specified).</li>
+			<li>service: To extract the service hostname and flavour_id and to map services to vo_service_group table.</li>
+			<li>service_type_flavour: To extract the flavourname and map it to service &amp; service_type tables.</li>
+			<li>service_type: To extract the serviceabbr <b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;VO name="lhcb"&gt;
+      &lt;Group_type name="LHCb_Site" description="Group of sites for LHCb VO"&gt;
+         &lt;Group name="LCG.ACAD.bg" description="lhcb:LCG.ACAD.bg"&gt;
+            &lt;Service hostname="ce02.grid.acad.bg" flavour="CE" type="CE"/&gt;
+         &lt;/Group&gt;
+         &lt;Group name="LCG.APC.fr" description="lhcb:LCG.APC.fr"&gt;
+            &lt;Service hostname="apcce01.in2p3.fr" flavour="CE" type="CE"/&gt;
+         &lt;/Group&gt;
+         &lt;Group name="LCG.AUVER.fr" description="lhcb:LCG.AUVER.fr"&gt;
+            &lt;Service hostname="cirigridce01.univ-bpclermont.fr" type="CE" flavour="CE"/&gt;
+            &lt;Service hostname="iut03auvergridce01.univ-bpclermont.fr" type="CE" flavour="CE"/&gt;
+            &lt;Service hostname="iut15auvergridce01.univ-bpclermont.fr" type="CE" flavour="CE"/&gt;
+            &lt;Service hostname="iut43auvergridce01.univ-bpclermont.fr" type="CE" flavour="CE"/&gt;
+            &lt;Service hostname="obsauvergridce01.univ-bpclermont.fr" type="CE" flavour="CE"/&gt;
+         &lt;/Group&gt;
+      &lt;/Group_type&gt;
+   &lt;/VO&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>DB query:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>SELECT a.voname, b.typename, c.groupname, d.hostname, g.serviceabbr service_type, e.flavourname service_flavour
+FROM vo a, group_type b, groups c, service d, service_type_flavour e, vo_service_group f, service_type g
+WHERE a.voname='lhcb' and a.id=f.vo_id and c.id=f.groups_id and c.group_type_id=b.id and f.service_id=d.id and d.flavour_id=e.id and e.service_type_id=g.id
+ORDER BY lower(b.typename), lower(c.groupname), hostname, lower(g.serviceabbr), lower(e.flavourname);
+</pre>
+</div></div></li>
+</ul>
+
+
+
+
+<h3><a name="WebServicesSpecification-Servicetypes%26flavoursdefinedingroups"></a>Service types &amp; flavours defined in groups</h3>
+
+<ul>
+	<li>Name: Service types &amp; flavours defined in groups</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/service_types_and_flavours_defined_in_groups?[vo_name]&amp;[group_name]&amp;[group_type]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>vo_name: Mandatory and may appear more than once. Eg: lhcb</li>
+		<li>group_name: Optional and may appear more than once. Eg: LCG.BHAM-HEP.uk</li>
+		<li>group_type: Optional and may appear more than once. Eg: LHCb_Site</li>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: returns the list of service types and flavours defined in one or more VO' groups.
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>vo: To extract the id of the vo.</li>
+			<li>vo_service_group: To map VOs to groups and services.</li>
+			<li>groups: To extract the groupname and description, and map it to group_type (if not group_type name specified) &amp; to the vo_service_group table.</li>
+			<li>group_type: To extract the group type name and description (if no group_type name specified).</li>
+			<li>service: To extract distinct flavours while mapping service_id to vo_service_group table and flavour_id to service_type_flavour table.</li>
+			<li>service_type_flavour: To extract the flavourname and to map service_type_ids to service_type table.</li>
+			<li>service_type: To extract the serviceabbr <b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;VO name="lhcb"&gt;
+      &lt;Group_type name="LHCb_Site" description="Group of sites for LHCb VO"&gt;
+         &lt;Group name="LCG.ACAD.bg" description="lhcb:LCG.ACAD.bg"&gt;
+            &lt;Service type="CE" flavour="CE"/&gt;
+         &lt;/Group&gt;
+         &lt;Group name="LCG.APC.fr" description="lhcb:LCG.APC.fr"&gt;
+            &lt;Service type="CE" flavour="CE"/&gt;
+         &lt;/Group&gt;
+         &lt;Group name="LCG.AUVER.fr" description="lhcb:LCG.AUVER.fr"&gt;
+            &lt;Service type="CE" flavour="CE"/&gt;
+         &lt;/Group&gt;
+      &lt;/Group_type&gt;
+    &lt;/VO&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>DB query:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>SELECT f.voname, f.typename, f.groupname, g.serviceabbr servce_type, h.flavourname service_flavour
+FROM (SELECT a.voname, b.typename, c.groupname, d.flavour_id
+      FROM vo a, group_type b, groups c, service d, vo_service_group e
+      WHERE a.voname='lhcb' AND a.id=e.vo_id AND c.id=e.groups_id AND c.group_type_id=b.id AND e.service_id=d.id
+      GROUP BY (a.voname, b.typename, c.groupname, d.flavour_id)
+     ) f, service_type g, service_type_flavour h
+WHERE f.flavour_id=h.id AND h.service_type_id=g.id
+ORDER BY lower(f.typename), lower(f.groupname), lower(g.serviceabbr), lower(h.flavourname);
+</pre>
+</div></div></li>
+</ul>
+
+
+<h3><a name="WebServicesSpecification-Downtimes"></a>Downtimes</h3>
+
+<ul>
+	<li>Summary: it will output all service downtimes for a concrete profile and time window. A downtime is considered to be in that time window if its start time is less or equal than the end time window or if its end time is greater or equal than the start time window. <b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/downtimes?[start_time]&amp;[end_time]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>start_time: Mandatory. UTC time in W3C format: 'YYYY-MM-DDThh:mm:ssZ'. Eg: 2010-10-01T13:22:15Z</li>
+		<li>end_time: Mandatory. UTC time in W3C format: 'YYYY-MM-DDThh:mm:ssZ'. Eg: 2010-10-02T00:00:00Z</li>
+		<li>output: Optional. Possible values are: XML, JSON. Default: XML.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output format:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;root&gt;
+   &lt;Downtime start_time="09-DEC-10 03.00.00.000000000 PM" end_time="06-JAN-11 01.59.59.000000000 PM" insert_time="03-JAN-11 01.59.59.000000000 PM" classification="SCHEDULED" gocdowntimeid="555555" osgdowntimeid="" severity="OUTAGE" description="blah blah"&gt;
+      &lt;Service hostname="agh2.atlas.unimelb.edu.au" type="CE" flavour="CE" /&gt;
+   &lt;/Downtime&gt;
+&lt;/root&gt;
+</pre>
+</div></div></li>
+</ul>
+
+
+
+
+
+<h2><a name="WebServicesSpecification-Metrics"></a>Metrics</h2>
+
+<h3><a name="WebServicesSpecification-Status"></a>Status</h3>
+
+<ul>
+	<li>Name: Status</li>
+</ul>
+
+
+<ul>
+	<li>Input:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/status?[output]</pre>
+</div></div>
+	<ul>
+		<li>Optional
+		<ul>
+			<li><b>output</b>: Optional. Possible values are: XML, JSON. Default: XML.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: returns the list of metric statuses.
+	<ul>
+		<li>Fields
+		<ul>
+			<li><b>description</b> &#45; description of the metric status (in the database)</li>
+			<li><b>description_nagios</b> &#45; description of the metric status (in Nagios)</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[http://grid-monitoring.cern.ch/mywlcg/sam-pi/status?output=json]
+
+\[
+{
+        &quot;description&quot;: &quot;OK&quot;,
+        &quot;description_nagios&quot;: &quot;OK&quot;
+    },
+{
+        &quot;description&quot;: &quot;WARNING&quot;,
+        &quot;description_nagios&quot;: &quot;WARNING&quot;
+    },
+{
+        &quot;description&quot;: &quot;CRITICAL&quot;,
+        &quot;description_nagios&quot;: &quot;CRITICAL&quot;
+    },
+{
+        &quot;description&quot;: &quot;UNKNOWN&quot;,
+        &quot;description_nagios&quot;: &quot;UNKNOWN&quot;
+    },
+{
+        &quot;description&quot;: &quot;MISSING&quot;,
+        &quot;description_nagios&quot;: &quot;MISSING&quot;
+    },{
+        &quot;description&quot;: &quot;REMOVED&quot;,
+        &quot;description_nagios&quot;: &quot;&quot;
+    }
+\]</pre>
+</div></div></li>
+</ul>
+
+
+<h3><a name="WebServicesSpecification-Historyofmetricsinaprofile"></a>History of metrics in a profile</h3>
+
+<ul>
+	<li>Name: History of metrics in profile</li>
+</ul>
+
+
+<ul>
+	<li>Input:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/metrics_history_in_profile?[vo_name]&amp;[namespace]&amp;[profile_name]&amp;[start_time]&amp;[end_time]&amp;[service_flavour]&amp;[service_hostname]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Mandatory
+		<ul>
+			<li><b>vo_name</b>: name of the VO, may appear more than once. (Eg: alice)</li>
+			<li><b>profile_name</b>: name of the profile, may appear more than once. (Eg: ALICE_CRITICAL)</li>
+			<li><b>start_time</b>: UTC time (start time) in W3C format: 'YYYY-MM-DDThh:mm:ssZ'. (Eg: 2012-07-01T00:00:00Z)</li>
+			<li><b>end_time</b>: UTC time (end time) in W3C format: 'YYYY-MM-DDThh:mm:ssZ'. (Eg: 2012-07-20T00:00:00Z)</li>
+		</ul>
+		</li>
+		<li>Optional
+		<ul>
+			<li><b>namespace</b>: profile namespace, may appear more than once. (Eg: ch.cern.sam)</li>
+			<li><b>service_flavour</b>: service flavour, may appear more than once. (Eg: CREAM-CE)</li>
+			<li><b>service_hostname</b>: service hostname, may appear more than once. (Eg: alice16.spbu.ru)</li>
+			<li><b>metric_name</b>: name of the metric, may appear more than once. (Eg: hr.srce.CADist-Check)</li>
+			<li><b>output</b>: Optional. Possible values are: XML, JSON. Default: XML.</li>
+		</ul>
+		</li>
+		<li><b>Note: range between start_time and end_time should be limited to one month.</b></li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: for a given VO and profile in a time range, returns all the metric results, for metrics executed by each service defined in the profile.
+	<ul>
+		<li>Fields
+		<ul>
+			<li><b>name</b> &#45; name of the profile</li>
+			<li><b>defined_by_vo_name</b> &#45; vo defining the services listed</li>
+			<li><b>services</b> &#45; list of service dictionaries containing
+			<ul>
+				<li><b>hostname</b> &#45; service endpoint</li>
+				<li><b>type</b> &#45; service type</li>
+				<li><b>flavour</b> &#45; service type flavour</li>
+				<li><b>metrics</b> &#45; list of metric dictionaries containing
+				<ul>
+					<li><b>exec_time</b> &#45; execution time of this metric</li>
+					<li><b>name</b> &#45; name of the metric</li>
+					<li><b>fqan</b> &#45; name used to execute the metric</li>
+					<li><b>tested_by_vo_name</b> &#45; VO name</li>
+					<li><b>status</b> &#45; status of the metric</li>
+					<li><b>output_summary</b> &#45; output summary</li>
+					<li><b>gathered_at</b> &#45; name of the host from where the metric was executed</li>
+					<li><b>db_insert_time</b> &#45; insertion time of the metric in the database</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Changes
+	<ul>
+		<li><b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Example
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[http://grid-monitoring.cern.ch/mywlcg/sam-pi/metrics_history_in_profile?output=json&amp;amp;vo_name=alice&amp;amp;profile_name=ALICE_CRITICAL&amp;amp;start_time=2012-07-01T00:00:00Z&amp;amp;end_time=2012-07-20T00:00:00Z]
+
+\[
+{
+&quot;name&quot;: &quot;ALICE_CRITICAL&quot;,
+&quot;defined_by_vo_name&quot;: &quot;alice&quot;,
+&quot;services&quot; : \[
+{
+&quot;hostname&quot;: &quot;abaddon.hec.lancs.ac.uk&quot;,
+&quot;type&quot;: &quot;CE&quot;,
+&quot;flavour&quot;: &quot;CREAM-CE&quot;,
+&quot;metrics&quot;: \[
+{
+					&quot;exec_time&quot;: &quot;2012-07-01T00:00:44Z&quot;,
+					&quot;name&quot;: &quot;org.sam.WN-SoftVer&quot;,
+					&quot;fqan&quot;: &quot;/ops/Role=lcgadmin&quot;,
+					&quot;tested_by_vo_name&quot;: &quot;alice&quot;,
+					&quot;status&quot;: &quot;OK&quot;,
+					&quot;output_summary&quot;: &quot;comp225.private.dns.zone: OK: 3.2.0&quot;,
+					&quot;gathered_at&quot;: &quot;gridppnagios.physics.ox.ac.uk&quot;,
+					&quot;db_insert_time&quot;: &quot;2012-07-01T00:01:29Z&quot;
+				},...
+\]
+},...
+\]
+}
+\]</pre>
+</div></div>
+<p><!-- 
+<ul>
+	<li>DB Query<br/>
+SELECT "METRIC_HISTORY_IN_PROFILE"."HOSTNAME", "METRIC_HISTORY_IN_PROFILE"."SERVICE_TYPE", "METRIC_HISTORY_IN_PROFILE"."SERVICE_FLAVOUR",<br/>
+"METRIC_HISTORY_IN_PROFILE"."METRIC_EXEC_TIME", "METRIC_HISTORY_IN_PROFILE"."METRIC_NAME", "METRIC_HISTORY_IN_PROFILE"."METRIC_STATUS",<br/>
+"METRIC_HISTORY_IN_PROFILE"."METRIC_OUTPUT_SUMMARY", "METRIC_HISTORY_IN_PROFILE"."METRIC_RESULT_INSERT_TIME",<br/>
+"METRIC_HISTORY_IN_PROFILE"."FQAN", "METRIC_HISTORY_IN_PROFILE"."GATHERED_AT" FROM "METRIC_HISTORY_IN_PROFILE"<br/>
+WHERE ("METRIC_HISTORY_IN_PROFILE"."METRIC_EXEC_TIME" &gt;= 1322745735 AND "METRIC_HISTORY_IN_PROFILE"."METRIC_EXEC_TIME" &lt;= 1322832135<br/>
+AND "METRIC_HISTORY_IN_PROFILE"."PROFILE_NAME" = ROC_CRITICAL AND "METRIC_HISTORY_IN_PROFILE"."NAMESPACE" = ch.cern.sam<br/>
+AND "METRIC_HISTORY_IN_PROFILE"."SERVICE_FLAVOUR" IN (CE))<br/>
+ORDER BY "METRIC_HISTORY_IN_PROFILE"."HOSTNAME" ASC, "METRIC_HISTORY_IN_PROFILE"."SERVICE_TYPE" ASC,<br/>
+"METRIC_HISTORY_IN_PROFILE"."SERVICE_FLAVOUR" ASC, "METRIC_HISTORY_IN_PROFILE"."METRIC_EXEC_TIME" ASC</li>
+</ul>
+ --></p></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-Detailedoutputofaservicemetric"></a>Detailed output of a service metric</h3>
+
+<ul>
+	<li>Name: Detailed output of a service metric</li>
+</ul>
+
+
+<ul>
+	<li>Input:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/metric_output_details?[vo_name]&amp;[metric_name]&amp;[service_flavour]&amp;[service_hostname]&amp;[check_time]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Mandatory
+		<ul>
+			<li><b>vo_name</b>: name of the VO, may appear more than once. (Eg: alice)</li>
+			<li><b>metric_name</b>: name of the metric. (Eg: org.sam.CE-JobSubmit)</li>
+			<li><b>service_flavour</b>: service flavour. (Eg: CE)</li>
+			<li><b>service_hostname</b>: service hostname. (Eg: alice19.spbu.ru)</li>
+			<li><b>check_time</b>: UTC time in W3C format: 'YYYY-MM-DDThh:mm:ssZ'. (Eg: 2012-07-01T00:00:00Z)</li>
+		</ul>
+		</li>
+		<li>Optional
+		<ul>
+			<li><b>output</b>: Optional. Possible values are: XML, JSON. Default: XML.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: for a given VO, service, metric and timestamp, return the status and detailed output.
+	<ul>
+		<li>Fields
+		<ul>
+			<li><b>service_hostname</b> &#45; service hostname (same as input: service_hostname)</li>
+			<li><b>service_type</b> &#45; service type</li>
+			<li><b>servive_flavour</b> &#45; service type flavour</li>
+			<li><b>metric_exec_time</b> &#45; execution time of this metric (same as input: check_time)</li>
+			<li><b>metric_name</b> &#45; name of the metric (same as input: metric_name)</li>
+			<li><b>metric_fqan</b> &#45; name used to execute the metric</li>
+			<li><b>metric_details</b> &#45; detailed output</li>
+			<li><b>metric_tested_by_vo_name</b> &#45; VO name (same as input: vo_name)</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Changes
+	<ul>
+		<li><b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[http://grid-monitoring.cern.ch/mywlcg/sam-pi/metric_output_details/?vo_name=alice&amp;amp;metric_name=org.sam.CREAMCE-JobSubmit&amp;amp;service_flavour=CREAM-CE&amp;amp;service_hostname=boce.bo.infn.it&amp;amp;check_time=2012-07-14T16:50:37Z&amp;amp;output=json]
+
+{
+    &quot;service_hostname&quot;: &quot;boce.bo.infn.it&quot;,
+    &quot;service_type&quot;: &quot;CE&quot;,
+    &quot;servive_flavour&quot;: &quot;CREAM-CE&quot;,
+    &quot;metric_exec_time&quot;: &quot;2012-07-14T16:50:37Z&quot;,
+    &quot;metric_name&quot;: &quot;org.sam.CREAMCE-JobSubmit&quot;,
+    &quot;metric_fqan&quot;: &quot;alice&quot;,
+    &quot;metric_details&quot;: &quot;OK: success.\n\nTesting from: samnag032.cern.ch\nDN: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=maarten/CN=410032/CN=Maarten Litmaath/CN=proxy/CN=proxy/CN=proxy/CN=proxy\nVOMS FQANs: /alice/Role=NULL/Capability=NULL, /alice/alarm/Role=NULL/Capability=NULL, /alice/lcg1/Role=NULL/Capability=NULL, /alice/team/Role=NULL/Capability=NULL\nglite-wms-job-status https://wms305.cern.ch:9000/PwC7d_SZRJhtYm78cbb_Uw\n\n\n======================= glite-wms-job-status Success =====================\nBOOKKEEPING INFORMATION:\n\nStatus info for the Job : https://wms305.cern.ch:9000/PwC7d_SZRJhtYm78cbb_Uw\nCurrent Status:     Done (Success)\nLogged Reason(s):\n    - job completed\n    - Job Terminated Successfully\nExit code:          0\nStatus Reason:      Job Terminated Successfully\nDestination:        boce.bo.infn.it:8443/cream-pbs-alice\nSubmitted:          Sat Jul 14 18:35:13 2012 CEST\n==========================================================================\nGetting job output: OK.\n&quot;,
+    &quot;metric_tested_by_vo_name&quot;: &quot;alice&quot;
+}</pre>
+</div></div></li>
+</ul>
+
+
+<p><!-- 
+<ul>
+	<li>DB query:<br/>
+SELECT d.name metric_name, g.name fqan, e.hostname, i.serviceabbr service_type,<br/>
+h.flavourname service_flavour, f.voname tested_by_vo,<br/>
+b.description metric_status, a.summarydata metric_output_summary,<br/>
+uts_to_w3ctime(a.check_time) metric_exec_time,<br/>
+uts_to_w3ctime(a.insert_time) metric_result_insert_time,<br/>
+c.detail metric_details<br/>
+FROM metricdata a, metricstatus b, metricdetails c, metric d, service e, vo f,<br/>
+fqan g, service_type_flavour h, service_type i<br/>
+WHERE a.metricstatus_id=b.id AND a.metricdetail_id=c.id AND a.metric_id=d.id<br/>
+AND a.service_id=e.id AND a.vo_id=f.id AND e.flavour_id=h.id<br/>
+AND h.service_type_id=i.id AND lower(f.voname)='alice' AND a.fqan_id=g.id<br/>
+AND e.hostname='alice19.spbu.ru' AND h.flavourname='CE'<br/>
+AND a.check_time=w3ctime_to_uts('2010-11-29T00:23:18Z');</li>
+</ul>
+ --></p>
+
+<h3><a name="WebServicesSpecification-Latestmetricresultsinaprofile"></a>Latest metric results in a profile</h3>
+
+<ul>
+	<li>Name: Latest metric results in a profile</li>
+</ul>
+
+
+<ul>
+	<li>Input:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/latest_metric_results_in_profile?[vo_name]&amp;[namespace]&amp;[profile_name]&amp;[service_flavour]&amp;[service_hostname]&amp;[group_type]&amp;[group_name]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Mandatory
+		<ul>
+			<li><b>vo_name</b>: name of the VO, may appear more than once. (Eg: alice)</li>
+			<li><b>profile_name</b>: name of the profile, may appear more than once. (Eg: ALICE_CRITICAL)</li>
+		</ul>
+		</li>
+		<li>Optional
+		<ul>
+			<li><b>namespace</b>: profile namespace, may appear more than once. (Eg: ch.cern.sam)</li>
+			<li><b>service_flavour</b>: service flavour, may appear more than once. (Eg: CREAM-CE)</li>
+			<li><b>service_hostname</b>: service hostname, may appear more than once. (Eg: alice16.spbu.ru)</li>
+			<li><b>group_type</b>: group type,may appear more than once. Default: Site group_type defined for that VO (Eg: ATLAS_Site for vo ATLAS)</li>
+			<li><b>group_name</b>: group name, may appear more than once. (Eg: Bologna)</li>
+			<li><b>output</b>: Optional. Possible values are: XML, JSON. Default: XML.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: for a given VO, profile, group and group_type returns the latest metric results executed by each service defined in the profile.
+	<ul>
+		<li>Fields
+		<ul>
+			<li><b>name</b> &#45; name of the profile</li>
+			<li><b>namespace</b> &#45; profile namespace</li>
+			<li><b>defined_by_vo_name</b> &#45; vo defining the services listed</li>
+			<li><b>groups</b> &#45; list of groups dictionaries containing
+			<ul>
+				<li><b>group_name</b> &#45; name of the group</li>
+				<li><b>group_type</b> &#45; group type</li>
+				<li><b>services</b> &#45; list of service dictionaries containing
+				<ul>
+					<li><b>hostname</b> &#45; service endpoint</li>
+					<li><b>type</b> &#45; service type</li>
+					<li><b>flavour</b> &#45; service type flavour</li>
+					<li><b>status</b> &#45; service status</li>
+					<li><b>metrics</b> &#45; list of metric dictionaries containing
+					<ul>
+						<li><b>exec_time</b> &#45; execution time of this metric</li>
+						<li><b>name</b> &#45; name of the metric</li>
+						<li><b>fqan</b> &#45; name used to execute the metric</li>
+						<li><b>tested_by_vo_name</b> &#45; VO name</li>
+						<li><b>status</b> &#45; status of the metric</li>
+						<li><b>output_summary</b> &#45; output summary</li>
+						<li><b>gathered_at</b> &#45; name of the host from where the metric was executed</li>
+						<li><b>db_insert_time</b> &#45; insertion time of the metric in the database</li>
+					</ul>
+					</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Changes
+	<ul>
+		<li><b>NOTE: service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/mywlcg/sam-pi/latest_metric_results_in_profile/?vo_name=alice&amp;amp;profile_name=ALICE_CRITICAL&amp;amp;output=json
+
+[
+    {
+        &quot;name&quot;: &quot;ALICE_CRITICAL&quot;,
+        &quot;namespace&quot;: &quot;ch.cern.sam&quot;,
+        &quot;defined_by_vo_name&quot;: &quot;alice&quot;,
+        &quot;groups&quot;: [{
+             &quot;group_name&quot;: &quot;GRIF_IRFU&quot;,
+             &quot;group_type&quot;: &quot;ALICE_Site&quot;,
+              &quot;services&quot;: [
+               {
+                 &quot;hostname&quot;: &quot;node74.datagrid.cea.fr&quot;,
+                 &quot;type&quot;: &quot;CE&quot;,
+                 &quot;flavour&quot;: &quot;CREAM-CE&quot;,
+                 &quot;status&quot;: &quot;WARNING&quot;,
+                 &quot;metrics&quot;: [
+                    {
+                        &quot;exec_time&quot;: &quot;2012-07-30T11:44:47Z&quot;,
+                        &quot;name&quot;: &quot;org.sam.WN-SoftVer&quot;,
+                        &quot;fqan&quot;: &quot;alice&quot;,
+                        &quot;tested_by_vo_name&quot;: &quot;alice&quot;,
+                        &quot;status&quot;: &quot;OK&quot;,
+                        &quot;output_summary&quot;: &quot;wn216.datagrid.cea.fr: OK: 3.2.0&quot;,
+                        &quot;gathered_at&quot;: &quot;samnag032.cern.ch&quot;,
+                        &quot;db_insert_time&quot;: &quot;2012-07-30T11:45:12Z&quot;
+                    }, ...
+                  ]
+                }, ...
+              ]
+             }, ...
+        ]
+    }
+]</pre>
+</div></div></li>
+</ul>
+
+
+<p><!-- 
+<ul>
+	<li>DB query:<br/>
+SELECT "METRICDATA_LATEST"."SERVICE_ID", "SERVICE"."HOSTNAME", "SERVICE_TYPE"."SERVICENAME",<br/>
+"SERVICE_TYPE_FLAVOUR"."FLAVOURNAME", "METRICDATA_LATEST"."CHECK_TIME",<br/>
+"POEM_SYNC_METRIC"."NAME", "METRICSTATUS"."DESCRIPTION", "METRICDATA_LATEST"."SUMMARYDATA",<br/>
+"METRICDATA_LATEST"."INSERT_TIME", "METRICDATA_LATEST"."FQAN_ID", "METRICDATA_LATEST"."GATHEREDAT_ID"<br/>
+FROM "METRICDATA_LATEST" INNER JOIN "VO" ON ("METRICDATA_LATEST"."VO_ID" = "VO"."ID")<br/>
+INNER JOIN "SERVICE" ON ("METRICDATA_LATEST"."SERVICE_ID" = "SERVICE"."ID")<br/>
+INNER JOIN "SERVICE_TYPE_FLAVOUR" ON ("SERVICE"."FLAVOUR_ID" = "SERVICE_TYPE_FLAVOUR"."ID")<br/>
+INNER JOIN "POEM_SYNC_METRIC" ON ("METRICDATA_LATEST"."POEM_SYNC_METRIC_ID" = "POEM_SYNC_METRIC"."ID")<br/>
+INNER JOIN "SERVICE_TYPE" ON ("SERVICE_TYPE_FLAVOUR"."SERVICE_TYPE_ID" = "SERVICE_TYPE"."ID")<br/>
+INNER JOIN "METRICSTATUS" ON ("METRICDATA_LATEST"."METRICSTATUS_ID" = "METRICSTATUS"."ID")<br/>
+WHERE "VO"."VONAME" = 'ops' AND ("METRICDATA_LATEST"."POEM_SYNC_METRIC_ID","SERVICE"."FLAVOUR_ID") IN (<br/>
+SELECT DISTINCT "POEM_SYNC_METRICINSTANCE"."METRIC_ID" AS "METRIC_ID",<br/>
+"POEM_SYNC_METRICINSTANCE"."ATP_SERVICE_TYPE_FLAVOUR_ID" AS "ATP_SERVICE_TYPE_FLAVOUR_ID"<br/>
+FROM "POEM_SYNC_METRICINSTANCE"<br/>
+INNER JOIN "POEM_SYNC_P_M_INSTANCES" ON<br/>
+("POEM_SYNC_METRICINSTANCE"."ID" = "POEM_SYNC_P_M_INSTANCES"."METRICINSTANCE_ID")<br/>
+INNER JOIN "SERVICE_TYPE_FLAVOUR" ON<br/>
+("POEM_SYNC_METRICINSTANCE"."ATP_SERVICE_TYPE_FLAVOUR_ID" = "SERVICE_TYPE_FLAVOUR"."ID")<br/>
+WHERE "POEM_SYNC_P_M_INSTANCES"."PROFILE_ID" = 22 AND "SERVICE_TYPE_FLAVOUR"."FLAVOURNAME" IN ('WMS'))<br/>
+AND "SERVICE"."HOSTNAME" IN (<br/>
+SELECT U2."HOSTNAME"<br/>
+FROM "VO_SERVICE_GROUP" U0 INNER JOIN "VO" U1 ON (U0."VO_ID" = U1."ID")<br/>
+INNER JOIN "SERVICE" U2 ON (U0."SERVICE_ID" = U2."ID")<br/>
+WHERE U1."VONAME" = 'ops' )</li>
+</ul>
+ --></p>
+
+<h2><a name="WebServicesSpecification-Profiles"></a>Profiles</h2>
+
+<h3><a name="WebServicesSpecification-Metricsdefinedinprofiles"></a>Metrics defined in profiles</h3>
+
+<ul>
+	<li>Name: Metrics defined in profiles</li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/metrics_in_profiles?[vo_name]&amp;[namespace]&amp;[profile_name]&amp;[service_type_flavour]&amp;[service_type]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Mandatory
+		<ul>
+			<li><b>vo_name</b>: Mandatory and may appear more than once. Eg: lhcb</li>
+		</ul>
+		</li>
+		<li>Optional
+		<ul>
+			<li><b>namespace</b>: Optional and may appear more than once. Eg: ch.cern.sam</li>
+			<li><b>profile_name</b>: Optional and may appear more than once. Eg: ALICE_CRITICAL</li>
+			<li><b>service_type_flavour</b>: Optional and may appear more than once. Eg: CREAM-CE</li>
+			<li><b>service_type</b>: Optional and may appear more than once. Eg: CE</li>
+			<li><b>output</b>: Optional. Possible values are: XML, JSON. Default: XML.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: returns the list of profiles defined by the VO passed as parameter. For each profile returns the metrics configured and the vo executing each metric.
+	<ul>
+		<li>Fields
+		<ul>
+			<li><b>profile.name, profile.namespace</b> &#45; name and corresponding namespace of the profile</li>
+			<li><b>profile.tags</b> &#45; comma separated list of tags for a given profile (new from UP-19)</li>
+			<li><b>profile.description</b> &#45; description of a given profile (new from UP-19)</li>
+			<li><b>profile.metrics</b> &#45; set of metrics for a given profile</li>
+			<li><b>metric.name</b> &#45; name of the metric</li>
+			<li><b>metric.description</b> &#45; description of the metric</li>
+			<li><b>metric.service_flavour</b> &#45; service flavour of the metric (determines the set of services where metric will be executed)</li>
+			<li><b>metric.testing_vo_name</b> &#45; VO used to execute the metric</li>
+			<li><b>metric.fqan</b> &#45; FQAN used to execute the metric</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Changes:
+	<ul>
+		<li><b>NOTE: metric fields: version, description, service_type, created_at, insert_time, deletion_time and defining_vo are deprecated and kept only for backward compatiblity</b><br/>
+<!-- 
+<ul>
+	<li>
+	<ul>
+		<li>DB Tables
+		<ul>
+			<li>profile: To retrieve the name of the profile.</li>
+			<li>poem_sync_p_m_instance: To map profiles with metrics and metrics with service type flavours. Also, to return the executing VO for the metrics.</li>
+			<li>metric: To extract the metric name.</li>
+			<li>vo: To extract the id of the vo that defined the profile and the vo that executed each metric.</li>
+			<li>service_type_flavour: To extract the flavourname and to map service_type_ids to service_type table.</li>
+			<li>service_type: To extract the serviceabbr.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+ --></li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/mywlcg/sam-pi/metrics_in_profiles/?vo_name=ops&amp;amp;output=json&amp;amp;profile_name=GLEXEC
+
+[
+
+    {
+        &quot;name&quot;: &quot;ops&quot;,
+        &quot;profiles&quot;: [
+            {
+                &quot;name&quot;: &quot;GLEXEC&quot;,
+                &quot;namespace&quot;: &quot;ch.cern.sam&quot;,
+                &quot;tags&quot;: &quot;nagios&quot;,
+                &quot;description&quot;: &quot;&quot;,
+                &quot;metrics&quot;: [
+                    {
+                        &quot;name&quot;: &quot;org.sam.glexec.CE-JobSubmit&quot;,
+                        &quot;version&quot;: &quot;1.0&quot;,
+                        &quot;description&quot;: &quot;org.sam.glexec.CE-JobSubmit&quot;,
+                        &quot;created_at&quot;: &quot;Nov. 11, 2011, 11:59 a.m.&quot;,
+                        &quot;insert_time&quot;: &quot;Nov. 11, 2011, 11:59 a.m.&quot;,
+                        &quot;deletion_time&quot;: &quot;None&quot;,
+                        &quot;service_type&quot;: &quot;gLExec&quot;,
+                        &quot;service_flavour&quot;: &quot;gLExec&quot;,
+                        &quot;testing_vo_name&quot;: &quot;ops&quot;,
+                        &quot;fqan&quot;: &quot;/ops/Role=pilot&quot;
+                    },, ...
+            }
+    }
+]</pre>
+</div></div></li>
+</ul>
+
+
+<p><!-- 
+<ul>
+	<li>DB query:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>SELECT "POEM_SYNC_METRIC"."NAME", "SERVICE_TYPE"."SERVICENAME", "SERVICE_TYPE_FLAVOUR"."FLAVOURNAME"
+FROM "POEM_SYNC_METRICINSTANCE"
+               INNER JOIN "POEM_SYNC_P_M_INSTANCES" ON ("POEM_SYNC_METRICINSTANCE"."ID" = "POEM_SYNC_P_M_INSTANCES"."METRICINSTANCE_ID")
+               INNER JOIN "POEM_SYNC_METRIC" ON ("POEM_SYNC_METRICINSTANCE"."METRIC_ID" = "POEM_SYNC_METRIC"."ID")
+               INNER JOIN "SERVICE_TYPE_FLAVOUR" ON ("POEM_SYNC_METRICINSTANCE"."ATP_SERVICE_TYPE_FLAVOUR_ID" = "SERVICE_TYPE_FLAVOUR"."ID")
+               INNER JOIN "SERVICE_TYPE" ON ("SERVICE_TYPE_FLAVOUR"."SERVICE_TYPE_ID" = "SERVICE_TYPE"."ID")
+               INNER JOIN "VO" ON ("POEM_SYNC_METRICINSTANCE"."ATP_VO_ID" = "VO"."ID")
+WHERE "POEM_SYNC_P_M_INSTANCES"."PROFILE_ID" = 14
+ORDER BY "POEM_SYNC_METRIC"."NAME" ASC, "SERVICE_TYPE_FLAVOUR"."FLAVOURNAME" ASC, "SERVICE_TYPE"."SERVICENAME" ASC, "VO"."VONAME" ASC
+</pre>
+</div></div></li>
+</ul>
+ --></p>
+
+
+<h2><a name="WebServicesSpecification-StatusandAvailability"></a>Status and Availability</h2>
+
+<h3><a name="WebServicesSpecification-StatusofServicesinaProfile"></a>Status of Services in a Profile</h3>
+
+<ul>
+	<li><b>Supported only on the central instance (grid-monitoring)</b></li>
+	<li><b>service_type has been deprecated from SAM-Gridmon Update-19 and will be mapped to service_type_flavour</b></li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/status_of_service_in_profile?vo_name=&amp;profile_name=&amp;[namespace]&amp;[service_type_flavour]&amp;[service_type]&amp;[isdeleted]&amp;[isinproduction]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Mandatory
+		<ul>
+			<li><b>vo_name</b>: name of the vo (eg: lhcb)</li>
+			<li><b>profile_name</b>: name of the profile; may appear more than once. (eg: ATLAS_CRITICAL)</li>
+		</ul>
+		</li>
+		<li>Optional
+		<ul>
+			<li><b>namespace</b>: profile namespace; may appear more than once. (eg: ch.cern.sam)</li>
+			<li><b>service_type_flavour</b>: service type flavour; may appear more than once. (eg: CREAM-CE)</li>
+			<li><b>service_type</b>: (deprecated) service type; may appear more than once. (eg: CE)</li>
+			<li><b>isdeleted</b>: deletion flag; default value: N; possible values: N,Y</li>
+			<li><b>isinproduction</b>: production flag; default value: Y; possible values: N,Y</li>
+			<li><b>output</b>: output format; default: XML; possible values: XML, JSON</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: The status of one or more services according to the specified profile.
+	<ul>
+		<li><b>name</b>: name of the profile</li>
+		<li><b>namespace</b>: profile namespace</li>
+		<li><b>defined_by_vo_name</b>: vo defining the services listed</li>
+		<li><b>services</b>: list of service dictionaries containing
+		<ul>
+			<li><b>hostname</b>: service endpoint</li>
+			<li><b>type</b>: service type</li>
+			<li><b>flavour</b>: service type flavour</li>
+			<li><b>status</b>: status of the service</li>
+			<li><b>status_start_time</b>: start time of validity for this status</li>
+			<li><b>status_end_time</b>: end time of validity for this status</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Example
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/mywlcg/sam-pi/status_of_service_in_profile/?vo_name=atlas&amp;amp;profile_name=ATLAS_CRITICAL&amp;amp;service_type_flavour=CREAM-CE&amp;amp;output=json
+
+[
+    {
+        &quot;name&quot;: &quot;ATLAS_CRITICAL&quot;,
+        &quot;namespace&quot;: &quot;ch.cern.sam&quot;,
+        &quot;defined_by_vo_name&quot;: &quot;atlas&quot;,
+        &quot;services&quot;: [
+            {
+                &quot;hostname&quot;: &quot;ce0004.m45.ihep.su&quot;,
+                &quot;type&quot;: &quot;CREAM-CE&quot;,
+                &quot;flavour&quot;: &quot;CREAM-CE&quot;,
+                &quot;status&quot;: &quot;OK&quot;,
+                &quot;status_start_time&quot;: &quot;2012-07-14 03:43:48&quot;,
+                &quot;status_end_time&quot;: &quot;2012-07-17 09:24:59&quot;
+            },
+            {
+                &quot;hostname&quot;: &quot;ce08-lcg.cr.cnaf.infn.it&quot;,
+                &quot;type&quot;: &quot;CREAM-CE&quot;,
+                &quot;flavour&quot;: &quot;CREAM-CE&quot;,
+                &quot;status&quot;: &quot;OK&quot;,
+                &quot;status_start_time&quot;: &quot;2012-07-10 15:02:40&quot;,
+                &quot;status_end_time&quot;: &quot;2012-07-17 09:24:59&quot;
+            },
+            ...
+        ]
+    }
+]</pre>
+</div></div></li>
+</ul>
+
+
+
+
+
+<h3><a name="WebServicesSpecification-StatusofSitesinaProfile"></a>Status of Sites in a Profile</h3>
+
+
+<ul>
+	<li><b>Supported only on the central instance (grid-monitoring)</b></li>
+</ul>
+
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/status_of_site_in_profile?vo_name=&amp;profile_name=&amp;group_type=&amp;[namespace]&amp;[group_name]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Mandatory
+		<ul>
+			<li><b>vo_name</b>: vo name (eg: alice)</li>
+			<li><b>profile_name</b>: profile name (eg: ALICE_CRITICAL)</li>
+			<li><b>group_type</b>: group type name as defined in topology. (eg: Site, LHCb_Site, Atlas_Site, CMS_Site, Alice_Site)</li>
+		</ul>
+		</li>
+		<li>Optional
+		<ul>
+			<li><b>namespace</b>: profile namespace; may appear more than once. (eg: ch.cern.sam)</li>
+			<li><b>group_name</b>: profile namespace; may appear more than once. (eg: AEGIS01-IPB-SCL)</li>
+			<li><b>output</b>: default: XML; possible values: XML, JSON.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output: The status of one or more sites covered by the profile.
+	<ul>
+		<li><b>name</b>: name of the profile</li>
+		<li><b>namespace</b>: profile namespace</li>
+		<li><b>defined_by_vo_name</b>: vo defining the services listed</li>
+		<li><b>services</b>: list of site dictionaries containing
+		<ul>
+			<li><b>name</b>: site name</li>
+			<li><b>status</b>: status of the site</li>
+			<li><b>status_start_time</b>: start time of validity for this status</li>
+			<li><b>status_end_time</b>: end time of validity for this status</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Example
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/mywlcg/sam-pi/status_of_site_in_profile/?vo_name=lhcb&amp;amp;profile_name=LHCb_CRITICAL&amp;amp;group_type=LHCb_Site&amp;amp;output=json
+
+[
+    {
+        &quot;name&quot;: &quot;LHCb_CRITICAL&quot;,
+        &quot;namespace&quot;: &quot;ch.cern.sam&quot;,
+        &quot;defined_by_vo_name&quot;: &quot;lhcb&quot;,
+        &quot;services&quot;: [
+            {
+                &quot;name&quot;: &quot;LCG.Cambridge.uk&quot;,
+                &quot;status&quot;: &quot;OK&quot;,
+                &quot;status_start_time&quot;: &quot;2012-07-13 15:10:58&quot;,
+                &quot;status_end_time&quot;: &quot;2012-07-17 09:24:59&quot;
+            },
+            {
+                &quot;name&quot;: &quot;LCG.LPN.fr&quot;,
+                &quot;status&quot;: &quot;REMOVED&quot;,
+                &quot;status_start_time&quot;: &quot;2011-12-22 00:00:00&quot;,
+                &quot;status_end_time&quot;: &quot;2012-07-17 09:24:58&quot;
+            },
+            ...
+        ]
+    }
+]</pre>
+</div></div></li>
+</ul>
+
+
+
+
+
+
+
+
+<h3><a name="WebServicesSpecification-ServiceAvailabilityinProfile"></a>Service Availability in Profile</h3>
+
+<ul>
+	<li>Input:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/service_availability_in_profile?vo_name=&amp;profile_name=&amp;group_type=&amp;start_time=&amp;end_time=&amp;type=&amp;[namespace]&amp;[group_name]&amp;[service_flavour]&amp;[service_hostname]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Mandatory
+		<ul>
+			<li><b>vo_name</b>: may appear more than once. (eg: cms)</li>
+			<li><b>profile_name</b>: may appear more than once. (eg: CMS_CRITICAL)</li>
+			<li><b>group_type</b>: may appear more than once. (eg: CMS_Site)</li>
+			<li><b>start_time</b>: UTC time in W3C format: 'YYYY-MM-DDThh:mm:ssZ'. (eg: 2010-10-01T13:22:15Z)</li>
+			<li><b>end_time</b>: UTC time in W3C format: 'YYYY-MM-DDThh:mm:ssZ'. (eg: 2010-10-02T00:00:00Z)</li>
+			<li><b>type</b>: availability period; possible values: 'HOURLY', 'DAILY', 'WEEKLY', 'MONTHLY'.</li>
+		</ul>
+		</li>
+		<li>Optional
+		<ul>
+			<li><b>namespace</b>: profile namespace; may appear more than once. (eg: ch.cern.sam)</li>
+			<li><b>group_name</b>: site name; may appear more than once.</li>
+			<li><b>service_flavour</b>: service flavour name; may appear more than once. (eg: SRMv2)</li>
+			<li><b>service_hostname</b>: service hostnamel may appear more than once. (eg: ce202.cern.ch)</li>
+			<li><b>output</b>: default XML; possible values are: XML, JSON.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output
+	<ul>
+		<li><b>name</b>: profile name.</li>
+		<li><b>namespace</b>: profile namespace.</li>
+		<li><b>defined_by_vo_name</b>: name of the vo defining the profile.</li>
+		<li><b>services</b>: availability values for all services matching the provided parameters.
+		<ul>
+			<li><b>hostname</b>: service hostname.</li>
+			<li><b>type</b>: service type flavour.</li>
+			<li><b>flavour</b>: (deprecated) service type flavour.</li>
+			<li><b>availabilities</b>: values for the hostname and flavour between the provided dates.
+			<ul>
+				<li><b>timestamp</b>: start timestamp of the value (validity depends on 'type' parameter: hourly, daily, etc.)</li>
+				<li><b>availability:</b>&nbsp;availability value.</li>
+				<li><b>reliability:</b>&nbsp;reliability value.</li>
+				<li><b>maintenance</b>: service is in scheduled downtime.</li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+
+<ul>
+	<li>Example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/mywlcg/sam-pi/service_availability_in_profile/?vo_name=atlas&amp;amp;profile_name=ATLAS_CRITICAL&amp;amp;group_type=Site&amp;amp;start_time=2012-07-16T00:00:00Z&amp;amp;end_time=2012-07-16T12:00:00Z&amp;amp;type=HOURLY&amp;amp;output=json
+
+[
+    {
+        &quot;name&quot;: &quot;ATLAS_CRITICAL&quot;,
+        &quot;namespace&quot;: &quot;ch.cern.sam&quot;,
+        &quot;defined_by_vo_name&quot;: &quot;atlas&quot;,
+        &quot;services&quot;: [
+            {                &quot;hostname&quot;: &quot;ce09-lcg.cr.cnaf.infn.it&quot;,
+                &quot;type&quot;: &quot;CE&quot;,
+                &quot;flavour&quot;: &quot;CREAM-CE&quot;,
+                &quot;availabilities&quot;: [
+                    {
+                        &quot;timestamp&quot;: &quot;2012-07-16T00:00:00Z&quot;,
+                        &quot;availability&quot;: &quot;1.0&quot;,
+                        &quot;reliability&quot;: &quot;1.0&quot;,
+                        &quot;maintenance&quot;: &quot;0.0&quot;
+                    },
+                    ...
+               ]
+            },
+            ...
+        ]
+    }
+]</pre>
+</div></div></li>
+</ul>
+
+
+
+<h3><a name="WebServicesSpecification-GroupAvailabilityinProfile"></a>Group Availability in Profile</h3>
+
+<ul>
+	<li>Input: 
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/sam-pi/group_availability_in_profile?vo_name=&amp;profile_name=group_type=&amp;start_time=&amp;end_time=&amp;type=[namespace]&amp;[group_name]&amp;[output]</pre>
+</div></div>
+	<ul>
+		<li>Mandatory
+		<ul>
+			<li><b>vo_name</b>: and may appear more than once. (eg: cms)</li>
+			<li><b>profile_name</b>: may appear more than once. (eg: CMS_CRITICAL)</li>
+			<li><b>group_type</b>: may appear more than once. (eg: Site)</li>
+			<li><b>start_time</b>: UTC time in W3C format: 'YYYY-MM-DDThh:mm:ssZ'. (eg: 2010-10-01T13:22:15Z)</li>
+			<li><b>end_time</b>: UTC time in W3C format: 'YYYY-MM-DDThh:mm:ssZ'. (eg: 2010-10-02T00:00:00Z)</li>
+			<li><b>type</b>: availability period; possible values: 'HOURLY', 'DAILY', 'WEEKLY', 'MONTHLY'.</li>
+		</ul>
+		</li>
+		<li>Optional
+		<ul>
+			<li><b>namespace</b>: profile namespace; may appear more than once. (eg: ch.cern.sam)</li>
+			<li><b>group_name</b>: site name; may appear more than once.</li>
+			<li><b>output</b>: default: XML; possible values: XML, JSON.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Output:
+	<ul>
+		<li><b>name</b>: profile name.</li>
+		<li><b>namespace</b>: profile namespace.</li>
+		<li><b>defined_by_vo_name</b>: name of the vo defining the profile.</li>
+		<li><b>groups</b>: availability values for all groups matching the provided parameters.
+		<ul>
+			<li><b>name</b>: group name.</li>
+			<li><b>type</b>: group type (Site for ops, &lt;vo&gt;_Site for VOs).</li>
+			<li><b>availabilities</b>: values for the sites.
+			<ul>
+				<li><b>timestamp</b>: start timestamp of the value (validity depends on 'type' parameter: hourly, daily, etc.)</li>
+				<li><b>availability:</b>&nbsp;availability value.</li>
+				<li><b>reliability:</b>&nbsp;reliability value.</li>
+				<li><b>maintenance</b>: site is in scheduled downtime.</li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Example:</li>
+	<li><div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">http://grid-monitoring.cern.ch/mywlcg/sam-pi/group_availability_in_profile/?vo_name=cms&amp;amp;profile_name=CMS_CRITICAL&amp;amp;group_type=CMS_Site&amp;amp;start_time=2012-07-16T10:00:00Z&amp;amp;end_time=2012-07-16T10:00:00Z&amp;amp;type=HOURLY&amp;amp;output=json
+
+[
+    {
+        &quot;name&quot;: &quot;CMS_CRITICAL&quot;,
+        &quot;namespace&quot;: &quot;ch.cern.sam&quot;,
+        &quot;defined_by_vo_name&quot;: &quot;cms&quot;,
+        &quot;groups&quot;: [
+            {
+                &quot;name&quot;: &quot;T1_IT_CNAF&quot;,
+                &quot;type&quot;: &quot;CMS_Site&quot;,
+                &quot;availabilities&quot;: [
+                    {
+                        &quot;timestamp&quot;: &quot;2012-07-16T10:00:00Z&quot;,
+                        &quot;availability&quot;: &quot;1.0&quot;,
+                        &quot;reliability&quot;: &quot;1.0&quot;,
+                        &quot;maintenance&quot;: &quot;0.0&quot;
+                    }
+
+                ]
+            },
+            ...
+        ]
+    }
+]</pre>
+</div></div></li>
+</ul>
+
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

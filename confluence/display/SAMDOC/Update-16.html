@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-16</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-16
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Aug 27, 2012 by <font color="#0050B2">wlapka</font>.
+				    </div>
+
+				    <h1><a name="Update-16-Release%3A"></a>Release: Update-16</h1>
+
+<h2><a name="Update-16-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 01 November 2011 <br class="atl-forced-newline" /> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 07 February 2012 <br class="atl-forced-newline" /> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="red"> This is internal release, please don't install it</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 07 February 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka <br class="atl-forced-newline" /> </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-16-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<p>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-2218">SAM-2218</a></p>
+
+<h2><a name="Update-16-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+<h3><a name="Update-16-Nodesamnagios"></a>Node sam-nagios</h3>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.22.13-1.el5
+atp-web-1.22.13-1.el5
+mrs-1.4.9-1.el5
+mywlcg-1.0.1-1.el5 (with POEM)
+perl-TOM-2.3-1.el5
+poem-0.8.12-1.el5
+poem-sync-0.8.12-1.el5
+grid-monitoring-config-gen-0.87.3-1.el5
+glite-yaim-nagios-1.6.25-1.el5
+sam-release-1.16.0-1.el5
+(From EPEL)
+perl-Directory-Queue-1.2-1.el5
+perl-Net-STOMP-Client-1.2-1.el5
+</pre>
+</div></div>
+
+<h3><a name="Update-16-Nodesamgridmon"></a>Node sam-gridmon</h3>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ace-0.1.25-1.el5
+atp-1.22.13-1.el5
+atp-web-1.22.13-1.el5
+glite-yaim-nagios-1.6.25-1.el5
+mrs-1.4.9-1.el5
+mywlcg-1.0.1-1.el5 (with POEM)
+perl-TOM-2.3-1.el5
+poem-0.8.12-1.el5
+poem-sync-0.8.12-1.el5
+rgf-1.0.2-1
+sam-gridmon-1.16.1-1.el5
+(From EPEL)
+perl-Directory-Queue-1.2-1.el5
+perl-Net-STOMP-Client-1.2-1.el5
+</pre>
+</div></div>
+
+
+<h2><a name="Update-16-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>ACE
+	<ul>
+		<li>Possibility of defining algorithm (ANDing or ORing) for service flavours</li>
+		<li>Integration with POEM</li>
+		<li>Data migration to POEM</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>ATP
+	<ul>
+		<li>Synchronize all external information sources</li>
+		<li>User authentication in API for retrieving contacts</li>
+		<li>Concurrency improvement: locking mechanism for ATP</li>
+		<li>Several bug fixes</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>glite-yaim-nagios
+	<ul>
+		<li>Support definition of multiple destinations in msg-consume2db</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>grid-monitoring-probes-eu.egi.sec
+	<ul>
+		<li>Blacklisting directiories in Permission probe</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>MRS
+	<ul>
+		<li>Integration with POEM - phase 1/2
+		<ul>
+			<li>Triggers for setting keys pointing to POEM in the MRS DB</li>
+		</ul>
+		</li>
+		<li>Data migration to POEM</li>
+		<li>Marking services deleted from vofeed as REMOVED</li>
+		<li>Accept new aligned service type names for OSG services</li>
+		<li>Several bug fixes</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>MyWLCG
+	<ul>
+		<li>Integration with POEM</li>
+		<li>MyWLCG filters - ANDing by default</li>
+		<li>Changes in MyWLCG views:
+		<ul>
+			<li>Removed views: "Service Status" and "Metric Status"</li>
+			<li>Renamed view "Service Status History" to "Service Status"</li>
+			<li>Service Availability: quality bars default, remove the labels below the Apply button, round the avail number shown in hint to 2 decimal numbers</li>
+		</ul>
+		</li>
+		<li>Simple benchmark for API</li>
+		<li>Several bug fixes</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Nagios
+	<ul>
+		<li>Integration with new version of Nagios Core (3.3.1)</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>NCG
+	<ul>
+		<li>Don't use old SAM PI for getting remote metric results</li>
+		<li>Use ATP for retrieving service endpoints and users information</li>
+		<li>Several bug fixes</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>POEM
+	<ul>
+		<li>Import mddb profiles via yaim</li>
+		<li>Concurrency improvement: locking mechanism for POEM</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>RGF (only for sam-gridmon)
+	<ul>
+		<li>Report generation framework</li>
+		<li>New package for generating ACE reports</li>
+		<li>Integration with POEM</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>voms2htpasswd
+	<ul>
+		<li>Take data from ATP for configuring file '/etc/nagios/htpasswd.users'</li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Update-16-Configurationchanges%28common%29"></a>Configuration changes (common)</h2>
+
+<ul>
+	<li>New YAIM configuration variables
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">MYWLCG_THROTTLE #Default: False. If THROTTLE is set to True, limit the number of accesses per IP address in a given time(seconds).</pre>
+</div></div></li>
+</ul>
+
+
+<h2><a name="Update-16-Configurationchanges%28samgridmon%29"></a>Configuration changes (sam-gridmon)</h2>
+
+<ul>
+	<li>Ask for explicit grant to create tables (not coming from role) for main Oracle account.</li>
+</ul>
+
+
+<h2><a name="Update-16-Configurationchanges%28samnagios%29"></a>Configuration changes (sam-nagios)</h2>
+
+<ul>
+	<li>New YAIM configuration variables
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ATP_ROOT_URL - default value https://grid-monitoring.cern.ch/atp (Always needs to be https).
+NCG_CONTACTS_USE_ATP - use ATP to generate contact lists, requires NCG_TOPOLOGY_USE_ATP to be set (default: true)</pre>
+</div></div></li>
+	<li>Changed semantics of YAIM variables
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">NCG_TOPOLOGY_USE_ATP - switches on both NCG::SiteSet and NCG::SiteInfo, also required for NCG::SiteContacts (default: true)
+NCG_TOPOLOGY_USE_GOCDB - switches on both NCG::SiteSet and NCG::SiteInfo, also required for NCG::SiteContacts (default: false)
+NCG_TOPOLOGY_USE_LDAP - switches on both NCG::SiteInfo and NCG::LocalMetricsAttrs (default: false)</pre>
+</div></div></li>
+	<li>Obsoleted YAIM configuration variables
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">NCG_TOPOLOGY_ATP_ROOT_URL</pre>
+</div></div></li>
+</ul>
+
+
+<h2><a name="Update-16-KnownIssues"></a>Known Issues</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>For machines running latest version of glite-UI (3.2.10-1 or higher):<br/>
+Please restart Nagios after yaim execution. Otherwise you may see problems similar to <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div></td></tr></table></div>
+
+<h2><a name="Update-16-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,18 @@
+Index: trunk/bin/atp_synchro
+===================================================================
+diff -u -N -r954 -r955
+--- trunk/bin/atp_synchro	(.../atp_synchro)	(revision 954)
++++ trunk/bin/atp_synchro	(.../atp_synchro)	(revision 955)
+@@ -1024,9 +1024,9 @@
+ 
+         config.setAction("VO Feeds - Validation - Parsing rsv xml")
+         rsv_tree = ET.fromstring(rsv_xml)
+-        rsv_servicesflavours = set([ ( y.findtext('ServiceUri').strip().split(':')[0], y.findtext('Name').strip() ) for x in rsv_tree.findall('ResourceGroup/Resources/Resource') for y in x.findall('Services/Service') if x.findtext('WLCGInformation/InteropMonitoring')=='True'])
+-        rsv_sitesservices = set([ ( x.findtext('GroupName').strip(), z.findtext('ServiceUri').strip().split(':')[0] ) for x in rsv_tree.findall('ResourceGroup') for y in x.findall('Resources/Resource') for z in y.findall('Services/Service') if y.findtext('WLCGInformation/InteropMonitoring')=='True' ])
+-        rsv_hosts = set([ x[0] for x in rsv_servicesflavours ])
++        rsv_servicesflavours = set([ ( x.findtext('FQDN').strip(), x.findtext('Services/Service/Name').strip() ) for x in rsv_tree.findall('ResourceGroup/Resources/Resource') if x.findtext('WLCGInformation/InteropMonitoring')=='True'])
++        rsv_sitesservices = set([ ( x.findtext('GroupName').strip(), y.findtext('FQDN').strip() ) for x in rsv_tree.findall('ResourceGroup') for y in x.findall('Resources/Resource') if y.findtext('WLCGInformation/InteropMonitoring')=='True' ])
++        rsv_hosts = set([ x[0] for x in rsv_servicesflavours ])        
+ 
+         # check sanity of vo feed according to schema
+         config.setAction("VO Feeds - Validation - Checking compliance with schema")

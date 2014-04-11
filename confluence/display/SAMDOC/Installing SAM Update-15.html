@@ -1,0 +1,797 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Installing SAM Update-15</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Installing SAM Update-15
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Nov 28, 2011 by <font color="#0050B2">wlapka</font>.
+				    </div>
+
+				    <p>This page describes the process to install and configure SAM-Nagios node type from scratch.</p>
+
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>IMPORTANT</b><br />These are the installation instructions for the latest SAM release (<a href="Update-15.html" title="Update-15">SAM-Update-15</a>). You can find information about previous releases in the <a href="Installing SAM-Nagios.html" title="Installing SAM-Nagios">Installing SAM-Nagios</a> page.</td></tr></table></div>
+
+<div>
+<ul>
+    <li><a href='#InstallingSAMUpdate-15-Environment'>Environment</a></li>
+    <li><a href='#InstallingSAMUpdate-15-Requirements'>Requirements</a></li>
+    <li><a href='#InstallingSAMUpdate-15-Repositories'>Repositories</a></li>
+<ul>
+    <li><a href='#InstallingSAMUpdate-15-RepositoriesList'>Repositories List</a></li>
+    <li><a href='#InstallingSAMUpdate-15-RepositoryPriorities'>Repository Priorities</a></li>
+</ul>
+    <li><a href='#InstallingSAMUpdate-15-Installation'>Installation</a></li>
+    <li><a href='#InstallingSAMUpdate-15-Configuration'>Configuration</a></li>
+<ul>
+    <li><a href='#InstallingSAMUpdate-15-NGINagios'>NGI Nagios</a></li>
+    <li><a href='#InstallingSAMUpdate-15-SiteNagios'>Site Nagios</a></li>
+    <li><a href='#InstallingSAMUpdate-15-VONagios'>VO Nagios</a></li>
+</ul>
+    <li><a href='#InstallingSAMUpdate-15-AdditionalConfiguration'>Additional Configuration</a></li>
+    <li><a href='#InstallingSAMUpdate-15-Validation'>Validation</a></li>
+    <li><a href='#InstallingSAMUpdate-15-KnownIssues'>Known Issues</a></li>
+    <li><a href='#InstallingSAMUpdate-15-Problems'>Problems</a></li>
+</ul></div>
+
+
+<h3><a name="InstallingSAMUpdate-15-Environment"></a>Environment</h3>
+
+<p>Disabled selinux in /etc/selinux/config</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">SELINUX=disabled</pre>
+</div></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>You must restart the box if you change this variable</td></tr></table></div>
+
+<h3><a name="InstallingSAMUpdate-15-Requirements"></a>Requirements</h3>
+
+<p>You need to install host certificate in order to secure the Nagios web portal. Certificate should be placed on the standard location:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ls -l /etc/grid-security/host*
+-rw-r--r-- 1 root root 2286 Oct 28 19:26 /etc/grid-security/hostcert.pem
+-r-------- 1 root root  887 Oct 28 19:25 /etc/grid-security/hostkey.pem</pre>
+</div></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>/etc/grid-security directory must have 755 permission and the certificate must have SSL client attribute</td></tr></table></div>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">openssl x509 -in /etc/grid-security/hostcert.pem -noout -purpose | grep &quot;SSL client&quot;
+SSL client : Yes</pre>
+</div></div>
+
+<p>If you plan to use the SAM DB (i.e. NCG_TOPOLOGY_USE_SAM or NCG_REMOTE_USE_SAM set to true) you need to request access to SAM PI from your Nagios host. Details on enabling access are maintained by the SAM team <a href="https://twiki.cern.ch/twiki/bin/view/LCG/SamProgInterfaceACL">here</a>. In the request you should provide the machine address(es) and simply specify that you require access under the "EGEE-SA1 Monitoring Profile".</p>
+
+<h3><a name="InstallingSAMUpdate-15-Repositories"></a>Repositories</h3>
+
+<p>Install YUM and rpmforge packages:</p>
+<ul>
+	<li>yum-conf-5X-8.slc5.noarch (or later)</li>
+	<li><a href="http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el5.rf.x86_64.rpm">rpmforge-release-0.5.2-2.el5.rf.x86_64.rpm</a> (or later)</li>
+</ul>
+
+
+<p>Remove the old lcg-CA repository, if installed:</p>
+<ul>
+	<li>rm &#45;f /etc/yum.repos.d/lcg-CA.repo</li>
+</ul>
+
+
+<h4><a name="InstallingSAMUpdate-15-RepositoriesList"></a>Repositories List</h4>
+
+<p>Configure the following repositories:</p>
+<ul>
+	<li>EGI CAs <a href="http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo">(egi-trustanchors.repo)</a></li>
+	<li>gLite BDII <a href="http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.X/glite-BDII.repo">(glite-BDII.repo)</a></li>
+	<li>gLite UI <a href="http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/glite-UI.repo">(glite-UI.repo)</a></li>
+	<li>EPEL (epel.repo)
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[epel]
+name=Extra Packages for Enterprise Linux add-ons, no formal support from CERN
+baseurl=http://linuxsoft.cern.ch/epel/5/$basearch
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
+gpgcheck=1
+enabled=0
+protect=0</pre>
+</div></div></li>
+	<li>DAG (dag.repo)
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[dag]
+name=DAG (http://dag.wieers.com) add-on packages, no formal support from CERN
+baseurl=http://linuxsoft.cern.ch/dag/redhat/el5/en/$basearch/dag
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dag
+gpgcheck=1
+enabled=0
+protect=0</pre>
+</div></div></li>
+	<li>SAM (<a href="http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/centos5/x86_64/sa1-release-3-1.el5.noarch.rpm">rpm with repo files</a>)
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>EGI sites should use this repository instead</td></tr></table></div>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[egi-sam]
+name=EGI SAM repo
+baseurl=http://repository.egi.eu/sw/production/sam/1/$basearch
+enabled=1
+gpgcheck=0
+protect=1
+priority=10</pre>
+</div></div></li>
+</ul>
+
+
+
+<h4><a name="InstallingSAMUpdate-15-RepositoryPriorities"></a>Repository Priorities</h4>
+
+<p>Install yum-priorities:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum install yum-priorities</pre>
+</div></div>
+
+<p>Modify repository files:</p>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>glite-UI repo can have higher priority than rpmforge</td></tr></table></div>
+<ul>
+	<li>rpmforge.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">### Name: RPMforge RPM Repository for RHEL 5 - dag
+### URL: http://rpmforge.net/
+[rpmforge]
+name = RHEL $releasever - RPMforge.net - dag
+baseurl = http://apt.sw.be/redhat/el5/en/$basearch/rpmforge
+mirrorlist = http://apt.sw.be/redhat/el5/en/mirrors-rpmforge
+#mirrorlist = file:///etc/yum.repos.d/mirrors-rpmforge
+enabled = 1
+protect = 0
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1
+priority=11
+exclude=libyaml,python-django
+
+[rpmforge-extras]
+name = RHEL $releasever - RPMforge.net - extras
+baseurl = http://apt.sw.be/redhat/el5/en/$basearch/extras
+mirrorlist = http://apt.sw.be/redhat/el5/en/mirrors-rpmforge-extras
+#mirrorlist = file:///etc/yum.repos.d/mirrors-rpmforge-extras
+enabled = 1
+protect = 0
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1
+priority=11
+
+[rpmforge-testing]
+name = RHEL $releasever - RPMforge.net - testing
+baseurl = http://apt.sw.be/redhat/el5/en/$basearch/testing
+mirrorlist = http://apt.sw.be/redhat/el5/en/mirrors-rpmforge-testing
+#mirrorlist = file:///etc/yum.repos.d/mirrors-rpmforge-testing
+enabled = 0
+protect = 0
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li>glite-UI.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[glite-UI]
+name=gLite 3.2 User Interface
+baseurl=http://glitesoft.cern.ch/EGEE/gLite/R3.2/glite-UI/sl5/x86_64/RPMS.release/
+gpgkey=http://glite.web.cern.ch/glite/glite_key_gd.asc
+gpgcheck=1
+enabled=1
+priority=16
+
+[glite-UI_updates]
+name=gLite 3.2 User Interface
+baseurl=http://glitesoft.cern.ch/EGEE/gLite/R3.2/glite-UI/sl5/x86_64/RPMS.updates/
+gpgkey=http://glite.web.cern.ch/glite/glite_key_gd.asc
+gpgcheck=1
+enabled=1
+priority=16
+
+[glite-UI_ext]
+name=gLite 3.2 User Interface
+baseurl=http://glitesoft.cern.ch/EGEE/gLite/R3.2/glite-UI/sl5/x86_64/RPMS.externals/
+gpgcheck=0
+enabled=1
+priority=16</pre>
+</div></div></li>
+</ul>
+
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>EGI sites should use EGI SAM repository described above.</td></tr></table></div>
+<ul>
+	<li>sa1-centos5-release.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[egee-sa1]
+name=EGEE Packages from SA1 for CentOS5
+baseurl=http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/centos5/$basearch
+enabled=1
+priority=10
+gpgcheck=0</pre>
+</div></div></li>
+	<li>slc5-extras.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[slc5-extras]
+name=Scientific Linux CERN 5 (SLC5) add-on packages, no formal support
+baseurl=http://linuxsoft.cern.ch/cern/slc5X/$basearch/yum/extras/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-cern
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jpolok
+gpgcheck=1
+enabled=1
+protect=1
+priority=1</pre>
+</div></div></li>
+	<li>slc5-os.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[slc5-os]
+name=Scientific Linux CERN 5 (SLC5) base system packages
+baseurl=http://linuxsoft.cern.ch/cern/slc5X/$basearch/yum/os/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-cern
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jpolok
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-csieh
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dawson
+gpgcheck=1
+enabled=1
+protect=1
+priority=1
+exclude=php*,perl-DBI,MySQL-python,c-ares,perl-DBD-MySQL</pre>
+</div></div></li>
+	<li>slc5-updates.repo
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[slc5-updates]
+name=Scientific Linux CERN 5 (SLC5) bugfix and security updates
+baseurl=http://linuxsoft.cern.ch/cern/slc5X/$basearch/yum/updates/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-cern
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jpolok
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-csieh
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dawson
+gpgcheck=1
+enabled=1
+protect=1
+priority=1
+exclude=php*,perl-DBI,MySQL-python,c-ares,perl-DBD-MySQL</pre>
+</div></div></li>
+</ul>
+
+
+<h3><a name="InstallingSAMUpdate-15-Installation"></a>Installation</h3>
+
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum install lcg-CA
+yum install httpd
+yum install nagios
+# make sure that nagios from EGI SAM repository is installed
+yum --exclude=\*saga\* --exclude=\*SAGA\* groupinstall &#39;glite-UI (production - x86_64)&#39;
+yum install sam-nagios</pre>
+</div></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>ARC probes. If you plan to use ARC probes to monitor ARC-CE services following <a href="https://tomtools.cern.ch/confluence/display/SAM/SAM+Setup+for+ARC+services" title="SAM Setup for ARC services">additional steps are required</a>.</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>UNICORE probes. If you plan to use UNICORE probes to monitor UNICORE services following <a href="https://tomtools.cern.ch/confluence/display/SAM/SAM+setup+for+UNICORE+services" title="SAM setup for UNICORE services">additional steps are required</a>.</td></tr></table></div>
+
+<h3><a name="InstallingSAMUpdate-15-Configuration"></a>Configuration</h3>
+
+<p>A SAM-Nagios node type can be configured in three different way in ordert to monitor different sets of sites/services:</p>
+<ul>
+	<li>NGI SAM-Nagios : to monitor all sites/services belonging to a given region</li>
+	<li>Site SAM-Nagios : to monitor all sites/services made available by one site</li>
+	<li>VO SAM-Nagios : to monitor all sites/services that support a given VOs (list of services can be based on VO feed or not)</li>
+</ul>
+
+
+<p>The configuration of all SAM-Nagios boxes is based on https://twiki.cern.ch/twiki/bin/view/EGEE/YAIM.</p>
+
+<h4><a name="InstallingSAMUpdate-15-NGINagios"></a>NGI Nagios</h4>
+
+<p>For NGI Nagios instances the following variables must be set (OPS VO example):</p>
+
+<p>Edit YAIM configuration file:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># Generic
+SITE_NAME=egee.srce.hr
+SITE_BDII_HOST=ce1-egee.srce.hr
+PX_HOST=se1-egee.srce.hr
+BDII_HOST=bdii-egee.srce.hr
+VOS=&quot;dteam ops&quot;
+VO_OPS_VOMS_SERVERS=&quot;vomss://voms.cern.ch:8443/voms/ops?/ops/&quot;
+VO_OPS_VOMSES=&quot;&#39;ops lcg-voms.cern.ch 15009 /DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch ops 24&#39; &#39;ops voms.cern.ch 15004 /DC=ch/DC=cern/OU=computers/CN=voms.cern.ch ops 24&#39;&quot;
+VO_OPS_VOMS_CA_DN=&quot;&#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39; &#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39;&quot;
+
+VO_DTEAM_VOMS_SERVERS=&#39;vomss://voms.hellasgrid.gr:8443/voms/dteam?/dteam/&#39;
+VO_DTEAM_VOMSES=&quot;&#39;dteam voms.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms.hellasgrid.gr dteam 24&#39; &#39;dteam voms2.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms2.hellasgrid.gr dteam 24&#39;&quot;
+VO_DTEAM_VOMS_CA_DN=&quot;&#39;/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006&#39; &#39;/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006&#39;&quot;
+
+RB_HOST=skurut2.cesnet.cz # irelevant, RB is unsupported
+VO_DTEAM_WMS_HOSTS=&quot;wms204.cern.ch wms205.cern.ch&quot; # put to your NGI WMSes
+VO_OPS_WMS_HOSTS=&quot;wms204.cern.ch wms205.cern.ch&quot; # put to your NGI WMSes
+
+# Nagios
+NAGIOS_HOST=nagiosdev001.cern.ch
+NAGIOS_ADMIN_DNS=&quot;/C=HR/O=edu/OU=srce/CN=Emir Imamagic&quot;
+NCG_NAGIOS_ADMIN=eimamagi@srce.hr
+NAGIOS_ROLE=ngi
+NCG_PROBES_TYPE=local
+NCG_VO=ops
+NAGIOS_HTTPD_ENABLE_CONFIG=true
+NAGIOS_NCG_ENABLE_CONFIG=true
+NAGIOS_SUDO_ENABLE_CONFIG=true
+NAGIOS_NAGIOS_ENABLE_CONFIG=true
+NAGIOS_CGI_ENABLE_CONFIG=true
+NAGIOS_NSCA_PASS=MY_PASS
+
+# NGI/ROC Nagios
+COUNTRY_NAME=Croatia
+NAGIOS_NCG_ENABLE_CRON=true
+NCG_GOCDB_ROC_NAME=NGI_HR
+NCG_TOPOLOGY_USE_GOCDB=false
+NCG_TOPOLOGY_USE_ENOC=false
+NCG_TOPOLOGY_USE_LDAP=false
+NCG_REMOTE_USE_SAM=false
+NCG_REMOTE_USE_NAGIOS=false
+NCG_REMOTE_USE_ENOC=false
+NCG_TOPOLOGY_USE_SAM=false
+NCG_TOPOLOGY_USE_ATP=true
+NCG_TOPOLOGY_ATP_ROOT_URL=&quot;http://grid-monitoring.cern.ch/atp&quot;
+NAGIOS_SUDO_ENABLE_CONFIG=true
+
+# DB data
+MYSQL_ADMIN=&quot;MY_MYSQL_PASS&quot;
+DB_PASS=&quot;MY_MRS_PASS&quot;
+
+MYEGI_ADMIN_NAME=&quot;Admin Name&quot;
+MYEGI_ADMIN_EMAIL=&quot;admin@address.hr&quot;
+MYEGI_DEFAULT_PROFILE=&quot;ROC&quot;
+MYEGI_REGION=&quot;NGI_HR&quot;
+NCG_MDDB_SUPPORTED_PROFILES=&quot;ROC,ROC_CRITICAL,ROC_OPERATORS,GLEXEC&quot;</pre>
+</div></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>If you want to speed up the process above remove package gcc from the system.</td></tr></table></div>
+
+<p>Run YAIM:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -s site-info.def -c -n glite-UI -n glite-NAGIOS</pre>
+</div></div>
+
+<p>Run myproxy-init:</p>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Only on UI box using your dteam credentials</td></tr></table></div>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">myproxy-init -l nagios -s se1-egee.srce.hr -k NagiosRetrieve-nagiosdev001.cern.ch-dteam -c 336 -x -Z &quot;/DC=ch/DC=cern/OU=computers/CN=nagiosdev001.cern.ch&quot;</pre>
+</div></div>
+
+<h4><a name="InstallingSAMUpdate-15-SiteNagios"></a>Site Nagios</h4>
+
+<p>For Site Nagios instances the following variables must be set (using remote-only probes):</p>
+
+<p>Edit YAIM configuration file:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># Generic
+SITE_NAME=egee.srce.hr
+SITE_BDII_HOST=ce1-egee.srce.hr
+PX_HOST=se1-egee.srce.hr
+BDII_HOST=bdii-egee.srce.hr
+VOS=&quot;dteam ops&quot;
+VO_DTEAM_VOMS_SERVERS=&quot;&#39;vomss://voms.hellasgrid.gr:8443/voms/dteam?/dteam/&#39;&quot;
+VO_OPS_VOMS_SERVERS=&quot;vomss://voms.cern.ch:8443/voms/ops?/ops/&quot;
+
+# Nagios
+NAGIOS_HOST=nagiosdev001.cern.ch
+NAGIOS_ADMIN_DNS=&quot;/C=HR/O=edu/OU=srce/CN=Emir Imamagic&quot;
+NCG_NAGIOS_ADMIN=eimamagi@srce.hr
+NAGIOS_ROLE=site
+NCG_PROBES_TYPE=remote
+NCG_VO=dteam
+NAGIOS_HTTPD_ENABLE_CONFIG=true
+NAGIOS_NCG_ENABLE_CONFIG=true
+NAGIOS_SUDO_ENABLE_CONFIG=true
+NAGIOS_NAGIOS_ENABLE_CONFIG=true
+NAGIOS_CGI_ENABLE_CONFIG=true
+NCG_REMOTE_USE_NAGIOS=true
+NAGIOS_NSCA_PASS=MY_PASS</pre>
+</div></div>
+
+<p>Run YAIM:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -s site-info.def -c -n glite-NAGIOS</pre>
+</div></div>
+
+<p><br class="atl-forced-newline" />
+For Site Nagios instances the following variables must be set (using all probes):</p>
+
+<p>Edit YAIM configuration file:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># Generic
+SITE_NAME=egee.srce.hr
+SITE_BDII_HOST=ce1-egee.srce.hr
+PX_HOST=se1-egee.srce.hr
+BDII_HOST=bdii-egee.srce.hr
+VOS=&quot;dteam ops&quot;
+VO_OPS_VOMS_SERVERS=&quot;vomss://voms.cern.ch:8443/voms/ops?/ops/&quot;
+VO_OPS_VOMSES=&quot;&#39;ops lcg-voms.cern.ch 15009 /DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch ops 24&#39; &#39;ops voms.cern.ch 15004 /DC=ch/DC=cern/OU=computers/CN=voms.cern.ch ops 24&#39;&quot;
+VO_OPS_VOMS_CA_DN=&quot;&#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39; &#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39;&quot;VO_OPS_VOMS_CA_DN=&quot;&#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39; &#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39;&quot;
+
+VO_DTEAM_VOMS_SERVERS=&#39;vomss://voms.hellasgrid.gr:8443/voms/dteam?/dteam/&#39;
+VO_DTEAM_VOMSES=&quot;&#39;dteam voms.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms.hellasgrid.gr dteam 24&#39; &#39;dteam voms2.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms2.hellasgrid.gr dteam 24&#39;&quot;
+VO_DTEAM_VOMS_CA_DN=&quot;&#39;/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006&#39; &#39;/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006&#39;&quot;
+
+RB_HOST=skurut2.cesnet.cz
+VO_DTEAM_WMS_HOSTS=&quot;wms204.cern.ch wms205.cern.ch&quot;
+
+# Nagios
+NAGIOS_HOST=nagiosdev001.cern.ch
+NAGIOS_ADMIN_DNS=&quot;/C=HR/O=edu/OU=srce/CN=Emir Imamagic&quot;
+NCG_NAGIOS_ADMIN=eimamagi@srce.hr
+NAGIOS_ROLE=site
+NCG_PROBES_TYPE=remote,local
+NCG_VO=dteam
+NAGIOS_HTTPD_ENABLE_CONFIG=true
+NAGIOS_NCG_ENABLE_CONFIG=true
+NAGIOS_SUDO_ENABLE_CONFIG=true
+NAGIOS_NAGIOS_ENABLE_CONFIG=true
+NAGIOS_CGI_ENABLE_CONFIG=true
+NCG_REMOTE_USE_NAGIOS=true
+NAGIOS_NSCA_PASS=MY_PASS</pre>
+</div></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>If you want to speed up the process above remove package gcc from the system.</td></tr></table></div>
+
+<p>Run YAIM:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -s site-info.def -c -n glite-UI -n glite-NAGIOS</pre>
+</div></div>
+
+<p>Run myproxy-init:</p>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Only on UI box using your dteam credentials</td></tr></table></div>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">myproxy-init -l nagios -s se1-egee.srce.hr -k NagiosRetrieve-nagiosdev001.cern.ch-dteam -c 336 -x -Z &quot;/DC=ch/DC=cern/OU=computers/CN=nagiosdev001.cern.ch&quot;</pre>
+</div></div>
+
+
+<h4><a name="InstallingSAMUpdate-15-VONagios"></a>VO Nagios</h4>
+
+<p>For VO Nagios instances the following variables must be set (CMS VO example using VO feeds).</p>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Separate installation notes for EGI VOs were kindly provided by Gonçalo Borges (NGI_IBERGRID) and are available <a href="https://wiki.egi.eu/wiki/VO_Services/VO_Service_Availability_Monitoring">here</a>.</td></tr></table></div>
+
+<p>Edit YAIM configuration file:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># Generic
+SITE_NAME=egee.srce.hr
+SITE_BDII_HOST=ce1-egee.srce.hr
+PX_HOST=se1-egee.srce.hr
+BDII_HOST=bdii-egee.srce.hr
+RB_HOST=skurut2.cesnet.cz # irelevant, RB is unsupported
+
+VOS=&quot;dteam ops cms&quot;
+VO_OPS_VOMS_SERVERS=&quot;vomss://voms.cern.ch:8443/voms/ops?/ops/&quot;
+VO_CMS_VOMS_SERVERS=&quot;&#39;vomss://voms.cern.ch:8443/voms/cms?/cms/&#39;&quot;
+VO_OPS_VOMSES=&quot;&#39;ops lcg-voms.cern.ch 15009 /DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch ops 24&#39; &#39;ops voms.cern.ch 15004 /DC=ch/DC=cern/OU=computers/CN=voms.cern.ch ops 24&#39;&quot;
+VO_CMS_VOMSES=&quot;&#39;cms lcg-voms.cern.ch 15002 /DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch cms 24&#39; &#39;cms voms.cern.ch 15002 /DC=ch/DC=cern/OU=computers/CN=voms.cern.ch cms 24&#39;&quot;
+VO_OPS_VOMS_CA_DN=&quot;&#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39; &#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39;&quot;
+VO_CMS_VOMS_CA_DN=&quot;&#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39; &#39;/DC=ch/DC=cern/CN=CERN Trusted Certification Authority&#39;&quot;
+
+VO_DTEAM_VOMS_SERVERS=&#39;vomss://voms.hellasgrid.gr:8443/voms/dteam?/dteam/&#39;
+VO_DTEAM_VOMSES=&quot;&#39;dteam voms.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms.hellasgrid.gr dteam 24&#39; &#39;dteam voms2.hellasgrid.gr 15004 /C=GR/O=HellasGrid/OU=hellasgrid.gr/CN=voms2.hellasgrid.gr dteam 24&#39;&quot;
+VO_DTEAM_VOMS_CA_DN=&quot;&#39;/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006&#39; &#39;/C=GR/O=HellasGrid/OU=Certification Authorities/CN=HellasGrid CA 2006&#39;&quot;
+
+VO_DTEAM_WMS_HOSTS=&quot;wms204.cern.ch wms205.cern.ch&quot; # put to your NGI WMSes
+VO_OPS_WMS_HOSTS=&quot;wms204.cern.ch wms205.cern.ch&quot; # put to your NGI WMSes
+VO_CMS_WMS_HOSTS=&quot;wms204.cern.ch wms205.cern.ch&quot; # put to your NGI WMSes
+
+# Nagios
+NAGIOS_HOST=nagiosdev001.cern.ch
+NAGIOS_ADMIN_DNS=&quot;/C=HR/O=edu/OU=srce/CN=Emir Imamagic&quot;
+NCG_NAGIOS_ADMIN=eimamagi@srce.hr
+NAGIOS_ROLE=vo
+NCG_PROBES_TYPE=local
+NCG_VO=cms
+NAGIOS_HTTPD_ENABLE_CONFIG=true
+NAGIOS_NCG_ENABLE_CONFIG=true
+NAGIOS_SUDO_ENABLE_CONFIG=true
+NAGIOS_NAGIOS_ENABLE_CONFIG=true
+NAGIOS_CGI_ENABLE_CONFIG=true
+NAGIOS_NSCA_PASS=MY_PASS
+
+# VO Nagios
+NAGIOS_NCG_ENABLE_CRON=true
+NCG_TOPOLOGY_USE_SAM=false
+NCG_TOPOLOGY_USE_GOCDB=false
+NCG_TOPOLOGY_USE_ENOC=false
+NCG_TOPOLOGY_USE_LDAP=false
+NCG_REMOTE_USE_SAM=false
+NCG_REMOTE_USE_NAGIOS=false
+NCG_REMOTE_USE_ENOC=false
+
+NCG_USE_ATP_VO_FEED=true
+NCG_TOPOLOGY_ATP_ROOT_URL=&quot;http://grid-monitoring.cern.ch/atp&quot;
+
+# ATP
+ATP_VO_FEEDS=&quot;&amp;lt;list of VOs&amp;gt;&quot;
+ATP_VO_FEED_&amp;lt;vo1&amp;gt;=&quot;&amp;lt;vo feed url&amp;gt;&quot;
+ATP_VO_FEED_&amp;lt;vo2&amp;gt;=&quot;&amp;lt;vo feed url&amp;gt;&quot;
+
+# DB data
+MYSQL_ADMIN=&quot;MY_MYSQL_PASS&quot;
+DB_PASS=&quot;MY_MRS_PASS&quot;
+
+MYEGI_ADMIN_NAME=&quot;Admin Name&quot;
+MYEGI_ADMIN_EMAIL=&quot;admin@address.hr&quot;
+MYEGI_DEFAULT_PROFILE=&quot;ROC&quot;
+MYEGI_REGION=&quot;NGI_HR&quot;
+NCG_MDDB_SUPPORTED_PROFILES=&quot;ROC,ROC_CRITICAL,ROC_OPERATORS&quot;</pre>
+</div></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>If you want to speed up the process above remove package gcc from the system.</td></tr></table></div>
+
+<p>Run YAIM:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -s site-info.def -c -n glite-UI -n glite-NAGIOS</pre>
+</div></div>
+
+<p>Run myproxy-init:</p>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Only on UI box using your dteam credentials</td></tr></table></div>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">myproxy-init -l nagios -s se1-egee.srce.hr -k NagiosRetrieve-nagiosdev001.cern.ch-dteam -c 336 -x -Z &quot;/DC=ch/DC=cern/OU=computers/CN=nagiosdev001.cern.ch&quot;</pre>
+</div></div>
+
+
+<h3><a name="InstallingSAMUpdate-15-AdditionalConfiguration"></a>Additional Configuration</h3>
+
+<h5><a name="InstallingSAMUpdate-15-FailoverNagiosconfigurablehotstandbymode"></a>Failover Nagios - configurable hot-standby mode</h5>
+
+<p>Starting from Update-13 SAM supports deployment of hot-standby (active/active) instances. The systems works in the following way:</p>
+<ul>
+	<li>Backup instance is deployed by using the same Yaim configuration with added BACKUP_INSTANCE variable described below.</li>
+	<li>SAM administrator opens GGUS ticket to SAM/Nagios Support Unit requesting addition of the backup host to message consumer filter (file nagios-roles.conf).</li>
+	<li>Backup instance constantly monitors resources, but it has the following features:
+	<ul>
+		<li>alarms are not sent to Operations portal</li>
+		<li>email notifications are disabled</li>
+		<li>results are not sent to the central MRS database.</li>
+		<li>note: results are stored to local MRS so the MyEGI shows correct history on both instances.</li>
+	</ul>
+	</li>
+	<li>In case of failure of the main instance SAM administrator has to manually switch off BACKUP_INSTANCE variable on the backup instance.</li>
+</ul>
+
+
+<p>Backup instance can be defined in several ways:</p>
+<ul>
+	<li>Via Yaim variable which sets variable BACKUP_INSTANCE in /etc/sysconfig/ncg (recommended mechanism)
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">NCG_BACKUP_INSTANCE=true</pre>
+</div></div></li>
+	<li>Fast backup configuration without YAIM execution:
+	<ul>
+		<li>Setting variable BACKUP_INSTANCE in /etc/sysconfig/ncg (this approach can be used for fast failover):
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">BACKUP_INSTANCE=true</pre>
+</div></div></li>
+		<li>Setting global variable in ncg.conf file:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">BACKUP_INSTANCE=1</pre>
+</div></div></li>
+		<li>Using ncg.pl argument:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ncg.pl --backup-instance</pre>
+</div></div></li>
+	</ul>
+	</li>
+</ul>
+
+
+<p>In case of backup configuration without Yaim the following additional step is needed:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sbin/chkconfig send-to-dashboard off
+/sbin/service send-to-dashboard stop</pre>
+</div></div>
+
+<p>In order to turn backup instance into the active one, SAM administrator has to remove BACKUP_INSTANCE variable. If the Yaim is not used the following additional step is needed:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/sbin/chkconfig send-to-dashboard on
+/sbin/service send-to-dashboard start</pre>
+</div></div>
+
+
+<h5><a name="InstallingSAMUpdate-15-Robotcertificates"></a>Robot certificates</h5>
+
+<p>Starting from Update-09 SAM supports usage of robot certificates, instead of MyProxy credentials. If your CA supports robot certificates, we suggest switching to robot certificates, as they are easier to maintain. Also robots provide better availability as SAM doesn't depend on availability of MyProxy servier.</p>
+
+<p>In order to use robot certificates set the following YAIM variables:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">NCG_USE_ROBOT_CERT=true
+# Robot cert and key can be different for each VO
+# and standard Yaim VO notation is used
+VO_OPS_ROBOT_CERT=/etc/nagios/globus/robot-cert.pem
+VO_OPS_ROBOT_KEY=/etc/nagios/globus/robot-key.pem
+VO_DTEAM_ROBOT_CERT=/etc/nagios/globus/robot-cert.pem-dteam
+VO_DTEAM_ROBOT_KEY=/etc/nagios/globus/robot-key.pem-dteam</pre>
+</div></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Variables ROBOT_CERT and ROBOT_KEY use standard Yaim VO notation. If VO directories (vo.d/<em>voname</em>) are used, variables should put in appropriate VO files.</td></tr></table></div>
+
+<h5><a name="InstallingSAMUpdate-15-ACEsupportinMyEGI"></a>ACE support in MyEGI</h5>
+
+<p>Currently it's only for the central MyEGI instance. YAIM configuration:</p>
+
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">MYEGI_ACE=true</pre>
+</div></div>
+
+<h5><a name="InstallingSAMUpdate-15-MonitoringgLExecservices"></a>Monitoring gLExec services</h5>
+
+<p>Service gLExec requires pilot role in the VOMS proxy certificate. In order to monitor gLExec services make sure that you have permission for the pilot role in your VO.</p>
+
+<p>In the Yaim configuration set the following variables:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">NCG_HASH_CONFIG_PROFILES=&amp;lt;role_name&amp;gt;,GLEXEC
+NCG_PROFILE_FQAN_GLEXEC=/&amp;lt;vo_name&amp;gt;/Role=pilot</pre>
+</div></div>
+<p>where &lt;role_name&gt; is name of your role in capital letters.</p>
+
+<p>Correct setting for NGI instances:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">NCG_HASH_CONFIG_PROFILES=NGI,GLEXEC
+NCG_PROFILE_FQAN_GLEXEC=/ops/Role=pilot</pre>
+</div></div>
+
+<h5><a name="InstallingSAMUpdate-15-SettingalternativeSEformetricorg.sam.WNRepRep"></a>Setting alternative SE for metric org.sam.WN-RepRep</h5>
+
+<p>Starting from the release Update-07, it is possible to specify more than one replication SE for WN replica test org.sam.WN-RepRep. Static and/or dynamic mechanisms are possible.</p>
+
+<p>In order to define static list of comma-separated hostnames set the following Yaim variable:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">JOBSUBMIT_WN_SE_REP=se1[,se2,se3...]</pre>
+</div></div>
+
+<p>Dynamic list is filled with a list of SEs defined on the Nagios instance that recently successfully passed org.sam.SRM-All set of tests. In order to use dynamic list set the following Yaim variable:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">JOBSUBMIT_WN_SE_REP_FILE=filename</pre>
+</div></div>
+<p>Filename must be defined without path.<br/>
+If the dynamic list is used metric hr.srce.GoodSEs will be associated to Nagios host. The hr.srce.GoodSEs metric generates the list of "good" SEs, as well as provides the file as input parameter to org.sam.(CREAM)CE-JobState metric(s).</p>
+
+<p>The org.sam.(CREAM)CE-JobState metric(s) takes up to max 3 hosts from the file and, if JOBSUBMIT_WN_SE_REP was defined, appends them to the static list. On WN, org.sam.WN-RepRep tries to replicate to all the SEs in the provided order until the replication succeeds. The metric returns CRITICAL, if file couldn't be replicated to any for the SEs. This fixes <a href="https://tomtools.cern.ch/jira/browse/SAM-442">https://tomtools.cern.ch/jira/browse/SAM-442</a>.</p>
+
+<h5><a name="InstallingSAMUpdate-15-SettingalternativeBDIIformetricorg.sam.SRMAll"></a>Setting alternative BDII for metric org.sam.SRM-All</h5>
+
+<p>Metric org.sam.SRM-All uses sam-bdii.cern.ch top BDII by default. In order to make tests less dependent on CERN top BDII it is suggested to set alternative BDII.</p>
+
+<p>In order to set alternative BDII create localdb file (e.g. /etc/ncg/ncg-localdb.d/srm.conf). There are two options:<br/>
+1. switch to your own top BDII:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_PARAMETER!org.sam.SRM-All!--ldap-uri!your.top.bdii</pre>
+</div></div>
+<p>2. use site BDII:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_ATTRIBUTE!org.sam.SRM-All!SITE_BDII!--ldap-uri</pre>
+</div></div>
+
+<h5><a name="InstallingSAMUpdate-15-SettingalternativeLFCformetricsorg.sam.WNRep%5C"></a>Setting alternative LFC for metrics org.sam.WN-Rep&#42;</h5>
+
+<p>Metrics org.sam.WN-Rep&#42; use prod-lfc-shared-central.cern.ch LFC by default.</p>
+
+<p>In order to set alternative lfc create localdb file (e.g. /etc/ncg/ncg-localdb.d/LFC.conf):</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_PARAMETER!org.sam.CREAMCE-JobState!--wn-lfc!lfc.my.domain
+MODIFY_METRIC_PARAMETER!org.sam.CE-JobState!--wn-lfc!lfc.my.domain</pre>
+</div></div>
+
+<h5><a name="InstallingSAMUpdate-15-SettingalternativeBDIIformetricorg.sam.CREAMCEDirectJobState"></a>Setting alternative BDII for metric org.sam.CREAMCE-DirectJobState</h5>
+
+<p>Metric org.sam.CREAMCE-DirectJobState uses sam-bdii.cern.ch top BDII by default. In order to make tests less dependent on CERN top BDII it is suggested to set alternative BDII.</p>
+
+<p>In order to set alternative BDII create localdb file (e.g. /etc/ncg/ncg-localdb.d/creamcedjs.conf). There are two options:<br/>
+1. switch to your own top BDII:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_PARAMETER!org.sam.CREAMCE-DirectJobState!--ldap-uri!your.top.bdii</pre>
+</div></div>
+<p>2. use site BDII:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: plain; gutter: false">MODIFY_METRIC_ATTRIBUTE!org.sam.CREAMCE-DirectJobState!SITE_BDII!--ldap-uri</pre>
+</div></div>
+
+<h5><a name="InstallingSAMUpdate-15-SettingalternativelistofCEsformetricorg.sam.WMSJobState"></a>Setting alternative list of CEs for metric org.sam.WMS-JobState</h5>
+
+<p>If the monitored infrastructure contains <b>WMS</b> service and no <b>CE</b> services, metric <b>hr.srce.GoodCEs</b> associated to Nagios service will fail with the following error:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">HealthyNodes CRITICAL - No healthy hosts found.</pre>
+</div></div>
+<p>There are two options to solve this issue.</p>
+
+<p>1. If the infrastructure contains <b>CREAM-CE</b> services create file /etc/ncg/ncg-localdb.d/GoodCEs-fix with the following content:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">MODIFY_METRIC_PARAMETER!hr.srce.GoodCEs!--metric!org.sam.CREAMCE-JobSubmit</pre>
+</div></div>
+
+<p>2. In order to use static list of CEs or CREAM-CEs create file /etc/ncg/ncg-localdb.d/GoodCEs-fix with the following content:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">REMOVE_METRIC!hr.srce.GoodCEs</pre>
+</div></div>
+<p>For each VO supported on SAM instance create file /var/lib/gridprobes/&lt;VO_NAME&gt;/GoodCEs and list CE/CREAM-CE names in it. Example is:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ce1.reliable.my
+ce2.reliable.my
+cream-ce3.reliable.my</pre>
+</div></div>
+<p>In case VO_FQAN is used (e.g. <b>/ops/Role=lcgadmin</b>) &lt;VO_NAME&gt; should be set to VO_FQAN with "/" replaced with "." (e.g. <b>/var/lib/gridprobes/ops.Role=lcgadmin/GoodCEs</b>).</p>
+
+<h5><a name="InstallingSAMUpdate-15-MonitoringGlobusservices"></a>Monitoring Globus services</h5>
+
+<p>Globus services currently do not support VOs. In order to monitor Globus services SAM administrator has to contact <b>all sites</b> and request to add the certificate DN to the grid-mapfile.</p>
+
+<h5><a name="InstallingSAMUpdate-15-Removingmetricsfromaliasonly%28SAM1645SAM1645@JIRA%29"></a>Removing metrics from alias only (<a href="https://tomtools.cern.ch/jira/browse/SAM-1645">SAM-1645</a>)</h5>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">REMOVE_ALIAS_METRIC!alias!metric</pre>
+</div></div>
+
+<h5><a name="InstallingSAMUpdate-15-Enablinghostandsitecontactswhenglobalnotifications%28ENABLENOTIFICATIONS%29aredisabled%3A"></a>Enabling host and site contacts when global notifications (ENABLE_NOTIFICATIONS) are disabled:</h5>
+
+<p>It's done in localdb:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ADD_SITE_CONTACT!sitename!emailAddress
+ENABLE_SITE_CONTACT!sitename!emailAddress
+ENABLE_HOSTCONTACT!hostname!emailAddress</pre>
+</div></div>
+
+<h5><a name="InstallingSAMUpdate-15-ThrottlingofMyWLCGWEBAPI"></a>Throttling of MyWLCG WEB API</h5>
+
+<p>Performance limits in MyWLCG/MyEGI portal are set by YAIM variables.<br/>
+This variables have default values as listed below:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false"># Limit number of rows that can be fetched at a time to avoid DB dumps.
+MYWLCG_DB_LIMIT=50000
+# Limit number of accesses per IP address in a given time(seconds).
+MYWLCG_ACCESS_PERIOD=5
+MYWLCG_NUMBER_OF_ACCESSES=100</pre>
+</div></div>
+
+<h3><a name="InstallingSAMUpdate-15-Validation"></a>Validation</h3>
+
+<p>After successful running of Yaim you should be able to access Nagios web interface at the address <a href="https://NAGIOS_SERVER/nagios">https://NAGIOS_SERVER/nagios</a>.</p>
+
+<p>If you enabled local probes make sure that you first check if MyProxy credential works by running hr.srce.GridProxy-Get-VO metric on NAGIOS_SERVER. You can do this by force scheduling check via web interface or via command line:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">nagios-run-check NAGIOS_SERVER hr.srce.GridProxy-Get-VO</pre>
+</div></div>
+
+<p>MyEGI interface is at the address: <a href="https://NAGIOS_SERVER/myegi">https://NAGIOS_SERVER/myegi</a>.</p>
+
+<p>Check resource BDII:</p>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ldapsearch -x -LLL -h NAGIOS_SERVER -p 2170 -b Mds-Vo-Name=resource,O=grid &quot;(GlueServiceType=*-NAGIOS)&quot; GlueServiceEndpoint
+dn: GlueServiceUniqueID=NAGIOS_SERVER_XXXXXX-NAGIOS_2937827985,Mds-Vo-name=
+ resource,o=grid
+GlueServiceEndpoint: https://NAGIOS_SERVER:443/nagios</pre>
+</div></div>
+
+<h3><a name="InstallingSAMUpdate-15-KnownIssues"></a>Known Issues</h3>
+
+<p>For machines running latest version of glite-UI (3.2.10-1):<br/>
+Please restart Nagios after yaim execution. Otherwise you may see problems similar to <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>.</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div>
+
+<h3><a name="InstallingSAMUpdate-15-Problems"></a>Problems</h3>
+
+<p>A description of common problems when installing SAM can be found at the <a href="Troubleshooting.html#Troubleshooting-Installation">Troubleshooting</a> section.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

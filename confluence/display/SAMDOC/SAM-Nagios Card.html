@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : SAM-Nagios Card</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : SAM-Nagios Card
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jun 29, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#SAM-NagiosCard-Introduction'>Introduction</a></li>
+<ul>
+    <li><a href='#SAM-NagiosCard-Servicesrunning'>Services running</a></li>
+    <li><a href='#SAM-NagiosCard-Openports'>Open ports</a></li>
+    <li><a href='#SAM-NagiosCard-Usefulfiles'>Useful files</a></li>
+    <li><a href='#SAM-NagiosCard-Cronjobs'>Cron jobs</a></li>
+</ul>
+</ul></div>
+
+<h2><a name="SAM-NagiosCard-Introduction"></a>Introduction</h2>
+
+<p>This page presents the reference card for node sam-nagios</p>
+
+<h3><a name="SAM-NagiosCard-Servicesrunning"></a>Services running</h3>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <b>Service</b> </th>
+<th class='confluenceTh'> Nagios </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Service description</b> </td>
+<td class='confluenceTd'> The Nagios service itself. It periodically checks services and keeps their status. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Init scripts</b> </td>
+<td class='confluenceTd'> /etc/init.d/nagios (start - stop) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Daemons</b> </td>
+<td class='confluenceTd'> Nagios: /usr/bin/nagios &#45;d /etc/nagios/nagios.cfg </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Configuration</b> </td>
+<td class='confluenceTd'> /etc/nagios </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Logs</b> </td>
+<td class='confluenceTd'> /var/log/nagios </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <b>Service</b> </th>
+<th class='confluenceTh'> Apache </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Service description</b> </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Daemons</b> </td>
+<td class='confluenceTd'> httpd: /usr/sbin/httpd </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Configuration</b> </td>
+<td class='confluenceTd'> /etc/httpd </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Logs</b> </td>
+<td class='confluenceTd'> /var/log/httpd </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <b>Service</b> </th>
+<th class='confluenceTh'> msg-to-handler </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Service description</b> </td>
+<td class='confluenceTd'> Service for retrieving WN metric results from the Message Brokers </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Daemons</b> </td>
+<td class='confluenceTd'> httpd: /usr/sbin/msg-to-handler </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Configuration</b> </td>
+<td class='confluenceTd'> /etc/msg-to-handler.conf </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>Logs</b> </td>
+<td class='confluenceTd'> /var/log/messages </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h3><a name="SAM-NagiosCard-Openports"></a>Open ports</h3>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <b>Port/Protocol</b> </th>
+<th class='confluenceTh'> <b>Description</b> </th>
+</tr>
+<tr>
+<td class='confluenceTd'> 80/tcp </td>
+<td class='confluenceTd'> Used by httpd (Required for the MyWLCG/MyEGI interface) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 443/tcp </td>
+<td class='confluenceTd'> Used by httpd (Required for the nagios interface which requires authentication) </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h3><a name="SAM-NagiosCard-Usefulfiles"></a>Useful files</h3>
+
+<p>The NCG configuration is stored at:</p>
+<ul>
+	<li>/etc/ncg/</li>
+</ul>
+
+
+<p>The contents of this folder define the way in which NCG is going to find the topology and the available metrics and metricsets which are used to create the Nagios configuration.</p>
+
+<h3><a name="SAM-NagiosCard-Cronjobs"></a>Cron jobs</h3>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <b>Job</b> </th>
+<th class='confluenceTh'> <b>Description</b> </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>httpd-graceful</b> </td>
+<td class='confluenceTd'> Periodically sends a graceful event to httpd in order to update the ACLs </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>atp-sync</b> </td>
+<td class='confluenceTd'> Synchronization of <a href="https://tomtools.cern.ch/confluence/display/SAM/ATP" title="ATP">ATP</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>broker-cache-file</b> </td>
+<td class='confluenceTd'> Periodically checks for the available brokers in the BDII </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>msg-to-handler.chk</b> </td>
+<td class='confluenceTd'> Periodically checks if msg-to-handler connection is stuck and restarts it if needed </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>poem-sync</b> </td>
+<td class='confluenceTd'> Synchronization of <a href="https://tomtools.cern.ch/confluence/display/SAM/POEM" title="POEM">POEM</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>sam-sync</b> </td>
+<td class='confluenceTd'> Periodically re-populates the Nagios and MRS configuration (mrs-bootstrapper). Runs periodically but only if the ncg init script has run with "start" parameter. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>send-to-dashboard</b> </td>
+<td class='confluenceTd'> Sends alarms to Operatios dashboard for all services in OK status </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <b>voms-htpasswd</b> </td>
+<td class='confluenceTd'> Downloads the DN list from <a href="https://tomtools.cern.ch/confluence/display/SAM/ATP" title="ATP">ATP</a> for the configured VOs and creates an htpasswd file for apache. Runs periodically but only if the voms-htpasswd init script has run with "start" parameter. </td>
+</tr>
+</tbody></table>
+</div>
+
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

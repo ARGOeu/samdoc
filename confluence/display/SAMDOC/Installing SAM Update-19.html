@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Installing SAM Update-19</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Installing SAM Update-19
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jun 11, 2013 by <font color="#0050B2">tarragon</font>.
+				    </div>
+
+				    <p><br class="atl-forced-newline" /></p>
+
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Administrator guide for latest release: SAM-Update-19</b><br />You can find the release notes at: <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/Update-19">https://tomtools.cern.ch/confluence/display/SAMDOC/Update-19</a>.</td></tr></table></div>
+
+<div>
+<ul>
+    <li><a href='#InstallingSAMUpdate-19-Requirements'>Requirements</a></li>
+    <li><a href='#InstallingSAMUpdate-19-Installation'>Installation</a></li>
+<ul>
+    <li><a href='#InstallingSAMUpdate-19-ConfigureRepositories'>Configure Repositories</a></li>
+    <li><a href='#InstallingSAMUpdate-19-InstallPackages'>Install Packages</a></li>
+</ul>
+    <li><a href='#InstallingSAMUpdate-19-Configuration'>Configuration</a></li>
+<ul>
+    <li><a href='#InstallingSAMUpdate-19-DefaultConfiguration'>Default Configuration</a></li>
+    <li><a href='#InstallingSAMUpdate-19-AdditionalConfiguration'>Additional Configuration</a></li>
+</ul>
+    <li><a href='#InstallingSAMUpdate-19-KnownIssues'>Known Issues</a></li>
+    <li><a href='#InstallingSAMUpdate-19-Validation'>Validation</a></li>
+</ul></div>
+
+<h3><a name="InstallingSAMUpdate-19-Requirements"></a>Requirements</h3>
+
+<ol>
+	<li>Disabled selinux. You must restart the box if you change this variable
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">vi /etc/selinux/config
+SELINUX=disabled</pre>
+</div></div></li>
+	<li>Install host certificate to secure the Nagios web portal. Certificate should be placed on the standard location with 755 permission. The certificate must have SSL client attribute.
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ls -l /etc/grid-security/host*
+-rw-r--r-- 1 root root 2286 Oct 28 19:26 /etc/grid-security/hostcert.pem
+-r-------- 1 root root  887 Oct 28 19:25 /etc/grid-security/hostkey.pem</pre>
+</div></div>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">openssl x509 -in /etc/grid-security/hostcert.pem -noout -purpose | grep &quot;SSL client&quot;
+SSL client : Yes</pre>
+</div></div></li>
+	<li>Install YUM
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum-conf-5X-6.slc5.cern.noarch</pre>
+</div></div></li>
+	<li>Install yum-priorities package
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum install yum-priorities</pre>
+</div></div></li>
+</ol>
+
+
+<h3><a name="InstallingSAMUpdate-19-Installation"></a>Installation</h3>
+
+<h4><a name="InstallingSAMUpdate-19-ConfigureRepositories"></a>Configure Repositories</h4>
+
+<ol>
+	<li>Remove the old lcg-CA repository, if installed:
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">rm -f /etc/yum.repos.d/lcg-CA.repo</pre>
+</div></div></li>
+	<li>Configure the following repositories
+	<ul>
+		<li>RPMforge:
+		<ul>
+			<li>install rpm from <a href="http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el5.rf.x86_64.rpm">rpmforge repo</a></li>
+			<li>copy <a href="attachments/33718376/33849359.repo">rpmforge.repo</a></li>
+		</ul>
+		</li>
+		<li>EGI CAs: copy <a href="http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo">egi-trustanchors.repo</a></li>
+		<li>gLite BDII: copy <a href="http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.X/glite-BDII.repo">glite-BDII.repo</a></li>
+		<li>gLite UI: copy <a href="http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/glite-UI.repo">glite-UI.repo</a></li>
+		<li>DAG: copy <a href="attachments/33718376/33849356.repo">dag.repo</a></li>
+		<li>SAM:
+		<ul>
+			<li>install rpm from <a href="http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/centos5/x86_64/sa1-release-3-1.el5.noarch.rpm">sam repo</a></li>
+			<li>EGI sites should use this repository instead: <a href="attachments/33718376/33849355.repo">egi-sam.repo</a></li>
+		</ul>
+		</li>
+		<li>egee-sa1: copy <a href="attachments/33718376/33849360.repo">egee-sa1.repo</a></li>
+		<li>slc5-os: copy <a href="attachments/33718376/33849358.repo">slc5-os.repo</a></li>
+		<li>slc5-extras: copy <a href="attachments/33718376/33849362.repo">slc5-extras.repo</a></li>
+		<li>slc5-updates: copy <a href="attachments/33718376/33849357.repo">slc5-updates.repo</a></li>
+	</ul>
+	</li>
+</ol>
+
+
+<h4><a name="InstallingSAMUpdate-19-InstallPackages"></a>Install Packages</h4>
+
+<ol>
+	<li>Install dependencies
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum install lcg-CA
+yum install httpd
+yum install nagios.x86_64</pre>
+</div></div></li>
+	<li>Make sure that nagios from EGI SAM repository is installed
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum --exclude=\*saga\* --exclude=\*SAGA\* groupinstall &#39;glite-UI (production - x86_64)&#39;</pre>
+</div></div></li>
+	<li>Install SAM-Nagios
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum install sam-nagios</pre>
+</div></div></li>
+</ol>
+
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>If you plan to use ARC probes to monitor ARC-CE services some <a href="https://tomtools.cern.ch/confluence/display/SAM/SAM+Setup+for+ARC+services" title="SAM Setup for ARC services">additional steps</a> are required.<br/>
+If you plan to use UNICORE probes to monitor UNICORE services some <a href="https://tomtools.cern.ch/confluence/display/SAM/SAM+setup+for+UNICORE+services" title="SAM setup for UNICORE services">additional steps</a> are required.</td></tr></table></div>
+
+
+<h3><a name="InstallingSAMUpdate-19-Configuration"></a>Configuration</h3>
+
+<p>A SAM-Nagios node type can be configured in three different way in order to monitor different sets of sites/services:</p>
+<ul>
+	<li>NGI SAM-Nagios : to monitor all sites/services belonging to a given region</li>
+	<li>VO SAM-Nagios : to monitor all sites/services that support a given VOs (list of services can be based on VO feed or not)</li>
+	<li>Site SAM-Nagios : to monitor all sites/services made available by one site</li>
+</ul>
+
+
+<h4><a name="InstallingSAMUpdate-19-DefaultConfiguration"></a>Default Configuration</h4>
+
+<ol>
+	<li>Edit the YAIM configuration file according to the <a href="SAM Configuration via YAIM.html" title="SAM Configuration via YAIM">SAM Configuration via YAIM</a> page and the <a href="Release Notes.html" title="Release Notes">Release Notes</a> of the latest production release.
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">vi site-info.def</pre>
+</div></div></li>
+	<li>Run YAIM
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">/opt/glite/yaim/bin/yaim -s site-info.def -c -n glite-UI -n glite-NAGIOS</pre>
+</div></div></li>
+	<li>Generate myproxy certificate
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">ls -l .globus/
+total 16
+-rw-r--r-- 1 root root 4908 Sep 18 14:44 usercert.pem
+-rw------- 1 root root 4836 Sep 18 14:44 userkey.pem
+
+/opt/globus/bin/myproxy-init -c 4320 -k NagiosRetrieve-$H-$V -s MYPROXY -l nagios -x -Z $HDN
+with: HDN=&amp;lt;HOST DN&amp;gt;, H=&amp;lt;HOSTNAME&amp;gt; and V=&amp;lt;VONAME&amp;gt;
+
+e.g. /opt/globus/bin/myproxy-init -l nagios -s myproxy.cern.ch -k NagiosRetrieve-dev-sam-nagios.cern.ch-ops -c 4320 -x -Z &quot;/DC=ch/DC=cern/OU=computers/CN=dev-sam-nagios.cern.ch&quot;</pre>
+</div></div></li>
+</ol>
+
+
+<h4><a name="InstallingSAMUpdate-19-AdditionalConfiguration"></a>Additional Configuration</h4>
+
+<ol>
+	<li>Check for additional configuration in the <a href="Release Notes.html" title="Release Notes">Release Notes</a> of the latest production release.</li>
+	<li>Check other possible configurations are available in the <a href="FAQs.html" title="FAQs">FAQs</a> page.</li>
+</ol>
+
+
+<h3><a name="InstallingSAMUpdate-19-KnownIssues"></a>Known Issues</h3>
+
+<ol>
+	<li>Check for known issues in the <a href="Release Notes.html" title="Release Notes">Release Notes</a> of the latest production release.</li>
+</ol>
+
+
+<h3><a name="InstallingSAMUpdate-19-Validation"></a>Validation</h3>
+
+<ol>
+	<li>Access SAM-Nagios web interfaces at <a href="https://NAGIOS_SERVER/nagios">https://NAGIOS_SERVER/nagios</a> and <a href="https://NAGIOS_SERVER/myegi">https://NAGIOS_SERVER/myegi</a>.</li>
+	<li>For local probes make sure that MyProxy credential works.
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">nagios-run-check NAGIOS_SERVER hr.srce.GridProxy-Get-VO</pre>
+</div></div></li>
+</ol>
+
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

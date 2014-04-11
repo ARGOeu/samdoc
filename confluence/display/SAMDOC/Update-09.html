@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-09</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-09
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Aug 18, 2011 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h1><a name="Update-09-Release%3A"></a>Release: Update-09</h1>
+
+<h2><a name="Update-09-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 29 Nov 2010 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 02 Feb 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="#ff0000">Released</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 16 Feb 2011 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka <br class="atl-forced-newline" /> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Main Activities </td>
+<td class='confluenceTd'><ul>
+	<li>MyEGI standalone central instance (egee-NAGIOS-WEB)</li>
+	<li>MyEGI web services</li>
+	<li>Added SAM release to information provider</li>
+	<li>Support for robot certificates</li>
+	<li>Support for configuration of uncertified sites</li>
+	<li>Support of MPI services in topology</li>
+	<li>Yaim cleanup</li>
+	<li>MRS Central: Load OSG services</li>
+	<li>Messaging plugins</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td class='confluenceTd'> Notes </td>
+<td class='confluenceTd'> None </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h2><a name="Update-09-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<ul>
+	<li>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-1137">SAM-1137</a></li>
+	<li>Announced for Stage Rollout - 16 Feb 2011</li>
+	<li>Cleared staged rollout - 08 Mar 2011
+	<ul>
+		<li>Early Adopter Report - <a href="https://documents.egi.eu/document/414">SAM-Update-09-EA-Report</a></li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<h2><a name="Update-09-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>These part includes also packages from SAM-Update-08, which was an internal release:<a href="https://tomtools.cern.ch/confluence/display/SAMDOC/Update-08+-+internal+release">https://tomtools.cern.ch/confluence/display/SAMDOC/Update-08+-+internal+release</a></td></tr></table></div>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.16.7-2.el5.noarch.rpm
+atp-web-1.16.7-2.el5.noarch.rpm
+egee-NAGIOS-1.0.0-60.el5
+egee-NAGIOS-WEB-0.9.0-3.el5 (Only for central installation)
+egee-NRPE-1.0.0-19.el5 (Onle when using Nagios remote probe execution)
+egee-SNAGIOS-0.4.0-1.el5 (Only for central "Super" Nagios installation)
+glite-yaim-nagios-1.2.9-10.el5.noarch.rpm
+grid-monitoring-config-gen-0.77.6-1.el5
+grid-monitoring-org.ggus-probes-0.7.1-1.el5
+grid-monitoring-org.nagiosexchange-probes-0.12-1.el5.x86_64.rpm
+grid-monitoring-probes-hr.srce-0.32.2-1.el5
+gstat-validation-2.0.44-1.el5
+info-provider-nagios-0.4.1-1.el5
+mddb-1.0.11-1.el5
+mddb-parser-1.0.11-1.el5
+mddb-synchronizer-1.0.11-1.el5
+msg-consume2db-1.0.19-1.el5 (Only for central egee-NAGIOS-WEB installation)
+msg-nagios-bridge-1.0.58-3.el5
+myegi-0.4.5-1.el5.noarch.rpm
+nagios-gocdb-downtime-0.23.1-1.el5
+nagios-proxy-refresh-1.12.0-0.el5
+nagios2metricstore-1.0.32-3.el5
+perl-MIG-0.5-1.el5
+perl-Net-STOMP-Client-0.9.5-1.el5
+perl-TOM-1.3-1.el5
+sam-release-1.9.0-1.el5
+voms2htpasswd-1.8.0-1.el5
+</pre>
+</div></div>
+
+<h2><a name="Update-09-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>Please use ATP as topology provider starting from this release.</li>
+</ul>
+
+
+<ul>
+	<li>Starting from Update-09 SAM supports usage of robot certificates, instead of MyProxy credentials. This is an optional feature which can be used only if your CA and VO support robot certificates. If your CA supports robot certificates, we suggest switching to robot certificates, as they are easier to maintain. Also robots provide better availability as SAM doesn't depend on availability of MyProxy server. Find more details in <a href="https://tomtools.cern.ch/jira/browse/SAM-952">SAM-952</a>. The most important variables are listed in the section "Configuration changes".</li>
+</ul>
+
+
+<ul>
+	<li>SAM supports changing notification header for emails sent by Nagios. Find more details in <a href="https://tomtools.cern.ch/jira/browse/SAM-1130">SAM-1130</a>. The most important variables are listed in the section "Configuration changes".</li>
+</ul>
+
+
+<ul>
+	<li>Support for defining uncertified sites via Yaim has been implemented. Find more details in <a href="https://tomtools.cern.ch/jira/browse/SAM-1143">SAM-1143</a>. The most important variables are listed in the section "Configuration changes". Setting up uncertified sites is also documented <a href="https://tomtools.cern.ch/confluence/display/SAM/Monitor+Uncertified+Sites" title="Monitor Uncertified Sites">here</a>.</li>
+</ul>
+
+
+<ul>
+	<li>VO profile has been changed to include VO-dependent metrics only. Find more details in <a href="https://tomtools.cern.ch/jira/browse/SAM-1178">SAM-1178</a>.</li>
+</ul>
+
+
+<ul>
+	<li>ATP supports MPI services. Find more details in <a href="https://tomtools.cern.ch/jira/browse/SAM-413">SAM-413</a>. The MPI services will appear as 5 flavours:
+	<ul>
+		<li>MPICH</li>
+		<li>MPICH2</li>
+		<li>MPICH-1</li>
+		<li>OPENMPI</li>
+		<li>OPENMPI-1.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li>Central MRS is loading OSG services.</li>
+</ul>
+
+
+<ul>
+	<li>MyEGI no longer requires SSL authentication but uses standard HTTP.</li>
+</ul>
+
+
+<ul>
+	<li>After discussion with NDGF it was decided that RLS is not treated as production service. Metric org.arc.RLS has been removed from ARC profile. Find more details in <a href="https://tomtools.cern.ch/jira/browse/SAM-1238">SAM-1238</a>.</li>
+</ul>
+
+
+<h2><a name="Update-09-ConfigurationChanges"></a>Configuration Changes</h2>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>These part includes also configuration changes from SAM-Update-08, which was an internal release:<a href="https://tomtools.cern.ch/confluence/display/SAMDOC/Update-08+-+internal+release">https://tomtools.cern.ch/confluence/display/SAMDOC/Update-08+-+internal+release</a></td></tr></table></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>SAM-CA-Update-01 should be installed before you start deploying this release. More details at:
+
+<p><a href="https://tomtools.cern.ch/confluence/display/SAMDOC/SAM-CA-Update-01">https://tomtools.cern.ch/confluence/display/SAMDOC/SAM-CA-Update-01</a></p></td></tr></table></div>
+
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Note that after upgrade and before YAIM execution, atp_synchro.conf.rpmnew configuration file should replace the existing one, i.e.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mv /etc/atp/atp_synchro.conf.rpmnew /etc/atp/atp_synchro.conf</pre>
+</div></div></td></tr></table></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>YAIM needs to be executed after the upgrade. Note that there's DB upgrade of 'metricstore' and 'atp' schemas so the execution will take longer.</td></tr></table></div>
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Note that MyEGEE is no longer part of the release.  We do not modify the config of existing myegee instances, but on a fresh install MyEGEE is not installed. All configuration variables <tt>MYEGEE_&#42;</tt> can be removed.
+
+<p>There are many configuration changes in the area of DB Handling.  Most importantly there is now only one set of DB parameters (with defaults). You will need to set the <tt>DB_PASS</tt> to the existing password for the <tt>mrs</tt> user (normally it would have been <tt>MYEGI_DATABASE_PASSWORD</tt>.</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>DB_TYPE=mysql
+DB_USER=mrs
+DB_NAME=mrs
+DB_PASS=
+</pre>
+</div></div>
+
+<p>These are used for ATP, MDDB, MRS, MyEGI configuration. All other DB configuration parameters can be removed.</p>
+
+<p>The following <tt>SECRET_KEY</tt> parameters are no longer used:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ATP_WEB_SECRET_KEY
+MYEGI_SECRET_KEY
+</pre>
+</div></div></td></tr></table></div>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># optional - turns on ACE support (Service Availability) on MyEGI (SAM-1142):
+# This variable can be set only on central instance, do not set it on your Nagios instance,
+# because ACE doesn't work in MySQL
+MYEGI_ACE=True
+
+# optional - change of notification header (SAM-1130):
+NCG_NOTIFICATION_HEADER="CERN Nagios"
+
+# optional - use of robot certificates (SAM-1180):
+NCG_USE_ROBOT_CERT=true
+# Robot cert and key can be different for each VO
+# and standard Yaim VO notation is used
+VO_OPS_ROBOT_CERT=/etc/nagios/globus/robot-cert.pem
+VO_OPS_ROBOT_KEY=/etc/nagios/globus/robot-key.pem
+
+# optional - add uncertified gLite sites (SAM-1143)
+UNCERTIFIED_SITES="SiteA SiteB SiteC"
+UNCERTIFIED_WMS=wms.uncert.org
+UNCERTIFIED_BDII=bdii.uncert.org
+</pre>
+</div></div>
+
+<h2><a name="Update-09-KnownIssues"></a>Known Issues</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>NCG throws error and stops execution when site has no services and ATP used as topology provider.<br/>
+<a href="https://tomtools.cern.ch/jira/browse/SAM-1271">https://tomtools.cern.ch/jira/browse/SAM-1271</a><br/>
+Workaround:<br/>
+Remove site from ncg.localdb, e.g.: REMOVE_SITE&#33;SITE_NAME</td></tr></table></div>
+
+<h2><a name="Update-09-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+<p>(Only for central "Super" Nagios installation)</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

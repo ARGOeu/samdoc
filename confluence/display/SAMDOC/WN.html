@@ -1,0 +1,454 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : WN</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : WN
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Sep 26, 2011 by <font color="#0050B2">imamagic</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#WN-WNprobe'>WN-probe</a></li>
+    <li><a href='#WN-WNMetrics'>WN Metrics</a></li>
+<ul>
+    <li><a href='#WN-org.sam.WNRep'>org.sam.WN-Rep</a></li>
+<ul>
+    <li><a href='#WN-org.sam.WNRepISenv'>org.sam.WN-RepISenv</a></li>
+    <li><a href='#WN-org.sam.WNRepFree'>org.sam.WN-RepFree</a></li>
+    <li><a href='#WN-org.sam.WNRepCr'>org.sam.WN-RepCr</a></li>
+    <li><a href='#WN-org.sam.WNRepGet'>org.sam.WN-RepGet</a></li>
+    <li><a href='#WN-org.sam.WNRepRep'>org.sam.WN-RepRep</a></li>
+    <li><a href='#WN-org.sam.WNRepDel'>org.sam.WN-RepDel</a></li>
+</ul>
+    <li><a href='#WN-org.sam.WNPyVer'>org.sam.WN-PyVer</a></li>
+    <li><a href='#WN-org.sam.glexec.WNgLExec'>org.sam.glexec.WN-gLExec</a></li>
+    <li><a href='#WN-org.sam.WNCAver'>org.sam.WN-CAver</a></li>
+<ul>
+    <li><a href='#WN-BuildingreferenceCADBforthemetric'>Building reference CA DB for the metric</a></li>
+</ul>
+    <li><a href='#WN-org.sam.WNBi'>org.sam.WN-Bi</a></li>
+    <li><a href='#WN-org.sam.WNCsh'>org.sam.WN-Csh</a></li>
+    <li><a href='#WN-org.sam.WNSoftVer'>org.sam.WN-SoftVer</a></li>
+</ul>
+    <li><a href='#WN-ExecutiononWN'>Execution on WN</a></li>
+    <li><a href='#WN-Troubleshooting'>Troubleshooting</a></li>
+<ul>
+    <li><a href='#WN-IncreasingdebuggingonWN'>Increasing debugging on WN</a></li>
+    <li><a href='#WN-GettinglogsfromWN'>Getting logs from WN</a></li>
+    <li><a href='#WN-Missingattributesinmessagebody'>Missing attributes in message body</a></li>
+    <li><a href='#WN-WNmetricsinPENDING'>WN metrics in PENDING</a></li>
+<ul>
+    <li><a href='#WN-JobSubmitworks.OnlyforsomeCEsWNmetricsinPENDING.'>JobSubmit works. Only for some CEs WN metrics in PENDING.</a></li>
+</ul>
+</ul>
+</ul></div>
+
+<h2><a name="WN-WNprobe"></a>WN-probe</h2>
+
+<p><tt>WN-probe</tt> acts as a container for WN metrics. <tt>&#45;m</tt> parameter is used to invoke a particular metric.</p>
+
+<p><tt>samtest-run</tt> wrapper and standard SAM tests</p>
+
+<h2><a name="WN-WNMetrics"></a>WN Metrics</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> <b>Metrics</b> </td>
+<td class='confluenceTd'> <b>Description</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-Rep </td>
+<td class='confluenceTd'> Wrapper check to launch the replica management checks and publish passive check results to Nagios. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-RepISenv </td>
+<td class='confluenceTd'> Check if LCG_GFAL_INFOSYS variable is set. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-RepFree </td>
+<td class='confluenceTd'> Check if Close (or VO default) SE has any free space left according to the information system. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-RepCr </td>
+<td class='confluenceTd'> Copy and register a file to the Close (or default) SE into default space area. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-RepGet </td>
+<td class='confluenceTd'> Copy the file back from Close SE to the WN. Compare the files. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-RepRep </td>
+<td class='confluenceTd'> Replicate the file from SE to a given 'central' SE. Retrieve list of replicas. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-RepDel </td>
+<td class='confluenceTd'> Delete given file(s) from SRM. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-PyVer </td>
+<td class='confluenceTd'> Check version of Python installed on WN. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.glexec.WN-gLExec </td>
+<td class='confluenceTd'> Test gLExec on WN with a special FQAN role. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-Bi </td>
+<td class='confluenceTd'> Check if BrokerInfo works.</td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-CAver (obsoleted from Update-14) </td>
+<td class='confluenceTd'> Check availability of the latest CAs public certificates on WN.</td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-Csh </td>
+<td class='confluenceTd'> Check if CSH works.</td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-SoftVer </td>
+<td class='confluenceTd'> Detect the version of midlleware installed on the WN.</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<p>Metrics are written to use ldap/lcg_util/gfal/lfc APIs. However, if the respective API fails to be loaded the code falls back to using ldap/lcg_util/lfc CLIs.</p>
+
+<p>For all the metrics detailed output contains either parameters to API call or command line used for testing a service.</p>
+
+<h3><a name="WN-org.sam.WNRep"></a>org.sam.WN-Rep</h3>
+
+<p>Wrapper check to launch the replica management checks and publish passive check results to Nagios. The order and dependency statically defined in the WN-probe (<tt>WNMetrics._metrics</tt> dictionary attribute). This is the metrics dependency tree:</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>        0:Rep (wrapper)
+          |
+     1:RepISenv
+       ^     ^
+      /       \
+ 2:RepFree   __3:RepCr____
+              ^   ^      ^
+             /    |       \
+       4:RepGet 5:RepRep 6:RepDel
+</pre>
+</div></div>
+
+<p>To pass the name of the file registered in LFC by <tt>WN-RepCr</tt> to subsequent tests a simple file-based IPC is used. Thus, the file name in LFC (lfn) is stored under metric' work directory in a text file.</p>
+
+<h4><a name="WN-org.sam.WNRepISenv"></a>org.sam.WN-RepISenv</h4>
+
+<p>Check if <tt>LCG_GFAL_INFOSYS</tt> variable is set.</p>
+
+<h4><a name="WN-org.sam.WNRepFree"></a>org.sam.WN-RepFree</h4>
+
+<p>Check if VO default SE has any free space left according to the information system (<tt>LCG_GFAL_INFOSYS</tt>).</p>
+
+<p>Returns CRITICAL</p>
+<ul>
+	<li>0 of total space is published for both <tt>GlueSA{FreeOnlineSize,StateAvailableSpace</tt>}</li>
+	<li>no space is published for both <tt>GlueSA{FreeOnlineSize,StateAvailableSpace</tt>}</li>
+	<li>there is at least one SA, that the VO has access to
+	<ul>
+		<li>with <tt>GlueSALocalID VO:&lt;VO&gt; or VOMS:&lt;FQAN&gt;</tt> and with no <tt>GlueSAFreeOnlineSize</tt> attribute</li>
+		<li>with a <tt>GlueSAStateAvailableSpace</tt> attribute with a value not a positive integer</li>
+		<li>with a <tt>GlueSAFreeOnlineSize</tt> attribute with a value not a positive integer</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p>Returns WARNING</p>
+<ul>
+	<li>for SA with property <tt>GlueSALocalID &#33;= &lt;VO&gt;</tt> FQAN based ACBR is not published</li>
+	<li>connection to BDII fails</li>
+</ul>
+
+
+<h4><a name="WN-org.sam.WNRepCr"></a>org.sam.WN-RepCr</h4>
+
+<p>Copy and register a file to the VO default SE into default space area.</p>
+
+<p>The metric sets <tt>LFC_HOST</tt> to a default LFC (hard-coded in the probe) or uses one provided by &#45;-lfc parameter. As for a file registration a writable LFC is required, an attempt to "write" to the given LFC is made. If failed, and the reason of the failure was understood the test is terminated producing corresponding exit code (determined based on mapping in errors DB) and error message. Otherwise, LFC discovery in <tt>LCG_GFAL_INFOSYS</tt> is made and each found LFC is tried with "write" operation. A working writable LFC is then used with <tt>lcg_cr3()</tt> or <tt>lcg-cr</tt>. To store a file only the SE name is given (w/o any path).</p>
+
+<p>LFC can be specified via</p>
+<ul>
+	<li><tt>&#45;-wn-lfc &lt;hostname&gt;</tt> to <tt>org.sam.CE-JobState</tt> metric during job submission.</li>
+	<li><tt>wn_lfc = &lt;hostname&gt;</tt> in /etc/gridmon/org.sam.conf (section [SAM:ce_metrics]) on submitting Nagios instance. Or in a configuration file given with <tt>&#45;-config &lt;file1,&gt;</tt>.</li>
+</ul>
+
+
+<h4><a name="WN-org.sam.WNRepGet"></a>org.sam.WN-RepGet</h4>
+
+<p>Copy the file back from SE to the WN (lcg_cp()/lcg-cp). Compare the files (with diff). Both operations are critical.</p>
+
+<h4><a name="WN-org.sam.WNRepRep"></a>org.sam.WN-RepRep</h4>
+
+<p>Replicate the file from SE to a given 'central' replication SE. Retrieve list of replicas.</p>
+
+<p>Default replication SE is hard-coded in <tt>WN-probe</tt>. <tt>&#45;-se-rep &lt;se1,..&gt;</tt> can be used to define a list of SEs.</p>
+
+<p>The SEs are usually defined at job submission time with <tt>org.sam.CE-JobState</tt> using <tt>&#45;-wn-se-rep &lt;se1,..&gt;</tt> or <tt>&#45;-wn-se-rep-file &lt;name&gt;</tt>. This is exposed via YAIM as follows. Static and/or dynamic mechanisms are possible. <tt>JOBSUBMIT_WN_SE_REP</tt> can be defined with a list of comma-separated hostnames; this provides a static mechanism for defining replication SEs. <tt>JOBSUBMIT_WN_SE_REP_FILE</tt> variable, if specified, should be a file name (w/o path, which is dynamically generated by respective metrics based on VO and/or FQAN for which the metrics are defined) that will be filled in with a list of SEs defined on the Nagios instance that recently successfully passed <tt>org.sam.SRM-All</tt> set of tests. This triggers execution of local <tt>hr.srce.GoodSEs</tt> check to generate the list of "good" SEs, as well as provides the file as input parameter to <tt>org.sam.{CREAM}CE-JobState</tt> metric(s). The latter takes up to max 3 hosts from the file and, if <tt>JOBSUBMIT_WN_SE_REP</tt> was defined, appends them to the static list. On WN, <tt>org.sam.WN-RepRep</tt> tries to replicate to all the SEs in the provided order until the replication succeeds. The metric returns CRITICAL, if file couldn't be replicated to any for the SEs.</p>
+
+<h4><a name="WN-org.sam.WNRepDel"></a>org.sam.WN-RepDel</h4>
+
+<p>Delete given file(s) from SRM.</p>
+
+<h3><a name="WN-org.sam.WNPyVer"></a>org.sam.WN-PyVer</h3>
+
+<p>Check version of Python installed on WN.</p>
+
+<h3><a name="WN-org.sam.glexec.WNgLExec"></a>org.sam.glexec.WN-gLExec</h3>
+
+<p>WN test which tries to execute</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>export GLEXEC_CLIENT_CERT=$X509_USER_PROXY; /&lt;path_to&gt;/glexec /usr/bin/id -a
+</pre>
+</div></div>
+<p>A separate CE job submission/monitoring is used (<tt>org.sam.glexec.CE-Job{State,Submit,Monit}-&lt;FQAN&gt;</tt>) to deliver the test to WNs. OPS VO <tt>Role=pilot</tt> is used to submit the jobs.</p>
+
+<p>Currently [SAM:Nov 23 2010], the test exit codes (Nagios) and summaries are following:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>   status = 'OK'
+   summary = 'success'
+
+   status = 'UNKNOWN'
+   summary = "glexec command not found."
+
+   status = 'WARNING'
+   summary = "client cert file error: &lt;error message&gt;"
+
+   status = 'WARNING'
+   summary = "executable can't be executed (126)"
+
+   status = 'WARNING'
+   summary = "client error (201)"
+
+   status = 'WARNING'
+   summary = "system error (202)"
+
+   status = 'WARNING'
+   summary = "authorization error (203)"
+
+   status = 'UNKNOWN'
+   summary = "exit code overlap (204)"
+
+   status = 'UNKNOWN'
+   summary = "unrecognised exit code (&lt;exit code&gt;)"
+</pre>
+</div></div>
+
+<h3><a name="WN-org.sam.WNCAver"></a>org.sam.WN-CAver</h3>
+
+<p>Check availability and validity of CAs public certificates on WN. It's run with SAM-to-Nagios adapter <tt>samtest-run</tt>. </p>
+
+<p>Check the version of CA RPMs which are installed on the WN and compare them with the reference ones. If for any reason RPM check fails (other installation method) fall back to physical files test (MD5 checksum comparison for all CE certs with the reference list).<br/>
+This metric returns OK if:</p>
+<ul>
+	<li>the installed CA RPMs are identical to the references.</li>
+</ul>
+
+
+<h4><a name="WN-BuildingreferenceCADBforthemetric"></a>Building reference CA DB for the metric</h4>
+
+<p>Adopted from <a href="https://docs.google.com/Doc?id=dhm26h7x_54jxrp4vf&amp;invite&amp;pli=1">https://docs.google.com/Doc?id=dhm26h7x_54jxrp4vf&amp;invite&amp;pli=1</a> written for "old SAM" (the file may have restrictive access rights; ask for read permissions from Wojciech.Lapka@NOSPAM-cern.ch). NB! the following steps are for "Developer" role only. You'll need write access to <tt>svn+ssh://&lt;your_account&gt;@svn.cern.ch/reps/sam/trunk/probes</tt>.</p>
+
+<p>When a new version of the CA is released the SAM team is called to update the tests and release them in production as soon as possible. The trigger is a GGUS ticket with a subject "CA update, version X.Y.Z-R"</p>
+
+<p>Official procedures available  at <a href="http://goc.grid.sinica.edu.tw/gocwiki/Procedure_for_new_CA_release">http://goc.grid.sinica.edu.tw/gocwiki/Procedure_for_new_CA_release</a></p>
+
+<p><b>Developer</b></p>
+
+<ul>
+	<li>accept GGUS ticket
+	<ul>
+		<li>set to "in progress"</li>
+	</ul>
+	</li>
+	<li>contact integration Team
+	<ul>
+		<li>for synchronization, just to make sure operation will be smooth</li>
+	</ul>
+	</li>
+	<li>create a Feature Request (JIRA) with summary "CA release n.m" specifying as reference GGUS Ticket ID</li>
+	<li>assign the JIRA tiket to a developer</li>
+	<li>Developer starts working &amp; sets the bug's status to 'in progress'</li>
+	<li>get new CA rpms from the URL in the GGUS ticket
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>    cd &lt;newCA_RPMDIR&gt;
+    mkdir newCA
+    wget -r -nd -np http://www.cern.ch/groep/cadist/lcgpreview-VERSION/RPMS.lcg/
+       
+         OR
+
+    wget -r -nd -np http://lcg-igtf.ndpf.info/distribution/lcg/lcgpreview-VERSION/RPMS.lcg/
+
+    Endpoint should be provided in the initial ticket.
+
+NOTE: As long, as it's not allowed to recursively download the RPMS, you'd rather use this command
+
+   wget -np -nd -r -B http://groep.web.cern.ch/groep/cadist/lcgpreview-VERSION/RPMS.lcg/ -i index.html -F
+
+after having the index.html file downloaded with the previous one. In order to check if at least the
+number of files is the same:
+
+     grep ".rpm" index.html | wc -l
+     ls -la ./*.rpm | wc -l
+
+Result of both commands should be the same.
+</pre>
+</div></div></li>
+	<li>checks out the code from SVN
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>svn co svn+ssh://&lt;your_account&gt;@svn.cern.ch/reps/sam/trunk/probes
+</pre>
+</div></div></li>
+	<li>create a new CA data and respective configuration files
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>    cd probes/src/wnjob/org.sam/probes/org.sam/sam/
+    ./CE-sft-caver -a &lt;newCA_RPMDIR/newCA&gt;
+
+(you should have no errors reported for RPMs called 'ca_&lt;CANAME&gt;'.
+The rest (ex. lcg-CA-&lt;VERSION&gt;, ca_patch_eugridpma_gridppvuln-, ca_policy_igtf-mics-, ca_policy_igtf-slcs-, 
+ca_policy_igtf-classic-) are OK not to be recognized as CA RPMs, so will report the errors)
+
+    ./CE-sft-caver -m
+
+=&gt; 's' for the 1st occurrence of an RPM of 2(!) versions before
+
+(e.g. new release: 13.1 =&gt; 's' for 11.*)
+
+RPMs for this release will not be queried anymore
+
+=&gt; 'y' to RPM release numbers from the previous release
+=&gt; 'y' to RPM release numbers from the new release
+
+     ./CE-sft-caver -T     # Update timestamp in config file to this very moment
+
+(Check if
+    1. warning timeout
+    2. crit. error timeout
+are as they are supposed to be. If not, use the -w, --timeout flags (see ./CE-sft-caver -h for parameters)
+to set up the correct values., e.g.
+
+        ./CE-sft-caver --timeout 192 # (8*24)
+
+Result: up-to-date 
+probes/src/wnjob/org.sam/probes/org.sam/sam/ca_data.dat
+  and
+probes/src/wnjob/org.sam/probes/org.sam/sam/ca_data.conf
+</pre>
+</div></div></li>
+	<li>test the new CA test in Testing</li>
+	<li>commit the changes to SVN trunk</li>
+	<li>tag</li>
+	<li>build RPM from tag</li>
+	<li>"resolve" the JIRA issue</li>
+</ul>
+
+
+<h3><a name="WN-org.sam.WNBi"></a>org.sam.WN-Bi</h3>
+
+<p>Check if BrokerInfo works. It's run with SAM-to-Nagios adapter <tt>samtest-run</tt>.</p>
+
+<p>The procedure is the following:</p>
+<ul>
+	<li>Firstly check if BrokerInfo file is defined in $GLITE_WMS_RB_BROKERINFO,  $GLITE_WL_RB_BROKERINFO or $EDG_WL_RB_BROKERINFO  variables</li>
+	<li>Then try to get CE host name using  edg-brokerinfo getCE or glite-brokerinfo getCE command respectively. If previous command result value if different from 0 test is failed.</li>
+</ul>
+
+
+<h3><a name="WN-org.sam.WNCsh"></a>org.sam.WN-Csh</h3>
+
+<p>Check if CSH works. It's run with SAM-to-Nagios adapter <tt>samtest-run</tt>.</p>
+
+<h3><a name="WN-org.sam.WNSoftVer"></a>org.sam.WN-SoftVer </h3>
+
+<p>Detect the version of midlleware installed on the WN. It's run with SAM-to-Nagios adapter <tt>samtest-run</tt>.</p>
+
+<p>To detect the version lcg-version and glite-version commands are tried and if the commands are not available the script exits with an error.</p>
+
+<h2><a name="WN-ExecutiononWN"></a>Execution on WN</h2>
+
+<p>On WNs statically compiled version of Nagios is used for the probes execution. For a metric to be launched by Nagios one needs to create Nagios service object configuration per metric. For <tt>org.sam.WN-&#42;</tt> metrics configuration is defined in configuration files located in <tt>/usr/libexec/grid-monitoring/probes/org.sam/wnjob/org.sam/etc/wn.d/org.sam/</tt>. For more details on how to integrate your WN probes/metrics with job submission <a href="CE.html#CE-IntegrationofthirdpartyWNchecks">see</a>.</p>
+
+<h2><a name="WN-Troubleshooting"></a>Troubleshooting</h2>
+
+<h3><a name="WN-IncreasingdebuggingonWN"></a>Increasing debugging on WN</h3>
+
+<p>See <a href="CE.html#CE-LoglevelsonWN">Log levels on WN</a>.</p>
+
+<h3><a name="WN-GettinglogsfromWN"></a>Getting logs from WN</h3>
+
+<p>See <a href="CE.html#CE-LogsfromWN">Logs from WN</a>.</p>
+
+<h3><a name="WN-Missingattributesinmessagebody"></a>Missing attributes in message body</h3>
+
+<p>No results from WNs and you are sure that the problem is not with brokers.</p>
+
+<p>Symptom. WN checks are in PENDING. Messages reach Nagios box. You see they are consumed by <tt>msg-to-handler</tt> from destinations</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>$ grep destination /etc/msg-to-handler.d/*.conf</pre>
+</div></div>
+<p> but either all or part of them are not getting into respective local directory queues </p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>$ grep CACHE_DIR /etc/msg-to-handler.d/*.conf</pre>
+</div></div>
+<p> and, as a consequence, Nagios passive results don't reach Nagios command file.</p>
+
+<p>You may see similar messages in <tt>/var/log/messages</tt>:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>Oct 31 07:00:17 samnag013 msg-to-handler[23485]: [WARNING] msg-to-handler: could not handle message
+ID:gridmsg002.cern.ch-41281-1288255386367-4:1287764:-1:1:1: handler warning: Got error creating Nagios
+passive result: Nagios Parser ERROR: Missing attribute hostname. .
+</pre>
+</div></div>
+<p>This message is from one of the handlers defined for <tt>msg-to-handler</tt> in <tt>/etc/msg-to-handler.d/</tt>. NB&#33; In this case [SAM:as of Friday, November 05 2010] message handler doesn't print its name as it is identified in respective <tt>/etc/msg-to-handler.d/*.conf</tt>. You'll have to "map" it yourself.</p>
+
+<p><tt>msg-to-handler</tt> subscribes with auto acknowledge and in case of such failure it doesn't re-sent the messages back to a "dead-queue".</p>
+
+<p>The best would be to consume couple of messages from a destination you are suspecting is has bad messages.</p>
+
+<h3><a name="WN-WNmetricsinPENDING"></a>WN metrics in PENDING</h3>
+
+<p>There can be multiple reasons for that.</p>
+
+<h4><a name="WN-JobSubmitworks.OnlyforsomeCEsWNmetricsinPENDING."></a>JobSubmit works. Only for some CEs WN metrics in PENDING.</h4>
+
+<p>Look into job output (stdout/stderr) of the framework from WN:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>/var/lib/gridprobes/&lt;VO or FQAN&gt;/org.sam/CE/&lt;hostname&gt;/jobOutput*/jobOutput_&lt;jobID&gt;/gridjob.out
+</pre>
+</div></div>
+
+<p>This may give some hints on what is going on. Although, the framework on WN was designed to catch possible problems with its components, some unpredictable configurations of WNs can still lead to unexpected behavior.</p>
+
+<p>Also check : <a href="#WN-IncreasingdebuggingonWN">Increasing debugging on WN</a>, <a href="#WN-GettinglogsfromWN">Getting logs from WN</a></p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-17.1</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-17.1
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jun 18, 2013 by <font color="#0050B2">mbabik</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#Update-17.1-Release%3A'>Release: Update-17.1</a></li>
+<ul>
+    <li><a href='#Update-17.1-Summary'>Summary</a></li>
+    <li><a href='#Update-17.1-ValidationStepsperformed'>Validation Steps performed</a></li>
+    <li><a href='#Update-17.1-Listofpackagesupdatedinthisrelease'>List of packages updated in this release</a></li>
+<ul>
+    <li><a href='#Update-17.1-Nodesamnagios'>Node sam-nagios</a></li>
+    <li><a href='#Update-17.1-Nodesamgridmon'>Node sam-gridmon</a></li>
+</ul>
+    <li><a href='#Update-17.1-ReleaseNotes'>Release Notes</a></li>
+    <li><a href='#Update-17.1-Configurationchanges%28common%29'>Configuration changes (common)</a></li>
+    <li><a href='#Update-17.1-Configurationchanges%28samgridmon%29'>Configuration changes (sam-gridmon)</a></li>
+    <li><a href='#Update-17.1-Configurationchanges%28samnagios%29'>Configuration changes (sam-nagios)</a></li>
+    <li><a href='#Update-17.1-Manualstepsbeforeupgrade'>Manual steps before upgrade</a></li>
+    <li><a href='#Update-17.1-KnownIssues'>Known Issues</a></li>
+    <li><a href='#Update-17.1-Listofnewmetrics'>List of new metrics</a></li>
+    <li><a href='#Update-17.1-ListofIssuesfixedinthisrelease%28Withoutissuesdiscoveredduringvalidation%29'>List of Issues fixed in this release (Without issues discovered during validation)</a></li>
+    <li><a href='#Update-17.1-ListofIssuesfixedinthisrelease%28Discoveredduringnightlyvalidation%29'>List of Issues fixed in this release (Discovered during nightly validation)</a></li>
+</ul>
+</ul></div>
+
+<h1><a name="Update-17.1-Release%3A"></a>Release: Update-17.1</h1>
+
+<h2><a name="Update-17.1-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 25 July 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 26 July 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> Released </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'> 27 August 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Main Activities </td>
+<td class='confluenceTd'> Migration from MDDB to POEM </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+<h2><a name="Update-17.1-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<ul>
+	<li>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-2388">SAM-2388</a> and <a href="https://tomtools.cern.ch/jira/browse/SAM-2218">SAM-2218</a></li>
+	<li>Announced for Stage Rollout - 26 July 2012</li>
+	<li>Cleared staged rollout -  03 August 2012</li>
+	<li>Staged Rollout ticket: <a href="https://rt.egi.eu/rt/Ticket/Display.html?id=4179">&#35;4179</a>** Early Adopter Report - <a href="https://documents.egi.eu/public/ShowDocument?docid=1310">Update-17.1 EA Report</a></li>
+</ul>
+
+
+<h2><a name="Update-17.1-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+<h3><a name="Update-17.1-Nodesamnagios"></a>Node sam-nagios</h3>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>atp-1.23.9-1.el5
+atp-web-1.23.9-1.el5
+glite-yaim-nagios-1.7.40-7.el5
+grid-monitoring-config-gen-0.89.7-1.el5
+grid-monitoring-probes-ch.cern.sam-1.6.2-1.el5
+grid-monitoring-probes-eu.egi.sec-1.0.6-1.el5
+grid-monitoring-probes-org.ndgf-0.10-2.el5
+grid-monitoring-probes-org.sam-0.4.1-1.el5
+mrs-1.7.6-4.el5
+msg-nagios-bridge-1.0.63-1.el5
+mywlcg-1.2.8-3.el5
+nagios-3.3.1-1.el5.rf.1oat
+nagios-plugins-dg-1.0.1-1.el5
+ncg-metric-config-1.0.5-1.el5
+perl-Net-STOMP-Client-1.2-1.el5
+perl-TOM-2.3-1.el5
+poem-0.9.5-1.el5
+poem-sync-0.9.5-1.el5
+sam-nagios-1.17.2-1.el5
+sam-release-1.17.0-1.el5
+sam-sync-1.0.6-1.el5
+unicore-nagios-plugins-2.1.0-1
+unicore-ucc6-5.0.0-1.sl5
+unicore-uvos-clc-1.6.0-0.sl5
+voms2htpasswd-1.12.2-1.el5
+
+New dependencies (not included in the sa1 repository)
+java-1.6.0-openjdk
+tzdata-java
+
+Dependencies removed
+unicore-monitoring-probes
+
+</pre>
+</div></div>
+
+<h3><a name="Update-17.1-Nodesamgridmon"></a>Node sam-gridmon</h3>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ace-0.1.37-1.el5
+atp-1.23.9-1.el5
+atp-web-1.23.9-1.el5
+dax-1.0.7-1.el5
+glite-yaim-nagios-1.7.40-7.el5
+mrs-1.7.6-4.el5
+mywlcg-1.2.8-3.el5
+ncg-metric-config-1.0.5-1.el5
+openreports-3.2.07-2
+perl-Net-STOMP-Client-1.2-1.el5
+perl-TOM-2.3-1.el5
+poem-0.9.5-1.el5
+poem-sync-0.9.5-1.el5
+rgf-1.0.4-1
+sam-gridmon-1.17.2-1.el5
+sam-release-1.17.0-1.el5
+sqlalchemy-0.7.5-4.el5
+voms2htpasswd-1.12.2-1.el5
+
+New dependencies (not included in the sa1 repository)
+PyXML
+curl
+libidn
+python-curl
+</pre>
+</div></div>
+
+<h2><a name="Update-17.1-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>ACE
+	<ul>
+		<li>Possibility of defining algorithm (ANDing or ORing) for service flavours</li>
+		<li>New Nagios probes (for ops-monitor) for monitoring of ACE behaviour.</li>
+		<li>Use associations between ATP groups (Tiers/Sites).</li>
+		<li>Integration with POEM and data migration to POEM</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>ATP
+	<ul>
+		<li>Synchronize all external information sources</li>
+		<li>User authentication in API for retrieving contacts</li>
+		<li>Concurrency improvement: locking mechanism for ATP</li>
+		<li>Keep associations between Tiers/PhysicalSites.</li>
+		<li>Bug fixes.</li>
+	</ul>
+	</li>
+	<li>DAX
+	<ul>
+		<li>New component: Data Transfer Computation Engine - generation of FTS graphs in the MyWLCG portal (only on node sam-gridmon)</li>
+	</ul>
+	</li>
+	<li>glite-yaim-nagios
+	<ul>
+		<li>SAM concurrency improvements</li>
+		<li>Enable filtering of metrics from remote Nagioses</li>
+		<li>Support definition of multiple destinations in msg-consume2db (only sam-gridmon)</li>
+	</ul>
+	</li>
+	<li>grid-monitoring-probes-ch.cern.sam
+	<ul>
+		<li>Probe for checking of deployed SAM-Nagios version</li>
+	</ul>
+	</li>
+	<li>grid-monitoring-probes-eu.egi.sec
+	<ul>
+		<li>Ability to ignore expired CRLs on CRL check</li>
+		<li>Blacklisting directiories in Permission probe</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>MRS
+	<ul>
+		<li>Decomissioning of Nagios metric 'org.egee.MrsCheckMissingProbes'</li>
+		<li>Integration with POEM and data migration to POEM
+		<ul>
+			<li>Computation logic based on POEM</li>
+			<li>New bootstrapping mechanism</li>
+		</ul>
+		</li>
+		<li>Accept new aligned service type names for OSG services</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>MyWLCG
+	<ul>
+		<li>Integration with POEM</li>
+		<li>MyWLCG filters - ANDing by default</li>
+		<li>Integration of Data Transfers (only sam-gridmon)</li>
+		<li>Changes in MyWLCG views:
+		<ul>
+			<li>Hide site names in Gridmap view</li>
+			<li>Removed views: "Service Status" and "Metric Status"</li>
+			<li>Renamed view "Service Status History" to "Service Status"</li>
+			<li>Service Availability: quality bars default, remove the labels below the Apply button, round the avail number shown in hint to 2 decimal numbers</li>
+		</ul>
+		</li>
+		<li>Simple benchmark for API</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>Nagios
+	<ul>
+		<li>Integration with new version of Nagios Core (3.3.1)</li>
+	</ul>
+	</li>
+	<li>NCG
+	<ul>
+		<li>Integration with POEM</li>
+		<li>Don't use old SAM PI for getting remote metric results</li>
+		<li>Use ATP for retrieving service endpoints and users information</li>
+		<li>Service ncg is replaced with sam-sync (see <a href="https://tomtools.cern.ch/jira/browse/SAM-2518">SAM-2518</a>). Yaim variable NAGIOS_NCG_ENABLE_CRON is removed and Yaim will always switch on service sam-sync. In order to switch off automatic config generation one must switch off sam-sync after each Yaim run.</li>
+		<li>Script ncg.reload.sh does not execute external components anymore (i.e. atp, mddb and mrs sync). Script can now be used for simple changes in NCG config (e.g. localdb changes) without waiting for synchronizers to finish.</li>
+		<li>NCG::LocalMetrics::Hash is disabled and only NCG::LocalMetrics::POEM is used. Exception are site and security roles. Yaim variables NCG_HASH_CONFIG_PROFILES, NCG_PROFILE_FQAN_&#42; are removed. Profiles and FQAN mappings should be defined in POEM profile.</li>
+		<li>NCG::LocalMetrics::Hash_local module is obsoleted. Metric configuration files and POEM profiles should be used instead.</li>
+		<li>DesktopGrid probes are integrated into SAM(see <a href="https://tomtools.cern.ch/jira/browse/SAM-2421">SAM-2421</a>). In order for probes to be properly configured URL field in GOCDB must point to URL where XML reports are stored (e.g. <a href="http://edgi-bridge.ibercivis.es/3gbridge_report_dir">http://edgi-bridge.ibercivis.es/3gbridge_report_dir</a>). No additional steps on SAM box are needed for probes to work.</li>
+		<li>Starting from Update-17.1 packages unicore-ucc and unicore-uvos-clc needed for UNICORE probes are distributed as part of SAM and manual installation is NOT needed.</li>
+		<li>Several bug fixes</li>
+	</ul>
+	</li>
+	<li>POEM
+	<ul>
+		<li>Import mddb profiles via yaim</li>
+		<li>Concurrency improvement: locking mechanism for POEM</li>
+		<li>Service poem-sync replaces mddb-sync to synchronizes profiles and metrics.</li>
+		<li>For NGI-Nagios migration is transparent and no changes need to be applied.</li>
+		<li>For VO-Nagioses namespace needs to be established with a profile that will determine how Nagios, MRS and MyEGI are configured. Please follow VO-Nagios section at <a href="https://tomtools.cern.ch/confluence/display/SAMDOC/Installing+SAM+Update-17.1">Installing SAM/Nagios guide</a></li>
+		<li>POEM User's Guide is available at <a href="POEM User's Guide.html" title="POEM User's Guide">POEM User's Guide</a></li>
+	</ul>
+	</li>
+	<li>RGF (only for sam-gridmon)
+	<ul>
+		<li>Report generation framework</li>
+		<li>New package for generating ACE reports</li>
+		<li>Integration with POEM</li>
+	</ul>
+	</li>
+	<li>voms2htpasswd
+	<ul>
+		<li>Take data from ATP for configuring file '/etc/nagios/htpasswd.users'</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<h2><a name="Update-17.1-Configurationchanges%28common%29"></a>Configuration changes (common)</h2>
+
+<ul>
+	<li>POEM configuration<br/>
+See <a href="POEM User's Guide.html" title="POEM User's Guide">POEM User's Guide</a>.
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>For NGI-Nagios migration is transparent and no changes need to be applied.</td></tr></table></div></li>
+	<li>New Yaim configuration variables:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>MYEGI_DEFAULT_PROFILE - default profile in MyEGI (default: ROC_CRITICAL)
+MYWLCG_THROTTLE - If THROTTLE is set to True, limit the number of accesses per IP address in a given time in seconds (default: False)
+POEM_WEB_ENABLE - enable poem web instance (default on SAM-Gridmon)
+POEM_NAMESPACE - poem web instance namespace (default: 'ch.cern.sam')
+POEM_ATP_ROOT_URL - poem web instance ATP URL (default: "http://localhost")
+POEM_IMPORT_FROM_MDDB - if True bootstrap profiles from MDDB otherwise use a fixture file (default: False)
+POEM_DEBUG - enable poem web instance debug
+POEM_ADMIN_NAME - poem web instance admin name
+POEM_ADMIN_EMAIL - poem web instance admin e-mail
+POEM_SYNC_URLS - URLs to synchronize from (pointing to poem web instances; sam-nagios defaults to grid-monitoring; sam-gridmon defaults to localhost)
+POEM_SYNC_NS_RESTRICT - restrict synchronization of profiles for given namespace (space separated namespace!profile values)
+</pre>
+</div></div></li>
+</ul>
+
+
+<h2><a name="Update-17.1-Configurationchanges%28samgridmon%29"></a>Configuration changes (sam-gridmon)</h2>
+
+<ul>
+	<li>Ask for explicit grant to create tables (not coming from role) for main Oracle account.</li>
+	<li>New Yaim configuration variables:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>DAX_MSG_HOST - Substitutes the name of the Broker host in the consumer configuration of DAX component (Default: "dashb-mb")
+MYWLCG_DATA_TRANSFER Enables Data Transfer Module in MyWLCG (Default: False)
+MYWLCG_DT_VO_OTHERS_LIMIT Place VOs in category 'Others' when total aggregated data tranfer or avg. throughput less than MYWLCG_DT_VO_OTHERS_LIMIT (Default: 2)
+MYWLCG_DT_SRCSITE_OTHERS_LIMIT - Place Source Sites in category 'Others' when total aggregated data tranfer or avg. throughput less than MYWLCG_DT_SRCSITE_OTHERS_LIMIT (Default: 2)
+MYWLCG_DT_DSTSITE_OTHERS_LIMIT - Place Destination Sites in category 'Others' when total aggregated data tranfer or avg. throughput less than MYWLCG_DT_DSTSITE_OTHERS_LIMIT (Default: 5)
+OPENREPORTS_ADMIN - admin user for openreports.
+OPENREPORTS_ADMIN_PASS - admin password for openreports.
+</pre>
+</div></div></li>
+</ul>
+
+
+<h2><a name="Update-17.1-Configurationchanges%28samnagios%29"></a>Configuration changes (sam-nagios)</h2>
+
+<ul>
+	<li>New Yaim configuration variables:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ATP_ROOT_URL - default value https://grid-monitoring.cern.ch/atp (Always needs to be https).
+NCG_CONTACTS_USE_ATP - use ATP to generate contact lists, requires NCG_TOPOLOGY_USE_ATP to be set (default: true)
+NCG_POEM_ROOT_URL - URL of POEM sync that NCG will use (default: "http://localhost/poem_sync")
+NCG_REMOTE_NAGIOS_HOSTS - list of hosts from where results will be imported, used only on site instance if NCG_REMOTE_USE_NAGIOS is true
+</pre>
+</div></div></li>
+	<li>Changed semantics of YAIM variables
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>NCG_TOPOLOGY_USE_ATP - switches on both NCG::SiteSet and NCG::SiteInfo, also required for NCG::SiteContacts (default: true)
+NCG_TOPOLOGY_USE_GOCDB - switches on both NCG::SiteSet and NCG::SiteInfo, also required for NCG::SiteContacts (default: false)
+NCG_TOPOLOGY_USE_LDAP - switches on both NCG::SiteInfo and NCG::LocalMetricsAttrs (default: false)
+</pre>
+</div></div></li>
+	<li>Removed YAIM variables
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>NCG_MDDB_SUPPORTED_PROFILES
+NCG_HASH_CONFIG_PROFILES
+NCG_PROFILE_FQAN_*
+MDDB_SYNC_TIMEOUT
+NAGIOS_NCG_ENABLE_CRON
+NCG_TOPOLOGY_ATP_ROOT_URL
+NCG_TOPOLOGY_USE_SAM
+NCG_TOPOLOGY_USE_ENOC
+NCG_REMOTE_USE_ENOC
+</pre>
+</div></div></li>
+	<li>Removed localdb configuration options (definition of metrics in localdb):
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ADD_PROFILE_SERVICE_METRIC!profile!service!metric
+METRIC_PROBE!metric!probe
+METRIC_METRICSET!metric!metricset
+METRIC_DOCURL!metric!url
+METRIC_NATIVE!metric!native
+METRIC_CONFIG!metric!config!value
+METRIC_DEPENDENCY!metric!metricParent!value
+METRIC_ATTRIBUTE!metric!attribute!value
+METRIC_FLAG!metric!flag
+METRIC_PARENT!metric!parent
+</pre>
+</div></div></li>
+</ul>
+
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>New version of ARC probes provides new config file /etc/grid-monitoring/org.ndgf.conf. After upgrade make sure that new version is used:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mv /etc/grid-monitoring/org.ndgf.conf.rpmnew /etc/grid-monitoring/org.ndgf.conf</pre>
+</div></div>
+<p>New probes require creation of new testfile for LFC service. Create ops voms proxy and execute following commands as non privileged user:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">. /etc/grid-monitoring/org.ndgf.conf
+hostname -f &amp;gt; /tmp/testfile
+ngcp file:///tmp/testfile lfc://$LFC_PHYSICAL_URL/testfile@$LFC_HOST$LFC_LOGICAL_PATH/testfile</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>In the SAM Update-17 UNICORE configuration is slightly different:
+<ul>
+	<li>NCG_TOPOLOGY_USE_GOCDB should not be set to true</li>
+	<li>Global registry URL should be defined via localdb files.</li>
+</ul>
+
+
+<p>For details see: <a href="https://tomtools.cern.ch/confluence/pages/viewpage.action?pageId=39157787#SAMsetupforUNICOREservices-SAMconfiguration">https://tomtools.cern.ch/confluence/pages/viewpage.action?pageId=39157787#SAMsetupforUNICOREservices-SAMconfiguration</a>.</p></td></tr></table></div>
+
+<h2><a name="Update-17.1-Manualstepsbeforeupgrade"></a>Manual steps before upgrade</h2>
+
+<p>Apply following steps before YAIM execution (only when doing upgrade, not needed for clean sam-Nagios installations):</p>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>There's wrong version of perl-Directory-Queue in the EGI repository (perl-Directory-Queue-1.6-1.el5).<br/>
+The correct version is perl-Directory-Queue-1.1-1.el5, which can be taken from the SAM repository<br/>
+(<a href="http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/centos5/x86_64/">http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/centos5/x86_64/</a>)<br/>
+Please downgrade it before doing next steps.</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Ensure that no processes are updating the database during the DB upgrade and delete obsolete metrics:
+<ul>
+	<li>Block execution of Nagios check org.egee.SendToMetricStore<br/>
+Change temporarily password in /etc/nagios/plugins/send_to_db.ini:<br/>
+Check if this Nagios check fails after your change, e.g. <a href="https://sam-cern-roc.cern.ch/nagios/cgi-bin/extinfo.cgi?type=2&amp;host=sam-cern-roc.cern.ch&amp;service=org.egee.SendToMetricStore">org.egee.SendToMetricStore</a></li>
+	<li>Drop mysql events
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql -h &amp;lt;host&amp;gt; -u &amp;lt;user&amp;gt; -p</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">use mrs;</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">DROP EVENT IF EXISTS `REMOVE_SERVICES_AND_SITES_EVENT`;</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">exit;</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">[root\]# cd /usr/share/doc/mrs-*/DBScripts/upgrades/1.11/mysql/</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql -h &amp;lt;host&amp;gt; -u &amp;lt;user&amp;gt; -p</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">source drop_events.sql;</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">show events;</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">exit;</pre>
+</div></div>
+<p>You shouldn't see `REMOVE_SERVICES_AND_SITES_EVENT`, 'calcMetricFreq_event', `loadmetricdata_event` nor `purgeMetricStore_event`</p></li>
+	<li>Ensure that no SQL processes are updating the DB.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql -h &amp;lt;host&amp;gt; -u &amp;lt;user&amp;gt; -p</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">show processlist;</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">exit;</pre>
+</div></div>
+	<ul>
+		<li>You should see just 2 sessions: event_scheduler and your session you are now connected with.</li>
+		<li>You shouldn't see any sessions where SQL is being executed.
+		<ul>
+			<li>Wait if it's the case.</li>
+			<li>Kill these sessions if they don't finish in reasonable time.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+	<li>Delete obsolete metrics<br/>
+Several metrics, which existed in MDDB, have been removed from POEM (see <a href="https://tomtools.cern.ch/jira/browse/SAM-2934">SAM-2934</a>).<br/>
+To remedy this, download following files: <a href="attachments/35651613/37879810.sql">delete_obsolete_metrics_proc.sql</a> and <a href="attachments/35651613/38436867.sql">delete_obsolete_profiles.sql</a>, <a href="attachments/35651613/38436868.sql">delete_obsolete_metrics_from_mrs.sql</a>.<br/>
+Then run following commands in MySQL:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql -h &amp;lt;host&amp;gt; -u &amp;lt;user&amp;gt; mrs -p &amp;lt; delete_obsolete_metrics_proc.sql
+mysql -h &amp;lt;host&amp;gt; -u &amp;lt;user&amp;gt; mrs -p &amp;lt; delete_obsolete_profiles.sql
+mysql -h &amp;lt;host&amp;gt; -u &amp;lt;user&amp;gt; mrs -p &amp;lt; delete_obsolete_metrics_from_mrs.sql</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql -h &amp;lt;host&amp;gt; -u &amp;lt;user&amp;gt;  mrs -p</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql&amp;gt; call delete_obsolete_profiles(1000);
+mysql&amp;gt; DROP PROCEDURE IF EXISTS delete_obsolete_metrics;
+mysql&amp;gt; DROP PROCEDURE IF EXISTS delete_obsolete_profiles;</pre>
+</div></div></li>
+	<li>Run YAIM as during normal upgrade (apply all Configuration Changes first)</li>
+	<li>Create MySQL event
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">mysql -h &amp;lt;host&amp;gt; -u &amp;lt;user&amp;gt; -p</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">use mrs;</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">CREATE EVENT `REMOVE_SERVICES_AND_SITES_EVENT` ON SCHEDULE EVERY 15 MINUTE
+STARTS CURRENT_TIMESTAMP DO CALL REMOVE_SERVICES_AND_SITES();</pre>
+</div></div>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">exit;</pre>
+</div></div></li>
+</ul>
+</td></tr></table></div>
+
+<h2><a name="Update-17.1-KnownIssues"></a>Known Issues</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>If you're experiencing MDDB synchronizer error during yaim please comment the following line in /opt/glite/yaim/functions/config_mddb:<br/>
+su nagios &#45;l &#45;c "/usr/bin/check_mddb_sync &#45;t $MDDB_SYNC_TIMEOUT"</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>New package <a href="http://www.sysadmin.hep.ac.uk/rpms/egee-SA1/centos5-testing/x86_64/grid-monitoring-probes-org.sam-0.5.7-1.el5.noarch.rpm">grid-monitoring-probes-org.sam-0.5.7-1.el5</a> solves the problem of running org.sam.WN&#42; check on SL6 platform. More details can be found here: <a href="https://tomtools.cern.ch/jira/browse/SAM-2999">https://tomtools.cern.ch/jira/browse/SAM-2999</a>. This package contains nagios binary that cannot be executed on 32-bit architecture and fails on some older WN platforms behind CE service type. Deployment of this package will cause CE service type tests to become UNKNOWN.</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Due to <a href="attachments/35651613/37879810.sql">SAM-2878</a> NGI Nagioses do not test services that are NOT in production.<br/>
+If you need to test "non production" services replace file /usr/lib/perl5/vendor_perl/5.8.5/NCG/SiteInfo/ATP.pm from grid-monitoring-config-gen-0.89.7-1.el5 by the attached file <a href="attachments/35651613/36110347.pm">SiteInfo/ATP.pm</a><br/>
+Note that this patch has a side effect and Sites in candidate, certification or suspended status will be also monitored.<br/>
+These sites can be removed manually by modification of file /etc/ncg/ncg.localdb, e.g.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">REMOVE_SITE!CERN-PROD</pre>
+</div></div>
+<p>ncg needs to be executed after this change.</p></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>For machines running latest version of glite-UI (3.2.10-1 or higher):<br/>
+Please restart Nagios after yaim execution. Otherwise you may see problems similar to <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Machines running dax component (only sam-gridmon) need to get registered in the Msg Broker host for enabling the consumer to consume FTS messages.</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>There is a bug in Yaim function and NCG_BACKUP_INSTANCE is not properly updated (<a href="https://tomtools.cern.ch/jira/browse/SAM-2797">https://tomtools.cern.ch/jira/browse/SAM-2797</a>). If you switch from backup to active instance, variable BACKUP_INSTANCE in /etc/sysconfig/ncg will stay and keep the instance not sending data out. Solution is to remove /etc/sysconfig/ncg and rerun Yaim.</td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Because of a MRS bug (<a href="https://tomtools.cern.ch/jira/browse/SAM-3013">https://tomtools.cern.ch/jira/browse/SAM-3013</a>) vo independent metrics are not added to statuschange_service_profile on MySQL.<br/>
+In order to fix it, please download the patch.sql attached (<a href="attachments/35651613/41811970.sql">patch.sql</a>) and deploy it (connected to your mysql db) with:<br/>
+source patch.sql;</td></tr></table></div>
+
+<h2><a name="Update-17.1-Listofnewmetrics"></a>List of new metrics</h2>
+
+<p>dg.CREAM-CE:</p>
+<ul>
+	<li>dg.FinishedJobs - <a href="http://www.edgi-grid.eu/downloads/EGI-EDGI-Monitoring/egi-edgi-monitoring-documentation.txt">more info</a></li>
+</ul>
+
+
+<p>dg.ARC-CE:</p>
+<ul>
+	<li>dg.FinishedJobs - <a href="http://www.edgi-grid.eu/downloads/EGI-EDGI-Monitoring/egi-edgi-monitoring-documentation.txt">more info</a></li>
+</ul>
+
+
+<p>dg.TargetSystemFactory:</p>
+<ul>
+	<li>dg.FinishedJobs - <a href="http://www.edgi-grid.eu/downloads/EGI-EDGI-Monitoring/egi-edgi-monitoring-documentation.txt">more info</a></li>
+</ul>
+
+
+<h2><a name="Update-17.1-ListofIssuesfixedinthisrelease%28Withoutissuesdiscoveredduringvalidation%29"></a>List of Issues fixed in this release (Without issues discovered during validation)</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+<h2><a name="Update-17.1-ListofIssuesfixedinthisrelease%28Discoveredduringnightlyvalidation%29"></a>List of Issues fixed in this release (Discovered during nightly validation)</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    					    <br/>
+                        <div class="tabletitle">
+                            <a name="attachments">
+                                <h2>Attachments:</h2>
+                            </a>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/35651613/36110347.pm">ATP.pm</a> (text/x-perl-script)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/35651613/37879810.sql">delete_obsolete_metrics_proc.sql</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/35651613/38436867.sql">delete_obsolete_profiles.sql</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/35651613/38436868.sql">delete_obsolete_metrics_from_mrs.sql</a> (application/octet-stream)
+                                <br/>
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/35651613/41811970.sql">patch.sql</a> (application/octet-stream)
+                                <br/>
+                                                    </div>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

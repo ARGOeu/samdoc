@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : WLCG Critical Metrics</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : WLCG Critical Metrics
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jan 27, 2014 by <font color="#0050B2">mbabik</font>.
+				    </div>
+
+				    <p>The document describes the critical metrics that are currently used for the generation of the WLCG reports. Draft reports for the new joint T1/T2 reporting are based on the listed metrics and can be found in the SAM document repository (<a href="http://sam-reports.web.cern.ch/sam-reports/2013/">http://sam-reports.web.cern.ch/sam-reports/2013/</a>). Metrics are grouped into profiles for each experiment and are executed from the CERN experiment Nagioses using experiment credentials.</p>
+
+<h4><a name="WLCGCriticalMetrics-ALICE%28Profile%3AALICECRITICAL%2CSAM%2FNagios%3Ahttps%3A%2F%2Fsamaliceprod.cern.ch%2Fnagios%29"></a>ALICE (Profile: ALICE_CRITICAL, SAM/Nagios: <a href="https://sam-alice-prod.cern.ch/nagios">https://sam-alice-prod.cern.ch/nagios</a>)</h4>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Metric name </th>
+<th class='confluenceTh'> Description </th>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CREAMCE-DirectJobSubmit <br class="atl-forced-newline" />
+ (or emi.cream.CREAMCE-DirectJobSubmit) </td>
+<td class='confluenceTd'> Basic direct job submission test to CREAMCE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CE-JobSubmit <br class="atl-forced-newline" />
+ (or emi.ce.CREAMCE-JobSubmit) </td>
+<td class='confluenceTd'> Basic job submission test to computing element executed with a payload (worker node tests) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.WN-SoftVer </td>
+<td class='confluenceTd'> Detects the version of midlleware installed on the WN. </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+
+<h4><a name="WLCGCriticalMetrics-ATLAS%28Profile%3AATLASCRITICAL%2CSAM%2FNagios%3Ahttps%3A%2F%2Fsamatlasprod.cern.ch%2Fnagios%29"></a>ATLAS (Profile: ATLAS_CRITICAL, SAM/Nagios: <a href="https://sam-atlas-prod.cern.ch/nagios">https://sam-atlas-prod.cern.ch/nagios</a>)</h4>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Metric name </th>
+<th class='confluenceTh'> Description </th>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CE-JobSubmit <br class="atl-forced-newline" />
+ (or emi.ce.CREAMCE-JobSubmit) </td>
+<td class='confluenceTd'> Basic job submission test to computing element executed with a payload (worker node tests) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.atlas.WN-swspace </td>
+<td class='confluenceTd'> Checks existence and sanity of VO_ATLAS_SW_DIR environment variable </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.atlas.SRM-VODel </td>
+<td class='confluenceTd'> Delete given file(s) from SRM. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.atlas.SRM-VOGet </td>
+<td class='confluenceTd'> Copy given remote file(s) from SRM to a local file. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.atlas.SRM-VOPut </td>
+<td class='confluenceTd'> Copy a local file to the SRM into default space area(s). </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+
+<h4><a name="WLCGCriticalMetrics-CMS%5C%28Profile%3ACMSCRITICAL%2CSAM%2FNagios%3Ahttps%3A%2F%2Fsamcmsprod.cern.ch%2Fnagios%29"></a>CMS <sup>&#42;</sup> (Profile: CMS_CRITICAL, SAM/Nagios: <a href="https://sam-cms-prod.cern.ch/nagios">https://sam-cms-prod.cern.ch/nagios</a>)</h4>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Metric name </th>
+<th class='confluenceTh'> Description </th>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CE-JobSubmit <br class="atl-forced-newline" />
+ (or emi.ce.CREAMCE-JobSubmit) </td>
+<td class='confluenceTd'> Basic job submission test to computing element executed with a payload (worker node tests) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CREAMCE-DirectJobSubmit <br class="atl-forced-newline" />
+ (or emi.cream.CREAMCE-DirectJobSubmit) </td>
+<td class='confluenceTd'> Basic direct job submission test to CREAMCE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.cms.WN-env </td>
+<td class='confluenceTd'> Verify basic WN setup, CMS-independent and print some useful information </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.cms.glexec.WN-gLExec <sup>&#42;&#42;</sup> </td>
+<td class='confluenceTd'> Run a bare glexec test and verify that the uid/gid is changed </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.cms.SRM-VOGet </td>
+<td class='confluenceTd'> Copy given remote file(s) from SRM to a local file. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.cms.SRM-VOPut </td>
+<td class='confluenceTd'> Copy a local file to the SRM into default space area(s). </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.cms.SRM-GetPFNFromTFC </td>
+<td class='confluenceTd'> Use Trivial File Catalogue to perform LFN to PFN matching </td>
+</tr>
+</tbody></table>
+</div>
+
+
+<p><sup>&#42;</sup> Full documentation for all CMS metrics is available at&nbsp;<a href="https://twiki.cern.ch/twiki/bin/view/CMSPublic/CompOpsSAMTests#Current_test_list">https://twiki.cern.ch/twiki/bin/view/CMSPublic/CompOpsSAMTests#Current_test_list</a><br/>
+<sup>&#42;&#42;</sup> CRITICAL errors are&nbsp;<font color="">downgraded to WARNING until WLCG MB and CMS decide that a glexec failure&nbsp;</font><font color="#222222">should make the site to be considered unavailable.</font></p>
+
+<h4><a name="WLCGCriticalMetrics-LHCb%28Profile%3ALHCBCRITICAL%2CSAM%2FNagios%3Ahttps%3A%2F%2Fsamlhcbprod.cern.ch%2Fnagios%29"></a>LHCb (Profile: LHCB_CRITICAL, SAM/Nagios: <a href="https://sam-lhcb-prod.cern.ch/nagios">https://sam-lhcb-prod.cern.ch/nagios</a>)</h4>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Metric name </th>
+<th class='confluenceTh'> Description </th>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CE-JobSubmit <br class="atl-forced-newline" />
+ (or emi.ce.CREAMCE-JobSubmit) </td>
+<td class='confluenceTd'> Basic job submission test to computing element executed with a payload (worker node tests) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CREAMCE-DirectJobSubmit <br class="atl-forced-newline" />
+ (or emi.cream.CREAMCE-DirectJobSubmit) </td>
+<td class='confluenceTd'> Basic direct job submission test to CREAMCE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.WN-sft-brokerinfo </td>
+<td class='confluenceTd'> Check if BrokerInfo works. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.WN-sft-csh </td>
+<td class='confluenceTd'> Check if CSH works. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.WN-sft-lcg-rm-gfal </td>
+<td class='confluenceTd'> Check if $LCG_GFAL_INFOSYS variable is set </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.WN-sft-vo-swdir </td>
+<td class='confluenceTd'> Check existence and sanity of VO_LHCB_SW_DIR environment variable </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.WN-sft-voms </td>
+<td class='confluenceTd'> Check VOMS proxy extensions </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.LFC-Ping </td>
+<td class='confluenceTd'> Ping LFC service (service level ping). </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.LFC-Read </td>
+<td class='confluenceTd'> Test if an entry in the catalog can be read. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.LFC-Readdir </td>
+<td class='confluenceTd'> Time how long it takes to read a directory (/grid). </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.LFC-Replicate </td>
+<td class='confluenceTd'> Tests oracle replication and will be removed as it's not needed anymore </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.SRM-GetLHCbInfo </td>
+<td class='confluenceTd'> Retrieve the SRM endpoint information from Dirac </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.SRM-VODel </td>
+<td class='confluenceTd'> Delete given file(s) from SRM. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.SRM-VOGet </td>
+<td class='confluenceTd'> Copy given remote file(s) from SRM to a local file. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.SRM-VOPut </td>
+<td class='confluenceTd'> Copy a local file to the SRM into default space area(s). </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.SRM-VOLs </td>
+<td class='confluenceTd'> List the previously copied file in SRM </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.lhcb.SRM-VOLsDir </td>
+<td class='confluenceTd'> List the top level directories of the SRM areas </td>
+</tr>
+</tbody></table>
+</div>
+
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

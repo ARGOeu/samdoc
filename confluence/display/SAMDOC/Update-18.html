@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : Update-18</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : Update-18
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Nov 23, 2012 by <font color="#0050B2">prodrigu</font>.
+				    </div>
+
+				    <h1><a name="Update-18-Release%3A"></a>Release: Update-18</h1>
+
+<h2><a name="Update-18-Summary"></a>Summary</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Start Date </td>
+<td class='confluenceTd'> 03 May 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> End Date </td>
+<td class='confluenceTd'> 19 June 2012 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Status </td>
+<td class='confluenceTd'> <font color="red">This is internal release, please don't install it</font> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Date </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> Release Manager </td>
+<td class='confluenceTd'> Wojciech Lapka </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Main Activities </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+<h2><a name="Update-18-ValidationStepsperformed"></a>Validation Steps performed</h2>
+
+<p>Outlined in <a href="https://tomtools.cern.ch/jira/browse/SAM-2660">SAM-2660</a></p>
+
+<h2><a name="Update-18-Listofpackagesupdatedinthisrelease"></a>List of packages updated in this release</h2>
+
+
+
+<h3><a name="Update-18-Nodesamnagios"></a>Node sam-nagios</h3>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>
+</pre>
+</div></div>
+
+<h3><a name="Update-18-Nodesamgridmon"></a>Node sam-gridmon</h3>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>
+</pre>
+</div></div>
+
+<h2><a name="Update-18-ReleaseNotes"></a>Release Notes</h2>
+
+<ul>
+	<li>ACE
+	<ul>
+		<li>Improved recomputations</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>ATP
+	<ul>
+		<li>VOFeed validation logs added to ATP probe</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>DAX
+	<ul>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>glite-yaim-nagios
+	<ul>
+		<li>Removed MDDB configuration</li>
+	</ul>
+	</li>
+	<li>grid-monitoring-probes-ch.cern.sam
+	<ul>
+		<li>Metric 'MRSCheckDBInsertsDetailed' allows now on testing single NGI</li>
+	</ul>
+	</li>
+	<li>MRS
+	<ul>
+		<li>Log information about status of execution of MySQL events</li>
+		<li>Improvement of logging mechanism</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>MyWLCG
+	<ul>
+		<li>Trends dashboard: availability/reliability trends, Experiment usage</li>
+		<li>Layout improvements</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>NCG
+	<ul>
+		<li>Consume VO Nagios results in a Site Nagios instance</li>
+		<li>Removed probe 'org.nagios.NCGPidFile'</li>
+		<li>Added probe 'org.nagiosexchange.NCGLogFiles'</li>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+	<li>POEM
+	<ul>
+		<li>Bug fixes</li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Update-18-Configurationchanges%28common%29"></a>Configuration changes (common)</h2>
+
+<p>New Yaim configuration variables:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre></pre>
+</div></div>
+
+
+<h2><a name="Update-18-Configurationchanges%28samgridmon%29"></a>Configuration changes (sam-gridmon)</h2>
+
+<p>New Yaim configuration variables:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre></pre>
+</div></div>
+
+<h2><a name="Update-18-Configurationchanges%28samnagios%29"></a>Configuration changes (sam-nagios)</h2>
+
+<p>New Yaim configuration variables:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre></pre>
+</div></div>
+
+<p>Removed YAIM variables</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>MDDB_SYNC_TIMEOUT
+</pre>
+</div></div>
+
+<h2><a name="Update-18-KnownIssues"></a>Known Issues</h2>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>For machines running latest version of glite-UI (3.2.10-1 or higher):<br/>
+Please restart Nagios after yaim execution. Otherwise you may see problems similar to <a href="https://tomtools.cern.ch/jira/browse/SAM-1693">SAM-1693</a>.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">service nagios restart</pre>
+</div></div></td></tr></table></div>
+
+<div class='panelMacro'><table class='noteMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Upgrading a node with yum requires a package exclusion, e.g.:
+<ol>
+	<li>on sam-nagios
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum update --exclude sam-gridmon</pre>
+</div></div></li>
+</ol>
+
+
+<ol>
+	<li>on sam-gridmon
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="theme: Confluence; brush: java; gutter: false">yum update --exclude sam-nagios</pre>
+</div></div></li>
+</ol>
+</td></tr></table></div>
+
+<h2><a name="Update-18-ListofIssuesfixedinthisrelease"></a>List of Issues fixed in this release</h2>
+
+<div class="error"><span class="error">jiraissues: Unable to determine if sort should be enabled.</span> </div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

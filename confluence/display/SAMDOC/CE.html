@@ -1,0 +1,795 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>SAM Doc : CE</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            SAM Doc : CE
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Dec 09, 2010 by <font color="#0050B2">kskaburs</font>.
+				    </div>
+
+				    <div>
+<ul>
+    <li><a href='#CE-CEprobe'>CE-probe</a></li>
+    <li><a href='#CE-CEMetrics'>CE Metrics</a></li>
+<ul>
+    <li><a href='#CE-org.sam.CEJobState'>org.sam.CE-JobState</a></li>
+    <li><a href='#CE-org.sam.CEJobSubmit'>org.sam.CE-JobSubmit</a></li>
+    <li><a href='#CE-org.sam.CEJobMonit'>org.sam.CE-JobMonit</a></li>
+</ul>
+    <li><a href='#CE-Jobsubmission'>Job submission</a></li>
+<ul>
+    <li><a href='#CE-SubmissionandMonitoring'>Submission and Monitoring</a></li>
+    <li><a href='#CE-IntegrationofthirdpartyWNchecks'>Integration of third-party WN checks</a></li>
+    <li><a href='#CE-ProvidingJDL'>Providing JDL</a></li>
+    <li><a href='#CE-%22Thirdparty%22JDL'>"Third-party" JDL</a></li>
+    <li><a href='#CE-LogsfromWN'>Logs from WN</a></li>
+    <li><a href='#CE-LoglevelsonWN'>Log levels on WN</a></li>
+    <li><a href='#CE-NaigosandmessagingonWN'>Naigos and messaging on WN</a></li>
+<ul>
+    <li><a href='#CE-nagrun.sh'>nagrun.sh</a></li>
+    <li><a href='#CE-MTA'>MTA</a></li>
+</ul>
+</ul>
+    <li><a href='#CE-Troubleshooting'>Troubleshooting</a></li>
+<ul>
+    <li><a href='#CE-Manualjobsubmissionandmonitoring'>Manual job submission and monitoring</a></li>
+</ul>
+</ul></div>
+
+<h2><a name="CE-CEprobe"></a>CE-probe</h2>
+
+<p>CE-probe</p>
+
+
+<h2><a name="CE-CEMetrics"></a>CE Metrics</h2>
+
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> <b>Name</b> </td>
+<td class='confluenceTd'> <b>Description</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CE-JobState </td>
+<td class='confluenceTd'> [SAM:Active+Passive]. Submits grid job to CE. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CE-JobMonit </td>
+<td class='confluenceTd'> [SAM:Active]. Monitors grid jobs submitted to CEs. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> org.sam.CE-JobSubmit </td>
+<td class='confluenceTd'> [SAM:Passive]. Holds terminal status of job submission to CE. </td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+<h3><a name="CE-org.sam.CEJobState"></a>org.sam.CE-JobState</h3>
+
+<p>Active + Passive check. By default active check is assumed to be run hourly.</p>
+
+<ul>
+	<li>submits grid job to CE
+	<ul>
+		<li>stores active job attributes into /&lt;metric work dir&gt;/activejob.map. The file acts as a lock and prevents submission of next jobs. activejob.map file is removed in two cases: 1). by <tt>org.sam.CE-JobMonit</tt> when job enters terminal state; 2). by <tt>org.sam.CE-JobState</tt> when global timeout for running job is exceeded (<tt>&#45;-timeout-job-discard</tt> defaults to 6h). To force next submission one can simply remove the file.</li>
+	</ul>
+	</li>
+	<li>accepts passive check results (from <tt>org.sam.CE-JobMonit</tt>) for submitted grid job
+	<ul>
+		<li>holds a status of the grid job. When grid job enters terminal state (as seen by <tt>org.sam.CE-JobMonit</tt>) its status is passively updated by <tt>org.sam.CE-JobMonit</tt> according to job's state.</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+
+<h3><a name="CE-org.sam.CEJobSubmit"></a>org.sam.CE-JobSubmit</h3>
+
+<p>Passive check.</p>
+
+<ul>
+	<li>holds terminal status of job submission to CE (mapping from gLite job terminal states [SAM:'Done','Aborted','Canceled'] to Nagios status [SAM:OK,WARNING,CRITICAL,UNKNOWN])</li>
+	<li>passively updated by <tt>org.sam.CE-JobMonit</tt>.</li>
+</ul>
+
+
+<h3><a name="CE-org.sam.CEJobMonit"></a>org.sam.CE-JobMonit</h3>
+
+<p>Active check. By default runs each 5 min.</p>
+
+<ul>
+	<li>monitors status of all submitted jobs (as defined in <tt>activejob.map</tt> files) and updates states of <tt>org.sam.CE-JobState</tt> and <tt>org.sam.CE-JobMonit</tt> metrics. Acts as a babysitter for all grid jobs submitted by <tt>org.sam.CE-JobState</tt>. <tt>org.sam.CE-JobState</tt> and <tt>org.sam.CE-JobMonit</tt> are updated (as passive checks) either via Naigos command file or NSCA.</li>
+</ul>
+
+
+
+<h2><a name="CE-Jobsubmission"></a>Job submission</h2>
+
+<h3><a name="CE-SubmissionandMonitoring"></a>Submission and Monitoring</h3>
+
+<p>According to WMS Job State Machine (<a href="https://edms.cern.ch/document/572489">link p.17</a>) job can be in the following states</p>
+
+<ul>
+	<li>non-terminal <tt>Submitted</tt>, <tt>Waiting</tt>, <tt>Ready</tt>, <tt>Scheduled</tt>, <tt>Running</tt>
+	<ul>
+		<li><tt>Submitted</tt>: job is entered by the user to the UI but not yet transferred to NS for processing</li>
+		<li><tt>Waiting</tt>: job has been accepted by NS and is waiting for WM processing or is being processed by WM Helper modules (e.g., WM is busy, no appropriate CE (cluster) has been found yet, ...).</li>
+		<li><tt>Ready</tt>: job has been processed by WM and its Helper modules (especially, appropriate CE has been found) but not yet transferred to the CE (local batch system queue) via Job Controller and CondorC.</li>
+		<li><tt>Scheduled</tt>: job is waiting in the queue on the Computing Element.</li>
+		<li><tt>Running</tt>: job is running.</li>
+	</ul>
+	</li>
+	<li>terminal <tt>Done</tt>, <tt>Aborted</tt>, <tt>Canceled</tt>, <tt>Cleared</tt>
+	<ul>
+		<li><tt>Done</tt>: job exited or is considered to be in a terminal state by CondorC (e.g., submission to CE has failed in an unrecoverable way).</li>
+		<li><tt>Aborted</tt>: job processing was aborted by WMS (waiting in the WM queue or CE for too long, over-use of quotas, expiration of user credentials, etc.).</li>
+		<li><tt>Canceled</tt>: job has been successfully canceled on user request.</li>
+		<li><tt>Cleared</tt>: output sandbox was transferred to the user or removed due to the timeout.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p>On WMS there are two main parameters responsible for timeouts in job matchmaking</p>
+<ul>
+	<li><tt>MatchRetryPeriod = 3500</tt> (58 min) - interval between successive retries to match a job a resource (<tt>T_WMS_MatchRetr</tt>)</li>
+	<li><tt>ExpiryPeriod = 7200</tt> (2 hours) - time after which job will be aborted with 'no compatible resources' (<tt>T_WMS_Exp</tt>)</li>
+</ul>
+
+
+<p>Defaults allow job to be matched at most three times within two hours after job submission.</p>
+
+<p>With JDL</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>   JobType="Normal";
+   ...
+   RetryCount = 0;
+   ShallowRetryCount = 1;
+   Requirements = other.GlueCEInfoHostName == "&lt;CE hostname&gt;";
+</pre>
+</div></div>
+
+<p>and 1 hour interval between jobs submission it is advisable to set e.g. <tt>MatchRetryPeriod = 1320</tt> (22 min) and <tt>ExpiryPeriod = 3000</tt> (50 min). This way WMS will naturally abort jobs if info about CE isn't available in IS.</p>
+
+<p>In Nagios jobs submission and monitoring was implemented in the following way.</p>
+
+<ul>
+	<li>timeouts defined for <tt>org.sam.CE-JobState</tt> and <tt>org.sam.CE-JobMonit</tt> metrics
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>org.sam.CE-JobState
+--timeout-job-discard &lt;sec&gt; Discard job after the timeout. (Default: 21600)
+
+org.sam.CE-JobMonit
+--timeout-job-global &lt;sec&gt;  Global timeout for jobs. Job will be canceled
+                            and dropped if it is not in terminal state by
+                            that time. (Default: 3300)
+--timeout-job-waiting &lt;sec&gt; Time allowed for a job to stay in Waiting with
+                            'no compatible resources'. (Default: 2700)
+--timeout-job-discard &lt;sec&gt; Discard job after the timeout. (Default: 21600)
+--timeout-job-schedrun &lt;sec&gt; Scheduled/Running states timeout. (Default: 19800)
+</pre>
+</div></div></li>
+</ul>
+
+
+<ul>
+	<li><tt>org.sam.CE-JobState</tt> metric (active Nagios check). Runs hourly (<tt>normal_check_interval 60</tt>).
+	<ul>
+		<li>initially submits job and saves <tt>/&lt;workdirRun&gt;/&lt;voName&gt;/&lt;nameSpace&gt;/&lt;serviceType&gt;/&lt;nodeName&gt;/activejob.map</tt> with <tt>submitTimeStamp&#124;hostNameCE&#124;serviceDesc&#124;jobID&#124;jobState&#124;lastStateTimeStamp</tt>.</li>
+		<li>if <tt>activejob.map</tt> was found
+		<ul>
+			<li><tt>jobState is terminal state</tt> &#45; discard the job, proceed with submission</li>
+			<li><tt>jobState is non-terminal state</tt>
+			<ul>
+				<li><tt>lastStateTimeStamp - submitTimeStamp &lt; timeout-job-discard</tt> &#45; exit with <tt>OK: Active job - &lt;jobState&gt; [SAM:time]</tt></li>
+				<li><tt>lastStateTimeStamp - submitTimeStamp &gt; timeout-job-discard</tt> &#45; discard the job, proceed with submission</li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<ul>
+	<li><tt>org.sam.CE-JobMonit</tt> metric (active Nagios check; checks all jobs and updates <tt>activejob.map</tt>, <tt>org.sam.CE-JobState</tt> &amp; <tt>org.sam.CE-JobSubmit</tt>). Runs each 5 min (<tt>normal_check_interval 5</tt>). For all currently submitted jobs (<tt>activejob.map</tt> files) get job state from WMS
+	<ul>
+		<li>on error getting job state
+		<ul>
+			<li>UI problem - update <tt>org.sam.CE-JobState</tt> with <tt>WARNING</tt></li>
+			<li>WMS problem
+			<ul>
+				<li><tt>timeNow - submitTimeStamp &lt; timeout-job-discard</tt> &#45; update <tt>org.sam.CE-JobState</tt> with <tt>WARNING</tt> (<tt>unable to get job status. Job will be deleted in N min</tt>; N = <tt>(timeout-job-discard - (timeNow - submitTimeStamp))/60</tt>)</li>
+				<li>else - update <tt>org.sam.CE-JobState</tt> with <tt>WARNING</tt> and <tt>org.sam.CE-JobSubmit</tt> with <tt>UNKNOWN</tt> (<tt>unable to get job status. Job discarded.</tt>)</li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+		<li>on OK getting job state
+		<ul>
+			<li><tt>Done</tt>
+			<ul>
+				<li><tt>Current Status: Done (Success)</tt> &#45; update <tt>org.sam.CE-Job{State,Submit</tt>} with <tt>OK</tt>.</li>
+				<li><tt>Current Status: Done (Exit Code &#33;=0)</tt> &#45; Framework on WN exists with Nagios compliant exit codes. Check <tt>Exit code:</tt>. Update <tt>org.sam.CE-Job{State,Submit</tt>} respectively with <tt>WARNING</tt>, <tt>CRITICAL</tt>, <tt>UNKNOWN</tt>.</li>
+				<li>delete <tt>activejob.map</tt>.</li>
+			</ul>
+			</li>
+			<li><tt>Aborted</tt>
+			<ul>
+				<li>get logging info and get reason
+				<ul>
+					<li><tt>request expired</tt>
+					<ul>
+						<li>
+						<ul>
+							<li><tt>BrokerHelper: no compatible resources</tt> &#45; update <tt>org.sam.CE-Job{State,Submit</tt>} with <tt>CRITICAL</tt> (<tt>Job was aborted. Failed to match.</tt>).</li>
+							<li>else - update <tt>org.sam.CE-Job{State,Submit</tt>} with <tt>UNKOWN</tt> (<tt>Job was aborted. Check WMS.</tt>)</li>
+						</ul>
+						</li>
+						<li>else - update <tt>org.sam.CE-Job{State,Submit</tt>} with <tt>CRITICAL</tt> (<tt>Job was aborted.</tt>).</li>
+					</ul>
+					</li>
+					<li>delete <tt>activejob.map</tt>.</li>
+				</ul>
+				</li>
+				<li><tt>Cleared</tt>
+				<ul>
+					<li>delete <tt>activejob.map</tt>.</li>
+				</ul>
+				</li>
+				<li><tt>Cancelled</tt>
+				<ul>
+					<li>delete <tt>activejob.map</tt>.</li>
+				</ul>
+				</li>
+				<li><tt>Waiting</tt>
+				<ul>
+					<li>get logging info and get reason
+					<ul>
+						<li><tt>no compatible resources</tt>
+						<ul>
+							<li><tt>timeNow - submitTimeStamp &gt; timeout-job-waiting</tt> &#45; update <tt>org.sam.CE-Job{State,Submit</tt>} with <tt>CRITICAL</tt> (<tt>BrokerHelper: no compatible resources</tt>). Cancel and discard the job.</li>
+							<li>else - update <tt>org.sam.CE-JobState</tt> with <tt>WARNING</tt>. Update <tt>activejob.map</tt>.</li>
+						</ul>
+						</li>
+						<li>else
+						<ul>
+							<li><tt>timeNow - submitTimeStamp &gt; timeout-job-discard</tt> &#45; cancel &amp; delete <tt>activejob.map</tt>.</li>
+						</ul>
+						</li>
+					</ul>
+					</li>
+				</ul>
+				</li>
+				<li><tt>Ready</tt>, <tt>Submitted</tt>
+				<ul>
+					<li><tt>timeNow - submitTimeStamp &gt; timeout-job-global</tt> &#45; update <tt>org.sam.CE-Job{State,Submit</tt>} with <tt>UNKNOWN</tt>. Get logging info &amp; include into details data; cancel &amp; delete <tt>activejob.map</tt>.</li>
+					<li>else - update <tt>activejob.map</tt>.</li>
+				</ul>
+				</li>
+				<li><tt>Scheduled</tt>, <tt>Running</tt>
+				<ul>
+					<li><tt>timeNow - submitTimeStamp &gt; timeout-job-schedrun</tt> &#45; update <tt>org.sam.CE-Job{State,Submit</tt>} with <tt>WARNING</tt>. Get logging info &amp; include into details data; cancel &amp; delete <tt>activejob.map</tt>. Issue <tt>CRITICAL</tt> on the second successive timeout. (<tt>JobMonit</tt> has the states counter).</li>
+					<li>else - update <tt>activejob.map</tt>.</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<p>Currently [SAM:Nov 23 2010] we are monitoring with all the defaults</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>                T_N_SCHED(1h)                T_J_DISCARD
+          T_J_GLOB |               T_J_SCHEDRUN  |
+      T_J_WAIT  |  |                          |  |
+|-----------|---|--#---------------|------...-|--| -&gt; t
+                  |                |
+                T_WMS_MatchRetr  T_WMS_Exp
+
+T_J_WAIT - 45 min (--timeout-job-waiting)
+T_J_GLOB - 55 min (--timeout-job-global)
+T_WMS_MatchRetr - 58 min (MatchRetryPeriod)
+T_N_SCHED - 1 hour (Nagios metric scheduling)
+T_WMS_Exp - 2 hours (ExpiryPeriod)
+T_J_SCHEDRUN - 5h30min (--timeout-job-schedrun)
+T_J_DISCARD - 6 hours (--timeout-job-discard)
+</pre>
+</div></div>
+
+<p>Thus, in most cases we cancel jobs being in <tt>Waiting</tt> due to <tt>no compatible resources</tt> when <tt>T_J_WAIT</tt> kicks in (after only one initial matchmaking in WM) and issue <tt>CRITICAL</tt> for <tt>org.sam.CE-Job{State,Submit</tt>}.</p>
+
+<p>Moving to the case <tt>T_WMS_MatchRetr &lt; T_WMS_Exp &lt; T_J_WAIT</tt> (or even <tt>2*T_WMS_MatchRetr &lt; T_WMS_Exp &lt; T_J_WAIT</tt>) is fairly possible. Thus, in case of the jobs to CEs which are not (properly) published in IS the jobs will be naturally discarded by WMS (<tt>Aborted</tt>; reason <tt>no compatible resources</tt>). In such case, monitoring metric (<tt>org.sam.CE-JobMonit</tt>) is ready to handle such cases and will issue <tt>CRITICAL</tt> against the CE.</p>
+
+<h3><a name="CE-IntegrationofthirdpartyWNchecks"></a>Integration of third-party WN checks</h3>
+
+<p>The following CLI parameters to <tt>org.sam.CE-JobState</tt> metric are available:</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>--add-wntar-nag &lt;d1,d2,..&gt;  Comma-separated list of top level directories with
+                            Nagios compliant directories structure to be added
+                            to tarball to be sent to WN.
+--add-wntar-nag-nosam       Instructs the metric not to include standard SAM WN
+                            probes and their Nagios config to WN tarball.
+                            (Default: WN probes are included)
+--add-wntar-nag-nosamcfg    Instructs the metric not to include Nagios
+                            configuration for SAM WN probes to WN tarball. The
+                            probes themselves and respective Python packages,
+                            however, will be included.
+</pre>
+</div></div>
+
+<ul>
+	<li>with <tt>&#45;-add-wntar-nag &lt;d1,d2,..&gt;</tt> parameter the respective "Nagios compliant directories structure" should look like this:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>  [kvs] ~ tree /path/to/your/pobes/wnjob/org.my/
+  /path/to/your/pobes/wnjob/org.my/
+  |-- etc
+  |   `-- wn.d
+  |       `-- org.my
+  |           |-- commands.cfg
+  |           `-- services.cfg
+  `-- probes
+      `-- org.my
+          |-- check_A
+          |-- check_B
+          `-- checks_lib.sh
+</pre>
+</div></div>
+	<ul>
+		<li><tt>probes/org.my/&#42;</tt> should contain your probes/checks</li>
+		<li><tt>etc/wn.d/org.my/</tt> should contain file(s) with .cfg extension with Nagios command and service objects definitions (optionally, service dependencies definitions). In your <tt>etc/wn.d/org.my/*.cfg</tt> files please use the following paths defining Nagios macros and the framework template names:
+		<ul>
+			<li>$USER3$ - macro defining path to <tt>&lt;nagiosRoot&gt;/probes/</tt> directory on WN. Usage:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>  define command{
+         command_name   check_A1
+         command_line   $USER3$/org.my/check_A
+         }
+</pre>
+</div></div></li>
+			<li><tt>&lt;wnjobWorkDir&gt;</tt> &#45; will be substituted with the job's working directory on WN. Handy if your check requires and creates a working directory. Possible usage (assumes &#45;w instructs check_A to create <tt>&lt;wnjobWorkDir&gt;/.mygridprobes</tt> directory):
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>  define command{
+         command_name   check_A2
+         command_line   $USER3$/org.my/check_A -w &lt;wnjobWorkDir&gt;/.mygridprobes
+         }
+</pre>
+</div></div></li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p>For this particular part of Nagios objects configuration and macros please see the following Nagios resources: <a href="http://nagios.sourceforge.net/docs/3_0/configobject.html">Object Configuration Overview</a>, <a href="http://nagios.sourceforge.net/docs/3_0/objectdefinitions.html#command">Service definitions</a>, <a href="http://nagios.sourceforge.net/docs/3_0/objectdefinitions.html#command">Command definitions</a>, <a href="http://nagios.sourceforge.net/docs/3_0/objectdefinitions.html#servicedependency">Service dependency definitions</a>, <a href="http://nagios.sourceforge.net/docs/3_0/macrolist.html">Nagios macros</a>, <a href="http://nagios.sourceforge.net/docs/3_0/configmain.html#resource_file">Macros and resource file</a>.</p>
+
+<p>Also, as an example you might want to check the objects configurations defined for org.sam WN checks in <tt>/usr/libexec/grid-monitoring/probes/org.sam/wnjob/org.sam/etc/wn.d/org.sam/</tt> of <tt>grid-monitoring-probes-org.sam</tt> RPM. The Nagios resource that will be used on WN on UI is located here <tt>/usr/libexec/grid-monitoring/probes/org.sam/wnjob/nagios.d/etc/resource.cfg</tt>.</p>
+
+<p>Example (only relevant CLI parameters are shown):</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>  ./CE-probe -m org.sam.CE-JobState \
+             --add-wntar-nag /path/to/your/pobes/wnjob/org.my/,/path/to/org.sam.sec
+</pre>
+</div></div>
+<p>This will add into WN tarball two sets of WN checks provided by org.my and org.sam.sec. NB&#33; org.sam WN checks and their respective Nagios configurations will still be added and launched on WN, as well&#33;</p>
+
+<ul>
+	<li>Use <tt>&#45;-add-wntar-nag-nosam</tt> if you neither want org.sam probes to be run on WN nor want to use the org.sam probes with your probable custom configurations. This will instruct <tt>org.sam.CE-JobState</tt> metric not to include org.sam WN probes and their Nagios configuration to WN tarball. Example (only relevant CLI parameters are shown):
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>  ./CE-probe -m org.sam.CE-JobState --add-wntar-nag-nosam \
+             --add-wntar-nag /path/to/your/pobes/wnjob/org.my/
+</pre>
+</div></div>
+<p>WN tarball will contain only your probes and Nagios configurations from <tt>/path/to/your/pobes/wnjob/org.my/</tt>.</p></li>
+</ul>
+
+
+<ul>
+	<li>Use <tt>&#45;-add-wntar-nag-nosamcfg</tt> if you don't want org.sam probes to be run on WN, but still want the probes to be included in the WN tarball. This will instruct <tt>org.sam.CE-JobState</tt> metric to include org.sam WN probes, Python <tt>gridmon</tt> and <tt>gridmetrics</tt> packages with respective modules into the WN tarball. Nagios configuration of the probes will not be included to WN tarball. This is done for your convenience:
+	<ul>
+		<li>
+		<ol>
+			<li>in case you want to use some of org.sam provided probes/wrappers (eg. <tt>$USER3$/org.sam/{nag,sam}test-run</tt>), though, you will have to include your custom Nagios objects configurations yourselves (can be taken directly from <tt>/usr/libexec/grid-monitoring/probes/org.sam/wnjob/org.sam/etc/wn.d/org.sam/*.cfg</tt> and included into your <tt>&#42;.cfg</tt>&#45;s)</li>
+			<li>you developed your Python WN probes using <tt>gridmon</tt> or <tt>gridmetrics</tt> packages. The latter packages will be added to <tt>$PYTHONPATH</tt> before launching Nagios on WN, so, your probes can safely import required modules from them.<br/>
+Example (only relevant CLI parameters are shown):
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>  ./CE-probe -m org.sam.CE-JobState --add-wntar-nag-nosamcfg \
+             --add-wntar-nag /path/to/your/pobes/wnjob/org.my/
+</pre>
+</div></div>
+<p>WN tarball will contain your probes and Nagios configurations from <tt>/path/to/your/pobes/wnjob/org.my/</tt>, as well as org.sam probes (but without their standard org.sam Nagios configurations), <tt>gridmon</tt> and <tt>gridmetrics</tt> Python packages.</p></li>
+		</ol>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+
+<h3><a name="CE-ProvidingJDL"></a>Providing JDL</h3>
+
+<p>The JDL used by the framework is the following:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>[
+Type="Job";
+JobType="Normal";
+Executable = "&lt;jdlExecutable&gt;";
+StdError = "gridjob.out";
+StdOutput = "gridjob.out";
+Arguments = "&lt;jdlArguments&gt;";
+InputSandbox =  {"&lt;jdlInputSandboxExecutable&gt;", "&lt;jdlInputSandboxTarball&gt;"};
+OutputSandbox = {"gridjob.out","wnlogs.tgz"};
+RetryCount = &lt;jdlRetryCount&gt;;
+ShallowRetryCount = &lt;jdlShallowRetryCount&gt;;
+Requirements = other.GlueCEInfoHostName == "&lt;jdlReqCEInfoHostName&gt;";
+]
+</pre>
+</div></div>
+
+<p>and located in <tt>/usr/libexec/grid-monitoring/probes/org.sam/wnjob/org.sam.gridJob.jdl.template</tt>.</p>
+
+<ul>
+	<li>Substitutable elements of the template are
+	<ul>
+		<li><tt>jdlExecutable</tt> &#45; name of executable on WN (by default set to <tt>nagrun.sh</tt>)</li>
+		<li><tt>jdlArguments</tt> &#45; list of arguments to <tt>jdlExecutable</tt> (dynamically composed by <tt>JobState</tt> metric)</li>
+		<li><tt>jdlInputSandboxExecutable</tt> &#45; path to executable on UI (set by the framework to <tt>/metric/work/dir/</tt><tt>&lt;jdlExecutable&gt;</tt>)</li>
+		<li><tt>jdlInputSandboxTarball</tt> &#45; path to WN tarball (set by the framework to <tt>/metric/work/dir/gridjob.tgz</tt>)</li>
+		<li><tt>jdlRetryCount</tt> &#45; default 0 (can be modified via CLI parameter <tt>&#45;-jdl-retrycount</tt> (see below))</li>
+		<li><tt>jdlShallowRetryCount</tt> &#45; default 1 (can be modified via CLI parameter <tt>&#45;-jdl-shallowretrycount</tt> (see below))</li>
+		<li><tt>jdlReqCEInfoHostName</tt> &#45; CE host name (set by the framework)</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<h3><a name="CE-%22Thirdparty%22JDL"></a>"Third-party" JDL</h3>
+
+<p>One can provide its own JDL with the following parameter to <tt>org.sam.CE-JobState</tt> metric:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>--jdl-templ &lt;file&gt;    JDL template file (full path).
+</pre>
+</div></div>
+<p>The provided JDL can be a template as well with all or some of the above mentioned substitutable parameters.</p>
+
+<p>For better flexibility <tt>RetryCount</tt> and <tt>ShallowRetryCount</tt> <tt>ClassAdds</tt> were exposed as parameters to<br/>
+<tt>org.sam.CE-JobState</tt> metric:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>--jdl-retrycount &lt;val&gt;          JDL RetryCount (Default: 0).
+--jdl-shallowretrycount &lt;val&gt;   JDL ShallowRetryCount (Default: 1).
+</pre>
+</div></div>
+
+
+<h3><a name="CE-LogsfromWN"></a>Logs from WN</h3>
+
+<p>Default JDL's output sandbox defines two files that will be taken from WN</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>OutputSandbox = {"gridjob.out","wnlogs.tgz"};
+</pre>
+</div></div>
+
+<ul>
+	<li><tt>gridjob.out</tt> contains logging output of WN job as seen by WMS job wrapper. I.e., stdout and stderr from the testing framework launching script on WN (<tt>nagrun.sh</tt>).</li>
+	<li><tt>wnlogs.tgz</tt> contains the following directories from WN: <tt>/&lt;job working dir&gt;/nagios/{var,tmp</tt>}. The framework's messaging and Nagios logging and debuging is stored there.
+	<ul>
+		<li>when writing probes for WN, one can direct output into some files in that directories - they will be brought to UI in <tt>wnlogs.tgz</tt>.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p>On Nagios UI OutputSandbox is stored per CE under <tt>/var/lib/gridprobes/&lt;VO or FQAN&gt;/&lt;namespace&gt;/&lt;service&gt;/&lt;hostname&gt;/jobOutput&#42;</tt> directories. E.g.:</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># ls -1d /var/lib/gridprobes/ops.Role=lcgadmin/org.sam/CREAMCE/stremsel.nikhef.nl/jobOutput*
+/var/lib/gridprobes/ops.Role=lcgadmin/org.sam/CREAMCE/stremsel.nikhef.nl/jobOutput
+/var/lib/gridprobes/ops.Role=lcgadmin/org.sam/CREAMCE/stremsel.nikhef.nl/jobOutput.LAST
+#
+</pre>
+</div></div>
+
+<p><tt>jobOutput.LAST</tt> contains last historical output from WN.</p>
+
+<h3><a name="CE-LoglevelsonWN"></a>Log levels on WN</h3>
+
+<p>Logging level of framework and metrics on WN is guided by the following parameters to <tt>org.sam.*-JobState</tt> metrics</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>--wn-verb &lt;0-3&gt;             Metrics verbosity level on WN. [-v &lt;VERBOSITY&gt;]
+                            (Default: 0)
+--wn-verb-fw &lt;0-3&gt;          Framework verbosity level on WN (Default: 1)
+</pre>
+</div></div>
+
+<ul>
+	<li><tt>&#45;-wn-verb</tt> &#45; on WN the given value is substituted for &lt;VERBOSITY&gt; in Nagios metric definition &#42;.cfg files.</li>
+	<li><tt>&#45;-wn-verb-fw &lt;0-3&gt;</tt> &#45; used by nagrun.sh for setting its debugging output as well as setting logging and debugging output of messages publishing client (Message Transfer Agent - MTA) and Nagios.
+	<ul>
+		<li>messaging:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>    &gt;= 2  - 'debug'
+    == 1  - 'info'
+    == 0  - 'warn'
+</pre>
+</div></div></li>
+		<li>nagios:
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># Nagios debug codes/types   | FW debug levels
+#    -1 = Everything            -
+#     0 = Nothing               0
+#     1 = Functions             3
+#     2 = Configuration         3
+#     4 = Process information   2,3
+#     8 = Scheduled events      2,3
+#    16 = Host/service checks   1,2,3
+#    32 = Notifications         -
+#    64 = Event broker          3
+#   128 = External commands     1,2,3
+#   256 = Commands (handlers)   2,3
+#   512 = Scheduled downtime    -
+#  1024 = Comments              -
+#  2048 = Macros                1,2,3
+
+&gt;= 3  - 4095 ^ 32 ^ 512 ^ 1024 (bit-wise XOR)
+== 2  - 4 | 8 | 16 | 128 | 256 | 2048 (bit-wise OR)
+== 1  - 16 | 128 | 2048 (bit-wise OR)
+&lt;= 0  - 0
+</pre>
+</div></div></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h3><a name="CE-NaigosandmessagingonWN"></a>Naigos and messaging on WN</h3>
+
+<p>Codebase for scheduling metrics on WN and delivering metric results to messaging system is located under <tt>/usr/libexec/grid-monitoring/probes/org.sam/wnjob/</tt> (will refer to it as <tt>/&lt;WN_codebase&gt;/</tt>).</p>
+
+<h4><a name="CE-nagrun.sh"></a>nagrun.sh</h4>
+
+<p>On WN (as specified in JDL with <tt>Executable = "&lt;jdlExecutable&gt;"</tt>) <tt>nagrun.sh</tt> script (on Nagios UI located in <tt>/&lt;WN_codebase&gt;/</tt>) is used to</p>
+<ul>
+	<li>set required environment variables</li>
+	<li>launch messages transfer agent (MTA) - metric results publisher to message brokers</li>
+	<li>make substitutions in templated (mainly Nagios) configuration files</li>
+	<li>launch and monitor Nagios</li>
+	<li>after all metrics are executed (or on timeout) terminate Nagios and MTA</li>
+	<li>do on-exit cleanup</li>
+</ul>
+
+
+<p>Parameters to <tt>nagrun.sh</tt> specified by <tt>Arguments = "&lt;jdlArguments&gt;"</tt> define what and how should be launched.</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>nagrun.sh -h
+usage: nagrun.sh -v &lt;vo&gt; -d &lt;dest&gt; [-b &lt;broker_uri&gt;]
+ [-n &lt;broker_network&gt;] [-t &lt;timeout&gt;] [-w &lt;fw_verb&gt;]
+ [-l &lt;hostname&gt;] [-s &lt;hostname&gt;] [-z &lt;metric_verb&gt;] [-f &lt;fqan&gt;]
+ [-i &lt;host:port,..&gt;] -B -R -N -h
+ -v and -d are mandatory paramters. Defaults:
+ &lt;broker_network&gt; - PROD
+ &lt;timeout&gt; - 600 sec
+ &lt;metrics_verb&gt; - 0
+ &lt;fw_verb&gt; - 1 (2 - messages, 3 - Nagios config/stats/debug)
+ -l &lt;hostname&gt; - LFC for replica tests
+ -s &lt;hostname&gt; - SE for replica tests
+ -i &lt;host:port,..&gt; - BDII(s) for tests
+ -f &lt;fqan&gt; - VOMS FQAN
+ -B - don't do broker discovery
+ -R - take MB randomly; by default sort by min response time
+</pre>
+</div></div>
+
+<p>In most cases the parameters is the translation of corresponding ones given to <tt>org.sam.*-JobState</tt> metric.</p>
+<div class='table-wrap'>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'><tt>org.sam.*-JobState</tt></th>
+<th class='confluenceTh'>nagrun.sh</th>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--mb-network &lt;net&gt;   Brokers network for broker discovery on WN.</tt></td>
+<td class='confluenceTd'><tt>-n &lt;broker_network&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--mb-uri &lt;URI&gt;   Message Broker URI.</tt></td>
+<td class='confluenceTd'><tt>-b &lt;broker_uri&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--mb-destination &lt;dest&gt;   queue/topic on MB to publish to.</tt></td>
+<td class='confluenceTd'><tt>-d &lt;dest&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--mb-no-discovery  Do not do broker discovery on WN.</tt></td>
+<td class='confluenceTd'><tt>-B</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--mb-choice &lt;best&#124;random&gt;   How to choose MB on WN.</tt></td>
+<td class='confluenceTd'><tt>-R</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--vo &lt;name&gt;   Virtual Organization.</tt></td>
+<td class='confluenceTd'><tt>-v &lt;vo&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--vo-fqan &lt;name&gt;  VOMS primary attribute as FQAN.</tt></td>
+<td class='confluenceTd'><tt>-f &lt;fqan&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--wn-lfc &lt;hostname&gt;   LFC for replica tests on WN.</tt></td>
+<td class='confluenceTd'><tt>-l &lt;hostname&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--wn-se-rep &lt;se1,..&gt;   Comma-separated list of SEs for replica tests on WN.</tt></td>
+<td class='confluenceTd'><tt>-s &lt;hostname&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--wn-bdii &lt;host:port,...&gt;   BDII(s) to be used on WN.</tt></td>
+<td class='confluenceTd'><tt>-i &lt;host:port,..&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--wn-verb &lt;0-3&gt;   Metrics verbosity level on WN.</tt></td>
+<td class='confluenceTd'><tt>-z &lt;metric_verb&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--wn-verb-fw &lt;0-3&gt;   Framework verbosity level on WN.</tt></td>
+<td class='confluenceTd'><tt>-w &lt;fw_verb&gt;</tt></td>
+</tr>
+<tr>
+<td class='confluenceTd'><tt>--timeout-wnjob-global &lt;sec&gt;   Global timeout for a job on WN.</tt></td>
+<td class='confluenceTd'><tt>-t &lt;timeout&gt;</tt></td>
+</tr>
+</tbody></table>
+</div>
+
+
+<h4><a name="CE-MTA"></a>MTA</h4>
+
+<p>Message Transfer Agent (MTA) is used to send messages with metric results from WN to Message Brokers. On Nagios UI the code for MTA - <tt>mta-simple</tt> - is located under <tt>/&lt;WN_codebase&gt;/bin/</tt> and implementation in <tt>/&lt;WN_codebase&gt;/lib/python2.3/site-packages/mig</tt>. </p>
+
+<p>MTA:</p>
+<ul>
+	<li>tries to establish connection to a broker (either a given one or found via discovery in IS and successive application of ranking)</li>
+	<li>takes messages from directory based queue (Python <tt>dirq</tt>: implementation in <tt>/&lt;WN_codebase&gt;/lib/python2.3/site-packages/dirq</tt>) and sends them to the broker. Default location for outgoing messages queue on WN is <tt>/tmp/sam.&lt;pid-of-nagrun.sh&gt;.$RANDOM/msg-outgoing</tt></li>
+</ul>
+
+
+<p>Messages with metric results are stored in outgoing messages queue by a Nagios handler <tt>handle_service_check</tt> invoked by Nagios after execution of each check.   </p>
+
+<h2><a name="CE-Troubleshooting"></a>Troubleshooting</h2>
+
+<h3><a name="CE-Manualjobsubmissionandmonitoring"></a>Manual job submission and monitoring</h3>
+
+<p>To submit a job manually with modified default command line parameters do the following. E.g.:</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># nagios-run-check -d -v -s org.sam.CE-JobState-/ops/Role=lcgadmin -H ce03.esac.esa.int
+Executing command:
+su nagios -l -c '/usr/libexec/grid-monitoring/probes/org.sam/CE-probe -H "ce03.esac.esa.int" -t 600 --vo ops 
+  --mb-destination /queue/grid.probe.metricOutput.EGEE.sam-ne-roc-val_cern_ch -x /etc/nagios/globus/userproxy.pem--ops-Role_lcgadmin 
+  --vo-fqan /ops/Role=lcgadmin --mb-uri stomp://gridmsg002.cern.ch:6163/ --prev-status $LASTSERVICESTATEID$ --wn-se-rep-file GoodSEs 
+  --wn-se-rep fake.srm1,samdpm002.cern.ch -m org.sam.CE-JobState --err-topics ce_wms,default'
+# 
+</pre>
+</div></div>
+
+<p>Take the produced command, modify/add/delete parameters as required and run it. For example, we want to increase verbosity level of the framework on WN. Fist, you need to remove all options with parameters of the form <tt>$SOMENAMEHERE$</tt>, as those are Nagios macros and valid only when the check is run under Nagios. In the example above we remove <tt>&#45;-prev-status $LASTSERVICESTATEID$</tt>. Also we add <tt>&#45;-wn-verb-fw 3</tt> to set max verbosity level for the framework on WN.</p>
+
+<p>So, the resulting command will be</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># su nagios -l -c '/usr/libexec/grid-monitoring/probes/org.sam/CE-probe -H "ce03.esac.esa.int" -t 600 --vo ops 
+  --mb-destination /queue/grid.probe.metricOutput.EGEE.sam-ne-roc-val_cern_ch -x /etc/nagios/globus/userproxy.pem--ops-Role_lcgadmin 
+  --vo-fqan /ops/Role=lcgadmin --mb-uri stomp://gridmsg002.cern.ch:6163/ --wn-se-rep-file VeryGoodSEs --wn-se-rep fake.srm1,samdpm002.cern.ch 
+  -m org.sam.CE-JobState --err-topics ce_wms,default --wn-verb-fw 3 -v 3'
+
+OK: Active job - Submitted [2010-12-09T09:53:16Z]
+OK: Active job - Submitted [2010-12-09T09:53:16Z]
+Testing from: samnag011.cern.ch
+DN: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=gridmon/CN=137254/CN=Robot: Grid Monitoring-Framework
+VOMS FQANs: /ops/Role=lcgadmin/Capability=NULL, /ops/Role=NULL/Capability=NULL
+Reading configuration file(s).
+Configuration files:
+ /etc/gridmon/org.sam.conf
+Reading from configuration file(s):
+ /etc/gridmon/org.sam.conf
+Parsing command line parameters.
+Loading active job's description ... done.
+&gt;&gt;&gt; Active job found
+file: /var/lib/gridprobes/ops.Role=lcgadmin/org.sam/CE/ce03.esac.esa.int/activejob.map
+serviceDesc : org.sam.CE-JobSubmit-/ops/Role=lcgadmin
+jobState : Submitted
+submitTimeStamp : 1291888396
+jobID : https://wms220.cern.ch:9000/02RCPJTL3CehL-Ldi66MMg
+hostNameCE : ce03.esac.esa.int
+lastStateTimeStamp : 1291888396
+https://wms220.cern.ch:9000/02RCPJTL3CehL-Ldi66MMg
+# 
+</pre>
+</div></div>
+
+<p>However, it reported that there is already an active job. Note <tt>-v 3</tt> added to see more debugging output during job submission. You can either simply delete the active job bookkeeping file <tt>/var/lib/gridprobes/ops.Role=lcgadmin/org.sam/CE/ce03.esac.esa.int/activejob.map</tt> (acts as a lock). Or starting from <tt>grid-monitoring-probes-org.sam-0.1.18</tt>, you can run <tt>JobCancel</tt> metric to gracefully cancel the job:</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># su nagios -l -c '/usr/libexec/grid-monitoring/probes/org.sam/CE-probe -H "ce03.esac.esa.int" -m org.sam.CE-JobCancel 
+  -x /etc/nagios/globus/userproxy.pem--ops-Role_lcgadmin --vo-fqan /ops/Role=lcgadmin --vo ops'
+OK: job cancelled
+OK: job cancelled
+Testing from: samnag011.cern.ch
+DN: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=gridmon/CN=137254/CN=Robot: Grid Monitoring-Framework
+VOMS FQANs: /ops/Role=lcgadmin/Capability=NULL, /ops/Role=NULL/Capability=NULL
+Job cancellation request sent:
+glite-wms-job-cancel --noint  -i /var/lib/gridprobes/ops.Role=lcgadmin/org.sam/CE/ce03.esac.esa.int/jobID
+Job bookkeeping files deleted.
+# 
+</pre>
+</div></div>
+
+<p>After you submit a new job with required parameters it can be monitored via Nagios interface or manually with <tt>JobMonit</tt> check. To find out what command line to run do the following which is similar to what was done for <tt>JobState</tt> metric. </p>
+
+<p><tt>-H sam-ne-roc-val.cern.ch</tt> should be hostname of your Nagios instance.</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># nagios-run-check -d -v -s org.sam.CE-JobMonit-/ops/Role=lcgadmin -H sam-ne-roc-val.cern.ch
+Executing command:
+su nagios -l -c '/usr/libexec/grid-monitoring/probes/org.sam/CE-probe -H "sam-ne-roc-val.cern.ch" -t 600 --vo ops 
+   -x /etc/nagios/globus/userproxy.pem--ops-Role_lcgadmin --vo-fqan /ops/Role=lcgadmin -m org.sam.CE-JobMonit --err-topics ce_wms'
+#
+</pre>
+</div></div>
+
+<p>Then, add <tt>&#45;-hosts ce03.esac.esa.int</tt> to monitor only required hosts (comma-separated list is possible) and run the command.</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre># su nagios -l -c '/usr/libexec/grid-monitoring/probes/org.sam/CE-probe -H "sam-ne-roc-val.cern.ch" -t 600 --vo ops 
+   -x /etc/nagios/globus/userproxy.pem--ops-Role_lcgadmin --vo-fqan /ops/Role=lcgadmin -m org.sam.CE-JobMonit --err-topics ce_wms 
+   --hosts ce03.esac.esa.int'
+OK: Jobs processed - 1
+OK: Jobs processed - 1
+[Running] : 1|jobs_processed=1;; DONE=0;; RUNNING=1;; SCHEDULED=0;; SUBMITTED=0;; READY=0;; WAITING=0;; 
+  WAITING-CANCELLED=0;; WAITING-CANCEL=0;; ABORTED=0;; CANCELLED=0;; CLEARED=0;; MISSED=0;; UNDETERMINED=0;; unknown=0;1;2
+#
+</pre>
+</div></div>
+
+<p>We can see that the job is in <tt>Running</tt> state. The output after <tt>"|"</tt> is Nagios performance data output.</p>
+
+<p>When job enters a terminal state <tt>JobMonit</tt> will fetch job's output sandbox to the Nagios UI. For location of job output see <a href="#CE-LogsfromWN">Logs from WN</a>.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="https://tomtools.cern.ch/confluence/images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Feb 27, 2014 10:19</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>
